@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useCallback, useState, DragEvent } from 'react';
-import { LayoutList, Activity, Box, SlidersHorizontal } from 'lucide-react';
+import { LayoutList, Activity, Box, SlidersHorizontal, GitBranch } from 'lucide-react';
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
 import { useBeatDetector } from '@/hooks/useBeatDetector';
 import { useVibeAnalyzer } from '@/hooks/useVibeAnalyzer';
 import { StageScene } from '@/components/StageScene';
 import { VibeVisualizer } from '@/components/VibeVisualizer';
 import { MixerView } from '@/components/MixerView';
+import { FlowEditor } from '@/components/FlowEditor';
 import { BottomBar } from '@/components/BottomBar';
 import { TimelineView } from '@/components/TimelineView';
 import { Carousel } from '@/components/Carousel';
@@ -225,6 +226,20 @@ export default function Home() {
       render: () => (
         <div className="h-full">
           <MixerView
+            analysis={analysis}
+            stems={stems}
+            currentTime={audioState.currentTime}
+          />
+        </div>
+      ),
+    },
+    {
+      id: 'flow',
+      label: 'Flow',
+      icon: GitBranch,
+      render: () => (
+        <div className="h-full p-4">
+          <FlowEditor
             analysis={analysis}
             stems={stems}
             currentTime={audioState.currentTime}

@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Test songs (large files)
+public/test-songs/
+
+# ML model cache
+.cache/

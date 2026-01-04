@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20
+librosa==0.10.2
+numpy==1.26.4
+soundfile==0.13.1
+torch
+demucs
+tensorflow
+tensorflow-hub

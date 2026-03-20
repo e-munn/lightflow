@@ -1,0 +1,135 @@
+import { LightShow } from '@/types/show';
+
+export const SHOW_PRESETS: LightShow[] = [
+  {
+    name: 'Bass Drop',
+    description: 'Heavy bass pulses with drum accents',
+    blendMode: 'add',
+    layers: [
+      {
+        name: 'bass_pulse',
+        source: 'bass',
+        priority: 1,
+        spatial: 'center',
+        response: 'pulse',
+        color: { base: [1, 0.1, 0.1], reactive: [1, 0.4, 0] },
+      },
+      {
+        name: 'drum_flash',
+        source: 'drums',
+        priority: 2,
+        spatial: 'all',
+        response: 'flash',
+        color: { base: [1, 0.6, 0] },
+      },
+      {
+        name: 'low_ambient',
+        source: 'intensity',
+        priority: 4,
+        spatial: 'edges',
+        response: 'smooth',
+        color: { base: [0.2, 0, 0.4] },
+      },
+    ],
+  },
+  {
+    name: 'Vocal Focus',
+    description: 'Smooth vocal-driven with bass undertones',
+    blendMode: 'add',
+    layers: [
+      {
+        name: 'vocal_flow',
+        source: 'vocals',
+        priority: 1,
+        spatial: 'stereo',
+        response: 'smooth',
+        color: { base: [0.2, 0.5, 1], reactive: [0.8, 0.3, 1] },
+      },
+      {
+        name: 'bass_ambient',
+        source: 'bass',
+        priority: 2,
+        spatial: 'edges',
+        response: 'smooth',
+        color: { base: [0.1, 0, 0.3] },
+      },
+    ],
+  },
+  {
+    name: 'Full Energy',
+    description: 'Everything lit — intensity drives all',
+    blendMode: 'max',
+    layers: [
+      {
+        name: 'intensity_all',
+        source: 'intensity',
+        priority: 1,
+        spatial: 'all',
+        response: 'pulse',
+        color: { base: [1, 1, 1], reactive: [1, 0.8, 0.3] },
+      },
+      {
+        name: 'bass_kick',
+        source: 'bass',
+        priority: 2,
+        spatial: 'center',
+        response: 'flash',
+        color: { base: [1, 0, 0.3] },
+      },
+    ],
+  },
+  {
+    name: 'Neon Nights',
+    description: 'Colorful layers with spatial depth',
+    blendMode: 'add',
+    layers: [
+      {
+        name: 'bass_core',
+        source: 'bass',
+        priority: 1,
+        spatial: 'center',
+        response: 'pulse',
+        color: { base: [1, 0, 0.4], reactive: [1, 0, 1] },
+      },
+      {
+        name: 'drum_strobe',
+        source: 'drums',
+        priority: 2,
+        spatial: 'all',
+        response: 'flash',
+        color: { base: [0, 1, 0.6] },
+      },
+      {
+        name: 'vocal_wash',
+        source: 'vocals',
+        priority: 3,
+        spatial: 'stereo',
+        response: 'smooth',
+        color: { base: [0, 0.4, 1], reactive: [0.5, 0, 1] },
+      },
+      {
+        name: 'ambient_edges',
+        source: 'intensity',
+        priority: 4,
+        spatial: 'edges',
+        response: 'inverse',
+        color: { base: [0.3, 0, 0.5] },
+      },
+    ],
+  },
+  {
+    name: 'Minimal',
+    description: 'Clean single-source, bass only',
+    blendMode: 'max',
+    layers: [
+      {
+        name: 'bass_only',
+        source: 'bass',
+        priority: 1,
+        spatial: 'all',
+        response: 'pulse',
+        color: { base: [1, 1, 1] },
+      },
+    ],
+  },
+];

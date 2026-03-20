@@ -1,0 +1,51 @@
+audio:
+  sample_rate: 22050
+  hop_length: 512
+  n_fft: 2048
+  n_mels: 128
+  window_seconds: 0.5
+  hop_seconds: 0.05  # 20 feature windows/sec -> 50ms hops
+features:
+  mel_spectrogram: true
+  onset_strength: true
+  chroma: true
+  rms_energy: true
+  spectral_centroid: true
+  # Total: mel(128) + onset(1) + chroma(12) + rms(1) + centroid(1) = 143
+model:
+  type: lightflow_gru
+  input_channels: 151  # 143 audio + 1 bpm + 1 beat_phase + 6 section
+  audio_features: 143
+  hidden_dim: 256
+  num_layers: 4       # conv layers in frame encoder
+  gru_layers: 3
+  dropout: 0.15
+  seq_len: 64         # 3.2s context (64 x 50ms)
+training:
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  epochs: 60
+  scheduler: cosine
+  warmup_epochs: 5
+  grad_clip: 1.0
+  loss_weights:
+    stem_energy: 1.0
+    onsets: 0.8
+    spatial: 0.6
+    texture_motion: 0.5
+    section: 0.4
+    future: 0.3
+    bpm: 0.2
+    gate: 0.1
+data:
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  seq_overlap: 0.5
+  target_fps: 30
+  augment:
+    gain_jitter: [0.8, 1.2]
+    noise_level: 0.01
+    spatial_mirror: true
+    intensity_scale: [0.7, 1.3]

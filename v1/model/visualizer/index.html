@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LightFlow Visualizer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; color: #eee; font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px; }
+  h1 { font-size: 1.4em; margin-bottom: 16px; color: #aaa; }
+  .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+  select, button { background: #222; color: #eee; border: 1px solid #444; padding: 8px 14px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  select:hover, button:hover { border-color: #666; }
+  button.active { background: #335; border-color: #66a; }
+  audio { width: 100%; max-width: 600px; height: 36px; }
+  .lights-container { display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; justify-content: center; }
+  .light { width: 140px; height: 180px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 12px; transition: box-shadow 0.05s; }
+  .light-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; opacity: 0.8; }
+  .light-value { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .light-bar { width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); margin-top: 6px; overflow: hidden; }
+  .light-bar-fill { height: 100%; border-radius: 3px; transition: width 0.05s; }
+  .rating-section { margin-top: 24px; padding: 16px; background: #1a1a1a; border-radius: 8px; }
+  .rating-section h3 { font-size: 14px; color: #888; margin-bottom: 10px; }
+  .stars { display: flex; gap: 6px; margin-bottom: 10px; }
+  .star { font-size: 28px; cursor: pointer; color: #444; transition: color 0.1s; }
+  .star:hover, .star.active { color: #f5a623; }
+  .status { font-size: 12px; color: #555; margin-top: 12px; }
+  .gt-row { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+  .gt-bar { height: 4px; border-radius: 2px; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>LightFlow Visualizer</h1>
+
+<div class="controls">
+  <select id="trackSelect"><option value="">Loading tracks...</option></select>
+  <audio id="audioPlayer" controls></audio>
+  <button id="gtToggle">Show Ground Truth</button>
+</div>
+
+<div class="lights-container" id="lights"></div>
+
+<div class="rating-section">
+  <h3>Rate this 10s segment (current position)</h3>
+  <div class="stars" id="stars"></div>
+  <div class="status" id="ratingStatus"></div>
+</div>
+
+<div class="status" id="wsStatus">Connecting...</div>
+
+<script>
+const CHANNELS = [
+  { key: 'bass_energy',   label: 'Bass',   color: [160, 32, 240] },
+  { key: 'kick_energy',   label: 'Kick',   color: [240, 40, 40]  },
+  { key: 'snare_energy',  label: 'Snare',  color: [255, 165, 0]  },
+  { key: 'hat_energy',    label: 'Hats',   color: [0, 220, 220]  },
+  { key: 'vocals_energy', label: 'Vocals', color: [60, 100, 255] },
+  { key: 'other_energy',  label: 'Other',  color: [40, 200, 80]  },
+];
+
+const trackSelect = document.getElementById('trackSelect');
+const audioPlayer = document.getElementById('audioPlayer');
+const lightsContainer = document.getElementById('lights');
+const gtToggle = document.getElementById('gtToggle');
+const wsStatus = document.getElementById('wsStatus');
+const starsContainer = document.getElementById('stars');
+const ratingStatus = document.getElementById('ratingStatus');
+
+let ws = null;
+let showGroundTruth = false;
+let groundTruth = null;
+let currentTrack = '';
+let currentValues = {};
+let pendingRequest = false;
+
+// Build light elements
+CHANNELS.forEach(ch => {
+  const div = document.createElement('div');
+  div.className = 'light';
+  div.id = `light-${ch.key}`;
+  div.innerHTML = `
+    <div class="light-value" id="val-${ch.key}">0.00</div>
+    <div class="light-bar"><div class="light-bar-fill" id="bar-${ch.key}"></div></div>
+    <div class="gt-row" id="gt-${ch.key}" style="display:none">
+      <span style="font-size:10px;color:#666">GT:</span>
+      <div class="gt-bar" id="gtbar-${ch.key}"></div>
+    </div>
+    <div class="light-label">${ch.label}</div>
+  `;
+  lightsContainer.appendChild(div);
+});
+
+// Build star rating
+for (let i = 1; i <= 5; i++) {
+  const star = document.createElement('span');
+  star.className = 'star';
+  star.textContent = '\u2605';
+  star.dataset.rating = i;
+  star.addEventListener('click', () => submitRating(i));
+  star.addEventListener('mouseenter', () => highlightStars(i));
+  star.addEventListener('mouseleave', () => highlightStars(0));
+  starsContainer.appendChild(star);
+}
+
+function highlightStars(n) {
+  starsContainer.querySelectorAll('.star').forEach(s => {
+    s.classList.toggle('active', parseInt(s.dataset.rating) <= n);
+  });
+}
+
+async function submitRating(rating) {
+  if (!currentTrack) return;
+  const segStart = Math.floor(audioPlayer.currentTime / 10) * 10;
+  const resp = await fetch('/api/rate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ track: currentTrack, segment_start: segStart, rating }),
+  });
+  const data = await resp.json();
+  ratingStatus.textContent = `Rated segment ${segStart}s-${segStart+10}s: ${rating}/5 (${data.total_ratings} total)`;
+  highlightStars(rating);
+}
+
+// Load tracks
+async function loadTracks() {
+  const resp = await fetch('/api/tracks');
+  const tracks = await resp.json();
+  trackSelect.innerHTML = '<option value="">Select a track...</option>';
+  tracks.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.name;
+    opt.textContent = `${t.name} (${t.duration ? t.duration.toFixed(0) + 's' : '?'})`;
+    trackSelect.appendChild(opt);
+  });
+}
+
+trackSelect.addEventListener('change', async () => {
+  currentTrack = trackSelect.value;
+  if (!currentTrack) return;
+  audioPlayer.src = `/api/tracks/${currentTrack}/audio`;
+  groundTruth = null;
+
+  // Load ground truth labels
+  try {
+    const resp = await fetch(`/api/tracks/${currentTrack}/labels`);
+    if (resp.ok) groundTruth = await resp.json();
+  } catch(e) {}
+});
+
+gtToggle.addEventListener('click', () => {
+  showGroundTruth = !showGroundTruth;
+  gtToggle.classList.toggle('active', showGroundTruth);
+  CHANNELS.forEach(ch => {
+    document.getElementById(`gt-${ch.key}`).style.display = showGroundTruth ? 'flex' : 'none';
+  });
+});
+
+// WebSocket connection
+function connectWs() {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${proto}//${location.host}/ws/predict`);
+  ws.onopen = () => { wsStatus.textContent = 'Connected'; };
+  ws.onclose = () => {
+    wsStatus.textContent = 'Disconnected — reconnecting...';
+    setTimeout(connectWs, 2000);
+  };
+  ws.onmessage = (evt) => {
+    const data = JSON.parse(evt.data);
+    currentValues = data.channels || {};
+    pendingRequest = false;
+  };
+}
+
+// Animation loop
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Send prediction request if playing
+  if (currentTrack && !audioPlayer.paused && ws && ws.readyState === 1 && !pendingRequest) {
+    ws.send(JSON.stringify({ track: currentTrack, time: audioPlayer.currentTime }));
+    pendingRequest = true;
+  }
+
+  // Update lights
+  CHANNELS.forEach(ch => {
+    const val = currentValues[ch.key] || 0;
+    const [r, g, b] = ch.color;
+    const intensity = Math.max(0.08, val);
+    const el = document.getElementById(`light-${ch.key}`);
+    el.style.background = `rgba(${r}, ${g}, ${b}, ${intensity * 0.35})`;
+    el.style.boxShadow = `0 0 ${val * 40}px rgba(${r}, ${g}, ${b}, ${val * 0.6}), inset 0 0 ${val * 20}px rgba(${r}, ${g}, ${b}, ${val * 0.3})`;
+
+    document.getElementById(`val-${ch.key}`).textContent = val.toFixed(2);
+
+    const bar = document.getElementById(`bar-${ch.key}`);
+    bar.style.width = `${val * 100}%`;
+    bar.style.background = `rgb(${r}, ${g}, ${b})`;
+
+    // Ground truth overlay
+    if (showGroundTruth && groundTruth) {
+      const fps = groundTruth.fps || 20;
+      const idx = Math.min(Math.floor(audioPlayer.currentTime * fps), groundTruth.states.length - 1);
+      if (idx >= 0 && groundTruth.states[idx]) {
+        const gtVal = groundTruth.states[idx].channels[ch.key] || 0;
+        const gtBar = document.getElementById(`gtbar-${ch.key}`);
+        gtBar.style.width = `${gtVal * 80}px`;
+        gtBar.style.background = `rgb(${r}, ${g}, ${b})`;
+      }
+    }
+  });
+}
+
+loadTracks();
+connectWs();
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>

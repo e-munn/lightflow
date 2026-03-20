@@ -1,0 +1,21 @@
+# Scene configuration: 8 Astera Titan Tubes behind DJ booth
+fixture:
+  type: astera_titan_tube
+  count: 8
+  pixels_per_tube: 16
+  arrangement: linear  # tubes in a line behind DJ
+
+grid:
+  rows: 16   # pixels per tube
+  cols: 8    # number of tubes
+
+dmx:
+  channels_per_tube: 48  # 16 pixels x 3 RGB
+  total_channels: 384
+  start_address: 1
+  universe: 1
+
+defaults:
+  glow_amount: 0.25
+  spatial_floor: 0.3  # minimum per-tube brightness
+  master_intensity: 1.0

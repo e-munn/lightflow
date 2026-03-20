@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Environment
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+.next/
+out/
+build/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Audio / ML data (large files)
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+*.aac
+*.npy
+.demucs_cache/
+data/training/
+checkpoints/
+runs/
+eval_results/
+
+# TouchDesigner (binary)
+*.toe
+
+# Model training data
+v1/model/data/
+v1/model/tracks/
+
+# Hue credentials
+hue_bridge.json
+
+# Misc
+.cache/
+.vercel
+*.pem

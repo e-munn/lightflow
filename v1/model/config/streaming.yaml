@@ -1,0 +1,53 @@
+audio:
+  sample_rate: 22050
+  hop_length: 512
+  n_fft: 2048
+  n_mels: 128
+  window_seconds: 0.5
+  hop_seconds: 0.05
+features:
+  mel_spectrogram: true
+  onset_strength: true
+  chroma: true
+  rms_energy: true
+  spectral_centroid: true
+model:
+  type: streaming_gru
+  input_channels: 143
+  hidden_dim: 128
+  num_layers: 4
+  gru_layers: 2
+  dropout: 0.15
+  output_dim: 6
+  n_future: 4        # predict 4 frames ahead (50/100/150/200ms)
+  seq_len: 64        # 3.2s context (64 × 50ms hops)
+stem_channels:
+- bass_energy
+- kick_energy
+- snare_energy
+- hat_energy
+- vocals_energy
+- other_energy
+training:
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  epochs: 40
+  scheduler: cosine
+  warmup_epochs: 5
+  grad_clip: 1.0
+  # Multi-head loss weights
+  loss_weights:
+    energy: 1.0
+    future: 0.5
+    gate: 0.1
+data:
+  train_split: 0.75
+  val_split: 0.125
+  test_split: 0.125
+  seq_overlap: 0.5   # 50% overlap between sequences
+  augment:
+    gain_jitter:
+    - 0.8
+    - 1.2
+    noise_level: 0.01

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LightFlow — Live</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0f; overflow: hidden; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+
+<canvas id="stage"></canvas>
+
+<script>
+// ─── Channel config ─────────────────────────────────────────────
+const CHANNELS = [
+  { key: 'bass_energy',   label: 'BASS',   color: [160, 32, 240] },
+  { key: 'kick_energy',   label: 'KICK',   color: [240, 40,  40] },
+  { key: 'snare_energy',  label: 'SNARE',  color: [255, 165,   0] },
+  { key: 'hat_energy',    label: 'HATS',   color: [0,  220, 220] },
+  { key: 'vocals_energy', label: 'VOCALS', color: [60, 100, 255] },
+  { key: 'other_energy',  label: 'OTHER',  color: [40, 200,  80] },
+];
+
+// ─── Smoothing (attack/release, matching live_show.py) ──────────
+const ATTACK  = 0.7;
+const RELEASE = 0.3;
+const TARGET_DT = 1 / 10;  // server sends at ~10Hz, normalize smoothing to that
+
+// ─── Adaptive gate config ───────────────────────────────────────
+// Slow EMA baseline tracks the "ambient" energy per channel (~3s time constant).
+// Gate opens when signal spikes above baseline; hysteresis prevents flicker.
+const GATE_BASELINE_TAU  = 3.0;   // seconds — how fast baseline adapts
+const GATE_FLOOR_OFFSET  = 0.03;  // minimum absolute threshold (reject silence noise)
+const GATE_MIN_HOLD      = 0.06;  // seconds — minimum on-time per flash
+let gateEnabled    = false;
+let gateSensitivity = 0.6;        // 0.1 (hair-trigger) .. 2.0 (only big hits)
+
+// ─── State ──────────────────────────────────────────────────────
+const smoothed  = {};
+const targets   = {};
+const baseline  = {};   // slow-moving average per channel
+const gateOpen  = {};   // boolean per channel
+const holdTimer = {};   // seconds remaining in minimum hold
+const gated     = {};   // final intensity after gate
+CHANNELS.forEach(ch => {
+  smoothed[ch.key]  = 0;
+  targets[ch.key]   = 0;
+  baseline[ch.key]  = 0;
+  gateOpen[ch.key]  = false;
+  holdTimer[ch.key] = 0;
+  gated[ch.key]     = 0;
+});
+let micRms = 0;
+let latencyMs = 0;
+let connected = false;
+let lastFrameTime = performance.now();
+
+// ─── Canvas setup ───────────────────────────────────────────────
+const canvas = document.getElementById('stage');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ─── WebSocket ──────────────────────────────────────────────────
+let ws = null;
+
+function connectWs() {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${proto}//${location.host}/ws/live`);
+
+  ws.onopen = () => { connected = true; };
+
+  ws.onclose = () => {
+    connected = false;
+    setTimeout(connectWs, 2000);
+  };
+
+  ws.onmessage = (evt) => {
+    const data = JSON.parse(evt.data);
+    if (data.channels) {
+      for (const key in data.channels) {
+        targets[key] = data.channels[key];
+      }
+    }
+    if (data.mic_rms !== undefined) micRms = data.mic_rms;
+    if (data.latency_ms !== undefined) latencyMs = data.latency_ms;
+  };
+}
+connectWs();
+
+// ─── Rendering ──────────────────────────────────────────────────
+function drawLight(x, y, r, g, b, intensity) {
+  // intensity 0..1
+  const v = Math.max(0, Math.min(1, intensity));
+  if (v < 0.005) return;
+
+  // Layer 1: Wide ambient glow
+  const ambientR = W * 0.18 * (0.5 + v * 0.5);
+  const ambient = ctx.createRadialGradient(x, y, 0, x, y, ambientR);
+  ambient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${v * 0.12})`);
+  ambient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${v * 0.04})`);
+  ambient.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = ambient;
+  ctx.fillRect(x - ambientR, y - ambientR, ambientR * 2, ambientR * 2);
+
+  // Layer 2: Cone beam pointing downward
+  const coneW = W * 0.08 * (0.6 + v * 0.4);
+  const coneH = H * 0.7 * (0.4 + v * 0.6);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(x - coneW * 0.15, y);
+  ctx.lineTo(x - coneW, y + coneH);
+  ctx.lineTo(x + coneW, y + coneH);
+  ctx.lineTo(x + coneW * 0.15, y);
+  ctx.closePath();
+  const coneGrad = ctx.createLinearGradient(x, y, x, y + coneH);
+  coneGrad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${v * 0.25})`);
+  coneGrad.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${v * 0.08})`);
+  coneGrad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = coneGrad;
+  ctx.fill();
+  ctx.restore();
+
+  // Layer 3: Hot white core
+  const coreR = 12 + v * 18;
+  const core = ctx.createRadialGradient(x, y, 0, x, y, coreR);
+  const whiteAmount = Math.min(1, v * 1.5);
+  const coreR2 = Math.round(r + (255 - r) * whiteAmount * 0.6);
+  const coreG2 = Math.round(g + (255 - g) * whiteAmount * 0.6);
+  const coreB2 = Math.round(b + (255 - b) * whiteAmount * 0.6);
+  core.addColorStop(0, `rgba(${coreR2}, ${coreG2}, ${coreB2}, ${v * 0.9})`);
+  core.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${v * 0.5})`);
+  core.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = core;
+  ctx.beginPath();
+  ctx.arc(x, y, coreR, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawFloorReflection(x, floorY, r, g, b, intensity) {
+  const v = Math.max(0, Math.min(1, intensity));
+  if (v < 0.01) return;
+
+  const reflR = W * 0.1 * (0.5 + v * 0.5);
+  const reflH = H * 0.15 * v;
+  const refl = ctx.createRadialGradient(x, floorY, 0, x, floorY, reflR);
+  refl.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${v * 0.15})`);
+  refl.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${v * 0.04})`);
+  refl.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = refl;
+  ctx.fillRect(x - reflR, floorY - reflH * 0.3, reflR * 2, reflH);
+}
+
+function drawTruss() {
+  // Truss bar across top
+  const trussY = H * 0.08;
+  ctx.fillStyle = '#1a1a22';
+  ctx.fillRect(W * 0.05, trussY - 3, W * 0.9, 6);
+
+  // Light fixture mounts
+  const n = CHANNELS.length;
+  const pad = W * 0.1;
+  const spacing = (W - 2 * pad) / (n - 1);
+  for (let i = 0; i < n; i++) {
+    const x = pad + i * spacing;
+    ctx.fillStyle = '#222230';
+    ctx.fillRect(x - 8, trussY - 10, 16, 20);
+    ctx.fillStyle = '#2a2a38';
+    ctx.fillRect(x - 5, trussY + 7, 10, 8);
+  }
+}
+
+function drawHUD() {
+  const n = CHANNELS.length;
+  const pad = W * 0.1;
+  const spacing = (W - 2 * pad) / (n - 1);
+  const trussY = H * 0.08;
+
+  // Channel labels + values below truss
+  ctx.textAlign = 'center';
+  ctx.font = '11px "SF Mono", "Fira Code", Consolas, monospace';
+  for (let i = 0; i < n; i++) {
+    const ch = CHANNELS[i];
+    const x = pad + i * spacing;
+    const v = gateEnabled ? gated[ch.key] : smoothed[ch.key];
+    const [r, g, b] = ch.color;
+
+    // Label
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.6)`;
+    ctx.fillText(ch.label, x, trussY + 32);
+
+    // Value
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.4 + v * 0.6})`;
+    ctx.font = '13px "SF Mono", "Fira Code", Consolas, monospace';
+    ctx.fillText(v.toFixed(2), x, trussY + 48);
+    ctx.font = '11px "SF Mono", "Fira Code", Consolas, monospace';
+
+    // Gate baseline indicator (thin line showing threshold)
+    if (gateEnabled) {
+      const bl = baseline[ch.key];
+      const thresh = bl * (1 + gateSensitivity) + GATE_FLOOR_OFFSET;
+      const barW = spacing * 0.5;
+      const barH = 3;
+      const barY = trussY + 54;
+
+      // Background: smoothed value bar
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.12)`;
+      ctx.fillRect(x - barW / 2, barY, barW, barH);
+
+      // Filled: smoothed level
+      const fillFrac = Math.min(1, smoothed[ch.key]);
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${gateOpen[ch.key] ? 0.7 : 0.2})`;
+      ctx.fillRect(x - barW / 2, barY, barW * fillFrac, barH);
+
+      // Threshold tick mark
+      const tickX = x - barW / 2 + barW * Math.min(1, thresh);
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.fillRect(tickX - 1, barY - 1, 2, barH + 2);
+    }
+  }
+
+  // Bottom HUD: mic level + latency + connection status
+  const hudY = H - 24;
+  ctx.textAlign = 'left';
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '11px "SF Mono", "Fira Code", Consolas, monospace';
+
+  // Connection dot
+  const dotColor = connected ? '#4f4' : '#f44';
+  ctx.fillStyle = dotColor;
+  ctx.beginPath();
+  ctx.arc(20, hudY, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillText(connected ? 'LIVE' : 'DISCONNECTED', 32, hudY + 4);
+
+  // Mic level bar
+  const micBarX = 110;
+  const micBarW = 100;
+  ctx.fillStyle = 'rgba(255,255,255,0.1)';
+  ctx.fillRect(micBarX, hudY - 4, micBarW, 8);
+  const micFill = Math.min(1, micRms * 10);
+  const micColor = micFill > 0.8 ? '#f44' : micFill > 0.5 ? '#fa0' : '#4f4';
+  ctx.fillStyle = micColor;
+  ctx.fillRect(micBarX, hudY - 4, micBarW * micFill, 8);
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillText(`MIC ${micRms.toFixed(3)}`, micBarX + micBarW + 8, hudY + 4);
+
+  // Gate mode indicator
+  const gateX = 300;
+  if (gateEnabled) {
+    ctx.fillStyle = '#fa0';
+    ctx.fillText(`GATE ON  sens=${gateSensitivity.toFixed(1)}`, gateX, hudY + 4);
+  } else {
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.fillText('GATE OFF', gateX, hudY + 4);
+  }
+
+  // Keyboard hint
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.fillText('[G] gate  [</>] sens', gateX + 160, hudY + 4);
+
+  // Latency
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillText(`${latencyMs.toFixed(0)}ms`, W - 60, hudY + 4);
+}
+
+function render() {
+  requestAnimationFrame(render);
+
+  const now = performance.now();
+  const dt = (now - lastFrameTime) / 1000;
+  lastFrameTime = now;
+
+  // Delta-time normalized smoothing
+  const dtRatio = dt / TARGET_DT;
+  CHANNELS.forEach(ch => {
+    const key = ch.key;
+    const target = targets[key];
+    const prev = smoothed[key];
+    const alpha = target > prev
+      ? 1 - Math.pow(1 - ATTACK, dtRatio)
+      : 1 - Math.pow(1 - RELEASE, dtRatio);
+    smoothed[key] = prev + alpha * (target - prev);
+
+    // ── Adaptive gate ──────────────────────────────────────
+    // Baseline: slow EMA that tracks the "normal" level for this channel.
+    // Uses exponential decay so it adapts to breakdowns/builds over ~3s.
+    const blAlpha = 1 - Math.exp(-dt / GATE_BASELINE_TAU);
+    baseline[key] += blAlpha * (smoothed[key] - baseline[key]);
+
+    // Thresholds: open requires a spike above baseline; close is lower (hysteresis)
+    const openThresh  = baseline[key] * (1 + gateSensitivity) + GATE_FLOOR_OFFSET;
+    const closeThresh = baseline[key] * (1 + gateSensitivity * 0.25) + GATE_FLOOR_OFFSET * 0.4;
+
+    // Hold timer countdown
+    holdTimer[key] = Math.max(0, holdTimer[key] - dt);
+
+    if (gateOpen[key]) {
+      if (smoothed[key] < closeThresh && holdTimer[key] <= 0) {
+        gateOpen[key] = false;
+      }
+    } else {
+      if (smoothed[key] > openThresh) {
+        gateOpen[key] = true;
+        holdTimer[key] = GATE_MIN_HOLD;
+      }
+    }
+
+    // Gated output: full smoothed value when open, zero when closed
+    gated[key] = gateOpen[key] ? smoothed[key] : 0;
+  });
+
+  // Clear
+  ctx.fillStyle = '#0a0a0f';
+  ctx.fillRect(0, 0, W, H);
+
+  // Enable additive blending for light layers
+  ctx.globalCompositeOperation = 'lighter';
+
+  const n = CHANNELS.length;
+  const pad = W * 0.1;
+  const spacing = (W - 2 * pad) / (n - 1);
+  const lightY = H * 0.08 + 15;  // just below truss
+  const floorY = H * 0.75;
+
+  // Draw lights + floor reflections
+  for (let i = 0; i < n; i++) {
+    const ch = CHANNELS[i];
+    const x = pad + i * spacing;
+    const [r, g, b] = ch.color;
+    const v = gateEnabled ? gated[ch.key] : smoothed[ch.key];
+
+    drawLight(x, lightY, r, g, b, v);
+    drawFloorReflection(x, floorY, r, g, b, v);
+  }
+
+  // Reset to normal blending for HUD
+  ctx.globalCompositeOperation = 'source-over';
+
+  drawTruss();
+  drawHUD();
+}
+
+// ─── Keyboard controls ──────────────────────────────────────────
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'g' || e.key === 'G') {
+    gateEnabled = !gateEnabled;
+    // Reset gate state when toggling on so baselines re-adapt
+    if (gateEnabled) {
+      CHANNELS.forEach(ch => {
+        baseline[ch.key] = smoothed[ch.key];
+        gateOpen[ch.key] = false;
+        holdTimer[ch.key] = 0;
+      });
+    }
+  } else if (e.key === '.' || e.key === '>') {
+    gateSensitivity = Math.min(2.0, gateSensitivity + 0.1);
+  } else if (e.key === ',' || e.key === '<') {
+    gateSensitivity = Math.max(0.1, gateSensitivity - 0.1);
+  }
+});
+
+requestAnimationFrame(render);
+</script>
+</body>
+</html>

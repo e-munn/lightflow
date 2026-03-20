@@ -1,0 +1,9 @@
+numpy
+sounddevice
+soundfile
+librosa
+torch
+demucs
+dmxpy
+PyDMXControl
+python-osc

@@ -29,10 +29,11 @@ export function TubePreview({ grid }: TubePreviewProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const pxWidth = Math.floor(size.w / NUM_TUBES);
-    const pxHeight = Math.floor(size.h / PIXELS_PER_TUBE);
-    const totalW = pxWidth * NUM_TUBES;
-    const totalH = pxHeight * PIXELS_PER_TUBE;
+    const GAP = 2; // pixels
+    const totalW = size.w;
+    const totalH = size.h;
+    const pxWidth = (totalW - GAP * (NUM_TUBES - 1)) / NUM_TUBES;
+    const pxHeight = (totalH - GAP * (PIXELS_PER_TUBE - 1)) / PIXELS_PER_TUBE;
 
     const dpr = window.devicePixelRatio || 1;
     canvas.width = totalW * dpr;
@@ -45,9 +46,9 @@ export function TubePreview({ grid }: TubePreviewProps) {
     ctx.fillRect(0, 0, totalW, totalH);
 
     for (let t = 0; t < NUM_TUBES; t++) {
-      const x = t * pxWidth;
+      const x = t * (pxWidth + GAP);
       for (let px = 0; px < PIXELS_PER_TUBE; px++) {
-        const y = px * pxHeight;
+        const y = px * (pxHeight + GAP);
 
         let r = 0, g = 0, b = 0;
         if (grid) {

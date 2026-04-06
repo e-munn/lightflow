@@ -126,8 +126,13 @@ export interface Attention {
   holdBeats: number;
   beatsHeld: number;
   overallEnergy: number;
-  scores: Record<string, number>;       // raw scores used for switching
-  avgEnergy: Record<string, number>;    // smoothed per-stem energy
+  scores: Record<string, number>;
+  avgEnergy: Record<string, number>;
+  // Channel 2: complementary rhythmic accent signal
+  accent: number;
+  accentStem: string;
+  // Per-stem gate-shaped signals (parallel envelopes for spectrograph view)
+  stemSignals: Record<string, number>;
 }
 
 export interface EffectContext {

@@ -1,45 +1,53 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { NUM_TUBES, PIXELS_PER_TUBE, Grid } from '@/types/v3';
 
 interface TubePreviewProps {
   grid: Grid | null;
 }
 
-const PX_WIDTH = 36;
-const PX_HEIGHT = 20;
-const TUBE_GAP = 10;
-const PX_GAP = 1;
-const CORNER_RADIUS = 4;
-
 export function TubePreview({ grid }: TubePreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setSize({ w: Math.floor(width), h: Math.floor(height) });
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || size.w === 0 || size.h === 0) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const totalWidth = NUM_TUBES * PX_WIDTH + (NUM_TUBES - 1) * TUBE_GAP;
-    const totalHeight = PIXELS_PER_TUBE * PX_HEIGHT + (PIXELS_PER_TUBE - 1) * PX_GAP;
+    const pxWidth = Math.floor(size.w / NUM_TUBES);
+    const pxHeight = Math.floor(size.h / PIXELS_PER_TUBE);
+    const totalW = pxWidth * NUM_TUBES;
+    const totalH = pxHeight * PIXELS_PER_TUBE;
 
-    canvas.width = totalWidth + 40;
-    canvas.height = totalHeight + 40;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = totalW * dpr;
+    canvas.height = totalH * dpr;
+    canvas.style.width = `${totalW}px`;
+    canvas.style.height = `${totalH}px`;
+    ctx.scale(dpr, dpr);
 
-    // Background
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const offsetX = 20;
-    const offsetY = 20;
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, totalW, totalH);
 
     for (let t = 0; t < NUM_TUBES; t++) {
-      const x = offsetX + t * (PX_WIDTH + TUBE_GAP);
-
+      const x = t * pxWidth;
       for (let px = 0; px < PIXELS_PER_TUBE; px++) {
-        const y = offsetY + px * (PX_HEIGHT + PX_GAP);
+        const y = px * pxHeight;
 
         let r = 0, g = 0, b = 0;
         if (grid) {
@@ -49,45 +57,15 @@ export function TubePreview({ grid }: TubePreviewProps) {
           b = Math.round(Math.min(1, grid[i + 2]) * 255);
         }
 
-        // Glow halo
-        const brightness = (r + g + b) / (255 * 3);
-        if (brightness > 0.1) {
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${brightness * 0.3})`;
-          ctx.beginPath();
-          ctx.roundRect(x - 3, y - 3, PX_WIDTH + 6, PX_HEIGHT + 6, CORNER_RADIUS + 2);
-          ctx.fill();
-        }
-
-        // Pixel
-        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-        ctx.beginPath();
-        ctx.roundRect(x, y, PX_WIDTH, PX_HEIGHT, CORNER_RADIUS);
-        ctx.fill();
-
-        // Subtle border
-        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.fillRect(x, y, pxWidth, pxHeight);
       }
     }
-
-    // Tube labels
-    ctx.fillStyle = '#666';
-    ctx.font = '10px monospace';
-    ctx.textAlign = 'center';
-    for (let t = 0; t < NUM_TUBES; t++) {
-      const x = offsetX + t * (PX_WIDTH + TUBE_GAP) + PX_WIDTH / 2;
-      ctx.fillText(`T${t + 1}`, x, canvas.height - 5);
-    }
-  }, [grid]);
+  }, [grid, size]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="max-w-full max-h-full"
-        style={{ imageRendering: 'pixelated' }}
-      />
+    <div ref={containerRef} className="w-full h-full">
+      <canvas ref={canvasRef} />
     </div>
   );
 }

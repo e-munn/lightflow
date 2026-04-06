@@ -35,19 +35,10 @@ export function BottomBar({
   duration,
 }: BottomBarProps) {
   return (
-    <div className="flex items-center gap-4">
-      {/* Play/Pause */}
-      <button
-        onClick={audioState.isPlaying ? onPause : onPlay}
-        disabled={!audioState.source}
-        className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-black disabled:opacity-30 hover:bg-gray-200 transition-colors"
-      >
-        {audioState.isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
-      </button>
-
-      {/* Time + Scrubber */}
-      <div className="flex-1 flex items-center gap-3">
-        <span className="text-xs text-gray-500 w-10 text-right">
+    <div className="space-y-2">
+      {/* Scrubber */}
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] text-gray-500 w-8 text-right font-mono">
           {formatTime(audioState.currentTime)}
         </span>
         <input
@@ -59,51 +50,55 @@ export function BottomBar({
           onChange={(e) => onSeek(parseFloat(e.target.value))}
           className="flex-1 h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-white"
         />
-        <span className="text-xs text-gray-500 w-10">
+        <span className="text-[10px] text-gray-500 w-8 font-mono">
           {formatTime(duration)}
         </span>
       </div>
 
-      {/* Section label */}
-      {sectionLabel && (
-        <span className="text-xs text-gray-400 uppercase tracking-wide bg-gray-800 px-2 py-1 rounded">
-          {sectionLabel}
-        </span>
-      )}
+      {/* Controls */}
+      <div className="flex items-center gap-3">
+        {/* Play/Pause */}
+        <button
+          onClick={audioState.isPlaying ? onPause : onPlay}
+          disabled={!audioState.source}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-black disabled:opacity-30 hover:bg-gray-200 transition-colors active:scale-95"
+        >
+          {audioState.isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
+        </button>
 
-      {/* BPM */}
-      <div className="flex items-center gap-2">
+        {/* Section label */}
+        <div className="flex-1 min-w-0">
+          {sectionLabel && (
+            <span className="text-xs text-gray-400 uppercase tracking-wide bg-gray-900 px-2 py-1 rounded">
+              {sectionLabel}
+            </span>
+          )}
+        </div>
+
+        {/* BPM */}
         {bpm && (
           <span className="text-xs text-green-500 font-mono">
-            {bpm.toFixed(0)} BPM
+            {bpm.toFixed(0)}
           </span>
         )}
-        {/* Beat indicator */}
-        <div
-          className={`w-2 h-2 rounded-full transition-all duration-75 ${
-            beatInfo.isBeat ? 'bg-white scale-150' : 'bg-gray-700'
-          }`}
-        />
+
+        {/* File picker */}
+        <label className="cursor-pointer text-gray-500 hover:text-gray-300 transition-colors active:scale-95">
+          <FolderOpen size={18} />
+          <input
+            type="file"
+            accept="audio/*,.json"
+            multiple
+            className="hidden"
+            onChange={(e) => {
+              const files = e.target.files;
+              if (files) {
+                Array.from(files).forEach((f) => onFileSelect(f));
+              }
+            }}
+          />
+        </label>
       </div>
-
-      {/* Analyzing indicator */}
-      {isAnalyzing && (
-        <div className="w-4 h-4 border-2 border-gray-600 border-t-white rounded-full animate-spin" />
-      )}
-
-      {/* File picker */}
-      <label className="cursor-pointer text-gray-500 hover:text-gray-300 transition-colors">
-        <FolderOpen size={18} />
-        <input
-          type="file"
-          accept="audio/*"
-          className="hidden"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) onFileSelect(file);
-          }}
-        />
-      </label>
     </div>
   );
 }

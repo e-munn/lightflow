@@ -107,8 +107,36 @@ function smoothBpm(key: string, raw: number, inst: EffectInstance, ctx: EffectCo
 // --- Context helpers ---
 
 function getStem(ctx: EffectContext, name: string): number {
-  if (name === 'none') return 1.0;
-  return (ctx.frame.stems as unknown as Record<string, number>)[name] ?? 0;
+  const solo = ctx.soloStem;
+  // Vocals excluded from model entirely
+  if (name === 'vocals') return 0;
+  if (name === 'none') {
+    if (solo) return 0.15;
+    if (ctx.attention) {
+      const domStem = ctx.attention.dominant;
+      const domEnergy = (ctx.frame.stems as unknown as Record<string, number>)[domStem] ?? 0;
+      return 0.3 + domEnergy * 0.7;
+    }
+    return 1.0;
+  }
+  const val = (ctx.frame.stems as unknown as Record<string, number>)[name] ?? 0;
+  if (solo) {
+    return name === solo ? Math.min(val * 2.5, 1.0) : 0.0;
+  }
+  if (ctx.attention) {
+    const isDominant = name === ctx.attention.dominant;
+    const novelty = ctx.attention.novelty[name] ?? 0;
+
+    if (isDominant) {
+      // Dominant stem: boost energy + novelty kick
+      return Math.min(1.0, val * 1.4 + novelty * 0.5);
+    } else {
+      // Non-dominant: dim to 40% so dominant stands out
+      // But allow novelty spikes through (incidental sounds)
+      return Math.min(1.0, val * 0.4 + novelty * 1.5);
+    }
+  }
+  return val;
 }
 
 function getOnset(ctx: EffectContext, name: string): number {

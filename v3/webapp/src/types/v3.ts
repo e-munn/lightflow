@@ -118,6 +118,18 @@ export interface ShowPlan {
 }
 
 // Runtime types
+export interface Attention {
+  weights: Record<string, number>;
+  dominant: string;
+  novelty: Record<string, number>;
+  signal: number;
+  holdBeats: number;
+  beatsHeld: number;
+  overallEnergy: number;
+  scores: Record<string, number>;       // raw scores used for switching
+  avgEnergy: Record<string, number>;    // smoothed per-stem energy
+}
+
 export interface EffectContext {
   frame: StemFrame;
   time: number;
@@ -125,6 +137,8 @@ export interface EffectContext {
   dt: number;
   beatPhase: number;
   barPhase: number;
+  soloStem?: string | null;
+  attention?: Attention;
 }
 
 // 16x8x3 grid as flat Float32Array (row-major: [px][tube][channel])

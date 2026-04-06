@@ -1,0 +1,2212 @@
+{
+  "song": "Little_Simz_-_Gorilla_Know_Good_Flip_KLICKAUD",
+  "bpm": 112.3,
+  "style": "energetic",
+  "sections": [
+    {
+      "section_label": "intro",
+      "start": 0.0,
+      "end": 8.4,
+      "effects": [
+        {
+          "effect": "breathe",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.35,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firefly",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.28,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "meteor",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.22,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 1.0
+    },
+    {
+      "section_label": "drop_1",
+      "start": 8.4,
+      "end": 16.2,
+      "effects": [
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.85,
+          "attack_ms": 80.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "kick_flash",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.9,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "hat_sparkle",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "strobe_chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.7,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_2",
+      "start": 16.2,
+      "end": 24.3,
+      "effects": [
+        {
+          "effect": "gradient",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.75,
+          "attack_ms": 100.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "impact",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.95,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "snare_accent",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.8,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_3",
+      "start": 24.3,
+      "end": 33.1,
+      "effects": [
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "bottom",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.9,
+          "attack_ms": 70.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "strobe_chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "scan",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "snare_accent",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.75,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "flux_burst",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "other",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.5,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_4",
+      "start": 33.1,
+      "end": 41.4,
+      "effects": [
+        {
+          "effect": "ripple",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.8,
+          "attack_ms": 80.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "kick_flash",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.95,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.75,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "rain",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "impact",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.8,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_5",
+      "start": 41.4,
+      "end": 48.9,
+      "effects": [
+        {
+          "effect": "gradient",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "down",
+          "blend_mode": "max",
+          "intensity": 0.72,
+          "attack_ms": 100.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "energy_pulse",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "meteor",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.7,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.7,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.3
+    },
+    {
+      "section_label": "drop_6",
+      "start": 48.9,
+      "end": 55.2,
+      "effects": [
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.78,
+          "attack_ms": 80.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firecracker",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "scan",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.45,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "snare_accent",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.7,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.3
+    },
+    {
+      "section_label": "drop_7",
+      "start": 55.2,
+      "end": 62.2,
+      "effects": [
+        {
+          "effect": "breathe_y",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.7,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.65,
+          "attack_ms": 120.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "impact",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.8,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firecracker",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.4
+    },
+    {
+      "section_label": "drop_8",
+      "start": 62.2,
+      "end": 68.3,
+      "effects": [
+        {
+          "effect": "solid",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.55,
+          "attack_ms": 150.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "kick_flash",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.75,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.75,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "rain",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.5,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "scan",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.5
+    },
+    {
+      "section_label": "drop_9",
+      "start": 68.3,
+      "end": 74.3,
+      "effects": [
+        {
+          "effect": "ripple",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.6,
+          "attack_ms": 100.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "energy_pulse",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.75,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "meteor",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "snare_accent",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.4
+    },
+    {
+      "section_label": "breakdown_1",
+      "start": 74.3,
+      "end": 84.8,
+      "effects": [
+        {
+          "effect": "breathe",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.35,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.35,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "vocal_wave",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "vocals",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.7,
+          "attack_ms": 80.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "pan_sweep",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "vocals",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 60.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": true,
+          "onset_mode": false
+        },
+        {
+          "effect": "lighthouse",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.3,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.3,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 1.5
+    },
+    {
+      "section_label": "drop_10",
+      "start": 84.8,
+      "end": 92.4,
+      "effects": [
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.92,
+          "attack_ms": 60.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "kick_flash",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 1.0,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "strobe_chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.8,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "flux_burst",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "other",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_11",
+      "start": 92.4,
+      "end": 101.2,
+      "effects": [
+        {
+          "effect": "gradient",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.85,
+          "attack_ms": 80.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "impact",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.95,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "scan",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firecracker",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_12",
+      "start": 101.2,
+      "end": 108.4,
+      "effects": [
+        {
+          "effect": "ripple",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.7,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.88,
+          "attack_ms": 70.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "strobe_chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.9,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "rain",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.7,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "snare_accent",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.8,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "bottom",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.7,
+          "attack_ms": 60.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "drop_13",
+      "start": 108.4,
+      "end": 116.8,
+      "effects": [
+        {
+          "effect": "breathe_y",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.7,
+          "attack_ms": 100.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "kick_flash",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.75,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "meteor",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.6,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "impact",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.75,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.3
+    },
+    {
+      "section_label": "drop_14",
+      "start": 116.8,
+      "end": 122.9,
+      "effects": [
+        {
+          "effect": "solid",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.6,
+          "attack_ms": 150.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "energy_pulse",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.78,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "inner",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.45,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.58,
+          "attack_ms": 20.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "scan",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 0.4
+    },
+    {
+      "section_label": "drop_15",
+      "start": 122.9,
+      "end": 129.8,
+      "effects": [
+        {
+          "effect": "bass_fill",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.9,
+          "attack_ms": 60.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "strobe_chase",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "kick",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.92,
+          "attack_ms": 10.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "rain",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "hat",
+          "region": {
+            "preset": "outer",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.6,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.65,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firecracker",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "snare",
+          "region": {
+            "preset": "top",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.85,
+          "attack_ms": 12.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.25,
+          "pan_follow": false,
+          "onset_mode": true
+        },
+        {
+          "effect": "flux_burst",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "other",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 1.0,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.55,
+          "attack_ms": 15.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 0.5,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "hard_cut",
+      "transition_duration": 0.0
+    },
+    {
+      "section_label": "breakdown_2",
+      "start": 129.8,
+      "end": 168.2,
+      "effects": [
+        {
+          "effect": "breathe",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.3,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.3,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "candles",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "bottom",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.35,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "lighthouse",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.25,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.28,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "abracadabra",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "other",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.25,
+          "attack_ms": 200.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 2.0
+    },
+    {
+      "section_label": "breakdown_3",
+      "start": 168.2,
+      "end": 174.2,
+      "effects": [
+        {
+          "effect": "breathe_y",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.4,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.45,
+          "attack_ms": 150.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "firefly",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.3,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "buildup_rise",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "bass",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.5,
+          "direction": "up",
+          "blend_mode": "add",
+          "intensity": 0.5,
+          "attack_ms": 120.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 1.5,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 1.0
+    },
+    {
+      "section_label": "outro",
+      "start": 174.2,
+      "end": 180.5,
+      "effects": [
+        {
+          "effect": "fade_out",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.3,
+          "direction": "up",
+          "blend_mode": "replace",
+          "intensity": 0.8,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "breathe",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.3,
+          "direction": "up",
+          "blend_mode": "max",
+          "intensity": 0.3,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        },
+        {
+          "effect": "meteor",
+          "color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "secondary_color": null,
+          "intensity_source": "none",
+          "region": {
+            "preset": "all",
+            "tubes": null,
+            "pixel_range": null
+          },
+          "speed": 0.3,
+          "direction": "down",
+          "blend_mode": "add",
+          "intensity": 0.2,
+          "attack_ms": 50.0,
+          "release_ms": 200.0,
+          "attack_beats": null,
+          "release_beats": 2.0,
+          "pan_follow": false,
+          "onset_mode": false
+        }
+      ],
+      "transition_in": "crossfade",
+      "transition_duration": 1.5
+    }
+  ]
+}

@@ -1,51 +1,119 @@
 'use client';
 
-import { useEffect, useCallback, useState, useRef, useMemo, DragEvent } from 'react';
-import { LayoutList, Lightbulb, Layers, SlidersHorizontal } from 'lucide-react';
+import { useEffect, useCallback, useState, useRef, useMemo } from 'react';
+import { Volume2, ArrowLeft } from 'lucide-react';
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
-import { Carousel } from '@/components/Carousel';
-import { BottomBar } from '@/components/BottomBar';
-import { TubePreview } from '@/components/TubePreview';
-import { TimelineView } from '@/components/TimelineView';
-import { EffectList } from '@/components/EffectList';
-import { analyzeAudio, generateShow } from '@/lib/api';
-import {
-  AnalysisResult, ShowPlan, SectionPlan, StemFrame,
-  EffectContext, Grid, NUM_TUBES, PIXELS_PER_TUBE,
-} from '@/types/v3';
-import { renderSectionFrame, applyGlow, resetSmoothing } from '@/lib/effects';
+import { AnalysisResult, StemFrame } from '@/types/v3';
+import { computeAttention, resetAttention } from '@/lib/attention';
+import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector } from '@/lib/modulators';
+import { SignalGraph, resetSignalGraph } from '@/components/SignalGraph';
+import { GradientOverlay } from '@/components/GradientOverlay';
+
+const PRESET_SONGS = [
+  { name: 'Life During Wartime [jazz version]', slug: 'life_during_wartime' },
+  { name: 'Hide and Seek (VIP)', slug: 'hide_and_seek' },
+  { name: 'Tell Me', slug: 'tell_me_KLICKAUD' },
+  { name: 'Gorilla (Little Simz)', slug: 'Little_Simz_-_Gorilla_Know_Good_Flip_KLICKAUD' },
+  { name: 'Смерти Больше Нет', slug: 'Смерти_Больше_Нет_KLICKAUD' },
+];
+
+const STEMS = ['bass', 'kick', 'snare', 'hat', 'other'] as const;
+
+const STEM_COLOR_RGB: Record<string, string> = {
+  bass: '#f59e0b',
+  kick: '#ef4444',
+  snare: '#3b82f6',
+  hat: '#a855f7',
+  other: '#6b7280',
+};
+
+const STEM_COLORS: Record<string, { active: string; dormant: string }> = {
+  bass:  { active: 'bg-amber-800 text-amber-200', dormant: 'text-amber-900' },
+  kick:  { active: 'bg-red-800 text-red-200', dormant: 'text-red-900' },
+  snare: { active: 'bg-blue-800 text-blue-200', dormant: 'text-blue-900' },
+  hat:   { active: 'bg-purple-800 text-purple-200', dormant: 'text-purple-900' },
+  other: { active: 'bg-gray-700 text-gray-200', dormant: 'text-gray-700' },
+};
 
 export default function Home() {
-  const { frequencyData, audioState, loadAudioFile, play, pause, seek } = useAudioAnalyzer();
+  const { audioState, loadAudioFile, play, pause, seek } = useAudioAnalyzer();
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
-  const [show, setShow] = useState<ShowPlan | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [grid, setGrid] = useState<Grid | null>(null);
+  const [songName, setSongName] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // The single output signal: 0-1 brightness
+  const [signal, setSignal] = useState(0);
+  const [dominantStem, setDominantStem] = useState<string>('bass');
+  const [soloStem, setSoloStem] = useState<string | null>(null);
+  const [debugInfo, setDebugInfo] = useState({ hold: 0, held: 0, energy: 0 });
+  const [modulator, setModulator] = useState<string>('raw');
+  const [gradientEnabled, setGradientEnabled] = useState(false);
+  const [stemLevels, setStemLevels] = useState<Record<string, number>>({
+    bass: 0, kick: 0, snare: 0, hat: 0, other: 0,
+  });
+  const [stemScores, setStemScores] = useState<Record<string, number>>({
+    bass: 0, kick: 0, snare: 0, hat: 0, other: 0,
+  });
 
   const lastFrameTimeRef = useRef(0);
 
-  // Find current section from show plan
-  const currentSection = useMemo((): SectionPlan | null => {
-    if (!show) return null;
-    const t = audioState.currentTime;
-    return show.sections.find((s) => t >= s.start && t < s.end) || null;
-  }, [show, audioState.currentTime]);
+  // Back to song list
+  const goBack = useCallback(() => {
+    pause();
+    setAnalysis(null);
+    setSongName(null);
+    setSignal(0);
+    setDominantStem('bass');
+    resetAttention();
+  }, [pause]);
 
-  // Find current section label
-  const sectionLabel = useMemo(() => {
-    if (!analysis) return null;
-    const t = audioState.currentTime;
-    const sec = analysis.sections.find((s) => t >= s.start && t < s.end);
-    return sec?.label || null;
-  }, [analysis, audioState.currentTime]);
+  // Keyboard: space = play/pause, 1-5 = solo stem, cmd+left = back
+  useEffect(() => {
+    const STEM_KEYS: Record<string, string> = {
+      'Digit1': 'bass', 'Digit2': 'kick', 'Digit3': 'snare',
+      'Digit4': 'hat', 'Digit5': 'other',
+    };
+    const handleDown = (e: KeyboardEvent) => {
+      if (e.target !== document.body) return;
+      if (e.code === 'Space') { e.preventDefault(); audioState.isPlaying ? pause() : play(); }
+      else if ((e.metaKey || e.ctrlKey) && e.code === 'ArrowLeft') {
+        e.preventDefault();
+        goBack();
+      }
+      else if (STEM_KEYS[e.code]) { e.preventDefault(); setSoloStem(STEM_KEYS[e.code]); }
+    };
+    const handleUp = (e: KeyboardEvent) => { if (STEM_KEYS[e.code]) setSoloStem(null); };
+    window.addEventListener('keydown', handleDown);
+    window.addEventListener('keyup', handleUp);
+    return () => { window.removeEventListener('keydown', handleDown); window.removeEventListener('keyup', handleUp); };
+  }, [audioState.isPlaying, play, pause, goBack]);
 
-  // Find nearest analysis frame for current time
+  // Load preset
+  const loadPreset = useCallback(async (slug: string, name: string) => {
+    setIsLoading(true);
+    setAnalysis(null);
+    resetAttention();
+    resetSignalGraph();
+    resetDecayingStrobe();
+    resetBeatStrobe();
+    resetDirector();
+    try {
+      const analysisRes = await fetch(`/songs/${slug}_analysis.json`).then(r => r.json());
+      setAnalysis(analysisRes as AnalysisResult);
+      setSongName(name);
+      await loadAudioFile(`/songs/${slug}.mp3`);
+    } catch (err) {
+      console.error('Failed to load:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [loadAudioFile]);
+
+  // Find nearest analysis frame
   const currentFrame = useMemo((): StemFrame | null => {
     if (!analysis?.frames.length) return null;
     const t = audioState.currentTime;
-    // Binary search
     let lo = 0, hi = analysis.frames.length - 1;
     while (lo < hi) {
       const mid = (lo + hi) >> 1;
@@ -55,153 +123,223 @@ export default function Home() {
     return analysis.frames[lo] || null;
   }, [analysis, audioState.currentTime]);
 
-  // Render effects each frame
+  // Core signal computation
   useEffect(() => {
-    if (!currentSection || !currentFrame || !analysis || !audioState.isPlaying) return;
+    if (!currentFrame || !analysis || !audioState.isPlaying) return;
 
     const now = performance.now();
-    const dt = (now - lastFrameTimeRef.current) / 1000;
+    const dt = Math.min((now - lastFrameTimeRef.current) / 1000, 0.1);
     lastFrameTimeRef.current = now;
 
-    const ctx: EffectContext = {
-      frame: currentFrame,
+    const stems = currentFrame.stems as unknown as Record<string, number>;
+
+    if (soloStem) {
+      // Solo mode: just show that stem raw
+      setSignal(Math.min(1.0, (stems[soloStem] ?? 0) * 1.5));
+      setDominantStem(soloStem);
+      return;
+    }
+
+    const attention = computeAttention(currentFrame, dt, analysis.bpm);
+    setDominantStem(attention.dominant);
+
+    // Apply selected modulator on top of the attention signal
+    const modFn = MODULATORS[modulator]?.fn ?? MODULATORS.raw.fn;
+    const modulated = modFn({
+      signal: attention.signal,
       time: audioState.currentTime,
-      bpm: analysis.bpm,
-      dt: Math.min(dt, 0.1), // cap to avoid huge jumps
       beatPhase: (audioState.currentTime * analysis.bpm / 60) % 1,
       barPhase: (audioState.currentTime * analysis.bpm / 60 / 4) % 1,
-    };
+      bpm: analysis.bpm,
+      dt,
+    });
+    setSignal(Math.max(0, Math.min(1, modulated)));
+    setDebugInfo({
+      hold: attention.holdBeats,
+      held: attention.beatsHeld,
+      energy: attention.overallEnergy,
+    });
+    setStemLevels({
+      bass: stems.bass,
+      kick: stems.kick,
+      snare: stems.snare,
+      hat: stems.hat,
+      other: stems.other,
+    });
+    setStemScores(attention.scores);
+  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator]);
 
-    const rendered = renderSectionFrame(currentSection.effects, ctx);
-    const glowed = applyGlow(rendered, 0.3);
-    setGrid(glowed);
-  }, [currentSection, currentFrame, analysis, audioState.currentTime, audioState.isPlaying]);
+  const isReady = audioState.source && analysis;
 
-  // File handling
-  const handleFileSelect = useCallback(async (file: File) => {
-    setAnalysis(null);
-    setShow(null);
-    setGrid(null);
-    resetSmoothing();
-    setIsAnalyzing(true);
-
-    try {
-      const [, analysisResult] = await Promise.all([
-        loadAudioFile(file),
-        analyzeAudio(file).catch((err) => {
-          console.warn('Analysis failed:', err);
-          return null;
-        }),
-      ]);
-
-      if (analysisResult) {
-        setAnalysis(analysisResult);
-        // Auto-generate show
-        try {
-          const showResult = await generateShow(JSON.stringify(analysisResult));
-          setShow(showResult);
-        } catch (err) {
-          console.warn('Show generation failed:', err);
-        }
-      }
-    } finally {
-      setIsAnalyzing(false);
-    }
-  }, [loadAudioFile]);
-
-  const handleDragOver = useCallback((e: DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(true);
-  }, []);
-
-  const handleDragLeave = useCallback((e: DragEvent) => {
-    e.preventDefault();
-    if (e.relatedTarget === null) setIsDragOver(false);
-  }, []);
-
-  const handleDrop = useCallback((e: DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const file = e.dataTransfer?.files?.[0];
-    if (file?.type.startsWith('audio/')) handleFileSelect(file);
-  }, [handleFileSelect]);
-
-  const carouselItems = [
-    {
-      id: 'source',
-      label: 'Source',
-      icon: LayoutList,
-      render: () => (
-        <div className="h-full p-6">
-          <TimelineView
-            sections={analysis?.sections || []}
-            currentTime={audioState.currentTime}
-            duration={audioState.duration}
-            onSeek={seek}
-            isAnalyzing={isAnalyzing}
-          />
-        </div>
-      ),
-    },
-    {
-      id: 'tubes',
-      label: 'Tubes',
-      icon: Lightbulb,
-      render: () => (
-        <div className="h-full p-4">
-          <TubePreview grid={grid} />
-        </div>
-      ),
-    },
-    {
-      id: 'effects',
-      label: 'Effects',
-      icon: Layers,
-      render: () => (
-        <div className="h-full">
-          <EffectList
-            currentSection={currentSection}
-            allSections={show?.sections || []}
-          />
-        </div>
-      ),
-    },
-  ];
+  // Format time
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
 
   return (
     <div
-      className="h-screen flex flex-col bg-black text-white overflow-hidden relative"
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
+      className="h-[100dvh] flex flex-col text-white overflow-hidden"
+      style={{
+        backgroundColor: isReady
+          ? `rgb(${Math.round(signal * 255)}, ${Math.round(signal * 255)}, ${Math.round(signal * 255)})`
+          : '#000',
+      }}
     >
-      {isDragOver && (
-        <div className="absolute inset-0 z-50 bg-black/80 flex items-center justify-center pointer-events-none">
-          <div className="border-2 border-dashed border-white/50 rounded-2xl p-12 text-center">
-            <div className="text-2xl font-bold mb-2">Drop audio file</div>
-            <div className="text-gray-400">MP3, WAV, M4A, FLAC, OGG</div>
+      {!isReady ? (
+        /* Song picker */
+        <div className="flex-1 flex items-center justify-center p-6">
+          <div className="w-full max-w-sm space-y-4">
+            <div className="text-center mb-6">
+              <h1 className="text-lg font-medium">LightFlow</h1>
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400">v3.2 · signal test</span>
+            </div>
+            <div className="text-[10px] text-gray-500 text-center mb-2 flex items-center justify-center gap-1">
+              <Volume2 size={11} />
+              audio will play
+            </div>
+            {PRESET_SONGS.map((song) => (
+              <button
+                key={song.slug}
+                onClick={() => loadPreset(song.slug, song.name)}
+                disabled={isLoading}
+                className="w-full flex items-center justify-between px-4 py-3 bg-gray-900 rounded-xl hover:bg-gray-800 active:bg-gray-700 transition-colors disabled:opacity-50"
+              >
+                <div className="text-sm font-medium text-left">{song.name}</div>
+                <Volume2 size={14} className="text-gray-500 shrink-0" />
+              </button>
+            ))}
+            {isLoading && (
+              <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
+                <div className="w-4 h-4 border-2 border-gray-600 border-t-white rounded-full animate-spin" />
+                Loading...
+              </div>
+            )}
           </div>
         </div>
+      ) : (
+        <>
+          {/* Top bar */}
+          <div className="px-3 pt-2 pb-1 shrink-0 flex items-center gap-3 z-10">
+            <button
+              onClick={goBack}
+              className="flex items-center justify-center w-7 h-7 rounded-full bg-black/40 hover:bg-black/60 text-white shrink-0"
+              title="Back to song list (⌘←)"
+            >
+              <ArrowLeft size={14} />
+            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <h1 className="text-sm font-medium">{songName}</h1>
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400">v3.2</span>
+            </div>
+            <div className="flex items-center justify-center gap-1 flex-1">
+              {STEMS.map((stem, i) => {
+                const level = stemLevels[stem] ?? 0;
+                const score = stemScores[stem] ?? 0;
+                const isActive = soloStem === stem || (dominantStem === stem && !soloStem);
+                const colorRgb = STEM_COLOR_RGB[stem];
+                return (
+                  <button
+                    key={stem}
+                    onPointerDown={() => setSoloStem(stem)}
+                    onPointerUp={() => setSoloStem(null)}
+                    onPointerLeave={() => setSoloStem(null)}
+                    className={`relative text-xs px-3 py-1.5 rounded-full select-none overflow-hidden min-w-[88px] font-medium border ${
+                      isActive
+                        ? `${STEM_COLORS[stem].active} border-white/30`
+                        : 'bg-black/60 border-white/10 text-white/90'
+                    }`}
+                  >
+                    {/* Live meter as background fill */}
+                    <div
+                      className="absolute inset-y-0 left-0 transition-none opacity-50"
+                      style={{
+                        width: `${Math.min(100, level * 100)}%`,
+                        backgroundColor: colorRgb,
+                      }}
+                    />
+                    <div className="relative flex items-center gap-1.5 justify-center">
+                      <span className="opacity-70">{i + 1}</span>
+                      <span className="uppercase tracking-wide">{stem}</span>
+                      <span className="font-mono opacity-80 text-[10px]">{(score * 100).toFixed(0)}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-[10px] text-gray-500 shrink-0">
+              {analysis.bpm?.toFixed(0)} BPM
+            </p>
+          </div>
+
+          <div className="flex-1 relative">
+            <GradientOverlay
+              signal={signal}
+              time={audioState.currentTime}
+              dominantStem={dominantStem}
+              enabled={gradientEnabled}
+            />
+            <div className="absolute bottom-0 left-0 right-0 h-1/4 opacity-20 pointer-events-none">
+              <SignalGraph signal={signal} dominant={dominantStem} time={audioState.currentTime} />
+            </div>
+          </div>
+
+          {/* Mode selector */}
+          <div className="px-3 pt-1 pb-1 shrink-0 z-10 flex items-center justify-center gap-2">
+            {[
+              { key: 'raw', label: 'Raw' },
+              { key: 'director', label: 'Director' },
+            ].map((m) => (
+              <button
+                key={m.key}
+                onClick={() => setModulator(m.key)}
+                className={`text-xs px-4 py-1.5 rounded-full whitespace-nowrap border font-medium transition-colors ${
+                  modulator === m.key
+                    ? 'bg-white text-black border-white'
+                    : 'bg-black/40 text-white/70 border-white/20 hover:bg-black/60'
+                }`}
+              >
+                {m.label}
+              </button>
+            ))}
+            <div className="w-px h-5 bg-white/20 mx-1" />
+            <button
+              onClick={() => setGradientEnabled(!gradientEnabled)}
+              className={`text-xs px-4 py-1.5 rounded-full whitespace-nowrap border font-medium transition-colors ${
+                gradientEnabled
+                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white border-white/50'
+                  : 'bg-black/40 text-white/70 border-white/20 hover:bg-black/60'
+              }`}
+            >
+              Gradient
+            </button>
+          </div>
+
+          {/* Bottom: scrubber + play */}
+          <div className="px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shrink-0 space-y-2 z-10">
+            <input
+              type="range"
+              min={0}
+              max={audioState.duration || 1}
+              step={0.1}
+              value={audioState.currentTime}
+              onChange={(e) => seek(parseFloat(e.target.value))}
+              className="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-white"
+            />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={audioState.isPlaying ? pause : play}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-black active:scale-95"
+              >
+                {audioState.isPlaying ? '⏸' : '▶'}
+              </button>
+              <span className="text-[10px] text-gray-500 font-mono">
+                {fmt(audioState.currentTime)} / {fmt(audioState.duration)}
+              </span>
+              <span className="text-[10px] text-gray-600 ml-auto font-mono">
+                {dominantStem} · {(signal * 100).toFixed(0)}% · hold {debugInfo.held.toFixed(1)}/{debugInfo.hold}b · e{(debugInfo.energy * 100).toFixed(0)}
+              </span>
+            </div>
+          </div>
+        </>
       )}
-
-      <main className="flex-1 overflow-hidden">
-        <Carousel items={carouselItems} />
-      </main>
-
-      <div className="px-8 pb-6 pt-2 shrink-0">
-        <BottomBar
-          audioState={audioState}
-          beatInfo={{ isBeat: false, bpm: null, confidence: 0, lastBeatTime: 0, timeSinceLastBeat: 9999 }}
-          isAnalyzing={isAnalyzing}
-          bpm={analysis?.bpm || null}
-          sectionLabel={sectionLabel}
-          onFileSelect={handleFileSelect}
-          onPlay={play}
-          onPause={pause}
-          onSeek={seek}
-          duration={audioState.duration}
-        />
-      </div>
     </div>
   );
 }

@@ -306,10 +306,11 @@ function SpectrographScene({
 }
 
 export function Screen3D({ stemSignals, stemPans, stemNovelty }: Screen3DProps) {
+  const fov = typeof window !== 'undefined' && window.innerWidth < 768 ? 95 : 75;
   return (
     <div className="absolute inset-0">
       <Canvas
-        camera={{ position: [0, 0.12, 2.5], fov: 75, near: 0.1, far: 200 }}
+        camera={{ position: [0, 0.12, 2.5], fov, near: 0.1, far: 200 }}
         dpr={[1, 2]}
         gl={{ alpha: true, premultipliedAlpha: false }}
         style={{ background: 'transparent' }}

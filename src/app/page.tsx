@@ -385,8 +385,8 @@ export default function Home() {
       }
     };
     // Defer to avoid catching the same click that opened it
-    const id = setTimeout(() => document.addEventListener('mousedown', handler), 0);
-    return () => { clearTimeout(id); document.removeEventListener('mousedown', handler); };
+    const id = setTimeout(() => document.addEventListener('pointerdown', handler), 0);
+    return () => { clearTimeout(id); document.removeEventListener('pointerdown', handler); };
   }, [settingsOpen]);
 
   // Scrubber pointer handling
@@ -572,7 +572,7 @@ export default function Home() {
               onClick={() => setSongMenuOpen(false)}
             >
               <div
-                className="w-96 ml-3 mb-3 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl py-3 overflow-hidden flex flex-col"
+                className="w-[88vw] max-w-96 md:w-96 ml-3 mb-3 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl py-3 overflow-hidden flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between px-4 pb-2 mb-1 border-b border-white/10 shrink-0">
@@ -718,18 +718,18 @@ export default function Home() {
           {!uiHidden && (
           <>
           {/* Top bar */}
-          <div className="px-3 pt-2 pb-1 shrink-0 flex items-center gap-3 z-10 relative">
+          <div className="px-3 pt-[max(0.5rem,env(safe-area-inset-top))] pb-1 shrink-0 flex items-center gap-3 z-10 relative">
             <button
               onClick={() => setSongMenuOpen(v => !v)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white border border-white/10 shrink-0"
+              className="flex items-center gap-2 px-3 py-2 md:py-1.5 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white border border-white/10 shrink-0 min-w-0 max-w-[70vw] md:max-w-none"
               title="Browse songs (⌘←)"
             >
-              <Menu size={14} className="opacity-70" />
-              <h1 className="text-sm font-medium">{songName}</h1>
-              <span className="text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400">v3.2</span>
+              <Menu size={14} className="opacity-70 shrink-0" />
+              <h1 className="text-sm font-medium truncate">{songName}</h1>
+              <span className="hidden md:inline text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400 shrink-0">v3.2</span>
             </button>
             <div className="flex-1" />
-            <div className="flex items-center gap-3 shrink-0 font-mono">
+            <div className="hidden md:flex items-center gap-3 shrink-0 font-mono">
               <span className="text-[10px] text-white/50">
                 {dominantStem} · {(signal * 100).toFixed(0)}% · hold {debugInfo.held.toFixed(1)}/{debugInfo.hold}b · e{(debugInfo.energy * 100).toFixed(0)}
               </span>
@@ -819,15 +819,15 @@ export default function Home() {
           </div>
 
           {/* Independent layer toggles */}
-          <div className="px-3 pt-2 pb-2 shrink-0 relative z-10 flex items-center justify-between gap-2">
+          <div className="px-3 pt-2 pb-2 shrink-0 relative z-10 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
             <button
               onClick={audioState.isPlaying ? pause : play}
-              className="px-4 py-1.5 rounded-full whitespace-nowrap border border-white/30 bg-white/10 hover:bg-white/15 text-white font-semibold transition-colors flex items-center gap-2 shrink-0"
+              className="px-4 py-2 md:py-1.5 min-h-11 md:min-h-0 rounded-full whitespace-nowrap border border-white/30 bg-white/10 hover:bg-white/15 active:bg-white/20 text-white font-semibold transition-colors flex items-center gap-2 shrink-0"
             >
               <span className="text-lg leading-none">{audioState.isPlaying ? '⏸' : '▶'}</span>
-              <span className="text-[10px] uppercase tracking-widest opacity-60">Space</span>
+              <span className="hidden md:inline text-[10px] uppercase tracking-widest opacity-60">Space</span>
             </button>
-            <div className="flex items-center justify-center gap-2 flex-1">
+            <div className="flex items-center justify-center gap-2 flex-1 order-3 md:order-none w-full md:w-auto flex-wrap md:flex-nowrap">
             {/* Track focus (stems) */}
             {STEMS.map((stem, i) => {
               const level = stemLevels[stem] ?? 0;
@@ -840,7 +840,7 @@ export default function Home() {
                   onPointerDown={() => setSoloStem(stem)}
                   onPointerUp={() => setSoloStem(null)}
                   onPointerLeave={() => setSoloStem(null)}
-                  className={`relative text-xs px-3 py-1.5 rounded-full select-none overflow-hidden w-[96px] font-medium ${
+                  className={`relative text-xs px-3 py-2.5 md:py-1.5 min-h-11 md:min-h-0 rounded-full select-none overflow-hidden flex-1 min-w-[60px] md:flex-none md:w-[96px] font-medium active:bg-white/10 ${
                     isActive
                       ? 'border-2 bg-white/5 text-white'
                       : 'border border-white/10 bg-black/60 text-white/60'
@@ -861,7 +861,7 @@ export default function Home() {
                 </button>
               );
             })}
-            <div className="w-px h-6 bg-white/15 mx-3" />
+            <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
             {/* Director sub-choices: auto unless user pins one */}
             {(() => {
               const FX_HINT = keyMap === 'pro' ? ['H','J','K','L'] : [null,null,null,null];
@@ -915,7 +915,7 @@ export default function Home() {
                       <button
                         key={m.key}
                         onClick={() => setPinnedMod(isPinned ? null : m.key)}
-                        className={`text-xs px-3 py-1.5 min-w-[88px] rounded-full uppercase tracking-wide font-medium transition-colors ${
+                        className={`text-xs px-3 py-2.5 md:py-1.5 min-h-11 md:min-h-0 flex-1 md:flex-none min-w-[60px] md:min-w-[88px] rounded-full uppercase tracking-wide font-medium transition-colors active:bg-white/10 ${
                           isPinned || isAuto
                             ? 'border-2 bg-white/5 text-white'
                             : 'border border-white/10 bg-black/60 text-white/60'
@@ -932,10 +932,10 @@ export default function Home() {
                 </div>
               );
             })()}
-            <div className="w-px h-6 bg-white/15 mx-3" />
+            <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
             <button
               onClick={() => setSpectroOn(v => !v)}
-              className={`text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
+              className={`text-xs px-4 py-2.5 md:py-2 min-h-11 md:min-h-0 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
                 spectroOn
                   ? 'bg-transparent text-amber-300 border-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
                   : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
@@ -946,7 +946,7 @@ export default function Home() {
             </div>
             <button
               onClick={() => setUiHidden(true)}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/70 hover:text-white border border-white/10 shrink-0"
+              className="w-11 h-11 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10 shrink-0"
               title="Hide controls"
             >
               <EyeOff size={14} />
@@ -955,13 +955,13 @@ export default function Home() {
             <div className="relative shrink-0" ref={settingsRef}>
               <button
                 onClick={() => setSettingsOpen(v => !v)}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white/70 hover:text-white border border-white/10"
+                className="w-11 h-11 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10"
                 title="Settings"
               >
                 <Settings size={14} />
               </button>
               {settingsOpen && (
-                <div className="absolute bottom-full right-0 mb-3 w-80 p-5 rounded-xl border border-white/20 bg-neutral-950/95 backdrop-blur space-y-5 shadow-2xl z-50">
+                <div className="absolute bottom-full right-0 mb-3 w-[90vw] max-w-80 md:w-80 p-5 rounded-xl border border-white/20 bg-neutral-950/95 backdrop-blur space-y-5 shadow-2xl z-50">
                   <div className="text-xs uppercase tracking-[0.2em] text-white/50 font-semibold pb-1 border-b border-white/10">
                     Settings
                   </div>

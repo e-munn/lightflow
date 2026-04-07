@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 venv/
 .venv/
+.venv*/
 
 # Environment
 .env
@@ -45,8 +46,8 @@ runs/
 eval_results/
 
 # Whitelist: webapp preset audio (needs to ship with the UI)
-!v3/webapp/public/songs/*.mp3
-!v3/webapp/public/songs/*.json
+!public/songs/*.mp3
+!public/songs/*.json
 
 # TouchDesigner (binary)
 *.toe
@@ -63,7 +64,7 @@ hue_bridge.json
 .vercel
 *.pem
 
-# v3 generated artifacts (large)
-v3/synthetic/
-v3/real_songs/
-v3/.cache/
+# Archived python artifacts
+archive/v3-python/synthetic/
+archive/v3-python/real_songs/
+archive/v3-python/.cache/

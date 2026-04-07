@@ -7,18 +7,19 @@ interface SignalGraphProps {
   signal: number;        // 0-1 current value
   dominant: string;      // current dominant stem
   time: number;          // current playback time (for forcing updates)
-  windowSeconds?: number; // how many seconds of history to show
+  duration?: number;     // total song duration (if provided, render whole song)
+  windowSeconds?: number; // fallback rolling-window size
 }
 
 const STEM_COLORS: Record<string, string> = {
-  bass: '#f59e0b',
-  kick: '#ef4444',
-  snare: '#3b82f6',
-  hat: '#a855f7',
+  bass:  '#166534',
+  kick:  '#22c55e',
+  snare: '#a3e635',
+  hat:   '#facc15',
   other: '#6b7280',
 };
 
-const MAX_POINTS = 300;
+const MAX_POINTS = 20000;
 
 interface DataPoint {
   time: number;
@@ -29,18 +30,25 @@ interface DataPoint {
 // Persistent buffer outside React render cycle
 const buffer: DataPoint[] = [];
 let frameCount = 0;
+let lastPushTime = 0;
 
 export function resetSignalGraph(): void {
   buffer.length = 0;
   frameCount = 0;
+  lastPushTime = 0;
 }
 
-export function SignalGraph({ signal, dominant, time, windowSeconds = 5 }: SignalGraphProps) {
+export function SignalGraph({ signal, dominant, time, duration, windowSeconds = 5 }: SignalGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Push data point — depends on time so it fires every frame even when signal=0
+  // Push data point — depends on time so it fires every frame even when signal=0.
+  // Detect time jumps (scrub) and flush buffer to avoid stale connecting lines.
   useEffect(() => {
+    if (Math.abs(time - lastPushTime) > 0.25) {
+      buffer.length = 0;
+    }
+    lastPushTime = time;
     buffer.push({ time, value: signal, stem: dominant });
     if (buffer.length > MAX_POINTS) buffer.shift();
   }, [time, signal, dominant]);
@@ -61,10 +69,10 @@ export function SignalGraph({ signal, dominant, time, windowSeconds = 5 }: Signa
     svg.setAttribute('height', String(height));
 
     const data = buffer;
-    const tMax = time;
-    const tMin = tMax - windowSeconds;
+    const tMin = duration && duration > 0 ? 0 : time - windowSeconds;
+    const tMax = duration && duration > 0 ? duration : time;
 
-    const visible = data.filter(d => d.time >= tMin);
+    const visible = duration && duration > 0 ? data : data.filter(d => d.time >= tMin);
     if (visible.length < 2) return;
 
     const x = d3.scaleLinear()

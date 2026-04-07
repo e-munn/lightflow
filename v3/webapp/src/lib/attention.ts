@@ -22,31 +22,71 @@ const STEMS = ['bass', 'kick', 'snare', 'hat', 'other'] as const;
  *    Re-triggers update the peak value but don't restart the shape.
  *    This produces clean, musical envelopes regardless of signal noise.
  */
-type GateStyle = 'follower' | 'triggered';
+/**
+ * Stem profile = how an instrument's envelope should feel.
+ *
+ * Two layers:
+ *  1. Audio tracker — a peak follower with stem-specific attack/release time
+ *     constants. The visual brightness FOLLOWS the actual audio energy curve,
+ *     denoised by the filter. This gives natural rise/fall.
+ *  2. Character shape — on rising-edge events, a synthetic curve is overlaid
+ *     that has the characteristic SHAPE of that instrument (exp decay for kick,
+ *     square for hat, plateau for bass, transient+tail for snare, sigmoid for
+ *     pad). The output is max(tracker, shapeOverlay).
+ */
+type ShapeKind = 'exp' | 'plateau' | 'square' | 'transient_tail' | 'sigmoid';
 
-interface Gate {
-  style: GateStyle;
-  threshold: number;
-  // Triggered envelope parameters
-  attackBeats: number;   // smooth ramp from 0 to peak
-  holdBeats: number;     // brief plateau at peak
-  decayBeats: number;    // smooth ramp from peak back to 0
-  // Curve shaping (1.0 = linear, >1 = ease-out, <1 = ease-in)
-  decayCurve: number;
+interface StemProfile {
+  threshold: number;       // for trigger detection
+  attackTau: number;       // tracker attack time constant (seconds)
+  releaseTau: number;      // tracker release time constant (seconds)
+  shapeKind: ShapeKind;    // character shape on triggers
+  shapeBeats: number;      // shape duration in beats
+  shapeWeight: number;     // 0..1 — how prominent the shape overlay is
 }
 
-const GATES: Record<string, Gate> = {
-  // Bass: smooth musical envelope on each event — longer attack + decay for fluid feel
-  bass:  { style: 'triggered', threshold: 0.30, attackBeats: 1/4,  holdBeats: 0,    decayBeats: 1,    decayCurve: 2.0 },
-  // Kick: punchy triggered envelope
-  kick:  { style: 'triggered', threshold: 0.35, attackBeats: 1/32, holdBeats: 1/32, decayBeats: 1/4,  decayCurve: 3.0 },
-  // Snare: similar to kick
-  snare: { style: 'triggered', threshold: 0.30, attackBeats: 1/32, holdBeats: 1/32, decayBeats: 1/4,  decayCurve: 2.5 },
-  // Hat: very short triggered envelope
-  hat:   { style: 'triggered', threshold: 0.18, attackBeats: 1/64, holdBeats: 0,    decayBeats: 1/8,  decayCurve: 2.0 },
-  // Other: still uses follower style — sustained content needs to track raw
-  other: { style: 'follower',  threshold: 0.30, attackBeats: 1/12, holdBeats: 1/8,  decayBeats: 1/16, decayCurve: 1.0 },
+const PROFILES: Record<string, StemProfile> = {
+  // Kick: instant attack, exponential decay tail (real drum behavior)
+  kick:  { threshold: 0.35, attackTau: 0.005, releaseTau: 0.18, shapeKind: 'exp',            shapeBeats: 0.7, shapeWeight: 0.85 },
+  // Snare: sharp transient + slower noisy tail
+  snare: { threshold: 0.30, attackTau: 0.005, releaseTau: 0.22, shapeKind: 'transient_tail', shapeBeats: 0.8, shapeWeight: 0.85 },
+  // Hat: near-binary clicks
+  hat:   { threshold: 0.18, attackTau: 0.002, releaseTau: 0.05, shapeKind: 'square',         shapeBeats: 0.18, shapeWeight: 0.9 },
+  // Bass: slow attack, plateau, slow release — sustain naturally
+  bass:  { threshold: 0.28, attackTau: 0.04,  releaseTau: 0.4,  shapeKind: 'plateau',        shapeBeats: 2.0, shapeWeight: 0.6 },
+  // Other: smooth pad — slow rise and fall via sigmoid
+  other: { threshold: 0.28, attackTau: 0.08,  releaseTau: 0.5,  shapeKind: 'sigmoid',        shapeBeats: 1.5, shapeWeight: 0.5 },
 };
+
+// Compute character shape value at normalized phase (0 = trigger, 1 = end)
+function shapeValue(kind: ShapeKind, t: number): number {
+  if (t < 0 || t > 1) return 0;
+  switch (kind) {
+    case 'exp':
+      // Sharp rise then exponential fall: 1 at t=0, decays fast
+      return Math.exp(-t * 4.5);
+    case 'transient_tail': {
+      // Two-stage: very fast spike + slower noise tail
+      const transient = Math.exp(-t * 12);     // sharp peak
+      const tail = Math.exp(-t * 2.5) * 0.5;   // slower body
+      return Math.min(1, transient + tail);
+    }
+    case 'square':
+      // On for first 60% of duration, off after
+      return t < 0.6 ? 1 : 0;
+    case 'plateau': {
+      // Quick rise → plateau → quick fall
+      if (t < 0.15) return t / 0.15;
+      if (t > 0.85) return (1 - t) / 0.15;
+      return 1;
+    }
+    case 'sigmoid': {
+      // Smooth S-curve up and down: peak at center
+      const x = t < 0.5 ? t * 2 : (1 - t) * 2;
+      return x * x * (3 - 2 * x); // smoothstep
+    }
+  }
+}
 
 const PRIORITY: Record<string, number> = {
   bass: 1.4,
@@ -56,27 +96,30 @@ const PRIORITY: Record<string, number> = {
   other: 0.5,
 };
 
-// --- Gate state ---
-type GatePhase = 'closed' | 'attack' | 'open' | 'hold' | 'release';
-
 // --- State ---
 let currentDominant = 'bass';
 let beatsHeld = 0;
 let avgEnergy: Record<string, number> = {};
 let avgVariance: Record<string, number> = {};
 let initialized = false;
-let silentFrames = 0;        // count of consecutive near-silent frames
+let silentFrames = 0;
 
-// Gate envelope state (one shared, follows current dominant)
-let gateValue = 0;             // 0-1 current envelope output
-let gatePhase: GatePhase = 'closed';
-let gateHoldRemaining = 0;     // beats remaining in hold phase
-
-// Triggered envelope state
-let trigPeak = 0;              // captured peak value at trigger
-let trigBeatsElapsed = 0;      // beats since trigger fired
-let trigPhase: 'idle' | 'attack' | 'hold' | 'decay' = 'idle';
-let trigPrevInput = 0;         // for rising-edge detection
+// Main dominant-stem follower state (audio tracker for the channel-1 signal)
+interface FollowerState {
+  trackerValue: number;     // smoothed audio tracker
+  prevInput: number;        // for rising-edge detection
+  shapeBeatsElapsed: number;
+  shapePeak: number;
+  shapeActive: boolean;
+}
+const mainFollower: FollowerState = {
+  trackerValue: 0,
+  prevInput: 0,
+  shapeBeatsElapsed: 0,
+  shapePeak: 0,
+  shapeActive: false,
+};
+let gateValue = 0;
 
 // --- Channel 2: accent envelope ---
 const ACCENT_STEMS = ['kick', 'snare', 'hat'] as const;
@@ -87,23 +130,74 @@ let accentBeatsElapsed = 0;
 let accentPhase: 'idle' | 'attack' | 'decay' = 'idle';
 let accentPrevMax = 0;
 
-// --- Per-stem parallel gate envelopes ---
-// Each stem runs its own triggered envelope alongside the dominant gate.
-// Used by the spectrograph scene to show all instruments simultaneously.
-interface PerStemGateState {
-  value: number;
-  peak: number;
-  beatsElapsed: number;
-  phase: 'idle' | 'attack' | 'hold' | 'decay';
-  prevInput: number;
-}
-const perStemGates: Record<string, PerStemGateState> = {};
+// --- Per-stem parallel followers ---
+// Each stem runs its own audio tracker + character shape state, used by
+// the spectrograph scene to show all instruments simultaneously.
+const perStemFollowers: Record<string, FollowerState> = {};
 
 // Hold range in beats
 const MAX_HOLD_BEATS = 16;   // 4 bars — intros, low energy
-const MIN_HOLD_BEATS = 1;    // 1/4 bar — drops, high energy
-const TAKEOVER_RATIO = 1.8;
+const MIN_HOLD_BEATS = 2;    // 1/2 bar — drops, high energy
+const TAKEOVER_RATIO = 2.1;
 const ONSET_OVERRIDE = 0.7;
+
+/**
+ * Run one frame of the stem profile processing.
+ * Layer 1: peak follower with stem-specific time constants.
+ * Layer 2: character shape overlaid on rising-edge events.
+ * Output is max of the two so the shape can punch above the tracker.
+ */
+function processProfile(
+  state: FollowerState,
+  rawInput: number,
+  dt: number,
+  beatsThisFrame: number,
+  profile: StemProfile,
+): number {
+  // Layer 1: stem-aware peak follower (asymmetric rise/fall time constants)
+  const tau = rawInput > state.trackerValue ? profile.attackTau : profile.releaseTau;
+  const alpha = 1 - Math.exp(-dt / Math.max(tau, 0.001));
+  state.trackerValue += alpha * (rawInput - state.trackerValue);
+  if (state.trackerValue < 0) state.trackerValue = 0;
+
+  // Layer 2: character shape — fire on rising edge through threshold
+  const aboveNow = rawInput > profile.threshold;
+  const aboveBefore = state.prevInput > profile.threshold;
+  const risingEdge = aboveNow && !aboveBefore;
+
+  if (risingEdge) {
+    state.shapeBeatsElapsed = 0;
+    state.shapePeak = Math.max(rawInput, state.shapePeak * 0.6);
+    state.shapeActive = true;
+  } else if (aboveNow && rawInput > state.shapePeak) {
+    state.shapePeak = rawInput;
+  }
+
+  let shapeContribution = 0;
+  if (state.shapeActive) {
+    state.shapeBeatsElapsed += beatsThisFrame;
+    const t = state.shapeBeatsElapsed / Math.max(profile.shapeBeats, 1e-6);
+    if (t >= 1) {
+      state.shapeActive = false;
+    } else {
+      shapeContribution = shapeValue(profile.shapeKind, t) * state.shapePeak * profile.shapeWeight;
+    }
+  }
+
+  state.prevInput = rawInput;
+  // Combine: tracker is the base, shape can punch above it
+  return Math.min(1, Math.max(state.trackerValue, shapeContribution));
+}
+
+function makeFollower(): FollowerState {
+  return {
+    trackerValue: 0,
+    prevInput: 0,
+    shapeBeatsElapsed: 0,
+    shapePeak: 0,
+    shapeActive: false,
+  };
+}
 
 // Energy window for scoring (seconds)
 const AVG_TAU = 1.5;
@@ -119,19 +213,19 @@ export function resetAttention(): void {
   prevFrameEnergy = {};
   initialized = false;
   gateValue = 0;
-  gatePhase = 'closed';
-  gateHoldRemaining = 0;
-  trigPeak = 0;
-  trigBeatsElapsed = 0;
-  trigPhase = 'idle';
-  trigPrevInput = 0;
+  // Reset main follower
+  mainFollower.trackerValue = 0;
+  mainFollower.prevInput = 0;
+  mainFollower.shapeBeatsElapsed = 0;
+  mainFollower.shapePeak = 0;
+  mainFollower.shapeActive = false;
   accentValue = 0;
   accentStem = 'kick';
   accentBeatsElapsed = 0;
   accentPhase = 'idle';
   accentPrevMax = 0;
   for (const s of STEMS) {
-    perStemGates[s] = { value: 0, peak: 0, beatsElapsed: 0, phase: 'idle', prevInput: 0 };
+    perStemFollowers[s] = makeFollower();
   }
 }
 
@@ -203,14 +297,23 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   // Overall energy level (0-1 range, average across stems)
   const overallEnergy = Math.min(1, totalEnergy / STEMS.length * 2);
 
+  // Bass spectral richness: full-spectrum bass synths (gritty/distorted) have
+  // mid-range centroids (~1500-4000 Hz). Pure sub-bass has centroids ~500 Hz.
+  // We want full-spectrum bass to dominate attention more strongly than clean
+  // sub-bass at the same amplitude.
+  const centroid = frame.centroid ?? 1000;
+  const bassRichness = centroid > 1500
+    ? 1.0 + Math.min(1.0, (centroid - 1500) / 2500) * 0.8 // up to 1.8x
+    : 1.0;
+
   // 3. Score stems by avg energy × priority + rhythmic variance bonus
   // Variance bonus rewards pulsing/rhythmic stems over flatlined sustained ones
+  // Bass also gets a spectral richness boost
   const scores: Record<string, number> = {};
   for (const s of STEMS) {
-    const baseScore = avgEnergy[s] * (PRIORITY[s] ?? 1.0);
-    // Variance bonus: a pulsing stem with mid energy beats a flat sustained one
-    // Multiplied by avg energy so silent stems don't get false credit
-    const varianceBonus = avgVariance[s] * 8.0 * Math.min(1, avgEnergy[s] * 2);
+    let baseScore = avgEnergy[s] * (PRIORITY[s] ?? 1.0);
+    if (s === 'bass') baseScore *= bassRichness;
+    const varianceBonus = avgVariance[s] * 5.0 * Math.min(1, avgEnergy[s] * 2);
     scores[s] = baseScore + varianceBonus;
   }
 
@@ -240,187 +343,37 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
     if (onsetOverride) {
       currentDominant = bestStem;
       beatsHeld = 0;
-      gatePhase = 'closed';
-      trigPhase = 'idle';
+      // Reset main follower so the new stem's profile starts clean
+      mainFollower.trackerValue = 0;
+      mainFollower.shapeActive = false;
+      mainFollower.prevInput = 0;
     } else if (beatsHeld >= requiredHold && bestScore > currentScore * TAKEOVER_RATIO) {
       currentDominant = bestStem;
       beatsHeld = 0;
-      gatePhase = 'closed';
-      trigPhase = 'idle';
+      mainFollower.trackerValue = 0;
+      mainFollower.shapeActive = false;
+      mainFollower.prevInput = 0;
     }
   }
 
-  // 8. Gate envelope — dispatch to follower or triggered style
-  const gate = GATES[currentDominant] ?? GATES.bass;
+  // 8. Run the dominant stem's profile (audio tracker + character shape)
+  const profile = PROFILES[currentDominant] ?? PROFILES.bass;
   const rawInput = stems[currentDominant] ?? 0;
-  const beatSec = 60 / bpm;
+  gateValue = processProfile(mainFollower, rawInput, dt, beatsThisFrame, profile);
 
-  if (gate.style === 'triggered') {
-    // --- TRIGGERED ENVELOPE ---
-    // Each rising-edge above threshold fires a smooth pre-shaped envelope.
-    // The envelope plays out independently of raw input wiggles.
-    const aboveThreshold = rawInput > gate.threshold;
-    const risingEdge = aboveThreshold && trigPrevInput <= gate.threshold;
-
-    // Trigger or re-trigger
-    if (risingEdge) {
-      // Capture peak — use the input value (or higher if a re-trigger arrives at higher peak)
-      trigPeak = Math.max(rawInput, trigPhase !== 'idle' ? trigPeak * 0.7 : 0);
-      trigBeatsElapsed = 0;
-      trigPhase = 'attack';
-    }
-    // Allow re-trigger to update peak even mid-envelope
-    if (aboveThreshold && rawInput > trigPeak) {
-      trigPeak = rawInput;
-    }
-
-    // Advance envelope time
-    trigBeatsElapsed += beatsThisFrame;
-
-    // Render the envelope shape
-    let envValue = 0;
-    if (trigPhase === 'attack') {
-      const t = trigBeatsElapsed / Math.max(gate.attackBeats, 1e-6);
-      if (t >= 1) {
-        envValue = trigPeak;
-        trigPhase = 'hold';
-        trigBeatsElapsed = 0;
-      } else {
-        // Ease-out curve for smoother attack
-        envValue = trigPeak * (1 - Math.pow(1 - t, 2));
-      }
-    } else if (trigPhase === 'hold') {
-      const t = trigBeatsElapsed / Math.max(gate.holdBeats, 1e-6);
-      if (gate.holdBeats === 0 || t >= 1) {
-        envValue = trigPeak;
-        trigPhase = 'decay';
-        trigBeatsElapsed = 0;
-      } else {
-        envValue = trigPeak;
-      }
-    } else if (trigPhase === 'decay') {
-      const t = Math.min(1, trigBeatsElapsed / Math.max(gate.decayBeats, 1e-6));
-      // Curve shape: t=0 → 1, t=1 → 0
-      // decayCurve > 1 = ease-out (long tail), < 1 = ease-in (steep)
-      const shape = Math.pow(1 - t, gate.decayCurve);
-      envValue = trigPeak * shape;
-      if (t >= 1) {
-        trigPhase = 'idle';
-        envValue = 0;
-      }
-    }
-
-    gateValue = envValue;
-    trigPrevInput = rawInput;
-  } else {
-    // --- FOLLOWER (legacy) ---
-    const aboveThreshold = rawInput > gate.threshold;
-    if (aboveThreshold) {
-      if (gatePhase === 'closed' || gatePhase === 'release') {
-        gatePhase = 'attack';
-      } else if (gatePhase === 'hold') {
-        gatePhase = 'open';
-      }
-    } else {
-      if (gatePhase === 'attack' || gatePhase === 'open') {
-        gatePhase = 'hold';
-        gateHoldRemaining = gate.holdBeats;
-      }
-    }
-    if (gatePhase === 'hold') {
-      gateHoldRemaining -= beatsThisFrame;
-      if (gateHoldRemaining <= 0) gatePhase = 'release';
-    }
-    if (gatePhase === 'attack') {
-      const tau = Math.max(gate.attackBeats * beatSec, 0.001);
-      const alpha = 1 - Math.exp(-dt / tau);
-      gateValue += alpha * (rawInput - gateValue);
-      if (gateValue >= rawInput - 0.01) gatePhase = 'open';
-    } else if (gatePhase === 'open') {
-      if (rawInput > gateValue) {
-        const riseTau = Math.max(gate.attackBeats * beatSec, 0.001);
-        const alpha = 1 - Math.exp(-dt / riseTau);
-        gateValue += alpha * (rawInput - gateValue);
-      } else {
-        const leakTau = Math.max(0.25 * beatSec, 0.001);
-        const alpha = 1 - Math.exp(-dt / leakTau);
-        gateValue += alpha * (rawInput - gateValue);
-      }
-    } else if (gatePhase === 'release') {
-      const tau = Math.max(gate.decayBeats * beatSec, 0.001);
-      const alpha = 1 - Math.exp(-dt / tau);
-      gateValue += alpha * (0 - gateValue);
-      if (gateValue < 0.01) {
-        gateValue = 0;
-        gatePhase = 'closed';
-      }
-    }
-  }
-
-  // Reset gate when dominant switches
-  // (handled implicitly: gate value carries over but next frame's threshold check
-  //  with new stem's gate config will trigger appropriate phase)
-
-  // --- Per-stem parallel gates ---
-  // Run a triggered envelope for every stem in parallel.
-  // Each uses its own GATES config (or follower for 'other').
+  // --- Per-stem parallel followers ---
+  // Each stem runs its own audio tracker + character shape, used by the
+  // spectrograph scene to show all instruments simultaneously.
   const stemSignals: Record<string, number> = {};
   for (const s of STEMS) {
-    if (!perStemGates[s]) {
-      perStemGates[s] = { value: 0, peak: 0, beatsElapsed: 0, phase: 'idle', prevInput: 0 };
+    if (!perStemFollowers[s]) {
+      perStemFollowers[s] = makeFollower();
     }
-    const ps = perStemGates[s];
-    const psGate = GATES[s] ?? GATES.bass;
+    const psProfile = PROFILES[s] ?? PROFILES.bass;
     const psInput = stems[s] ?? 0;
-
-    if (psGate.style === 'triggered') {
-      const aboveThreshold = psInput > psGate.threshold;
-      const risingEdge = aboveThreshold && ps.prevInput <= psGate.threshold;
-
-      if (risingEdge) {
-        ps.peak = Math.max(psInput, ps.phase !== 'idle' ? ps.peak * 0.7 : 0);
-        ps.beatsElapsed = 0;
-        ps.phase = 'attack';
-      }
-      if (aboveThreshold && psInput > ps.peak) ps.peak = psInput;
-      ps.beatsElapsed += beatsThisFrame;
-
-      if (ps.phase === 'attack') {
-        const ph = ps.beatsElapsed / Math.max(psGate.attackBeats, 1e-6);
-        if (ph >= 1) {
-          ps.value = ps.peak;
-          ps.phase = 'hold';
-          ps.beatsElapsed = 0;
-        } else {
-          ps.value = ps.peak * (1 - Math.pow(1 - ph, 2));
-        }
-      } else if (ps.phase === 'hold') {
-        const ph = ps.beatsElapsed / Math.max(psGate.holdBeats, 1e-6);
-        if (psGate.holdBeats === 0 || ph >= 1) {
-          ps.value = ps.peak;
-          ps.phase = 'decay';
-          ps.beatsElapsed = 0;
-        } else {
-          ps.value = ps.peak;
-        }
-      } else if (ps.phase === 'decay') {
-        const ph = Math.min(1, ps.beatsElapsed / Math.max(psGate.decayBeats, 1e-6));
-        ps.value = ps.peak * Math.pow(1 - ph, psGate.decayCurve);
-        if (ph >= 1) {
-          ps.phase = 'idle';
-          ps.value = 0;
-        }
-      }
-      ps.prevInput = psInput;
-    } else {
-      // Follower style (other): smooth peak track
-      const target = psInput > psGate.threshold ? psInput : 0;
-      const tau = (target > ps.value ? psGate.attackBeats : psGate.decayBeats) * beatSec;
-      const a = 1 - Math.exp(-dt / Math.max(tau, 1e-6));
-      ps.value += a * (target - ps.value);
-    }
-
-    stemSignals[s] = Math.min(1, ps.value);
+    let psOut = processProfile(perStemFollowers[s], psInput, dt, beatsThisFrame, psProfile);
+    if (s === 'bass') psOut *= bassRichness;
+    stemSignals[s] = Math.min(1, psOut);
   }
 
   // --- Channel 2: accent envelope from strongest onset ---

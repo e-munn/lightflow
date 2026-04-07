@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+/* Suppress default focus rings on buttons — keyboard shortcuts handle navigation */
+button:focus { outline: none; }
+button:focus-visible { outline: none; }
+
+@keyframes spectroDrift {
+  0%   { background-position:   0%   0%,  100%   0%,  100% 100%,    0% 100%,   50%  50%, 0 0; }
+  25%  { background-position:  20%  30%,   80%  20%,   75%  85%,   15%  90%,   55%  45%, 0 0; }
+  50%  { background-position:  40%  20%,   60%  40%,   60%  70%,   30%  80%,   45%  55%, 0 0; }
+  75%  { background-position:  20%  10%,   80%  35%,   80%  80%,   10%  70%,   50%  50%, 0 0; }
+  100% { background-position:   0%   0%,  100%   0%,  100% 100%,    0% 100%,   50%  50%, 0 0; }
+}
+
+.spectro-gradient {
+  background-size: 80% 80%, 80% 80%, 80% 80%, 80% 80%, 100% 100%, 100% 100%;
+  animation: spectroDrift 24s ease-in-out infinite;
+}

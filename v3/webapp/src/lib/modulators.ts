@@ -16,12 +16,18 @@ export interface ModulatorContext {
   barPhase: number;     // 0-1 within 4-beat bar
   bpm: number;
   dt: number;           // delta time since last frame
+  // Optional musical context for character-aware modulators
+  dominantStem?: string;  // current focal stem (bass/kick/snare/hat/other)
+  centroid?: number;      // spectral centroid in Hz (for "full spectrum" detection)
 }
 
 export type Modulator = (ctx: ModulatorContext) => number;
 
 // --- Identity (raw single channel) ---
 export const raw: Modulator = (ctx) => ctx.signal;
+
+// --- Blackout ---
+export const blackout: Modulator = () => 0;
 
 // --- Beat strobe (gated switch) ---
 // When signal crosses high threshold, strobe is ON (full intensity, beat-synced).
@@ -90,10 +96,13 @@ export const sawtooth: Modulator = (ctx) => {
 // --- Half-bar pulse ---
 // Long pulses, two per bar
 export const halfBarPulse: Modulator = (ctx) => {
-  if (ctx.signal < 0.2) return ctx.signal;
-  const phase = (ctx.barPhase * 2) % 1; // two pulses per bar
-  const env = Math.pow(1 - phase, 2); // square decay
-  return ctx.signal * env;
+  // Always pulse on quarter notes (4 per bar) — this is the universal musical
+  // grid for ~all 4/4 popular music, so the pulse aligns with the listener's
+  // expected beat regardless of the section's energy.
+  const phase = ctx.beatPhase;             // already 0-1 within current beat
+  const env = Math.pow(1 - phase, 2);      // square decay
+  const amp = 0.8 + ctx.signal * 0.2;      // tiny signal bias
+  return env * amp;
 };
 
 // --- Sine wobble ---
@@ -111,58 +120,83 @@ export const sineWobble: Modulator = (ctx) => {
 // Raw is the default ~80% of the time.
 
 interface DirectorState {
-  currentMod: 'raw' | 'beatStrobe' | 'halfBarPulse' | 'sineWobble';
+  currentMod: 'raw' | 'beatStrobe' | 'halfBarPulse';
   endsAtTime: number;
   signalHistory: number[];      // recent signal values for character analysis
+  centroidHistory: number[];    // recent centroid values for adaptive threshold
   prevSignal: number;
+  recentStrobeBeats: number;    // strobe beats spent in the last ~16-beat window
+  lastChoiceTime: number;
 }
 
 let _directorState: DirectorState = {
   currentMod: 'raw',
   endsAtTime: 0,
   signalHistory: [],
+  centroidHistory: [],
   prevSignal: 0,
+  recentStrobeBeats: 0,
+  lastChoiceTime: 0,
 };
 
+export function getDirectorChoice(): DirectorState['currentMod'] {
+  return _directorState.currentMod;
+}
+
 export function resetDirector() {
-  _directorState = { currentMod: 'raw', endsAtTime: 0, signalHistory: [], prevSignal: 0 };
+  _directorState = {
+    currentMod: 'raw',
+    endsAtTime: 0,
+    signalHistory: [],
+    centroidHistory: [],
+    prevSignal: 0,
+    recentStrobeBeats: 0,
+    lastChoiceTime: 0,
+  };
 }
 
 // Each frame, when current mod expires, choose next based on character
 function chooseNextMod(ctx: ModulatorContext, state: DirectorState): { mod: DirectorState['currentMod']; durationBeats: number } {
   const sig = ctx.signal;
 
-  // Compute character from history
   const hist = state.signalHistory;
   const mean = hist.length ? hist.reduce((a, b) => a + b, 0) / hist.length : sig;
   const variance = hist.length
     ? hist.reduce((sum, v) => sum + Math.abs(v - mean), 0) / hist.length
     : 0;
 
-  // Detect a sharp rising edge — current signal much higher than recent average
-  const risingEdge = sig > mean + 0.25 && sig > 0.5;
+  // Sustained heavy-bass-synth detection: across the full ~1s history, bass
+  // must be dominant AND signal must stay high AND centroid must sit in the
+  // gritty/harmonic mid range. This rejects short bass hits (kicks, transient
+  // 808s) and only fires on long held synth bass — the moment that earns strobe.
+  const sustainedHighSignal = hist.length >= 20
+    && hist.slice(-20).every(v => v > 0.45)
+    && mean > 0.55;
+  const cHist = state.centroidHistory;
+  const cMean = cHist.length ? cHist.reduce((a, b) => a + b, 0) / cHist.length : (ctx.centroid ?? 0);
+  const sustainedMidCentroid = cHist.length >= 20 && cMean > 1500;
+  const isBassFocus = ctx.dominantStem === 'bass';
+  const heldBassSynth = isBassFocus && sustainedHighSignal && sustainedMidCentroid;
 
-  // Decision tree:
-  // - Sharp rising edge into high signal → fire a strobe burst
-  // - Sustained high signal with low variance (drone-like) → sine wobble
-  // - Steady mid-energy with rhythmic pulsing → half-bar pulse
-  // - Otherwise → raw (default, most common)
+  // Duty-cycle cap: don't let strobe consume more than ~30% of recent time.
+  const strobeAllowed = state.recentStrobeBeats < 6;
 
-  if (risingEdge) {
-    return { mod: 'beatStrobe', durationBeats: 2 + Math.random() * 2 }; // 2-4 beats
+  // Priority 1: sustained heavy bass synth → STROBE (the payoff moment)
+  if (heldBassSynth && strobeAllowed) {
+    return { mod: 'beatStrobe', durationBeats: 4 + Math.random() * 4 };
   }
 
-  if (sig > 0.5 && variance < 0.08) {
-    // Sustained loud + flat = drone → wobble
-    return { mod: 'sineWobble', durationBeats: 4 + Math.random() * 4 }; // 4-8 beats
+  // Priority 2: very sharp rising edge on top of already-elevated signal → strobe burst
+  const risingEdge = sig > mean + 0.35 && sig > 0.65 && variance > 0.1;
+  if (risingEdge && strobeAllowed) {
+    return { mod: 'beatStrobe', durationBeats: 2 + Math.random() * 2 };
   }
 
+  // Mid energy + rhythmic → half-bar pulse
   if (sig > 0.3 && variance > 0.12) {
-    // Mid energy + rhythmic = pulse
     return { mod: 'halfBarPulse', durationBeats: 2 + Math.random() * 2 };
   }
 
-  // Default: raw — pick a reasonable hold (matches the section feel)
   return { mod: 'raw', durationBeats: 4 + Math.random() * 4 };
 }
 
@@ -172,21 +206,44 @@ export const director: Modulator = (ctx) => {
   // Update history (keep ~1 second worth of frames at 30fps)
   state.signalHistory.push(ctx.signal);
   if (state.signalHistory.length > 30) state.signalHistory.shift();
+  state.centroidHistory.push(ctx.centroid ?? 0);
+  if (state.centroidHistory.length > 30) state.centroidHistory.shift();
   state.prevSignal = ctx.signal;
 
   // Time to choose a new modulator?
   if (ctx.time >= state.endsAtTime) {
-    const { mod, durationBeats } = chooseNextMod(ctx, state);
-    state.currentMod = mod;
     const beatSec = 60 / ctx.bpm;
+    // Are we within the first ~quarter-beat of a bar? Only then is strobe allowed.
+    const atBarStart = ctx.barPhase < 0.0625 || ctx.barPhase > 0.9375;
+    // Decay strobe-budget toward zero across the previous segment
+    const elapsedBeats = state.lastChoiceTime
+      ? (ctx.time - state.lastChoiceTime) / beatSec
+      : 0;
+    state.recentStrobeBeats = Math.max(0, state.recentStrobeBeats - elapsedBeats * 0.5);
+
+    let { mod, durationBeats } = chooseNextMod(ctx, state);
+    // Strobe may only START on a downbeat. If we picked strobe but we're not
+    // at a bar boundary, fall back to raw for the rest of this bar so the
+    // next decision lands on the downbeat.
+    if (mod === 'beatStrobe' && !atBarStart) {
+      mod = 'raw';
+      const beatsToBarEnd = (1 - ctx.barPhase) * 4;
+      durationBeats = Math.max(0.5, beatsToBarEnd);
+    }
+    // Round strobe duration to whole bars so it also ENDS on a downbeat.
+    if (mod === 'beatStrobe') {
+      durationBeats = Math.max(4, Math.round(durationBeats / 4) * 4);
+    }
+    state.currentMod = mod;
     state.endsAtTime = ctx.time + durationBeats * beatSec;
+    state.lastChoiceTime = ctx.time;
+    if (mod === 'beatStrobe') state.recentStrobeBeats += durationBeats;
   }
 
   // Apply chosen modulator
   switch (state.currentMod) {
     case 'beatStrobe':   return beatStrobe(ctx);
     case 'halfBarPulse': return halfBarPulse(ctx);
-    case 'sineWobble':   return sineWobble(ctx);
     default:             return raw(ctx);
   }
 };
@@ -194,6 +251,7 @@ export const director: Modulator = (ctx) => {
 // --- Registry ---
 export const MODULATORS: Record<string, { name: string; fn: Modulator }> = {
   raw:          { name: 'Raw',            fn: raw },
+  blackout:     { name: 'Blackout',       fn: blackout },
   beatStrobe:   { name: 'Beat Strobe',    fn: beatStrobe },
   halfBarPulse: { name: 'Half-Bar Pulse', fn: halfBarPulse },
   sineWobble:   { name: 'Sine Wobble',    fn: sineWobble },

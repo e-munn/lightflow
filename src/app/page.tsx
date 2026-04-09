@@ -5,13 +5,23 @@ import { Settings, Menu, AudioLines, ListMusic, Copy, EyeOff } from 'lucide-reac
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
 import { AnalysisResult, StemFrame } from '@/types/v3';
 import { computeAttention, resetAttention } from '@/lib/attention';
-import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector, getDirectorChoice } from '@/lib/modulators';
+import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector, getDirectorChoice, getDirectorPulseRate, pulseAtBeatRate, DIRECTOR_VERSION } from '@/lib/modulators';
+import { estimateBeatOffset, beatPhases } from '@/lib/beatAlign';
+import { analyzeAudio } from '@/lib/api';
 import { SPATIAL_MODULATORS, resetPhaseChase, resetSpatialDirector, GRID_SIZE } from '@/lib/spatial';
 import { SignalGraph, resetSignalGraph } from '@/components/SignalGraph';
 import { TubePreview } from '@/components/TubePreview';
 import { Screen3D, resetScreen3D } from '@/components/Screen3D';
 
-const PRESET_SONGS = [
+interface PresetSong {
+  name: string;
+  slug: string;
+  ext?: string;   // defaults to .mp3
+}
+
+// Hardcoded fallback list — used only if manifest.json can't be loaded
+// (e.g., before any songs have been ingested).
+const FALLBACK_PRESETS: PresetSong[] = [
   { name: "Actin' Tough (Dean Turnley)", slug: 'actin_tough' },
   { name: "I Don't Sell (Makonnen)", slug: 'i_dont_sell_makonnen' },
   { name: 'Life During Wartime [jazz version]', slug: 'life_during_wartime' },
@@ -106,22 +116,38 @@ export default function Home() {
   const lastFrameTimeRef = useRef(0);
 
   const [songMenuOpen, setSongMenuOpen] = useState(false);
+  const [songFilter, setSongFilter] = useState('');
   const [customSongs, setCustomSongs] = useState<{ name: string; file: File }[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [songDurations, setSongDurations] = useState<Record<string, number>>({});
+  // Preset list: load from manifest.json (built by scripts/ingest_audio_dir.py),
+  // fall back to the hardcoded list if manifest isn't available.
+  const [presetSongs, setPresetSongs] = useState<PresetSong[]>(FALLBACK_PRESETS);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/songs/manifest.json');
+        if (!res.ok) return;
+        const arr = await res.json();
+        if (Array.isArray(arr) && arr.length) {
+          setPresetSongs(arr);
+        }
+      } catch { /* fall back */ }
+    })();
+  }, []);
   // Lazy-load song durations via metadata only (no full audio download)
   useEffect(() => {
     if (!songMenuOpen) return;
-    PRESET_SONGS.forEach(song => {
+    presetSongs.forEach(song => {
       if (songDurations[song.slug] != null) return;
       const a = new Audio();
       a.preload = 'metadata';
-      a.src = `/songs/${song.slug}.mp3`;
+      a.src = `/songs/${song.slug}${song.ext ?? '.mp3'}`;
       a.addEventListener('loadedmetadata', () => {
         setSongDurations(prev => ({ ...prev, [song.slug]: a.duration }));
       }, { once: true });
     });
-  }, [songMenuOpen, songDurations]);
+  }, [songMenuOpen, songDurations, presetSongs]);
   const [uiHidden, setUiHidden] = useState(false);
   // While hidden, any mouse movement brings the controls back.
   useEffect(() => {
@@ -138,7 +164,7 @@ export default function Home() {
   }, [toast]);
 
   // Program timeline: blocks recording stem-focus and effect choices over time
-  type Block = { lane: string; start: number; end: number };
+  type Block = { lane: string; start: number; end: number; rate?: number };
   const [programBlocks, setProgramBlocks] = useState<Block[]>([]);
   const stemBlockRef = useRef<{ stem: string; start: number } | null>(null);
   const fxBlockRef = useRef<{ fx: string; start: number } | null>(null);
@@ -214,46 +240,53 @@ export default function Home() {
 
   // Precompute the entire program timeline by simulating attention + director
   // through every analysis frame. Runs once when a song loads, before playback.
+  const [beatOffset, setBeatOffset] = useState(0);
   const precomputeTimeline = useCallback((res: AnalysisResult) => {
     if (!res.frames.length) return;
     resetAttention();
     resetDirector();
+    // Grid-fit beat offset from the song's kick onsets so transitions
+    // land on real musical downbeats, not the arbitrary recording origin.
+    const offset = estimateBeatOffset(res);
+    setBeatOffset(offset);
     const blocks: Block[] = [];
     let curStem: { stem: string; start: number } | null = null;
-    let curFx:   { fx: string; start: number } | null = null;
+    let curFx:   { fx: string; start: number; rate: number } | null = null;
     let prevT = res.frames[0].time;
     for (const frame of res.frames) {
       const dt = Math.max(1e-3, frame.time - prevT);
       prevT = frame.time;
       const att = computeAttention(frame, dt, res.bpm);
-      const beatPhase = (frame.time * res.bpm / 60) % 1;
-      const barPhase = (frame.time * res.bpm / 60 / 4) % 1;
+      const ph = beatPhases(frame.time, res.bpm, offset);
       // Drive director (we don't need its output, just its choice)
       MODULATORS.director.fn({
         signal: att.signal,
         time: frame.time,
-        beatPhase,
-        barPhase,
+        beatPhase: ph.beatPhase,
+        barPhase: ph.barPhase,
         bpm: res.bpm,
         dt,
         dominantStem: att.dominant,
         centroid: frame.centroid,
       });
       const fx = getDirectorChoice();
+      const rate = getDirectorPulseRate();
       if (!curStem) curStem = { stem: att.dominant, start: frame.time };
       else if (curStem.stem !== att.dominant) {
         blocks.push({ lane: 'stem:' + curStem.stem, start: curStem.start, end: frame.time });
         curStem = { stem: att.dominant, start: frame.time };
       }
-      if (!curFx) curFx = { fx, start: frame.time };
-      else if (curFx.fx !== fx) {
-        blocks.push({ lane: 'fx:' + curFx.fx, start: curFx.start, end: frame.time });
-        curFx = { fx, start: frame.time };
+      // Split fx blocks on EITHER label or rate change so we preserve the
+      // full rate continuum across playback (not just the coarse legacy label).
+      if (!curFx) curFx = { fx, start: frame.time, rate };
+      else if (curFx.fx !== fx || curFx.rate !== rate) {
+        blocks.push({ lane: 'fx:' + curFx.fx, start: curFx.start, end: frame.time, rate: curFx.rate });
+        curFx = { fx, start: frame.time, rate };
       }
     }
     const end = res.frames[res.frames.length - 1].time;
     if (curStem) blocks.push({ lane: 'stem:' + curStem.stem, start: curStem.start, end });
-    if (curFx)   blocks.push({ lane: 'fx:' + curFx.fx,       start: curFx.start,   end });
+    if (curFx)   blocks.push({ lane: 'fx:' + curFx.fx,       start: curFx.start,   end, rate: curFx.rate });
     setProgramBlocks(blocks);
     // Reset state again so live playback starts clean
     resetAttention();
@@ -261,7 +294,7 @@ export default function Home() {
   }, []);
 
   // Load preset
-  const loadPreset = useCallback(async (slug: string, name: string) => {
+  const loadPreset = useCallback(async (slug: string, name: string, ext: string = '.mp3') => {
     setIsLoading(true);
     setAnalysis(null);
     resetAttention();
@@ -279,7 +312,7 @@ export default function Home() {
       setAnalysis(analysisRes);
       setSongName(name);
       precomputeTimeline(analysisRes);
-      await loadAudioFile(`/songs/${slug}.mp3`);
+      await loadAudioFile(`/songs/${slug}${ext}`);
     } catch (err) {
       console.error('Failed to load:', err);
     } finally {
@@ -290,6 +323,11 @@ export default function Home() {
   // Load a user-dropped file in raw mode (no analysis → no Director, no
   // attention layer, no Program Focus Timeline). Audio just plays.
   // The UI shows a "raw mode" hint until full server-side analysis is wired.
+  // In-memory analysis cache: dropping the same file (by name + size) twice
+  // doesn't re-trigger a 30–90s demucs run.
+  const analysisCacheRef = useRef<Map<string, AnalysisResult>>(new Map());
+  const [analyzingStatus, setAnalyzingStatus] = useState<string | null>(null);
+
   const loadCustomFile = useCallback(async (file: File) => {
     setIsLoading(true);
     setAnalysis(null);
@@ -304,15 +342,42 @@ export default function Home() {
     resetProgramTimeline();
     panHistoryRef.current = {};
     setCustomSongs(prev => prev.find(c => c.name === file.name) ? prev : [...prev, { name: file.name, file }]);
-    try {
-      setSongName(file.name.replace(/\.[^.]+$/, ''));
-      await loadAudioFile(file);
-    } catch (err) {
-      console.error('Failed to load dropped file:', err);
-    } finally {
+    setSongName(file.name.replace(/\.[^.]+$/, ''));
+
+    // Start audio loading and analysis in parallel — playback can start
+    // before the analysis returns.
+    const audioPromise = loadAudioFile(file).catch(err => {
+      console.error('Failed to load audio:', err);
+    });
+
+    // Analyze (or hit cache)
+    const cacheKey = `${file.name}::${file.size}::${file.lastModified}`;
+    const cached = analysisCacheRef.current.get(cacheKey);
+    if (cached) {
+      setAnalyzingStatus(null);
+      setAnalysis(cached);
+      precomputeTimeline(cached);
+      await audioPromise;
       setIsLoading(false);
+      return;
     }
-  }, [loadAudioFile, resetProgramTimeline]);
+
+    setAnalyzingStatus('Analyzing… (~60s)');
+    try {
+      const result = await analyzeAudio(file);
+      analysisCacheRef.current.set(cacheKey, result);
+      setAnalysis(result);
+      precomputeTimeline(result);
+      setAnalyzingStatus(null);
+    } catch (err) {
+      console.error('Analysis failed:', err);
+      setAnalyzingStatus('Analysis failed — playing raw');
+      setTimeout(() => setAnalyzingStatus(null), 4000);
+    }
+
+    await audioPromise;
+    setIsLoading(false);
+  }, [loadAudioFile, resetProgramTimeline, precomputeTimeline]);
 
   // Page-level drag & drop
   useEffect(() => {
@@ -345,10 +410,11 @@ export default function Home() {
   const didAutoLoadRef = useRef(false);
   useEffect(() => {
     if (didAutoLoadRef.current) return;
+    if (presetSongs.length === 0) return;
     didAutoLoadRef.current = true;
-    const first = PRESET_SONGS[0];
-    loadPreset(first.slug, first.name);
-  }, [loadPreset]);
+    const first = presetSongs[0];
+    loadPreset(first.slug, first.name, first.ext ?? '.mp3');
+  }, [loadPreset, presetSongs]);
 
   // Energy waveform across the entire song, downsampled to fixed bar count
   const energyBars = useMemo(() => {
@@ -436,8 +502,7 @@ export default function Home() {
     const modCtx = {
       signal: attention.signal,
       time: audioState.currentTime,
-      beatPhase: (audioState.currentTime * analysis.bpm / 60) % 1,
-      barPhase: (audioState.currentTime * analysis.bpm / 60 / 4) % 1,
+      ...beatPhases(audioState.currentTime, analysis.bpm, beatOffset),
       bpm: analysis.bpm,
       dt,
       dominantStem: attention.dominant,
@@ -445,14 +510,24 @@ export default function Home() {
     };
     // Resolve effective modulator: when in auto director mode, look up the
     // *precomputed* fx for this moment so the live signal matches the timeline.
+    // We use the block's recorded rate so the full rate continuum (not just
+    // the coarse beatStrobe/halfBarPulse buckets) drives playback.
     let activeMod = modulator;
+    let directorRate = 0;
     if (modulator === 'director') {
       const t = audioState.currentTime;
       const fxBlock = programBlocks.find(b => b.lane.startsWith('fx:') && b.start <= t && b.end > t);
       activeMod = fxBlock ? fxBlock.lane.slice(3) : 'raw';
+      directorRate = fxBlock?.rate ?? 0;
     }
-    const modFn = MODULATORS[activeMod]?.fn ?? MODULATORS.raw.fn;
-    const modulated = Math.max(0, Math.min(1, modFn(modCtx)));
+    let modulated: number;
+    if (modulator === 'director' && directorRate > 0) {
+      // Use the exact rate the Director picked, not the preset wrapper
+      modulated = Math.max(0, Math.min(1, pulseAtBeatRate(modCtx, directorRate)));
+    } else {
+      const modFn = MODULATORS[activeMod]?.fn ?? MODULATORS.raw.fn;
+      modulated = Math.max(0, Math.min(1, modFn(modCtx)));
+    }
     setSignal(modulated);
     const fxNow = activeMod;
     if (modulator === 'director') setDirectorChoice(fxNow);
@@ -572,21 +647,40 @@ export default function Home() {
               onClick={() => setSongMenuOpen(false)}
             >
               <div
-                className="w-[88vw] max-w-96 md:w-96 ml-3 mb-3 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl py-3 overflow-hidden flex flex-col"
+                className="w-[88vw] max-w-96 md:w-96 ml-3 mb-3 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl py-3 overflow-hidden flex flex-col max-h-[calc(100vh-5rem)]"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between px-4 pb-2 mb-1 border-b border-white/10 shrink-0">
-                  <div className="text-xs uppercase tracking-[0.2em] text-white/50 font-semibold">Songs</div>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400">v3.2</span>
+                  <div className="text-xs uppercase tracking-[0.2em] text-white/50 font-semibold">
+                    Songs <span className="text-white/30 normal-case tracking-normal">· {presetSongs.length}</span>
+                  </div>
+                  <span
+                    className="text-[9px] px-1.5 py-0.5 rounded-full border border-cyan-800 bg-cyan-950 text-cyan-300 font-mono"
+                    title="Current Director algorithm version"
+                  >
+                    {DIRECTOR_VERSION}
+                  </span>
                 </div>
-                <div className="overflow-y-auto shrink-0">
-                {PRESET_SONGS.map((song) => {
+                <div className="px-3 pb-2 shrink-0">
+                  <input
+                    type="text"
+                    value={songFilter}
+                    onChange={(e) => setSongFilter(e.target.value)}
+                    placeholder="filter…"
+                    className="w-full px-3 py-1.5 text-xs rounded-md bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-white/30"
+                    autoFocus
+                  />
+                </div>
+                <div className="overflow-y-auto flex-1 min-h-0">
+                {presetSongs
+                  .filter(s => !songFilter || s.name.toLowerCase().includes(songFilter.toLowerCase()))
+                  .map((song) => {
                   const isCurrent = songName === song.name;
                   const dur = songDurations[song.slug];
                   return (
                     <button
                       key={song.slug}
-                      onClick={() => { loadPreset(song.slug, song.name); setSongMenuOpen(false); }}
+                      onClick={() => { loadPreset(song.slug, song.name, song.ext ?? '.mp3'); setSongMenuOpen(false); }}
                       disabled={isLoading}
                       className={`w-full flex items-center justify-between gap-3 px-4 py-1.5 transition-colors text-sm ${
                         isCurrent
@@ -725,7 +819,14 @@ export default function Home() {
               title="Browse songs (⌘←)"
             >
               <Menu size={14} className="opacity-70 shrink-0" />
-              <h1 className="text-sm font-medium truncate">{songName}</h1>
+              <h1 className="text-sm font-medium truncate">
+                {songName}
+                {analyzingStatus && (
+                  <span className="ml-2 text-[10px] uppercase tracking-wider text-cyan-400 font-mono animate-pulse">
+                    {analyzingStatus}
+                  </span>
+                )}
+              </h1>
               <span className="hidden md:inline text-[9px] px-1.5 py-0.5 rounded-full border border-green-800 bg-green-950 text-green-400 shrink-0">v3.2</span>
             </button>
             <div className="flex-1" />

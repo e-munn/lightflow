@@ -35,18 +35,24 @@ async def health():
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
     """Run full v3 analysis on uploaded audio file."""
-    from analyze import run_analysis
+    from analyze import analyze_song
 
     with tempfile.NamedTemporaryFile(suffix=os.path.splitext(file.filename or ".mp3")[1], delete=False) as tmp:
         content = await file.read()
         tmp.write(content)
-        tmp_path = tmp.name
+        tmp_path = Path(tmp.name)
 
     try:
-        result = run_analysis(tmp_path, cache_dir=str(DATA_DIR / ".demucs_cache"))
+        # analyze_song writes a {stem}_analysis.json into the output_dir.
+        # We use a per-call output dir, then read the result back.
+        out_dir = DATA_DIR / "tmp_analyses"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        cache_dir = DATA_DIR / ".demucs_cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        result = analyze_song(tmp_path, out_dir, cache_dir)
         result_dict = result.model_dump()
 
-        # Save for later use
+        # Save for later use under the original filename
         name = Path(file.filename or "unknown").stem
         out_path = DATA_DIR / f"{name}_analysis.json"
         with open(out_path, "w") as f:

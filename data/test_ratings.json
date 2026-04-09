@@ -1,0 +1,470 @@
+{
+  "version": 1,
+  "updatedAt": 1775768835289,
+  "ratings": {
+    "50_50@1078+800": {
+      "id": "50_50@1078+800",
+      "rating": "skip",
+      "tags": [
+        "boring"
+      ],
+      "ts": 1775768599630,
+      "version": "main-2026-04-09",
+      "songSlug": "50_50",
+      "startCs": 1078,
+      "lengthCs": 800
+    },
+    "50_50@3954+800": {
+      "id": "50_50@3954+800",
+      "rating": "bad",
+      "tags": [
+        "wrongStem",
+        "boring"
+      ],
+      "ts": 1775768599630,
+      "version": "main-2026-04-09",
+      "songSlug": "50_50",
+      "startCs": 3954,
+      "lengthCs": 800
+    },
+    "50_50@6830+800": {
+      "id": "50_50@6830+800",
+      "rating": "bad",
+      "tags": [
+        "wrongStem",
+        "sparse"
+      ],
+      "ts": 1775768599630,
+      "version": "main-2026-04-09",
+      "songSlug": "50_50",
+      "startCs": 6830,
+      "lengthCs": 800
+    },
+    "Him@5311+800": {
+      "id": "Him@5311+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768599630,
+      "version": "main-2026-04-09",
+      "songSlug": "Him",
+      "startCs": 5311,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@1029+800": {
+      "id": "blaze_that_ass@1029+800",
+      "rating": "bad",
+      "tags": [
+        "sparse",
+        "boring"
+      ],
+      "ts": 1775768599630,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 1029,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@12793+800": {
+      "id": "bitch_better_have_my_money@12793+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768599631,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 12793,
+      "lengthCs": 800
+    },
+    "Him@4097+800": {
+      "id": "Him@4097+800",
+      "rating": "bad",
+      "tags": [
+        "wrongFx",
+        "boring",
+        "busy"
+      ],
+      "ts": 1775767123062,
+      "version": "main-2026-04-09",
+      "songSlug": "Him",
+      "startCs": 4097,
+      "lengthCs": 800
+    },
+    "blood@7522+800": {
+      "id": "blood@7522+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775767123062,
+      "version": "main-2026-04-09",
+      "songSlug": "blood",
+      "startCs": 7522,
+      "lengthCs": 800
+    },
+    "baby_again@18664+800": {
+      "id": "baby_again@18664+800",
+      "rating": "good",
+      "tags": [
+        "busy"
+      ],
+      "ts": 1775767123068,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 18664,
+      "lengthCs": 800
+    },
+    "Him@1669+800": {
+      "id": "Him@1669+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775767123068,
+      "version": "main-2026-04-09",
+      "songSlug": "Him",
+      "startCs": 1669,
+      "lengthCs": 800
+    },
+    "50_50@12581+800": {
+      "id": "50_50@12581+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768599685,
+      "version": "main-2026-04-09",
+      "songSlug": "50_50",
+      "startCs": 12581,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@14747+800": {
+      "id": "blaze_that_ass@14747+800",
+      "rating": "bad",
+      "tags": [
+        "sparse",
+        "boring"
+      ],
+      "ts": 1775768599685,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 14747,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@1097+800": {
+      "id": "bitch_better_have_my_money@1097+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775763187811,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 1097,
+      "lengthCs": 800
+    },
+    "50_50@15456+800": {
+      "id": "50_50@15456+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775762127739,
+      "version": "main-2026-04-09",
+      "songSlug": "50_50",
+      "startCs": 15456,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@6945+800": {
+      "id": "bitch_better_have_my_money@6945+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775767123145,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 6945,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@3772+800": {
+      "id": "blaze_that_ass@3772+800",
+      "rating": "bad",
+      "tags": [
+        "boring"
+      ],
+      "ts": 1775767123145,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 3772,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@94809+800": {
+      "id": "JID_Tiny_Desk_Concert@94809+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775768406240,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 94809,
+      "lengthCs": 800
+    },
+    "baby_again@1600+800": {
+      "id": "baby_again@1600+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768406243,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 1600,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@12003+800": {
+      "id": "blaze_that_ass@12003+800",
+      "rating": "bad",
+      "tags": [
+        "boring"
+      ],
+      "ts": 1775762867415,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 12003,
+      "lengthCs": 800
+    },
+    "baby_again@14398+800": {
+      "id": "baby_again@14398+800",
+      "rating": "bad",
+      "tags": [
+        "offBeat"
+      ],
+      "ts": 1775762867415,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 14398,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@77170+800": {
+      "id": "JID_Tiny_Desk_Concert@77170+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775767123125,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 77170,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@59531+800": {
+      "id": "JID_Tiny_Desk_Concert@59531+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775767123125,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 59531,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@6615+800": {
+      "id": "JID_Tiny_Desk_Concert@6615+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775762316881,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 6615,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@24254+800": {
+      "id": "JID_Tiny_Desk_Concert@24254+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775763196707,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 24254,
+      "lengthCs": 800
+    },
+    "baby_again@5866+800": {
+      "id": "baby_again@5866+800",
+      "rating": "bad",
+      "tags": [
+        "busy"
+      ],
+      "ts": 1775768599715,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 5866,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@9869+800": {
+      "id": "bitch_better_have_my_money@9869+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768594396,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 9869,
+      "lengthCs": 800
+    },
+    "blood@1924+800": {
+      "id": "blood@1924+800",
+      "rating": "good",
+      "tags": [
+        "sparse"
+      ],
+      "ts": 1775762127759,
+      "version": "main-2026-04-09",
+      "songSlug": "blood",
+      "startCs": 1924,
+      "lengthCs": 800
+    },
+    "Him@2883+800": {
+      "id": "Him@2883+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768835289,
+      "version": "v8-2026-04-09-smoother-pulse",
+      "songSlug": "Him",
+      "startCs": 2883,
+      "lengthCs": 800
+    },
+    "grapevine_-_carmack@8522+800": {
+      "id": "grapevine_-_carmack@8522+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775762365043,
+      "version": "v2-2026-04-09-energetic",
+      "songSlug": "grapevine_-_carmack",
+      "startCs": 8522,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@4021+800": {
+      "id": "bitch_better_have_my_money@4021+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775767123046,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 4021,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@9260+800": {
+      "id": "blaze_that_ass@9260+800",
+      "rating": "bad",
+      "tags": [
+        "sparse",
+        "wrongStem"
+      ],
+      "ts": 1775768594395,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 9260,
+      "lengthCs": 800
+    },
+    "baby_again@10132+800": {
+      "id": "baby_again@10132+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775763196695,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 10132,
+      "lengthCs": 800
+    },
+    "blood@3324+800": {
+      "id": "blood@3324+800",
+      "rating": "bad",
+      "tags": [
+        "busy"
+      ],
+      "ts": 1775763196700,
+      "version": "main-2026-04-09",
+      "songSlug": "blood",
+      "startCs": 3324,
+      "lengthCs": 800
+    },
+    "blaze_that_ass@6516+800": {
+      "id": "blaze_that_ass@6516+800",
+      "rating": "good",
+      "tags": [
+        "boring"
+      ],
+      "ts": 1775763196705,
+      "version": "main-2026-04-09",
+      "songSlug": "blaze_that_ass",
+      "startCs": 6516,
+      "lengthCs": 800
+    },
+    "baby_again@22930+800": {
+      "id": "baby_again@22930+800",
+      "rating": "bad",
+      "tags": [],
+      "ts": 1775763196707,
+      "version": "main-2026-04-09",
+      "songSlug": "baby_again",
+      "startCs": 22930,
+      "lengthCs": 800
+    },
+    "Him@455+800": {
+      "id": "Him@455+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768594395,
+      "version": "main-2026-04-09",
+      "songSlug": "Him",
+      "startCs": 455,
+      "lengthCs": 800
+    },
+    "JID_Tiny_Desk_Concert@41892+800": {
+      "id": "JID_Tiny_Desk_Concert@41892+800",
+      "rating": "skip",
+      "tags": [],
+      "ts": 1775767944577,
+      "version": "main-2026-04-09",
+      "songSlug": "JID_Tiny_Desk_Concert",
+      "startCs": 41892,
+      "lengthCs": 800
+    },
+    "blood@6123+800": {
+      "id": "blood@6123+800",
+      "rating": "bad",
+      "tags": [
+        "sparse",
+        "boring"
+      ],
+      "ts": 1775768594392,
+      "version": "main-2026-04-09",
+      "songSlug": "blood",
+      "startCs": 6123,
+      "lengthCs": 800
+    },
+    "bitch_better_have_my_money@15717+800": {
+      "id": "bitch_better_have_my_money@15717+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768594395,
+      "version": "main-2026-04-09",
+      "songSlug": "bitch_better_have_my_money",
+      "startCs": 15717,
+      "lengthCs": 800
+    },
+    "Bad_Girls_Gigamesh_Remix_-_Donna_Summer@22880+800": {
+      "id": "Bad_Girls_Gigamesh_Remix_-_Donna_Summer@22880+800",
+      "rating": "bad",
+      "tags": [],
+      "ts": 1775768431737,
+      "version": "v7-2026-04-09-beat-aligned",
+      "songSlug": "Bad_Girls_Gigamesh_Remix_-_Donna_Summer",
+      "startCs": 22880,
+      "lengthCs": 800
+    },
+    "me_de_amor@11525+800": {
+      "id": "me_de_amor@11525+800",
+      "rating": "good",
+      "tags": [],
+      "ts": 1775768646104,
+      "version": "v8-2026-04-09-smoother-pulse",
+      "songSlug": "me_de_amor",
+      "startCs": 11525,
+      "lengthCs": 800
+    },
+    "calabria_-_austin_marc@1774+800": {
+      "id": "calabria_-_austin_marc@1774+800",
+      "rating": "good",
+      "tags": [
+        "offBeat",
+        "busy",
+        "wrongStem"
+      ],
+      "ts": 1775768810270,
+      "version": "v8-2026-04-09-smoother-pulse",
+      "songSlug": "calabria_-_austin_marc",
+      "startCs": 1774,
+      "lengthCs": 800
+    }
+  }
+}

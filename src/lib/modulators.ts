@@ -9,6 +9,26 @@
  * they pass through transparently.
  */
 
+// ---------------------------------------------------------------------------
+// DIRECTOR VERSION METADATA — bump this every time you change how the Director
+// picks effects or tunes thresholds. The test page reads it to tag rating
+// cohorts so we can compare old vs new algorithm performance.
+// ---------------------------------------------------------------------------
+// Clean-slate version numbering starting 2026-04-09. Past versions (v2–v9)
+// are preserved in git history; ratings tagged with those strings stay in
+// data/test_ratings.json for historical A/B. To see old code:
+//   git log --all --grep='DIRECTOR_VERSION' -- src/lib/modulators.ts
+//   git show <commit>:src/lib/modulators.ts
+export const DIRECTOR_VERSION = 'v1.0-2026-04-09';
+export const DIRECTOR_DESCRIPTION =
+  'Clean baseline after iterative tuning. Features: unified pulse with ' +
+  'beat-locked rate continuum (1/2/4/5/8/16 per beat), smooth decay ' +
+  'envelope that scales with rate (hard square only at ≥6/beat), ' +
+  'beatless-section → raw, hat-dominant → raw, per-frame transient ' +
+  'detector for boom-bap attacks, beat-offset grid fitting, 2-bar ' +
+  'minimum commit on fast pulses. Increment minor (v1.1) for tuning, ' +
+  'major (v2.0) for architectural changes.';
+
 export interface ModulatorContext {
   signal: number;       // 0-1 input from attention layer
   time: number;         // current playback time in seconds
@@ -29,29 +49,39 @@ export const raw: Modulator = (ctx) => ctx.signal;
 // --- Blackout ---
 export const blackout: Modulator = () => 0;
 
-// --- Beat strobe (gated switch) ---
-// When signal crosses high threshold, strobe is ON (full intensity, beat-synced).
-// Stays on until signal drops below low threshold (hysteresis).
-let _beatStrobeOn = false;
-let _beatStrobeLastSignal = 0;
-
-export function resetBeatStrobe() {
-  _beatStrobeOn = false;
-  _beatStrobeLastSignal = 0;
+// --- Unified pulse ---
+// All pulse/strobe effects are the same thing: a beat-locked periodic envelope,
+// parameterized by RATE (pulses per beat). The envelope shape auto-shifts
+// soft→hard as rate climbs. Beat-locked, not wall-clock, so the visual pace
+// scales with BPM automatically.
+//
+//   1  per beat → musical pulse, slow decay (calm section hit)
+//   2  per beat → 8th-note pulse, faster decay
+//   4  per beat → hard 16ths, square wave (building)
+//   8  per beat → strobe (drops)
+//  16  per beat → hard strobe (peak)
+export function pulseAtBeatRate(ctx: ModulatorContext, pulsesPerBeat: number): number {
+  const phase = (ctx.beatPhase * pulsesPerBeat) % 1;
+  // True strobe only at rate ≥ 6. Anything slower gets a decaying envelope
+  // whose exponent smoothly scales with rate — keeps the shape musical
+  // even at fast 16th-note rates (which felt mechanical as a hard square).
+  if (pulsesPerBeat >= 6) {
+    return phase < 0.5 ? 1 : 0;
+  }
+  // Exponent grows with rate: 1.8 @ 1/beat, 2.3 @ 2, 3.3 @ 4, 4.3 @ 5
+  // Sharper decay at higher rates keeps each pulse punchy without
+  // bleeding into the next.
+  const exp = 1.3 + pulsesPerBeat * 0.6;
+  return Math.pow(1 - phase, exp);
 }
 
-export const beatStrobe: Modulator = (ctx) => {
-  // Hysteresis: turn on at 0.55, turn off at 0.25
-  if (!_beatStrobeOn && ctx.signal > 0.55) _beatStrobeOn = true;
-  else if (_beatStrobeOn && ctx.signal < 0.25) _beatStrobeOn = false;
-  _beatStrobeLastSignal = ctx.signal;
+export function resetBeatStrobe() {
+  // Kept for API compat; unified pulse is stateless.
+}
 
-  if (!_beatStrobeOn) return ctx.signal; // pass through underlying signal
-
-  // Strobe ON: full-intensity square wave at 8 strobes per beat
-  const strobePhase = (ctx.beatPhase * 8) % 1;
-  return strobePhase < 0.5 ? 1.0 : 0.0;
-};
+// Legacy named presets — thin wrappers over the unified pulse at fixed rates.
+// The webapp's manual modulator picker still uses these names.
+export const beatStrobe: Modulator = (ctx) => pulseAtBeatRate(ctx, 8);
 
 // --- Decaying strobe (one-shot burst) ---
 // On a sharp signal spike, fire a strobe burst at full intensity that decays.
@@ -94,16 +124,8 @@ export const sawtooth: Modulator = (ctx) => {
 };
 
 // --- Half-bar pulse ---
-// Long pulses, two per bar
-export const halfBarPulse: Modulator = (ctx) => {
-  // Always pulse on quarter notes (4 per bar) — this is the universal musical
-  // grid for ~all 4/4 popular music, so the pulse aligns with the listener's
-  // expected beat regardless of the section's energy.
-  const phase = ctx.beatPhase;             // already 0-1 within current beat
-  const env = Math.pow(1 - phase, 2);      // square decay
-  const amp = 0.8 + ctx.signal * 0.2;      // tiny signal bias
-  return env * amp;
-};
+// Legacy preset — 1 pulse per beat, musical decay. Wrapper over unified pulse.
+export const halfBarPulse: Modulator = (ctx) => pulseAtBeatRate(ctx, 1);
 
 // --- Sine wobble ---
 // Gentle 4Hz wobble, intensity scales with signal
@@ -119,18 +141,22 @@ export const sineWobble: Modulator = (ctx) => {
 // Holds each choice for a few beats so decisions are musically coherent.
 // Raw is the default ~80% of the time.
 
+type DirectorMod = 'raw' | 'pulse';
+
 interface DirectorState {
-  currentMod: 'raw' | 'beatStrobe' | 'halfBarPulse';
+  currentMod: DirectorMod;
+  currentPulseRate: number;     // pulses per beat (only meaningful when mod='pulse')
   endsAtTime: number;
-  signalHistory: number[];      // recent signal values for character analysis
-  centroidHistory: number[];    // recent centroid values for adaptive threshold
+  signalHistory: number[];
+  centroidHistory: number[];
   prevSignal: number;
-  recentStrobeBeats: number;    // strobe beats spent in the last ~16-beat window
+  recentStrobeBeats: number;    // "strobe-ish" (rate ≥ 4) beats spent in the window
   lastChoiceTime: number;
 }
 
 let _directorState: DirectorState = {
   currentMod: 'raw',
+  currentPulseRate: 0,
   endsAtTime: 0,
   signalHistory: [],
   centroidHistory: [],
@@ -139,13 +165,23 @@ let _directorState: DirectorState = {
   lastChoiceTime: 0,
 };
 
-export function getDirectorChoice(): DirectorState['currentMod'] {
-  return _directorState.currentMod;
+/** Back-compat: map the unified (mod, rate) state to the legacy label
+ *  strings the webapp UI timeline expects. Matches the envelope shape
+ *  cutoff in pulseAtBeatRate (rate ≥ 6 = hard square = "strobe"). */
+export function getDirectorChoice(): 'raw' | 'beatStrobe' | 'halfBarPulse' {
+  if (_directorState.currentMod === 'raw') return 'raw';
+  return _directorState.currentPulseRate >= 6 ? 'beatStrobe' : 'halfBarPulse';
+}
+
+/** Exposes the actual pulse rate (for the test page debug HUD). */
+export function getDirectorPulseRate(): number {
+  return _directorState.currentPulseRate;
 }
 
 export function resetDirector() {
   _directorState = {
     currentMod: 'raw',
+    currentPulseRate: 0,
     endsAtTime: 0,
     signalHistory: [],
     centroidHistory: [],
@@ -155,20 +191,37 @@ export function resetDirector() {
   };
 }
 
+interface ChoiceResult {
+  mod: DirectorMod;
+  rate: number;           // pulses per beat (0 for raw)
+  durationBeats: number;
+}
+
 // Each frame, when current mod expires, choose next based on character
-function chooseNextMod(ctx: ModulatorContext, state: DirectorState): { mod: DirectorState['currentMod']; durationBeats: number } {
+function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResult {
   const sig = ctx.signal;
+  const prev = state.prevSignal;
 
   const hist = state.signalHistory;
+  // Full history for overall character (variance, sustained detection)
   const mean = hist.length ? hist.reduce((a, b) => a + b, 0) / hist.length : sig;
   const variance = hist.length
     ? hist.reduce((sum, v) => sum + Math.abs(v - mean), 0) / hist.length
     : 0;
+  // SHORT history for rising-edge detection — 5 frames (~165ms) so the
+  // mean can't get numb to a loud section. A clip that enters mid-song
+  // after a warm-up on a loud outro should still see kick transients as
+  // rising edges. Was previously using the full 30-frame mean which
+  // biased the comparison.
+  const shortHist = hist.slice(-5);
+  const shortMean = shortHist.length
+    ? shortHist.reduce((a, b) => a + b, 0) / shortHist.length
+    : sig;
 
   // Sustained heavy-bass-synth detection: across the full ~1s history, bass
   // must be dominant AND signal must stay high AND centroid must sit in the
-  // gritty/harmonic mid range. This rejects short bass hits (kicks, transient
-  // 808s) and only fires on long held synth bass — the moment that earns strobe.
+  // gritty/harmonic mid range. Rejects short bass hits and only fires on
+  // long held synth bass — the moment that earns strobe.
   const sustainedHighSignal = hist.length >= 20
     && hist.slice(-20).every(v => v > 0.45)
     && mean > 0.55;
@@ -178,26 +231,72 @@ function chooseNextMod(ctx: ModulatorContext, state: DirectorState): { mod: Dire
   const isBassFocus = ctx.dominantStem === 'bass';
   const heldBassSynth = isBassFocus && sustainedHighSignal && sustainedMidCentroid;
 
-  // Duty-cycle cap: don't let strobe consume more than ~30% of recent time.
-  const strobeAllowed = state.recentStrobeBeats < 6;
+  // Duty-cycle cap on the high-rate (strobe-ish) pulses only.
+  const strobeAllowed = state.recentStrobeBeats < 10;
+  // Minimum duration for fast-rate pulses — at least 2 bars so they
+  // register as a committed choice, not a flicker.
+  const FAST_MIN_BEATS = 8;
 
-  // Priority 1: sustained heavy bass synth → STROBE (the payoff moment)
+  // ---------- Rate selection on a continuum ----------
+  // The Director picks a rate (pulses per beat) based on signal character.
+  // Each branch sets a specific rate; higher = more intense.
+
+  // Priority 1: sustained heavy bass synth → hardest strobe (16/beat)
   if (heldBassSynth && strobeAllowed) {
-    return { mod: 'beatStrobe', durationBeats: 4 + Math.random() * 4 };
+    return { mod: 'pulse', rate: 16, durationBeats: FAST_MIN_BEATS + Math.random() * 8 };
   }
 
-  // Priority 2: very sharp rising edge on top of already-elevated signal → strobe burst
-  const risingEdge = sig > mean + 0.35 && sig > 0.65 && variance > 0.1;
+  // Priority 2: hard per-frame transient → full strobe (8/beat)
+  const transient = sig - prev > 0.25 && sig > 0.5;
+  if (transient && strobeAllowed) {
+    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
+  }
+
+  // Priority 3: rising edge vs recent mean → strobe (8/beat)
+  const risingEdge = sig > shortMean + 0.2 && sig > 0.55;
   if (risingEdge && strobeAllowed) {
-    return { mod: 'beatStrobe', durationBeats: 2 + Math.random() * 2 };
+    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
   }
 
-  // Mid energy + rhythmic → half-bar pulse
-  if (sig > 0.3 && variance > 0.12) {
-    return { mod: 'halfBarPulse', durationBeats: 2 + Math.random() * 2 };
+  // Priority 3.5 (NEW): hat-dominant → raw. The attention layer's hat
+  // envelope already encodes whatever subdivision the hat is playing
+  // (8ths, 16ths, triplets, variable). Imposing a fixed-rate pulse on
+  // top fights the music. Raw passes the hat's natural dance through
+  // directly. This specifically fixes boom-bap hi-hat sections where
+  // a 2/beat pulse feels wrong.
+  if (ctx.dominantStem === 'hat' && sig > 0.2) {
+    return { mod: 'raw', rate: 0, durationBeats: 2 + Math.random() * 2 };
   }
 
-  return { mod: 'raw', durationBeats: 4 + Math.random() * 4 };
+  // Priority 4: high-energy rhythmic → fast pulse (5/beat) — "building"
+  // intensity. Gets the new smooth decay envelope (exp 4.3) so it's fast
+  // but still musical, not a mechanical square wave.
+  if (sig > 0.5 && variance > 0.10) {
+    return { mod: 'pulse', rate: 5, durationBeats: 4 + Math.random() * 4 };
+  }
+
+  // Priority 5: rhythmic mid-energy → 8ths (2/beat)
+  if (sig > 0.22 && variance > 0.08) {
+    return { mod: 'pulse', rate: 2, durationBeats: 2 + Math.random() * 2 };
+  }
+
+  // Priority 6: sustained mid-energy — soft 1-per-beat musical pulse,
+  // BUT only when there's at least *some* rhythmic evidence (variance ≥ 0.04
+  // OR the attention layer is locked on a drum-like stem). Pure pad/vocal
+  // ambient sections with flat variance fall through to raw so beatless
+  // breakdowns (e.g., Dancing On My Own's ethereal section) stop pulsing.
+  const drumLike =
+    ctx.dominantStem === 'kick' ||
+    ctx.dominantStem === 'snare' ||
+    ctx.dominantStem === 'bass';
+  const hasRhythm = variance >= 0.04 || drumLike;
+  if (sig > 0.25 && mean > 0.25 && hasRhythm) {
+    return { mod: 'pulse', rate: 1, durationBeats: 3 + Math.random() * 2 };
+  }
+
+  // Default: raw passthrough. Beatless ambient sections land here and
+  // stay raw, which is what a good deterministic director should do.
+  return { mod: 'raw', rate: 0, durationBeats: 2 + Math.random() * 3 };
 }
 
 export const director: Modulator = (ctx) => {
@@ -221,31 +320,34 @@ export const director: Modulator = (ctx) => {
       : 0;
     state.recentStrobeBeats = Math.max(0, state.recentStrobeBeats - elapsedBeats * 0.5);
 
-    let { mod, durationBeats } = chooseNextMod(ctx, state);
-    // Strobe may only START on a downbeat. If we picked strobe but we're not
-    // at a bar boundary, fall back to raw for the rest of this bar so the
-    // next decision lands on the downbeat.
-    if (mod === 'beatStrobe' && !atBarStart) {
+    let { mod, rate, durationBeats } = chooseNextMod(ctx, state);
+    // A fast (rate ≥ 4) pulse is the "strobe" of the unified system and
+    // still only legally starts on a downbeat — if we picked one off-beat,
+    // fall back to raw until the next bar.
+    const isFast = mod === 'pulse' && rate >= 4;
+    if (isFast && !atBarStart) {
       mod = 'raw';
+      rate = 0;
       const beatsToBarEnd = (1 - ctx.barPhase) * 4;
       durationBeats = Math.max(0.5, beatsToBarEnd);
     }
-    // Round strobe duration to whole bars so it also ENDS on a downbeat.
-    if (mod === 'beatStrobe') {
-      durationBeats = Math.max(4, Math.round(durationBeats / 4) * 4);
+    // Round fast-pulse duration to whole bars (min 2 bars) so the decision
+    // feels committed, not flickering.
+    if (mod === 'pulse' && rate >= 4) {
+      durationBeats = Math.max(8, Math.round(durationBeats / 4) * 4);
     }
     state.currentMod = mod;
+    state.currentPulseRate = mod === 'pulse' ? rate : 0;
     state.endsAtTime = ctx.time + durationBeats * beatSec;
     state.lastChoiceTime = ctx.time;
-    if (mod === 'beatStrobe') state.recentStrobeBeats += durationBeats;
+    if (mod === 'pulse' && rate >= 4) state.recentStrobeBeats += durationBeats;
   }
 
   // Apply chosen modulator
-  switch (state.currentMod) {
-    case 'beatStrobe':   return beatStrobe(ctx);
-    case 'halfBarPulse': return halfBarPulse(ctx);
-    default:             return raw(ctx);
+  if (state.currentMod === 'pulse') {
+    return pulseAtBeatRate(ctx, state.currentPulseRate);
   }
+  return raw(ctx);
 };
 
 // --- Registry ---

@@ -1,5 +1,6 @@
 """FastAPI server for LightFlow v3 — serves analysis + show data to the webapp."""
 
+import hashlib
 import json
 import os
 import sys
@@ -34,33 +35,68 @@ async def health():
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
-    """Run full v3 analysis on uploaded audio file."""
+    """Run full v3 analysis on uploaded audio file.
+
+    Caching strategy: hash the uploaded file's content and use the hash
+    as both the tempfile stem and the saved analysis filename. This
+    means dropping the same audio a second time hits:
+      - the demucs stem cache (keyed by filename stem in analyze.py)
+      - the saved analysis JSON (short-circuit: skip re-analysis)
+    Without this, every upload gets a random tmpfile name and the cache
+    never hits.
+    """
     from analyze import analyze_song
 
-    with tempfile.NamedTemporaryFile(suffix=os.path.splitext(file.filename or ".mp3")[1], delete=False) as tmp:
-        content = await file.read()
+    content = await file.read()
+    # Hash file bytes → stable cache key across re-drops of the same file.
+    digest = hashlib.sha256(content).hexdigest()[:16]
+    ext = os.path.splitext(file.filename or ".mp3")[1] or ".mp3"
+
+    out_dir = DATA_DIR / "tmp_analyses"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cache_dir = DATA_DIR / ".demucs_cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    # Short-circuit: if we've already analyzed this exact file, return the cached JSON.
+    cached_path = DATA_DIR / f"{digest}_analysis.json"
+    if cached_path.exists():
+        print(f"  [cache hit] {file.filename} → {digest}")
+        with open(cached_path) as f:
+            return JSONResponse(content=json.load(f))
+
+    # Write to a tempfile whose stem IS the digest, so run_demucs keys its
+    # cache on the digest too (cache_dir / "htdemucs" / <digest>).
+    tmp_dir = Path(tempfile.gettempdir())
+    tmp_path = tmp_dir / f"{digest}{ext}"
+    with open(tmp_path, "wb") as tmp:
         tmp.write(content)
-        tmp_path = Path(tmp.name)
 
     try:
-        # analyze_song writes a {stem}_analysis.json into the output_dir.
-        # We use a per-call output dir, then read the result back.
-        out_dir = DATA_DIR / "tmp_analyses"
-        out_dir.mkdir(parents=True, exist_ok=True)
-        cache_dir = DATA_DIR / ".demucs_cache"
-        cache_dir.mkdir(parents=True, exist_ok=True)
         result = analyze_song(tmp_path, out_dir, cache_dir)
         result_dict = result.model_dump()
 
-        # Save for later use under the original filename
-        name = Path(file.filename or "unknown").stem
-        out_path = DATA_DIR / f"{name}_analysis.json"
-        with open(out_path, "w") as f:
+        # Persist by digest so subsequent identical uploads short-circuit.
+        with open(cached_path, "w") as f:
             json.dump(result_dict, f)
+
+        # Also save under the friendly filename for humans browsing the data dir.
+        friendly = Path(file.filename or "unknown").stem
+        friendly_path = DATA_DIR / f"{friendly}_analysis.json"
+        try:
+            with open(friendly_path, "w") as f:
+                json.dump(result_dict, f)
+        except OSError:
+            pass
 
         return JSONResponse(content=result_dict)
     finally:
-        os.unlink(tmp_path)
+        # Keep the tmp audio file — demucs cache references its stem name,
+        # and deleting it doesn't affect correctness but it's tiny. Leaving
+        # it preserves predictability if anyone debugs by hand.
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
 
 
 @app.post("/generate")

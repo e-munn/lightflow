@@ -68,3 +68,4 @@ hue_bridge.json
 archive/v3-python/synthetic/
 archive/v3-python/real_songs/
 archive/v3-python/.cache/
+.director-cache/

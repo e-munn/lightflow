@@ -19,15 +19,21 @@
 // data/test_ratings.json for historical A/B. To see old code:
 //   git log --all --grep='DIRECTOR_VERSION' -- src/lib/modulators.ts
 //   git show <commit>:src/lib/modulators.ts
-export const DIRECTOR_VERSION = 'v1.0-2026-04-09';
+export const DIRECTOR_VERSION = 'v1.2-2026-04-09';
 export const DIRECTOR_DESCRIPTION =
-  'Clean baseline after iterative tuning. Features: unified pulse with ' +
-  'beat-locked rate continuum (1/2/4/5/8/16 per beat), smooth decay ' +
-  'envelope that scales with rate (hard square only at ≥6/beat), ' +
-  'beatless-section → raw, hat-dominant → raw, per-frame transient ' +
-  'detector for boom-bap attacks, beat-offset grid fitting, 2-bar ' +
-  'minimum commit on fast pulses. Increment minor (v1.1) for tuning, ' +
-  'major (v2.0) for architectural changes.';
+  'v1.2: Composed bar-level patterns + tightened fast-pulse cap. ' +
+  'Hard rule: no single fast (≥4/beat) pulse run exceeds 2 bars (8 ' +
+  'beats) of consecutive on-time. Engine step-down ladder fires at ' +
+  '8 beats instead of 16, walking 16→8→5→4→2→1→raw. Claude path ' +
+  'adds bar-pattern archetypes (every-4-bars, every-2-bars, ' +
+  'alternating, solid-blackout-last) that synthesize per-bar blocks ' +
+  'for composed gridded timelines instead of flat multi-bar strobes. ' +
+  'New Priority 1.5 branch: sustained peak signal (>0.6 mean, ' +
+  'variance >0.08) → rate 8 regardless of stem. Director label ' +
+  'reporter returns descriptive "strobe·16 / pulse·4" strings so ' +
+  'the UI shows the actual rate. v1.1 added Claude-as-editor layer; ' +
+  'v1.0 baseline: unified pulse rate continuum, transient detector, ' +
+  'beat-offset grid fit, 2-bar min commit.';
 
 export interface ModulatorContext {
   signal: number;       // 0-1 input from attention layer
@@ -152,6 +158,12 @@ interface DirectorState {
   prevSignal: number;
   recentStrobeBeats: number;    // "strobe-ish" (rate ≥ 4) beats spent in the window
   lastChoiceTime: number;
+  // v1.2: step-down ladder state.
+  // Tracks the most recent fast (rate ≥ 4) commit + how many beats have been
+  // spent at that rate or faster, so the next choice can be forced down the
+  // ladder when we've held a fast pulse for ≥ 4 bars.
+  lastCommittedFastRate: number;     // 0 if last commit was raw or slow
+  beatsAtCurrentFastRate: number;    // running total at same-or-higher rate
 }
 
 let _directorState: DirectorState = {
@@ -163,14 +175,41 @@ let _directorState: DirectorState = {
   prevSignal: 0,
   recentStrobeBeats: 0,
   lastChoiceTime: 0,
+  lastCommittedFastRate: 0,
+  beatsAtCurrentFastRate: 0,
 };
 
-/** Back-compat: map the unified (mod, rate) state to the legacy label
- *  strings the webapp UI timeline expects. Matches the envelope shape
- *  cutoff in pulseAtBeatRate (rate ≥ 6 = hard square = "strobe"). */
+// Rate ladder used for the step-down: higher rate → next step lower.
+// Includes 5 because the legacy "high-energy rhythmic" branch uses it.
+const RATE_LADDER: number[] = [16, 8, 5, 4, 2, 1, 0];
+
+/** Given a rate, return the next step DOWN the ladder. 0 means raw. */
+function stepDownRate(current: number): number {
+  const idx = RATE_LADDER.indexOf(current);
+  if (idx < 0) {
+    // Unknown rate — find the nearest lower ladder value
+    for (const r of RATE_LADDER) if (r < current) return r;
+    return 0;
+  }
+  return RATE_LADDER[Math.min(RATE_LADDER.length - 1, idx + 1)];
+}
+
+/** 3-value enum — used as programBlock lane names. Do NOT change the
+ *  return values; they feed directly into `fx:<name>` lane keys. */
 export function getDirectorChoice(): 'raw' | 'beatStrobe' | 'halfBarPulse' {
   if (_directorState.currentMod === 'raw') return 'raw';
   return _directorState.currentPulseRate >= 6 ? 'beatStrobe' : 'halfBarPulse';
+}
+
+/** v1.2: descriptive UI label reflecting the actual rate, e.g.
+ *  'raw' | 'strobe·16' | 'strobe·8' | 'pulse·5' | 'pulse·4' |
+ *  'pulse·2' | 'pulse·1'. Use this for display; use
+ *  `getDirectorChoice()` for lane-name equality. */
+export function getDirectorChoiceLabel(): string {
+  if (_directorState.currentMod === 'raw') return 'raw';
+  const rate = _directorState.currentPulseRate;
+  const kind = rate >= 6 ? 'strobe' : 'pulse';
+  return `${kind}·${rate}`;
 }
 
 /** Exposes the actual pulse rate (for the test page debug HUD). */
@@ -188,6 +227,8 @@ export function resetDirector() {
     prevSignal: 0,
     recentStrobeBeats: 0,
     lastChoiceTime: 0,
+    lastCommittedFastRate: 0,
+    beatsAtCurrentFastRate: 0,
   };
 }
 
@@ -241,21 +282,64 @@ function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResul
   // The Director picks a rate (pulses per beat) based on signal character.
   // Each branch sets a specific rate; higher = more intense.
 
+  // v1.2 STEP-DOWN GATE (tightened).
+  // If the previous committed choice was a fast pulse (rate ≥ 4) and
+  // we've already spent ≥ 8 beats (2 bars) at that rate or faster,
+  // force the next choice one step down the ladder regardless of what
+  // the signal would normally pick. Two-bar cap was 4 bars in v1.2
+  // initial; dropped to 2 because 4 bars of sustained fast pulse is
+  // visually monotonous AND harsh on the eyes. Walks 16→8→5→4→2→1→raw
+  // as the burn accumulates.
+  //
+  // The Claude path prefers compositional bar patterns (every-4-bars,
+  // every-2-bars) that already chunk fast sections into 1-bar bursts
+  // with raw gaps — this engine gate is the safety net for the
+  // non-Claude path and for sections Claude marked 'solid'.
+  const burnedOut =
+    state.lastCommittedFastRate >= 4 &&
+    state.beatsAtCurrentFastRate >= 8;
+
   // Priority 1: sustained heavy bass synth → hardest strobe (16/beat)
-  if (heldBassSynth && strobeAllowed) {
-    return { mod: 'pulse', rate: 16, durationBeats: FAST_MIN_BEATS + Math.random() * 8 };
+  if (heldBassSynth && strobeAllowed && !burnedOut) {
+    return { mod: 'pulse', rate: 16, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
+  }
+
+  // Priority 1.5 (v1.2, for McDonalds-drop-style peak energy):
+  // sustained peak signal across the full history, no stem
+  // requirement. This catches the "highest energy moment" branch
+  // even when there's no held bass synth signature — e.g., a full
+  // drum drop over filter-swept bass.
+  const sustainedPeak = hist.length >= 20
+    && hist.slice(-20).every(v => v > 0.55)
+    && mean > 0.6
+    && variance > 0.08;
+  if (sustainedPeak && strobeAllowed && !burnedOut) {
+    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
   }
 
   // Priority 2: hard per-frame transient → full strobe (8/beat)
   const transient = sig - prev > 0.25 && sig > 0.5;
-  if (transient && strobeAllowed) {
+  if (transient && strobeAllowed && !burnedOut) {
     return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
   }
 
   // Priority 3: rising edge vs recent mean → strobe (8/beat)
   const risingEdge = sig > shortMean + 0.2 && sig > 0.55;
-  if (risingEdge && strobeAllowed) {
+  if (risingEdge && strobeAllowed && !burnedOut) {
     return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
+  }
+
+  // v1.2: if we're burned out from a long fast section, force a step
+  // down from the peak rate we were just at — even if the signal is
+  // still high. This yields a musical decay: 16 → 8 → 5 → 4 → 2 → 1 → raw.
+  if (burnedOut) {
+    const next = stepDownRate(state.lastCommittedFastRate);
+    if (next === 0) {
+      return { mod: 'raw', rate: 0, durationBeats: 4 + Math.random() * 4 };
+    }
+    // Duration scales with rate — slower steps hold longer.
+    const dur = next >= 4 ? 8 : next >= 2 ? 6 : 4;
+    return { mod: 'pulse', rate: next, durationBeats: dur };
   }
 
   // Priority 3.5 (NEW): hat-dominant → raw. The attention layer's hat
@@ -341,6 +425,29 @@ export const director: Modulator = (ctx) => {
     state.endsAtTime = ctx.time + durationBeats * beatSec;
     state.lastChoiceTime = ctx.time;
     if (mod === 'pulse' && rate >= 4) state.recentStrobeBeats += durationBeats;
+
+    // v1.2 step-down book-keeping.
+    const nowFast = mod === 'pulse' && rate >= 4;
+    if (nowFast) {
+      // Accumulate burn at the current or a lower fast rate. If the new
+      // rate is EQUAL OR LOWER than the previous fast rate we keep
+      // adding (so a step-down still counts as "the same fast burst").
+      // If the new rate is HIGHER (unusual — rate escalation), start fresh.
+      if (rate >= state.lastCommittedFastRate && state.lastCommittedFastRate > 0) {
+        state.beatsAtCurrentFastRate += durationBeats;
+      } else if (rate < state.lastCommittedFastRate) {
+        state.beatsAtCurrentFastRate += durationBeats;
+      } else {
+        state.beatsAtCurrentFastRate = durationBeats;
+      }
+      state.lastCommittedFastRate = rate;
+    } else {
+      // Raw or slow pulse — we've left the fast burst. If we've been
+      // away for long enough, clear the burn counter so a new burst
+      // can start fresh. One bar of non-fast is enough cooldown.
+      state.beatsAtCurrentFastRate = 0;
+      state.lastCommittedFastRate = 0;
+    }
   }
 
   // Apply chosen modulator

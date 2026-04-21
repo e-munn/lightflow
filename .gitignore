@@ -45,9 +45,9 @@ checkpoints/
 runs/
 eval_results/
 
-# Whitelist: webapp preset audio (needs to ship with the UI)
-!public/songs/*.mp3
-!public/songs/*.json
+# Song library — synced via rsync/AirDrop, not git (too large)
+public/songs/*.mp3
+public/songs/*.json
 
 # TouchDesigner (binary)
 *.toe

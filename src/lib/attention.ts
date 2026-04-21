@@ -88,13 +88,25 @@ function shapeValue(kind: ShapeKind, t: number): number {
   }
 }
 
-const PRIORITY: Record<string, number> = {
+const BASE_PRIORITY: Record<string, number> = {
   bass: 1.4,
   kick: 1.3,
   snare: 1.0,
   hat: 0.8,
   other: 0.5,
 };
+
+let PRIORITY: Record<string, number> = { ...BASE_PRIORITY };
+
+export function configureAttention(scoutWeights?: Record<string, number>): void {
+  PRIORITY = { ...BASE_PRIORITY };
+  if (!scoutWeights) return;
+  for (const [stem, weight] of Object.entries(scoutWeights)) {
+    if (PRIORITY[stem] !== undefined) {
+      PRIORITY[stem] = BASE_PRIORITY[stem] * weight;
+    }
+  }
+}
 
 // --- State ---
 let currentDominant = 'bass';
@@ -103,6 +115,7 @@ let avgEnergy: Record<string, number> = {};
 let avgVariance: Record<string, number> = {};
 let initialized = false;
 let silentFrames = 0;
+let prevDominantEnergy = 0; // for energy derivative
 
 // Main dominant-stem follower state (audio tracker for the channel-1 signal)
 interface FollowerState {
@@ -206,12 +219,14 @@ const AVG_TAU = 1.5;
 let prevFrameEnergy: Record<string, number> = {};
 
 export function resetAttention(): void {
+  PRIORITY = { ...BASE_PRIORITY };
   currentDominant = 'bass';
   beatsHeld = 0;
   avgEnergy = {};
   avgVariance = {};
   prevFrameEnergy = {};
   initialized = false;
+  prevDominantEnergy = 0;
   gateValue = 0;
   // Reset main follower
   mainFollower.trackerValue = 0;
@@ -309,12 +324,19 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   // 3. Score stems by avg energy × priority + rhythmic variance bonus
   // Variance bonus rewards pulsing/rhythmic stems over flatlined sustained ones
   // Bass also gets a spectral richness boost
+  // v1.4: Novelty bonus — when a stem's current energy is much higher than
+  // its running average, it just entered the arrangement. Boost its score
+  // so the attention layer jumps to the new element (e.g. hat entering
+  // over an established kick/bass groove 4-8 bars into a drop).
   const scores: Record<string, number> = {};
   for (const s of STEMS) {
     let baseScore = avgEnergy[s] * (PRIORITY[s] ?? 1.0);
     if (s === 'bass') baseScore *= bassRichness;
     const varianceBonus = avgVariance[s] * 5.0 * Math.min(1, avgEnergy[s] * 2);
-    scores[s] = baseScore + varianceBonus;
+    const currentEnergy = stems[s] ?? 0;
+    const novelty = Math.max(0, currentEnergy - avgEnergy[s]);
+    const noveltyBonus = novelty * 8.0;
+    scores[s] = baseScore + varianceBonus + noveltyBonus;
   }
 
   // 4. Adaptive hold: how many beats before we allow a switch
@@ -360,6 +382,19 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   const profile = PROFILES[currentDominant] ?? PROFILES.bass;
   const rawInput = stems[currentDominant] ?? 0;
   gateValue = processProfile(mainFollower, rawInput, dt, beatsThisFrame, profile);
+
+  // v1.4: Energy derivative — positive = attack phase, peaks at transient instant
+  const dEnergy = dt > 0 ? Math.max(0, (rawInput - prevDominantEnergy) / dt) : 0;
+  prevDominantEnergy = rawInput;
+
+  // v1.4: Onset-locked hard snap — when the analysis reports a strong onset
+  // for the dominant stem, bypass the envelope entirely and snap to the raw
+  // energy. This makes transient hits frame-perfect instead of smoothed.
+  const dominantOnset = onsets[currentDominant as keyof typeof onsets] ?? 0;
+  const onsetSnap = dominantOnset > 0.4 && rawInput > 0.25;
+  if (onsetSnap) {
+    gateValue = Math.max(gateValue, rawInput);
+  }
 
   // --- Per-stem parallel followers ---
   // Each stem runs its own audio tracker + character shape, used by the
@@ -446,5 +481,7 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
     overallEnergy,
     scores,
     avgEnergy: { ...avgEnergy },
+    onsetSnap,
+    dEnergy: Math.min(1, dEnergy * 0.3),
   };
 }

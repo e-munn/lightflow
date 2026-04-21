@@ -19,21 +19,17 @@
 // data/test_ratings.json for historical A/B. To see old code:
 //   git log --all --grep='DIRECTOR_VERSION' -- src/lib/modulators.ts
 //   git show <commit>:src/lib/modulators.ts
-export const DIRECTOR_VERSION = 'v1.2-2026-04-09';
+export const DIRECTOR_VERSION = 'v1.4-2026-04-12';
 export const DIRECTOR_DESCRIPTION =
-  'v1.2: Composed bar-level patterns + tightened fast-pulse cap. ' +
-  'Hard rule: no single fast (≥4/beat) pulse run exceeds 2 bars (8 ' +
-  'beats) of consecutive on-time. Engine step-down ladder fires at ' +
-  '8 beats instead of 16, walking 16→8→5→4→2→1→raw. Claude path ' +
-  'adds bar-pattern archetypes (every-4-bars, every-2-bars, ' +
-  'alternating, solid-blackout-last) that synthesize per-bar blocks ' +
-  'for composed gridded timelines instead of flat multi-bar strobes. ' +
-  'New Priority 1.5 branch: sustained peak signal (>0.6 mean, ' +
-  'variance >0.08) → rate 8 regardless of stem. Director label ' +
-  'reporter returns descriptive "strobe·16 / pulse·4" strings so ' +
-  'the UI shows the actual rate. v1.1 added Claude-as-editor layer; ' +
-  'v1.0 baseline: unified pulse rate continuum, transient detector, ' +
-  'beat-offset grid fit, 2-bar min commit.';
+  'v1.4: Transient-locked sync. Energy derivative (dE/dt) boosts ' +
+  'signal on attacks so transients punch through instantly. Onset ' +
+  'hard-snap bypasses envelope smoothing on strong hits — frame-' +
+  'perfect visual on kick/snare. Pulse is now a 1-bar accent at ' +
+  'drop starts only, no rate variation or step-down ladder. Build ' +
+  'sections capped at pulse:2. Section transitions break director ' +
+  'commitment immediately. v1.3: scout architecture, hat-intro ' +
+  'blackout, raw signal mode. v1.2: composed bar patterns. v1.1: ' +
+  'Claude-as-editor. v1.0: unified pulse rate continuum.';
 
 export interface ModulatorContext {
   signal: number;       // 0-1 input from attention layer
@@ -45,6 +41,11 @@ export interface ModulatorContext {
   // Optional musical context for character-aware modulators
   dominantStem?: string;  // current focal stem (bass/kick/snare/hat/other)
   centroid?: number;      // spectral centroid in Hz (for "full spectrum" detection)
+  sectionLabel?: string;  // analysis section label (intro/verse/drop/breakdown/outro)
+  rawStems?: Record<string, number>;  // unprocessed stem energies from the analysis frame
+  // Scout hints (optional, from _scout.json)
+  scoutMoment?: { type: string; anticipating: boolean; intensity: number } | null;
+  scoutSection?: { signalMode?: string; modulatorHint?: string; suppressEscalation?: boolean } | null;
 }
 
 export type Modulator = (ctx: ModulatorContext) => number;
@@ -164,6 +165,9 @@ interface DirectorState {
   // ladder when we've held a fast pulse for ≥ 4 bars.
   lastCommittedFastRate: number;     // 0 if last commit was raw or slow
   beatsAtCurrentFastRate: number;    // running total at same-or-higher rate
+  useRawSignal: boolean;             // true → render loop should use raw stem energy
+  rawSignalHistory: number[];        // raw stem energy history for variance detection
+  lastSectionLabel: string | null;   // detect section transitions
 }
 
 let _directorState: DirectorState = {
@@ -177,6 +181,9 @@ let _directorState: DirectorState = {
   lastChoiceTime: 0,
   lastCommittedFastRate: 0,
   beatsAtCurrentFastRate: 0,
+  useRawSignal: false,
+  rawSignalHistory: [],
+  lastSectionLabel: null,
 };
 
 // Rate ladder used for the step-down: higher rate → next step lower.
@@ -196,7 +203,8 @@ function stepDownRate(current: number): number {
 
 /** 3-value enum — used as programBlock lane names. Do NOT change the
  *  return values; they feed directly into `fx:<name>` lane keys. */
-export function getDirectorChoice(): 'raw' | 'beatStrobe' | 'halfBarPulse' {
+export function getDirectorChoice(): 'raw' | 'beatStrobe' | 'halfBarPulse' | 'blackout' {
+  if (_directorState.currentPulseRate === -1) return 'blackout';
   if (_directorState.currentMod === 'raw') return 'raw';
   return _directorState.currentPulseRate >= 6 ? 'beatStrobe' : 'halfBarPulse';
 }
@@ -206,10 +214,17 @@ export function getDirectorChoice(): 'raw' | 'beatStrobe' | 'halfBarPulse' {
  *  'pulse·2' | 'pulse·1'. Use this for display; use
  *  `getDirectorChoice()` for lane-name equality. */
 export function getDirectorChoiceLabel(): string {
-  if (_directorState.currentMod === 'raw') return 'raw';
+  if (_directorState.currentPulseRate === -1) return 'blackout';
+  const rawTag = _directorState.useRawSignal ? ' [raw]' : '';
+  if (_directorState.currentMod === 'raw') return `raw${rawTag}`;
   const rate = _directorState.currentPulseRate;
   const kind = rate >= 6 ? 'strobe' : 'pulse';
-  return `${kind}·${rate}`;
+  return `${kind}·${rate}${rawTag}`;
+}
+
+/** Whether the director wants raw stem energy instead of attention-shaped signal. */
+export function getDirectorUseRaw(): boolean {
+  return _directorState.useRawSignal;
 }
 
 /** Exposes the actual pulse rate (for the test page debug HUD). */
@@ -229,17 +244,65 @@ export function resetDirector() {
     lastChoiceTime: 0,
     lastCommittedFastRate: 0,
     beatsAtCurrentFastRate: 0,
+    useRawSignal: false,
+    rawSignalHistory: [],
+    lastSectionLabel: null,
   };
 }
 
 interface ChoiceResult {
   mod: DirectorMod;
-  rate: number;           // pulses per beat (0 for raw)
+  rate: number;           // pulses per beat (0 for raw, -1 for blackout)
   durationBeats: number;
+  useRaw?: boolean;       // true → use raw stem energy instead of attention-shaped signal
 }
 
 // Each frame, when current mod expires, choose next based on character
 function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResult {
+  // Priority 0: Scout moment cues — anticipatory events the engine can't see coming.
+  if (ctx.scoutMoment) {
+    const m = ctx.scoutMoment;
+    if (m.anticipating) {
+      // We're in the anticipation window before the event
+      if (m.type === 'drop' || m.type === 'bass_drop' || m.type === 'silence') {
+        return { mod: 'raw', rate: -1, durationBeats: 2, useRaw: false }; // blackout
+      }
+      if (m.type === 'lift') {
+        return { mod: 'pulse', rate: 1, durationBeats: 2, useRaw: false };
+      }
+    } else {
+      // We're in the active window after the event timestamp
+      if (m.type === 'fake_out') {
+        // Suppress — return whatever the current state is, don't escalate
+        return { mod: state.currentMod, rate: state.currentPulseRate, durationBeats: 4 };
+      }
+      if (m.type === 'breakdown') {
+        return { mod: 'raw', rate: 0, durationBeats: 4, useRaw: false };
+      }
+      if (m.type === 'lift') {
+        return { mod: 'pulse', rate: 2, durationBeats: 4 };
+      }
+      // drop/bass_drop/silence after the timestamp — let the engine react naturally
+    }
+  }
+
+  // Priority 0.5: Scout section modulatorHint override
+  if (ctx.scoutSection?.modulatorHint) {
+    const hint = ctx.scoutSection.modulatorHint;
+    if (hint === 'raw') return { mod: 'raw', rate: 0, durationBeats: 4 };
+    if (hint === 'blackout') return { mod: 'raw', rate: -1, durationBeats: 4 };
+    const rate = parseInt(hint.split(':')[1], 10);
+    return { mod: 'pulse', rate, durationBeats: 8 };
+  }
+
+  // v1.3: Build/riser sections never get full-amplitude strobe or fast pulse.
+  // A build is tension — it should feel like it's going somewhere, not already
+  // there. Capping at pulse:2 preserves rhythmic movement without blowing the
+  // payoff. The drop after the build is what earns the strobe.
+  const isBuildSection = ctx.sectionLabel
+    ? /build|riser|pre|tension/i.test(ctx.sectionLabel)
+    : false;
+
   const sig = ctx.signal;
   const prev = state.prevSignal;
 
@@ -282,64 +345,28 @@ function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResul
   // The Director picks a rate (pulses per beat) based on signal character.
   // Each branch sets a specific rate; higher = more intense.
 
-  // v1.2 STEP-DOWN GATE (tightened).
-  // If the previous committed choice was a fast pulse (rate ≥ 4) and
-  // we've already spent ≥ 8 beats (2 bars) at that rate or faster,
-  // force the next choice one step down the ladder regardless of what
-  // the signal would normally pick. Two-bar cap was 4 bars in v1.2
-  // initial; dropped to 2 because 4 bars of sustained fast pulse is
-  // visually monotonous AND harsh on the eyes. Walks 16→8→5→4→2→1→raw
-  // as the burn accumulates.
-  //
-  // The Claude path prefers compositional bar patterns (every-4-bars,
-  // every-2-bars) that already chunk fast sections into 1-bar bursts
-  // with raw gaps — this engine gate is the safety net for the
-  // non-Claude path and for sections Claude marked 'solid'.
-  const burnedOut =
-    state.lastCommittedFastRate >= 4 &&
-    state.beatsAtCurrentFastRate >= 8;
+  // v1.3: One rate per section. No step-down ladder, no rate variation.
+  // Pulse fires once at the start of a drop as a short accent, then raw.
+  // If pulse already fired this section, go straight to raw.
+  const alreadyPulsed = state.lastCommittedFastRate > 0;
 
-  // Priority 1: sustained heavy bass synth → hardest strobe (16/beat)
-  if (heldBassSynth && strobeAllowed && !burnedOut) {
-    return { mod: 'pulse', rate: 16, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
+  // Priority 1: sustained heavy bass synth → strobe (8/beat), 1 bar only
+  if (heldBassSynth && strobeAllowed && !alreadyPulsed && !isBuildSection) {
+    return { mod: 'pulse', rate: 8, durationBeats: 4 };
   }
 
-  // Priority 1.5 (v1.2, for McDonalds-drop-style peak energy):
-  // sustained peak signal across the full history, no stem
-  // requirement. This catches the "highest energy moment" branch
-  // even when there's no held bass synth signature — e.g., a full
-  // drum drop over filter-swept bass.
-  const sustainedPeak = hist.length >= 20
-    && hist.slice(-20).every(v => v > 0.55)
-    && mean > 0.6
-    && variance > 0.08;
-  if (sustainedPeak && strobeAllowed && !burnedOut) {
-    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
-  }
-
-  // Priority 2: hard per-frame transient → full strobe (8/beat)
+  // Priority 2: hard transient or rising edge → strobe (8/beat), 1 bar
   const transient = sig - prev > 0.25 && sig > 0.5;
-  if (transient && strobeAllowed && !burnedOut) {
-    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
-  }
-
-  // Priority 3: rising edge vs recent mean → strobe (8/beat)
   const risingEdge = sig > shortMean + 0.2 && sig > 0.55;
-  if (risingEdge && strobeAllowed && !burnedOut) {
-    return { mod: 'pulse', rate: 8, durationBeats: FAST_MIN_BEATS + Math.random() * 4 };
+  if ((transient || risingEdge) && strobeAllowed && !alreadyPulsed && !isBuildSection) {
+    return { mod: 'pulse', rate: 8, durationBeats: 4 };
   }
 
-  // v1.2: if we're burned out from a long fast section, force a step
-  // down from the peak rate we were just at — even if the signal is
-  // still high. This yields a musical decay: 16 → 8 → 5 → 4 → 2 → 1 → raw.
-  if (burnedOut) {
-    const next = stepDownRate(state.lastCommittedFastRate);
-    if (next === 0) {
-      return { mod: 'raw', rate: 0, durationBeats: 4 + Math.random() * 4 };
-    }
-    // Duration scales with rate — slower steps hold longer.
-    const dur = next >= 4 ? 8 : next >= 2 ? 6 : 4;
-    return { mod: 'pulse', rate: next, durationBeats: dur };
+  // Priority 3.4: hat-dominant intro → blackout. Hat-only intros (e.g.
+  // TOO COOL to BE CARELESS) have no musical payload worth lighting yet;
+  // blackout builds anticipation for the first real hit.
+  if (ctx.dominantStem === 'hat' && ctx.sectionLabel === 'intro') {
+    return { mod: 'raw', rate: -1, durationBeats: 4 };
   }
 
   // Priority 3.5 (NEW): hat-dominant → raw. The attention layer's hat
@@ -352,30 +379,22 @@ function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResul
     return { mod: 'raw', rate: 0, durationBeats: 2 + Math.random() * 2 };
   }
 
-  // Priority 4: high-energy rhythmic → fast pulse (5/beat) — "building"
-  // intensity. Gets the new smooth decay envelope (exp 4.3) so it's fast
-  // but still musical, not a mechanical square wave.
-  if (sig > 0.5 && variance > 0.10) {
-    return { mod: 'pulse', rate: 5, durationBeats: 4 + Math.random() * 4 };
-  }
+  // Priority 4-6: Pulse only fires at the start of drop/high-energy sections
+  // as a 1-bar punctuation, then the engine returns to raw. Pulse is an
+  // accent, not a sustained mode.
+  // Detect "just entered a new section" by checking if we're in the first
+  // ~2 bars of a drop section (sectionLabel contains drop).
+  const isDropSection = ctx.sectionLabel
+    ? /drop/i.test(ctx.sectionLabel)
+    : false;
 
-  // Priority 5: rhythmic mid-energy → 8ths (2/beat)
-  if (sig > 0.22 && variance > 0.08) {
-    return { mod: 'pulse', rate: 2, durationBeats: 2 + Math.random() * 2 };
-  }
-
-  // Priority 6: sustained mid-energy — soft 1-per-beat musical pulse,
-  // BUT only when there's at least *some* rhythmic evidence (variance ≥ 0.04
-  // OR the attention layer is locked on a drum-like stem). Pure pad/vocal
-  // ambient sections with flat variance fall through to raw so beatless
-  // breakdowns (e.g., Dancing On My Own's ethereal section) stop pulsing.
-  const drumLike =
-    ctx.dominantStem === 'kick' ||
-    ctx.dominantStem === 'snare' ||
-    ctx.dominantStem === 'bass';
-  const hasRhythm = variance >= 0.04 || drumLike;
-  if (sig > 0.25 && mean > 0.25 && hasRhythm) {
-    return { mod: 'pulse', rate: 1, durationBeats: 3 + Math.random() * 2 };
+  // Only pulse at the very start of drops — short burst then back to raw.
+  if (isDropSection && sig > 0.5 && variance > 0.10) {
+    // Short 1-bar commitment. After this expires, the engine will
+    // re-evaluate — and with history filled, it'll fall to raw.
+    const rate = sig > 0.7 ? 5 : 2;
+    const rate2 = isBuildSection ? 2 : rate;
+    return { mod: 'pulse', rate: rate2, durationBeats: 4 };
   }
 
   // Default: raw passthrough. Beatless ambient sections land here and
@@ -393,6 +412,19 @@ export const director: Modulator = (ctx) => {
   if (state.centroidHistory.length > 30) state.centroidHistory.shift();
   state.prevSignal = ctx.signal;
 
+  // Track raw energy of dominant stem for raw-vs-shaped decision
+  const rawDominant = ctx.rawStems?.[ctx.dominantStem ?? ''] ?? 0;
+  state.rawSignalHistory.push(rawDominant);
+  if (state.rawSignalHistory.length > 30) state.rawSignalHistory.shift();
+
+  // Break current commitment on section change so drops/transitions aren't late
+  const sectionChanged = ctx.sectionLabel !== state.lastSectionLabel && ctx.sectionLabel != null;
+  if (sectionChanged) {
+    state.lastSectionLabel = ctx.sectionLabel ?? null;
+    state.endsAtTime = 0; // force re-evaluation
+    state.lastCommittedFastRate = 0; // reset pulse gate for new section
+  }
+
   // Time to choose a new modulator?
   if (ctx.time >= state.endsAtTime) {
     const beatSec = 60 / ctx.bpm;
@@ -404,7 +436,14 @@ export const director: Modulator = (ctx) => {
       : 0;
     state.recentStrobeBeats = Math.max(0, state.recentStrobeBeats - elapsedBeats * 0.5);
 
-    let { mod, rate, durationBeats } = chooseNextMod(ctx, state);
+    const choice = chooseNextMod(ctx, state);
+    let { mod, rate, durationBeats } = choice;
+
+    // Scout suppressEscalation: don't go UP from current rate
+    if (ctx.scoutSection?.suppressEscalation && mod === 'pulse' && rate > state.currentPulseRate && state.currentPulseRate > 0) {
+      rate = state.currentPulseRate;
+    }
+
     // A fast (rate ≥ 4) pulse is the "strobe" of the unified system and
     // still only legally starts on a downbeat — if we picked one off-beat,
     // fall back to raw until the next bar.
@@ -426,31 +465,42 @@ export const director: Modulator = (ctx) => {
     state.lastChoiceTime = ctx.time;
     if (mod === 'pulse' && rate >= 4) state.recentStrobeBeats += durationBeats;
 
-    // v1.2 step-down book-keeping.
-    const nowFast = mod === 'pulse' && rate >= 4;
-    if (nowFast) {
-      // Accumulate burn at the current or a lower fast rate. If the new
-      // rate is EQUAL OR LOWER than the previous fast rate we keep
-      // adding (so a step-down still counts as "the same fast burst").
-      // If the new rate is HIGHER (unusual — rate escalation), start fresh.
-      if (rate >= state.lastCommittedFastRate && state.lastCommittedFastRate > 0) {
-        state.beatsAtCurrentFastRate += durationBeats;
-      } else if (rate < state.lastCommittedFastRate) {
-        state.beatsAtCurrentFastRate += durationBeats;
-      } else {
-        state.beatsAtCurrentFastRate = durationBeats;
-      }
-      state.lastCommittedFastRate = rate;
+    // Raw signal decision: use raw stem energy when the stem's natural
+    // dynamics have high variance (pulsing bass, punchy kicks). The
+    // attention layer's envelope shaping smooths these out, but the raw
+    // frame-to-frame movement is often more visually compelling.
+    // Scout section signalMode takes precedence over auto-detection
+    if (ctx.scoutSection?.signalMode === 'raw') {
+      state.useRawSignal = true;
+    } else if (ctx.scoutSection?.signalMode === 'shaped') {
+      state.useRawSignal = false;
+    } else if (choice.useRaw !== undefined) {
+      state.useRawSignal = choice.useRaw;
     } else {
-      // Raw or slow pulse — we've left the fast burst. If we've been
-      // away for long enough, clear the burn counter so a new burst
-      // can start fresh. One bar of non-fast is enough cooldown.
-      state.beatsAtCurrentFastRate = 0;
+      const rh = state.rawSignalHistory;
+      if (rh.length >= 10) {
+        const rMean = rh.reduce((a, b) => a + b, 0) / rh.length;
+        const rVar = rh.reduce((sum, v) => sum + (v - rMean) ** 2, 0) / rh.length;
+        // High variance in raw energy → natural dynamics are the show.
+        // Bass and kick benefit most; hat already goes raw via Priority 3.5.
+        const dynamicStem = ctx.dominantStem === 'bass' || ctx.dominantStem === 'kick';
+        state.useRawSignal = dynamicStem && rVar > 0.008 && rMean > 0.15;
+      } else {
+        state.useRawSignal = false;
+      }
+    }
+
+    // v1.3: track whether pulse has fired so we don't repeat it.
+    // Reset when we return to raw (new section opportunity).
+    if (mod === 'pulse' && rate > 0) {
+      state.lastCommittedFastRate = rate;
+    } else if (mod === 'raw' && rate === 0) {
       state.lastCommittedFastRate = 0;
     }
   }
 
   // Apply chosen modulator
+  if (state.currentPulseRate === -1) return 0; // blackout
   if (state.currentMod === 'pulse') {
     return pulseAtBeatRate(ctx, state.currentPulseRate);
   }

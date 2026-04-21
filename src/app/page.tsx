@@ -4,24 +4,15 @@ import { useEffect, useCallback, useState, useRef, useMemo } from 'react';
 import { Settings, Menu, AudioLines, ListMusic, Copy, EyeOff } from 'lucide-react';
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
 import { AnalysisResult, StemFrame } from '@/types/v3';
-import { computeAttention, resetAttention } from '@/lib/attention';
-import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector, getDirectorChoice, getDirectorChoiceLabel, getDirectorPulseRate, pulseAtBeatRate, DIRECTOR_VERSION } from '@/lib/modulators';
+import { computeAttention, resetAttention, configureAttention } from '@/lib/attention';
+import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector, getDirectorChoice, getDirectorChoiceLabel, getDirectorPulseRate, getDirectorUseRaw, pulseAtBeatRate, DIRECTOR_VERSION } from '@/lib/modulators';
 import { estimateBeatOffset, beatPhases } from '@/lib/beatAlign';
 import { analyzeAudio } from '@/lib/api';
 import { resetPhaseChase, resetSpatialDirector } from '@/lib/spatial';
 import { SignalGraph, resetSignalGraph } from '@/components/SignalGraph';
 import { Screen3D, resetScreen3D } from '@/components/Screen3D';
-import type {
-  ShowPlan as DirectorShowPlan,
-  DraftPlan as DirectorDraftPlan,
-  PlanPatch as DirectorPlanPatch,
-} from '@/lib/director/schema';
-import { applyPatch as applyDirectorPatch } from '@/lib/director/applyPatch';
-import {
-  buildClaudeBlocks,
-  getHitCueBoost,
-} from '@/lib/director/engineAdapter';
-import { DirectorHud, DirectorBadge } from '@/components/DirectorHud';
+import type { Scout } from '@/lib/scout/schema';
+import { loadScout, getActiveMoment, isAnticipating, getSectionAnnotation, buildStemWeights, detectStemEntries, type StemEntryCue } from '@/lib/scout/apply';
 
 interface PresetSong {
   name: string;
@@ -68,15 +59,11 @@ export default function Home() {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [songName, setSongName] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  // Claude director: parallel with analysis, non-blocking, display-only for now.
-  // Streaming: as Claude produces partial patches, the ShowPlan is recomputed
-  // on the fly by re-applying each partial to the draft.
-  const [directorPlan, setDirectorPlan] = useState<DirectorShowPlan | null>(null);
-  const [directorStatus, setDirectorStatus] = useState<
-    'idle' | 'loading' | 'streaming' | 'ready' | 'error'
-  >('idle');
-  const [directorError, setDirectorError] = useState<string | null>(null);
-  const [directorHudOpen, setDirectorHudOpen] = useState(false);
+  // Scout: optional per-song metadata from Claude (loaded from _scout.json)
+  const [scout, setScout] = useState<Scout | null>(null);
+  const [scoutLoading, setScoutLoading] = useState(false);
+  const currentSlugRef = useRef<string | null>(null);
+  const [stemEntries, setStemEntries] = useState<StemEntryCue[]>([]);
 
   // The single output signal: 0-1 brightness
   const [signal, setSignal] = useState(0);
@@ -89,6 +76,7 @@ export default function Home() {
   // v1.2: rich label reflecting actual rate, e.g. "strobe·16", "pulse·4".
   // Used for display on the active effect button.
   const [directorLabel, setDirectorLabel] = useState<string>('raw');
+  const [activeScoutCue, setActiveScoutCue] = useState<string | null>(null);
   // Independent layer toggles
   const [signalOn, setSignalOn] = useState(true);   // 1-Channel: full screen brightness
   const [spectroOn, setSpectroOn] = useState(true); // Spectro: 3D scene
@@ -185,10 +173,6 @@ export default function Home() {
   // Program timeline: blocks recording stem-focus and effect choices over time
   type Block = { lane: string; start: number; end: number; rate?: number; intensityScale?: number };
   const [programBlocks, setProgramBlocks] = useState<Block[]>([]);
-  // When true and a Claude ShowPlan is available, the render loop uses
-  // Claude-derived blocks in place of the engine's programBlocks. Off by
-  // default so nothing changes until the user flips the switch.
-  const [useClaudePlan, setUseClaudePlan] = useState(false);
   const stemBlockRef = useRef<{ stem: string; start: number } | null>(null);
   const fxBlockRef = useRef<{ fx: string; start: number } | null>(null);
   const resetProgramTimeline = useCallback(() => {
@@ -211,7 +195,7 @@ export default function Home() {
       ? { 'KeyA': 'bass', 'KeyS': 'kick', 'KeyD': 'snare', 'KeyF': 'hat', 'KeyG': 'other' }
       : { 'Digit1': 'bass', 'Digit2': 'kick', 'Digit3': 'snare', 'Digit4': 'hat', 'Digit5': 'other' };
     const FX_KEYS: Record<string, string> = keyMap === 'pro'
-      ? { 'KeyH': 'raw', 'KeyJ': 'beatStrobe', 'KeyK': 'halfBarPulse', 'KeyL': 'blackout' }
+      ? { 'KeyH': 'raw', 'KeyJ': 'halfBarPulse', 'KeyK': 'blackout' }
       : {};
     const prevPinRef = { current: null as string | null };
     const handleDown = (e: KeyboardEvent) => {
@@ -244,7 +228,7 @@ export default function Home() {
       else if (e.code === 'KeyZ') { e.preventDefault(); setSpectroOn(v => !v); }
       else if (e.code === 'Backquote') {
         e.preventDefault();
-        setPinnedMod(prev => prev ? null : (prevPinRef.current ?? 'beatStrobe'));
+        setPinnedMod(prev => prev ? null : (prevPinRef.current ?? 'halfBarPulse'));
       }
       else if (STEM_KEYS[e.code]) { e.preventDefault(); setSoloStem(STEM_KEYS[e.code]); }
       else if (FX_KEYS[e.code]) {
@@ -282,6 +266,8 @@ export default function Home() {
       const att = computeAttention(frame, dt, res.bpm);
       const ph = beatPhases(frame.time, res.bpm, offset);
       // Drive director (we don't need its output, just its choice)
+      const sec = res.sections.find(s => s.start <= frame.time && s.end > frame.time);
+      const rawStems = frame.stems as unknown as Record<string, number>;
       MODULATORS.director.fn({
         signal: att.signal,
         time: frame.time,
@@ -291,6 +277,8 @@ export default function Home() {
         dt,
         dominantStem: att.dominant,
         centroid: frame.centroid,
+        sectionLabel: sec?.label,
+        rawStems,
       });
       const fx = getDirectorChoice();
       const rate = getDirectorPulseRate();
@@ -316,83 +304,46 @@ export default function Home() {
     resetDirector();
   }, []);
 
-  // Claude director fetch — streams NDJSON partials from /api/director/stream.
-  // Non-blocking, fails soft. As partial patches arrive the ShowPlan is
-  // recomputed by re-applying the partial to the draft, so the HUD
-  // progressively fills in sections / hit cues / warnings during the wait.
-  const fetchDirectorPlan = useCallback(
-    async (payload: { analysisUrl?: string; analysis?: AnalysisResult }) => {
-      setDirectorStatus('loading');
-      setDirectorError(null);
-      setDirectorPlan(null);
-      try {
-        const res = await fetch('/api/director/stream', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
+  // Load scout metadata for a song (optional, fails silently)
+  const fetchScout = useCallback(async (slug: string) => {
+    setScoutLoading(true);
+    const data = await loadScout(slug);
+    setScout(data);
+    setScoutLoading(false);
+    if (data) {
+      configureAttention(buildStemWeights(data));
+    }
+  }, []);
 
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-        let draft: DirectorDraftPlan | null = null;
-
-        while (true) {
-          const { value, done } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-
-          let nl: number;
-          while ((nl = buffer.indexOf('\n')) >= 0) {
-            const line = buffer.slice(0, nl).trim();
-            buffer = buffer.slice(nl + 1);
-            if (!line) continue;
-
-            let msg: Record<string, unknown>;
-            try {
-              msg = JSON.parse(line);
-            } catch {
-              continue;
-            }
-
-            const t = msg.t as string;
-            if (t === 'meta') {
-              draft = msg.draft as DirectorDraftPlan;
-              const cached = msg.cached as boolean;
-              setDirectorStatus(cached ? 'ready' : 'streaming');
-            } else if (t === 'partial' && draft) {
-              try {
-                const patch = msg.patch as DirectorPlanPatch;
-                setDirectorPlan(applyDirectorPatch(draft, patch));
-              } catch {
-                // Partial may be malformed mid-stream; ignore and wait.
-              }
-            } else if (t === 'final' && draft) {
-              const patch = msg.patch as DirectorPlanPatch;
-              setDirectorPlan(applyDirectorPatch(draft, patch));
-              setDirectorStatus('ready');
-              const ce = msg.claudeError as string | null;
-              if (ce) setDirectorError(ce);
-            } else if (t === 'error') {
-              throw new Error((msg.message as string) ?? 'stream error');
-            }
-          }
-        }
-      } catch (err) {
-        setDirectorStatus('error');
-        setDirectorError(err instanceof Error ? err.message : String(err));
+  // Generate scout via Claude API, save result, and activate it
+  const generateScout = useCallback(async () => {
+    const slug = currentSlugRef.current;
+    if (!slug || scoutLoading) return;
+    setScoutLoading(true);
+    try {
+      const res = await fetch('/api/scout', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ analysisUrl: `/songs/${slug}_analysis.json` }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const { scout: data } = await res.json();
+      if (data) {
+        setScout(data);
+        configureAttention(buildStemWeights(data));
       }
-    },
-    [],
-  );
+    } catch (err) {
+      console.warn('[scout] generation failed:', err);
+    } finally {
+      setScoutLoading(false);
+    }
+  }, [scoutLoading]);
 
   // Load preset
   const loadPreset = useCallback(async (slug: string, name: string, ext: string = '.mp3') => {
     setIsLoading(true);
     setAnalysis(null);
-    setDirectorPlan(null);
-    setDirectorStatus('idle');
+    setScout(null);
     resetAttention();
     resetSignalGraph();
     resetProgramTimeline();
@@ -407,19 +358,17 @@ export default function Home() {
       const analysisRes = await fetch(`/songs/${slug}_analysis.json`).then(r => r.json()) as AnalysisResult;
       setAnalysis(analysisRes);
       setSongName(name);
+      currentSlugRef.current = slug;
       precomputeTimeline(analysisRes);
-      // Presets skip the stems phase (analysis already on disk) and go
-      // straight to the director. Show the 2/2 label so the user knows
-      // Claude is still working.
-      setAnalyzingStatus('2/2 · director…');
-      fetchDirectorPlan({ analysisUrl: `/songs/${slug}_analysis.json` });
+      setStemEntries(detectStemEntries(analysisRes.frames, analysisRes.bpm, analysisRes.fps));
+      fetchScout(slug);
       await loadAudioFile(`/songs/${slug}${ext}`);
     } catch (err) {
       console.error('Failed to load:', err);
     } finally {
       setIsLoading(false);
     }
-  }, [loadAudioFile, precomputeTimeline, resetProgramTimeline]);
+  }, [loadAudioFile, precomputeTimeline, resetProgramTimeline, fetchScout]);
 
   // Load a user-dropped file in raw mode (no analysis → no Director, no
   // attention layer, no Program Focus Timeline). Audio just plays.
@@ -429,25 +378,11 @@ export default function Home() {
   const analysisCacheRef = useRef<Map<string, AnalysisResult>>(new Map());
   const [analyzingStatus, setAnalyzingStatus] = useState<string | null>(null);
 
-  // Clear the 2/2 director label as soon as the director finishes (or errors).
-  // This is separate from directorStatus because it also covers the initial
-  // analysis phase (1/2) and the "playing raw" failure path.
-  useEffect(() => {
-    if (analyzingStatus?.startsWith('2/2') && directorStatus === 'ready') {
-      setAnalyzingStatus(null);
-    }
-    if (analyzingStatus?.startsWith('2/2') && directorStatus === 'error') {
-      setAnalyzingStatus('director failed — using engine baseline');
-      const id = setTimeout(() => setAnalyzingStatus(null), 4000);
-      return () => clearTimeout(id);
-    }
-  }, [directorStatus, analyzingStatus]);
 
   const loadCustomFile = useCallback(async (file: File) => {
     setIsLoading(true);
     setAnalysis(null);
-    setDirectorPlan(null);
-    setDirectorStatus('idle');
+    setScout(null);
     resetAttention();
     resetSignalGraph();
     resetDecayingStrobe();
@@ -474,7 +409,6 @@ export default function Home() {
       setAnalyzingStatus(null);
       setAnalysis(cached);
       precomputeTimeline(cached);
-      fetchDirectorPlan({ analysis: cached });
       await audioPromise;
       setIsLoading(false);
       return;
@@ -486,11 +420,6 @@ export default function Home() {
       analysisCacheRef.current.set(cacheKey, result);
       setAnalysis(result);
       precomputeTimeline(result);
-      // Phase 2: Claude director. The HUD badge carries full progress,
-      // but the top-bar label shows a single line so it's obvious the
-      // song isn't "ready" yet.
-      setAnalyzingStatus('2/2 · director…');
-      fetchDirectorPlan({ analysis: result });
     } catch (err) {
       console.error('Analysis failed:', err);
       setAnalyzingStatus('analysis failed — playing raw');
@@ -624,67 +553,100 @@ export default function Home() {
     setDominantStem(attention.dominant);
 
     // ----------------------------------------------------------------
-    // Signal source resolution.
-    //
-    // Default (engine): signal comes from the attention layer, which
-    // picks a dominant stem live each frame.
-    //
-    // Claude mode: if useClaudePlan is on AND the active section has a
-    // focus stem, we source the signal DIRECTLY from that stem's raw
-    // energy (boosted slightly) instead of the attention layer's pick.
-    // This is what makes Claude's focus decisions audible on the lights:
-    // when Claude says "focus vocals here", brightness follows vocals
-    // instead of whatever attention thinks is loudest.
-    //
-    // The same section also gives us the rate (from modulator) and
-    // intensity scale (from the block's baked value).
+    // Signal source: attention layer picks the dominant stem live.
+    // Scout annotations can override stem focus per section.
     // ----------------------------------------------------------------
-    const activeBlocks =
-      useClaudePlan && directorPlan
-        ? buildClaudeBlocks(directorPlan)
-        : programBlocks;
+    const activeBlocks = programBlocks;
 
-    let claudeFocusStem: string | null = null;
-    let claudeStemSignal: number | null = null;
-    if (useClaudePlan && directorPlan) {
-      const t = audioState.currentTime;
-      const sec = directorPlan.sections.find(s => s.start <= t && s.end > t);
-      if (sec) {
-        // Map "vocals" to "other" since the engine's stem vocabulary
-        // doesn't carry a separate vocals envelope on this path.
-        const stemKey = sec.focusStem === 'vocals' ? 'other' : sec.focusStem;
+    let scoutFocusStem: string | null = null;
+    let scoutStemSignal: number | null = null;
+    if (scout) {
+      const sIdx = analysis.sections.findIndex(s => s.start <= audioState.currentTime && s.end > audioState.currentTime);
+      const ann = sIdx >= 0 ? getSectionAnnotation(scout.sections, sIdx) : null;
+      if (ann?.stemFocus) {
+        const stemKey = ann.stemFocus === 'vocals' ? 'other' : ann.stemFocus;
         const raw = stems[stemKey] ?? 0;
-        // Boost to match the 0..1 range the attention layer normally
-        // delivers. 1.6 is the empirical multiplier — raw stem energies
-        // peak ~0.6 on most tracks.
-        claudeStemSignal = Math.max(0, Math.min(1, raw * 1.6));
-        claudeFocusStem = sec.focusStem;
+        scoutStemSignal = Math.max(0, Math.min(1, raw * 1.6));
+        scoutFocusStem = ann.stemFocus;
+      }
+
+    }
+
+    // v1.4: stem entry detection — lock to newly entered stems (deterministic, no scout needed)
+    if (!scoutFocusStem && stemEntries.length > 0) {
+      const beatSec = 60 / analysis.bpm;
+      const t = audioState.currentTime;
+      for (const entry of stemEntries) {
+        const start = entry.t;
+        const end = entry.t + entry.durationBeats * beatSec;
+        if (t >= start && t < end) {
+          const stemKey = entry.stem === 'vocals' ? 'other' : entry.stem;
+          const raw = stems[stemKey] ?? 0;
+          if (raw > 0.1) {
+            scoutStemSignal = Math.max(0, Math.min(1, raw * 1.6));
+            scoutFocusStem = entry.stem;
+          }
+          break;
+        }
       }
     }
 
-    const baseSignal = claudeStemSignal ?? attention.signal;
-    const dominantForCtx = claudeFocusStem ?? attention.dominant;
+    // v1.4: blend energy derivative into signal — transient attacks punch through
+    const derivativeBoost = attention.dEnergy * 0.5;
+    const attentionSignal = Math.min(1.0, attention.signal + derivativeBoost);
+    const baseSignal = scoutStemSignal ?? attentionSignal;
+    const dominantForCtx = scoutFocusStem ?? attention.dominant;
 
     // Apply selected modulator on top of the resolved signal
+    const curSection = analysis.sections.find(s => s.start <= audioState.currentTime && s.end > audioState.currentTime);
+    const curSectionIdx = curSection ? analysis.sections.indexOf(curSection) : -1;
+    const rawStems = currentFrame.stems as unknown as Record<string, number>;
+
+    // Resolve scout hints for this frame
+    const scoutMoment = scout
+      ? getActiveMoment(scout.moments, audioState.currentTime, analysis.bpm)
+      : null;
+    const scoutSection = scout && curSectionIdx >= 0
+      ? getSectionAnnotation(scout.sections, curSectionIdx)
+      : null;
+
+    // If the director requests raw stem energy, bypass the attention layer's
+    // envelope shaping and use the stem's natural dynamics directly.
+    const directorWantsRaw = getDirectorUseRaw();
+    const resolvedSignal = directorWantsRaw && dominantForCtx
+      ? Math.min(1.0, (rawStems[dominantForCtx] ?? 0) * 1.5)
+      : baseSignal;
+
     const modCtx = {
-      signal: baseSignal,
+      signal: resolvedSignal,
       time: audioState.currentTime,
       ...beatPhases(audioState.currentTime, analysis.bpm, beatOffset),
       bpm: analysis.bpm,
       dt,
       dominantStem: dominantForCtx,
       centroid: currentFrame.centroid,
+      sectionLabel: curSection?.label,
+      rawStems,
+      scoutMoment: scoutMoment ? {
+        type: scoutMoment.type,
+        anticipating: isAnticipating(scoutMoment, audioState.currentTime, analysis.bpm),
+        intensity: scoutMoment.intensity,
+      } : null,
+      scoutSection: scoutSection ? {
+        signalMode: scoutSection.signalMode,
+        modulatorHint: scoutSection.modulatorHint,
+        suppressEscalation: scoutSection.suppressEscalation,
+      } : null,
     };
 
     let activeMod = modulator;
     let directorRate = 0;
-    let sectionIntensityScale = 1;
+    let sectionIntensityScale = scoutSection?.intensityScale ?? 1;
     if (modulator === 'director') {
       const t = audioState.currentTime;
       const fxBlock = activeBlocks.find(b => b.lane.startsWith('fx:') && b.start <= t && b.end > t);
       activeMod = fxBlock ? fxBlock.lane.slice(3) : 'raw';
       directorRate = fxBlock?.rate ?? 0;
-      sectionIntensityScale = fxBlock?.intensityScale ?? 1;
     }
     let modulated: number;
     if (modulator === 'director' && directorRate > 0) {
@@ -693,27 +655,15 @@ export default function Home() {
       const modFn = MODULATORS[activeMod]?.fn ?? MODULATORS.raw.fn;
       modulated = Math.max(0, Math.min(1, modFn(modCtx)));
     }
-    // Apply Claude's per-section intensity scale (no-op when not using
-    // Claude's plan since the fallback scale is 1).
-    if (useClaudePlan && sectionIntensityScale !== 1) {
+    // Apply scout's per-section intensity scale
+    if (sectionIntensityScale !== 1) {
       modulated = Math.max(0, Math.min(1, modulated * sectionIntensityScale));
     }
-    // Override the displayed dominant stem so the HUD / signal graph
-    // shows what's actually driving the signal.
-    if (claudeFocusStem) {
-      setDominantStem(claudeFocusStem);
-    }
-    // Hit cue overlay: if Claude placed a one-shot at this moment, boost
-    // the brightness for the duration of the cue's envelope. Fires
-    // regardless of the useClaudePlan toggle — hit cues are additive and
-    // never hurt the baseline.
-    if (directorPlan) {
-      const boost = getHitCueBoost(directorPlan, audioState.currentTime);
-      if (boost.envelope > 0) {
-        modulated = Math.max(modulated, boost.envelope);
-      }
+    if (scoutFocusStem) {
+      setDominantStem(scoutFocusStem);
     }
     setSignal(modulated);
+    setActiveScoutCue(scoutMoment ? `${scoutMoment.type}${isAnticipating(scoutMoment, audioState.currentTime, analysis.bpm) ? '…' : ''}` : null);
     const fxNow = activeMod;
     if (modulator === 'director') {
       setDirectorChoice(fxNow);
@@ -759,7 +709,7 @@ export default function Home() {
       other: stems.other,
     });
     setStemScores(attention.scores);
-  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, useClaudePlan, directorPlan, programBlocks, songMenuOpen]);
+  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, scout, programBlocks, songMenuOpen]);
 
   const isReady = !!audioState.source;
   const isRawMode = isReady && !analysis;
@@ -979,14 +929,25 @@ export default function Home() {
                 {DIRECTOR_VERSION}
               </span>
             </button>
-            <DirectorBadge
-              status={directorStatus}
-              plan={directorPlan}
-              live={useClaudePlan && !!directorPlan}
-              onToggleLive={() => setUseClaudePlan(v => !v)}
-              onOpenPanel={() => setDirectorHudOpen(v => !v)}
-            />
             <div className="flex-1" />
+            {analysis && (
+              <button
+                onClick={generateScout}
+                disabled={scoutLoading}
+                className={`text-[10px] px-2 py-1 rounded-full border font-mono shrink-0 transition-colors cursor-pointer ${
+                  scoutLoading
+                    ? 'border-yellow-600 bg-yellow-950 text-yellow-300 animate-pulse cursor-wait'
+                    : scout
+                      ? activeScoutCue
+                        ? 'border-amber-500 bg-amber-950 text-amber-300 hover:brightness-125'
+                        : 'border-emerald-800 bg-emerald-950 text-emerald-300 hover:brightness-125'
+                      : 'border-white/20 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/80'
+                }`}
+                title={scout ? 'Regenerate scout (click)' : 'Generate scout analysis with Claude'}
+              >
+                {scoutLoading ? '◌ scout…' : scout ? (activeScoutCue ? `⚡ ${activeScoutCue}` : '● scout') : '○ scout'}
+              </button>
+            )}
             <div className="hidden md:flex items-center gap-3 shrink-0 font-mono">
               <span className="text-[10px] text-white/50">
                 {dominantStem} · {(signal * 100).toFixed(0)}% · hold {debugInfo.held.toFixed(1)}/{debugInfo.hold}b · e{(debugInfo.energy * 100).toFixed(0)}
@@ -1007,9 +968,8 @@ export default function Home() {
               const STEM_LANES = STEMS.map(s => ({ key: 'stem:' + s, label: s.toUpperCase(), color: STEM_COLOR_RGB[s] }));
               const FX_LANES = [
                 { key: 'fx:raw',          label: 'RAW',      color: '#67e8f9' }, // cyan-300
-                { key: 'fx:beatStrobe',   label: 'STROBE',   color: '#22d3ee' }, // cyan-400
+                { key: 'fx:beatStrobe',   label: 'PULSE·F',  color: '#22d3ee' }, // cyan-400 (fast pulse ≥6/beat)
                 { key: 'fx:halfBarPulse', label: 'PULSE',    color: '#06b6d4' }, // cyan-500
-                { key: 'fx:sineWobble',   label: 'WOBBLE',   color: '#0891b2' }, // cyan-600
                 { key: 'fx:blackout',     label: 'BLACKOUT', color: '#155e75' }, // cyan-800
               ];
               const GROUPS = [
@@ -1075,12 +1035,12 @@ export default function Home() {
           <div className="px-3 pt-2 pb-2 shrink-0 relative z-10 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
             <button
               onClick={audioState.isPlaying ? pause : play}
-              className="px-4 py-2 md:py-1.5 min-h-11 md:min-h-0 rounded-full whitespace-nowrap border border-white/30 bg-white/10 hover:bg-white/15 active:bg-white/20 text-white font-semibold transition-colors flex items-center gap-2 shrink-0"
+              className="px-3 md:px-4 py-2 md:py-1.5 min-h-9 md:min-h-0 rounded-full whitespace-nowrap border border-white/30 bg-white/10 hover:bg-white/15 active:bg-white/20 text-white font-semibold transition-colors flex items-center gap-2 shrink-0"
             >
               <span className="text-lg leading-none">{audioState.isPlaying ? '⏸' : '▶'}</span>
               <span className="hidden md:inline text-[10px] uppercase tracking-widest opacity-60">Space</span>
             </button>
-            <div className="flex items-center justify-center gap-2 flex-1 order-3 md:order-none w-full md:w-auto flex-wrap md:flex-nowrap">
+            <div className="flex items-center justify-center gap-1.5 md:gap-2 flex-1 order-3 md:order-none w-full md:w-auto flex-wrap md:flex-nowrap">
             {/* Track focus (stems) */}
             {STEMS.map((stem, i) => {
               const level = stemLevels[stem] ?? 0;
@@ -1093,7 +1053,7 @@ export default function Home() {
                   onPointerDown={() => setSoloStem(stem)}
                   onPointerUp={() => setSoloStem(null)}
                   onPointerLeave={() => setSoloStem(null)}
-                  className={`relative text-xs px-3 py-2.5 md:py-1.5 min-h-11 md:min-h-0 rounded-full select-none overflow-hidden flex-1 min-w-[60px] md:flex-none md:w-[96px] font-medium active:bg-white/10 ${
+                  className={`relative text-[11px] md:text-xs px-2 md:px-3 py-2 md:py-1.5 min-h-9 md:min-h-0 rounded-full select-none overflow-hidden flex-1 min-w-0 md:flex-none md:w-[96px] font-medium active:bg-white/10 ${
                     isActive
                       ? 'border-2 bg-white/5 text-white'
                       : 'border border-white/10 bg-black/60 text-white/60'
@@ -1117,22 +1077,21 @@ export default function Home() {
             <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
             {/* Director sub-choices: auto unless user pins one */}
             {(() => {
-              const FX_HINT = keyMap === 'pro' ? ['H','J','K','L'] : [null,null,null,null];
+              const FX_HINT = keyMap === 'pro' ? ['H','J','K'] : [null,null,null];
               const subs = [
                 { key: 'raw',          label: 'RAW',      hint: FX_HINT[0], color: '#d4d4d8' },
-                { key: 'beatStrobe',   label: 'STROBE',   hint: FX_HINT[1], color: '#a8a3c4' },
-                { key: 'halfBarPulse', label: 'PULSE',    hint: FX_HINT[2], color: '#7c6f9e' },
-                { key: 'blackout',     label: 'BLACKOUT', hint: FX_HINT[3], color: '#1e0a3c' },
+                { key: 'halfBarPulse', label: 'PULSE',    hint: FX_HINT[1], color: '#a8a3c4' },
+                { key: 'blackout',     label: 'BLACKOUT', hint: FX_HINT[2], color: '#1e0a3c' },
               ] as const;
               return (
-                <div className="flex items-center gap-1 pl-3 pr-3 py-1 rounded-full border bg-black/40 border-white/15">
-                  <span className="text-[10px] uppercase tracking-[0.15em] font-semibold text-white/70 ml-3">
+                <div className="flex items-center gap-1 pl-2 md:pl-3 pr-2 md:pr-3 py-1 rounded-full border bg-black/40 border-white/15">
+                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-semibold text-white/70 ml-1 md:ml-3">
                     Effects
                   </span>
                   {(() => {
                     const mode = !pinnedMod ? 'auto' : pinnedMod === 'raw' ? 'off' : 'manual';
                     const cycleMode = () => {
-                      if (mode === 'auto') setPinnedMod('beatStrobe');
+                      if (mode === 'auto') setPinnedMod('halfBarPulse');
                       else if (mode === 'manual') setPinnedMod('raw');
                       else setPinnedMod(null);
                     };
@@ -1168,14 +1127,14 @@ export default function Home() {
                     // button by parsing it out of directorLabel ("strobe·16",
                     // "pulse·4", etc). Only applied on live auto mode.
                     const rateSuffix =
-                      isAuto && (m.key === 'beatStrobe' || m.key === 'halfBarPulse')
+                      isAuto && m.key === 'halfBarPulse'
                         ? (directorLabel.split('·')[1] ?? null)
                         : null;
                     return (
                       <button
                         key={m.key}
                         onClick={() => setPinnedMod(isPinned ? null : m.key)}
-                        className={`text-xs px-3 py-2.5 md:py-1.5 min-h-11 md:min-h-0 flex-1 md:flex-none min-w-[60px] md:min-w-[88px] rounded-full uppercase tracking-wide font-medium transition-colors active:bg-white/10 ${
+                        className={`text-[11px] md:text-xs px-2 md:px-3 py-2 md:py-1.5 min-h-9 md:min-h-0 flex-1 md:flex-none min-w-0 md:min-w-[88px] rounded-full uppercase tracking-wide font-medium transition-colors active:bg-white/10 ${
                           isPinned || isAuto
                             ? 'border-2 bg-white/5 text-white'
                             : 'border border-white/10 bg-black/60 text-white/60'
@@ -1198,7 +1157,7 @@ export default function Home() {
             <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
             <button
               onClick={() => setSpectroOn(v => !v)}
-              className={`text-xs px-4 py-2.5 md:py-2 min-h-11 md:min-h-0 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
+              className={`hidden md:block text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
                 spectroOn
                   ? 'bg-transparent text-amber-300 border-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
                   : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
@@ -1209,7 +1168,7 @@ export default function Home() {
             </div>
             <button
               onClick={() => setUiHidden(true)}
-              className="w-11 h-11 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10 shrink-0"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10 shrink-0"
               title="Hide controls"
             >
               <EyeOff size={14} />
@@ -1218,7 +1177,7 @@ export default function Home() {
             <div className="relative shrink-0" ref={settingsRef}>
               <button
                 onClick={() => setSettingsOpen(v => !v)}
-                className="w-11 h-11 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10"
                 title="Settings"
               >
                 <Settings size={14} />
@@ -1279,7 +1238,7 @@ export default function Home() {
             <div
               ref={scrubRef}
               className="relative w-full bg-black/20 rounded-md overflow-hidden cursor-pointer select-none"
-              style={{ height: scrubberView === 'waveform' ? 100 : 180 }}
+              style={{ height: scrubberView === 'waveform' ? 70 : 140 }}
               onPointerDown={(e) => {
                 (e.target as Element).setPointerCapture(e.pointerId);
                 scrubFromEvent(e.clientX);
@@ -1309,7 +1268,7 @@ export default function Home() {
                 const STEM_LANES = STEMS.map(s => ({ key: 'stem:' + s, label: s.toUpperCase(), color: STEM_COLOR_RGB[s] }));
                 const FX_LANES = [
                   { key: 'fx:raw',          label: 'RAW',      color: '#d4d4d8' }, // very light desat (zinc-300)
-                  { key: 'fx:beatStrobe',   label: 'STROBE',   color: '#a8a3c4' }, // light desat purple
+                  { key: 'fx:beatStrobe',   label: 'PULSE·F',  color: '#a8a3c4' }, // fast pulse ≥6/beat
                   { key: 'fx:halfBarPulse', label: 'PULSE',    color: '#7c6f9e' }, // mid purple
                 ];
                 // Layout: lanes span the full container width so they align
@@ -1434,16 +1393,6 @@ export default function Home() {
           )}
         </>
       )}
-      <DirectorHud
-        plan={directorPlan}
-        status={directorStatus}
-        error={directorError}
-        currentTime={audioState.currentTime}
-        open={directorHudOpen}
-        onToggle={() => setDirectorHudOpen((v) => !v)}
-        useClaudePlan={useClaudePlan}
-        onToggleUseClaudePlan={() => setUseClaudePlan((v) => !v)}
-      />
     </div>
   );
 }

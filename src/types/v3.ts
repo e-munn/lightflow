@@ -133,6 +133,10 @@ export interface Attention {
   accentStem: string;
   // Per-stem gate-shaped signals (parallel envelopes for spectrograph view)
   stemSignals: Record<string, number>;
+  // v1.4: onset snap — true when a strong onset overrides the envelope
+  onsetSnap: boolean;
+  // v1.4: energy derivative of the dominant stem (positive = attack)
+  dEnergy: number;
 }
 
 export interface EffectContext {

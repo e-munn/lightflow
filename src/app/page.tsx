@@ -11,6 +11,8 @@ import { analyzeAudio } from '@/lib/api';
 import { resetPhaseChase, resetSpatialDirector } from '@/lib/spatial';
 import { SignalGraph, resetSignalGraph } from '@/components/SignalGraph';
 import { Screen3D, resetScreen3D } from '@/components/Screen3D';
+import { useMidi, type ShowEvent } from '@/hooks/useMidi';
+import { MidiPanel } from '@/components/MidiPanel';
 import type { Scout } from '@/lib/scout/schema';
 import { loadScout, getActiveMoment, isAnticipating, getSectionAnnotation, buildStemWeights, detectStemEntries, type StemEntryCue } from '@/lib/scout/apply';
 
@@ -55,6 +57,49 @@ const STEM_COLORS: Record<string, { active: string; dormant: string }> = {
 
 export default function Home() {
   const { audioState, loadAudioFile, play, pause, seek } = useAudioAnalyzer();
+
+  // MIDI show-recorder input surface
+  const [midiPanelOpen, setMidiPanelOpen] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  // Live recording buffer. Refs so MIDI callbacks don't recreate them
+  // on every React render. Flushed to POST /api/shows on stop.
+  const recordBufferRef   = useRef<Array<{ t: number } & Record<string, unknown>>>([]);
+  const recordStartTimeRef = useRef<number>(0);
+  const [recordedEventCount, setRecordedEventCount] = useState(0);
+  const isRecordingRef = useRef(false);
+  // Set of slugs that already have a saved show — used for the song-list
+  // indicator dot. Refreshed on mount and after each save.
+  const [recordedSlugs, setRecordedSlugs] = useState<Set<string>>(new Set());
+
+  // Stable refs so the MIDI onShowEvent callback doesn't rebind every render
+  // (which would tear down the MIDI subscription).
+  const audioTimeRef = useRef(0);
+  const audioPlayingRef = useRef(false);
+  useEffect(() => { isRecordingRef.current = isRecording; }, [isRecording]);
+  useEffect(() => { audioTimeRef.current = audioState.currentTime; }, [audioState.currentTime]);
+  useEffect(() => { audioPlayingRef.current = audioState.isPlaying; }, [audioState.isPlaying]);
+
+  // Fetch the list of songs that already have a saved show.
+  const refreshRecordedSlugs = useCallback(async () => {
+    try {
+      const res = await fetch('/api/shows');
+      if (!res.ok) return;
+      const { slugs } = (await res.json()) as { slugs?: string[] };
+      if (Array.isArray(slugs)) setRecordedSlugs(new Set(slugs));
+    } catch {
+      // noop
+    }
+  }, []);
+  useEffect(() => { refreshRecordedSlugs(); }, [refreshRecordedSlugs]);
+
+  const midi = useMidi({
+    onShowEvent: useCallback((ev: ShowEvent) => {
+      if (!isRecordingRef.current) return;
+      if (!audioPlayingRef.current) return;
+      recordBufferRef.current.push({ t: audioTimeRef.current, ...ev });
+      setRecordedEventCount(recordBufferRef.current.length);
+    }, []),
+  });
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [songName, setSongName] = useState<string | null>(null);
@@ -810,6 +855,36 @@ export default function Home() {
     if (scoutFocusStem) {
       setDominantStem(scoutFocusStem);
     }
+
+    // MIDI overrides (show recorder).
+    //   STROBE pad held → hard-pulse at STROBE RATE, replaces engine signal.
+    //   PULSE pad tapped → velocity-sensitive single-shot envelope sized
+    //                      by PULSE LENGTH (beats). Max'd onto the signal.
+    //   BLACKOUT pad held → force signal to 0.
+    //   FADE fader → global multiplier (applied last).
+    // Priority: blackout > strobe > pulse overlay > engine > fade.
+    if (midi.strobeHeld && !midi.blackoutHeld) {
+      modulated = pulseAtBeatRate(modCtx, midi.strobeRate);
+    }
+    // PULSE envelope. Shape: half-sine over the captured duration so
+    // both attack and release scale with length (1/16 beat = fast
+    // blip, 4 beats = slow swell).
+    const beatSec = 60 / analysis.bpm;
+    const pulseDurMs = midi.lastPulseLengthBeats * beatSec * 1000;
+    const pulseAge = performance.now() - midi.lastPulseAt;
+    if (pulseAge >= 0 && pulseAge < pulseDurMs && pulseDurMs > 0) {
+      const t = pulseAge / pulseDurMs;
+      const env = Math.sin(Math.PI * t); // 0 → 1 at t=0.5 → 0
+      const pulseValue = env * midi.pulseVelocity;
+      modulated = Math.max(modulated, pulseValue);
+    }
+    if (midi.blackoutHeld) {
+      modulated = 0;
+    }
+    if (midi.fade < 1) {
+      modulated = modulated * midi.fade;
+    }
+
     setSignal(modulated);
     setActiveScoutCue(scoutMoment ? `${scoutMoment.type}${isAnticipating(scoutMoment, audioState.currentTime, analysis.bpm) ? '…' : ''}` : null);
     const fxNow = activeMod;
@@ -984,7 +1059,7 @@ export default function Home() {
       other: stems.other,
     });
     setStemScores(attention.scores);
-  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, scout, programBlocks, songMenuOpen]);
+  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, scout, programBlocks, songMenuOpen, midi.strobeHeld, midi.blackoutHeld, midi.strobeRate, midi.fade, midi.lastPulseAt, midi.pulseVelocity, midi.lastPulseLengthBeats]);
 
   const isReady = !!audioState.source;
   const isRawMode = isReady && !analysis;
@@ -1046,19 +1121,30 @@ export default function Home() {
                   .filter(s => !songFilter || s.name.toLowerCase().includes(songFilter.toLowerCase()))
                   .map((song) => {
                   const isCurrent = songName === song.name;
+                  const hasShow = recordedSlugs.has(song.slug);
                   const dur = songDurations[song.slug];
                   return (
                     <button
                       key={song.slug}
                       onClick={() => { loadPreset(song.slug, song.name, song.ext ?? '.mp3'); setSongMenuOpen(false); }}
                       disabled={isLoading}
-                      className={`w-full flex items-center justify-between gap-3 px-4 py-1.5 text-sm ${
+                      className={`w-full flex items-center gap-3 px-4 py-1.5 text-sm ${
                         isCurrent
                           ? 'text-white'
                           : 'text-white/55 hover:text-white'
                       }`}
                     >
-                      <span className="truncate font-medium text-left">{song.name}</span>
+                      {/* Recording indicator dot. Red when a saved show
+                          exists for this song; hollow otherwise. */}
+                      <span
+                        className={`shrink-0 w-1.5 h-1.5 rounded-full ${
+                          hasShow
+                            ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]'
+                            : 'bg-transparent'
+                        }`}
+                        title={hasShow ? 'Has a recorded show' : ''}
+                      />
+                      <span className="truncate font-medium text-left flex-1">{song.name}</span>
                       <span className="text-[10px] font-mono text-white/40 shrink-0">
                         {dur != null ? fmt(dur) : '—'}
                       </span>
@@ -1172,24 +1258,7 @@ export default function Home() {
               </span>
             </button>
             <div className="flex-1" />
-            {analysis && (
-              <button
-                onClick={generateScout}
-                disabled={scoutLoading}
-                className={`text-[10px] px-2 py-1 rounded-full border font-mono shrink-0 transition-colors cursor-pointer ${
-                  scoutLoading
-                    ? 'border-yellow-600 bg-yellow-950 text-yellow-300 animate-pulse cursor-wait'
-                    : scout
-                      ? activeScoutCue
-                        ? 'border-amber-500 bg-amber-950 text-amber-300 hover:brightness-125'
-                        : 'border-emerald-800 bg-emerald-950 text-emerald-300 hover:brightness-125'
-                      : 'border-white/20 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/80'
-                }`}
-                title={scout ? 'Regenerate scout (click)' : 'Generate scout analysis with Claude'}
-              >
-                {scoutLoading ? '◌ scout…' : scout ? (activeScoutCue ? `⚡ ${activeScoutCue}` : '● scout') : '○ scout'}
-              </button>
-            )}
+            {/* Scout UI hidden on show-recorder branch — focus is on MIDI input */}
             <div className="hidden md:flex items-center gap-3 shrink-0 font-mono">
               <span className="text-[10px] text-white/50">
                 {dominantStem} · {(signal * 100).toFixed(0)}% · hold {debugInfo.held.toFixed(1)}/{debugInfo.hold}b · e{(debugInfo.energy * 100).toFixed(0)}
@@ -1315,39 +1384,63 @@ export default function Home() {
               <span className="hidden md:inline text-[10px] uppercase tracking-widest opacity-60">Space</span>
             </button>
             <div className="flex items-center justify-center gap-2 flex-1 order-3 md:order-none w-full md:w-auto">
-              {/* View toggle: Scene (3D peaks) ↔ Bands (3 horizontal channels).
-                  Mutually exclusive. Only one active at a time. */}
+              {/* RECORD — toggles show capture. Last-rec-wins semantics:
+                  pressing stop POSTs the buffered events to /api/shows
+                  which overwrites public/songs/<slug>_show.json. */}
               <button
-                onClick={() => {
-                  setSpectroOn(v => {
-                    const next = !v;
-                    if (next) setMultiOn(false);
-                    return next;
-                  });
+                onClick={async () => {
+                  if (!isRecording) {
+                    // Arm: clear buffer, capture start time, flip on.
+                    recordBufferRef.current = [];
+                    recordStartTimeRef.current = audioState.currentTime;
+                    setRecordedEventCount(0);
+                    setIsRecording(true);
+                    return;
+                  }
+                  // Commit: POST buffer to /api/shows, then clear.
+                  const slug = currentSlugRef.current;
+                  const events = recordBufferRef.current;
+                  setIsRecording(false);
+                  if (!slug || events.length === 0) {
+                    setToast(
+                      !slug
+                        ? 'Recording stopped — no song loaded, nothing saved'
+                        : 'Recording stopped — no events captured'
+                    );
+                    recordBufferRef.current = [];
+                    return;
+                  }
+                  try {
+                    const res = await fetch('/api/shows', {
+                      method: 'POST',
+                      headers: { 'content-type': 'application/json' },
+                      body: JSON.stringify({
+                        slug,
+                        songDuration: audioState.duration,
+                        bpm: analysis?.bpm ?? null,
+                        startTime: recordStartTimeRef.current,
+                        endTime: audioState.currentTime,
+                        events,
+                      }),
+                    });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    setToast(`Saved show — ${events.length} events`);
+                    recordBufferRef.current = [];
+                    refreshRecordedSlugs();
+                  } catch (err) {
+                    console.error('[shows] save failed:', err);
+                    setToast('Save failed — events kept in memory');
+                  }
                 }}
-                className={`text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
-                  spectroOn
-                    ? 'bg-transparent text-amber-300 border-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
-                    : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
+                className={`flex items-center gap-2 text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
+                  isRecording
+                    ? 'bg-red-600/20 text-red-300 border-red-500 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-pulse'
+                    : 'bg-transparent text-white/50 border-white/20 hover:text-white/80 hover:border-white/40'
                 }`}
+                title={isRecording ? 'Recording — click to stop & save' : 'Start recording'}
               >
-                Scene
-              </button>
-              <button
-                onClick={() => {
-                  setMultiOn(v => {
-                    const next = !v;
-                    if (next) setSpectroOn(false);
-                    return next;
-                  });
-                }}
-                className={`text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
-                  multiOn
-                    ? 'bg-transparent text-cyan-300 border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.4)]'
-                    : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
-                }`}
-              >
-                Bands
+                <span className={`inline-block w-2 h-2 rounded-full ${isRecording ? 'bg-red-400' : 'bg-white/40'}`} />
+                {isRecording ? `Rec · ${recordedEventCount}` : 'Record'}
               </button>
             </div>
             <button
@@ -1464,6 +1557,28 @@ export default function Home() {
           </div>
           </>
           )}
+        </>
+      )}
+      <MidiPanel
+        {...midi}
+        open={midiPanelOpen}
+        onToggle={() => setMidiPanelOpen((v) => !v)}
+      />
+      {/* Recording indicator — red pulsing ring inset + REC badge. */}
+      {isRecording && (
+        <>
+          <div
+            className="fixed inset-0 pointer-events-none z-30 animate-pulse"
+            style={{
+              boxShadow: 'inset 0 0 0 4px rgba(239,68,68,0.9), inset 0 0 40px rgba(239,68,68,0.35)',
+            }}
+          />
+          <div className="fixed top-3 left-1/2 -translate-x-1/2 z-40 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-500 shadow-[0_0_16px_rgba(239,68,68,0.6)]">
+            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-red-200 font-bold">
+              Rec
+            </span>
+          </div>
         </>
       )}
     </div>

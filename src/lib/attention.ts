@@ -52,8 +52,12 @@ const PROFILES: Record<string, StemProfile> = {
   snare: { threshold: 0.30, attackTau: 0.005, releaseTau: 0.22, shapeKind: 'transient_tail', shapeBeats: 0.8, shapeWeight: 0.85 },
   // Hat: near-binary clicks
   hat:   { threshold: 0.18, attackTau: 0.002, releaseTau: 0.05, shapeKind: 'square',         shapeBeats: 0.18, shapeWeight: 0.9 },
-  // Bass: slow attack, plateau, slow release — sustain naturally
-  bass:  { threshold: 0.28, attackTau: 0.04,  releaseTau: 0.4,  shapeKind: 'plateau',        shapeBeats: 2.0, shapeWeight: 0.6 },
+  // Bass: v1.5 "bass-first" — retuned for SMOOTHNESS. Slower attack so
+  // individual bass notes don't spike, longer release so brightness
+  // trails the line, lower shape weight so the audio envelope dominates
+  // instead of a synthetic plateau. The feeling we want: lights
+  // "breathing" with the bass, not "pulsing on every bass note".
+  bass:  { threshold: 0.22, attackTau: 0.10,  releaseTau: 0.6,  shapeKind: 'plateau',        shapeBeats: 1.5, shapeWeight: 0.25 },
   // Other: smooth pad — slow rise and fall via sigmoid
   other: { threshold: 0.28, attackTau: 0.08,  releaseTau: 0.5,  shapeKind: 'sigmoid',        shapeBeats: 1.5, shapeWeight: 0.5 },
 };
@@ -88,24 +92,56 @@ function shapeValue(kind: ShapeKind, t: number): number {
   }
 }
 
+// v1.5 "bass-first" regime — used when bass is present in the arrangement.
+// Bass's priority is SO high that other stems can't beat it through normal
+// scoring. Lights follow bass ~80% of the time. Other stems only take
+// over during genuine bass-absent sections (breakdowns, vocal interludes).
+const BASS_FIRST_PRIORITY: Record<string, number> = {
+  bass:  2.6,
+  kick:  0.8,
+  snare: 0.5,
+  hat:   0.4,
+  other: 0.3,
+};
+
+// Balanced fallback for when bass is absent for long enough that the
+// arrangement isn't bass-driven anymore. Rare in club/EDM, common in
+// a cappella sections or vocal-led bridges.
 const BASE_PRIORITY: Record<string, number> = {
   bass: 1.4,
   kick: 1.3,
   snare: 1.0,
-  hat: 0.8,
+  hat:  0.8,
   other: 0.5,
 };
 
-let PRIORITY: Record<string, number> = { ...BASE_PRIORITY };
+// Scout can force the BASE regime by supplying a primaryStem other than
+// bass (e.g. for vocal-led ballads). Default is bass-first.
+let BASS_FIRST_ENABLED = true;
+
+let PRIORITY: Record<string, number> = { ...BASS_FIRST_PRIORITY };
 
 export function configureAttention(scoutWeights?: Record<string, number>): void {
-  PRIORITY = { ...BASE_PRIORITY };
+  // Scout weights are applied MULTIPLICATIVELY onto whichever base regime
+  // is active. If scout said "primaryStem is vocals", the caller will
+  // have marked bass-first off before calling us. Otherwise we keep the
+  // bass-first regime and scout weights are a nudge on top.
+  const base = BASS_FIRST_ENABLED ? BASS_FIRST_PRIORITY : BASE_PRIORITY;
+  PRIORITY = { ...base };
   if (!scoutWeights) return;
   for (const [stem, weight] of Object.entries(scoutWeights)) {
     if (PRIORITY[stem] !== undefined) {
-      PRIORITY[stem] = BASE_PRIORITY[stem] * weight;
+      PRIORITY[stem] = base[stem] * weight;
     }
   }
+}
+
+/** Force the balanced regime — used when scout identifies a vocal-led or
+ *  non-bass-driven track. Call this BEFORE configureAttention. */
+export function setBassFirstEnabled(enabled: boolean): void {
+  BASS_FIRST_ENABLED = enabled;
+  const base = enabled ? BASS_FIRST_PRIORITY : BASE_PRIORITY;
+  PRIORITY = { ...base };
 }
 
 // --- State ---
@@ -295,6 +331,21 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
     silentFrames = 0;
   }
 
+  // v1.5 bass-first fast unlock — when bass is dominant but the current
+  // bass frame is near-zero (breakdown), allow the attention layer to
+  // switch to another stem sooner. Without this, the bass priority would
+  // hold us on bass for up to 16 beats while the lights sit dark.
+  if (
+    BASS_FIRST_ENABLED &&
+    currentDominant === 'bass' &&
+    (stems.bass ?? 0) < 0.06 &&
+    // Only unlock if SOMETHING else is playing — don't thrash during true silence
+    ((stems.kick ?? 0) + (stems.snare ?? 0) + (stems.other ?? 0) + (stems.vocals ?? 0) > 0.25)
+  ) {
+    // Pretend the required hold is already met so the switch-logic can fire.
+    beatsHeld = Math.max(beatsHeld, MAX_HOLD_BEATS);
+  }
+
   // 2. Update slow-moving average energy + variance per stem
   const alpha = dt > 0 ? 1 - Math.exp(-dt / AVG_TAU) : 1;
   // Variance smoothing is faster — we want to detect rhythmic activity quickly
@@ -328,8 +379,20 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   // its running average, it just entered the arrangement. Boost its score
   // so the attention layer jumps to the new element (e.g. hat entering
   // over an established kick/bass groove 4-8 bars into a drop).
+  //
+  // v1.5 BASS-FIRST (option C): when enabled, ONLY bass and kick can
+  // become dominant. Everything else is accent-only (added later). This
+  // hard-restricts the focus even when bass and kick are both at zero —
+  // hat/snare intros no longer trigger a focus switch. The signal goes
+  // low during bass-absent moments; any visible light during those
+  // moments comes from the accent layer at reduced amplitude.
+  const FOCUS_STEMS = BASS_FIRST_ENABLED
+    ? (['bass', 'kick'] as const)
+    : STEMS;
   const scores: Record<string, number> = {};
   for (const s of STEMS) {
+    // Non-focus stems still get a score for the weights/telemetry output,
+    // but they won't be considered for dominance below.
     let baseScore = avgEnergy[s] * (PRIORITY[s] ?? 1.0);
     if (s === 'bass') baseScore *= bassRichness;
     const varianceBonus = avgVariance[s] * 5.0 * Math.min(1, avgEnergy[s] * 2);
@@ -342,17 +405,29 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   // 4. Adaptive hold: how many beats before we allow a switch
   const requiredHold = holdBeatsForEnergy(overallEnergy);
 
-  // 5. Find best candidate
+  // 5. Find best candidate — RESTRICTED to FOCUS_STEMS when bass-first
+  // is on, so hat/snare/other can never become dominant.
   let bestStem = currentDominant;
   let bestScore = 0;
-  for (const s of STEMS) {
+  for (const s of FOCUS_STEMS) {
     if (scores[s] > bestScore) { bestScore = scores[s]; bestStem = s; }
   }
   const currentScore = scores[currentDominant] ?? 0;
 
-  // 6. Check for onset override (big musical event, any energy level)
+  // If currentDominant is somehow outside FOCUS_STEMS (e.g. scout flipped
+  // the regime mid-song), snap to bass so the follower doesn't sit on a
+  // stem that can no longer win.
+  if (BASS_FIRST_ENABLED && !FOCUS_STEMS.includes(currentDominant as 'bass' | 'kick')) {
+    currentDominant = 'bass';
+    beatsHeld = 0;
+    mainFollower.trackerValue = 0;
+    mainFollower.shapeActive = false;
+    mainFollower.prevInput = 0;
+  }
+
+  // 6. Check for onset override — also restricted to focus stems.
   let onsetOverride = false;
-  for (const s of STEMS) {
+  for (const s of FOCUS_STEMS) {
     if (s !== currentDominant && (onsets[s] ?? 0) > ONSET_OVERRIDE && (stems[s] ?? 0) > 0.3) {
       bestStem = s;
       onsetOverride = true;
@@ -394,6 +469,21 @@ export function computeAttention(frame: StemFrame, dt: number, bpm: number): Att
   const onsetSnap = dominantOnset > 0.4 && rawInput > 0.25;
   if (onsetSnap) {
     gateValue = Math.max(gateValue, rawInput);
+  }
+
+  // v1.5 KICK-AS-ACCENT — when the show is bass-led, kick becomes
+  // punctuation, not a replacement. A kick onset adds a small additive
+  // boost on top of the smooth bass envelope, giving the lights a
+  // "breathe with bass + punch on kick" feel without stealing focus.
+  // Also layer a mild continuous kick contribution so four-on-floor
+  // patterns register even without a detected onset.
+  if (BASS_FIRST_ENABLED && currentDominant === 'bass') {
+    const kickOnset = onsets.kick ?? 0;
+    const kickEnergy = stems.kick ?? 0;
+    const kickAccent = Math.max(kickOnset * 0.35, kickEnergy * 0.18);
+    if (kickAccent > 0.05) {
+      gateValue = Math.min(1, gateValue + kickAccent);
+    }
   }
 
   // --- Per-stem parallel followers ---

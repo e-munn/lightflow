@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useCallback, useState, useRef, useMemo } from 'react';
-import { Settings, Menu, AudioLines, ListMusic, Copy, EyeOff } from 'lucide-react';
+import { Settings, Menu, Copy, EyeOff } from 'lucide-react';
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
 import { AnalysisResult, StemFrame } from '@/types/v3';
-import { computeAttention, resetAttention, configureAttention } from '@/lib/attention';
+import { computeAttention, resetAttention, configureAttention, setBassFirstEnabled } from '@/lib/attention';
 import { MODULATORS, resetDecayingStrobe, resetBeatStrobe, resetDirector, getDirectorChoice, getDirectorChoiceLabel, getDirectorPulseRate, getDirectorUseRaw, pulseAtBeatRate, DIRECTOR_VERSION } from '@/lib/modulators';
 import { estimateBeatOffset, beatPhases } from '@/lib/beatAlign';
 import { analyzeAudio } from '@/lib/api';
@@ -80,6 +80,12 @@ export default function Home() {
   // Independent layer toggles
   const [signalOn, setSignalOn] = useState(true);   // 1-Channel: full screen brightness
   const [spectroOn, setSpectroOn] = useState(true); // Spectro: 3D scene
+  const [multiOn, setMultiOn] = useState(false);    // Multi-channel: 3 horizontal stem panels
+  // Smoothed per-stem envelopes (from attention.stemSignals). Tracks the
+  // same bass-style smoothing the main signal uses — one per channel.
+  const [smoothStems, setSmoothStems] = useState<Record<string, number>>({
+    bass: 0, kick: 0, snare: 0, hat: 0, other: 0, vocals: 0,
+  });
   const [accent, setAccent] = useState(0);
   const [accentStem, setAccentStem] = useState('kick');
   const [stemSignals, setStemSignals] = useState<Record<string, number>>({
@@ -113,6 +119,23 @@ export default function Home() {
     try { localStorage.setItem('lightflow.settings', JSON.stringify({ lookAhead, keyMap, scrubberView, spectroOn })); } catch {}
   }, [lookAhead, keyMap, scrubberView, spectroOn]);
   const panHistoryRef = useRef<Record<string, number[]>>({});
+  // Timestamp of last strong snare hit — used to suppress hat channel
+  // during the bleed-tail window (~150ms after the snare). Demucs lets
+  // snare noise tails leak into the hat stem; a temporal gate kills
+  // it cleanly where subtraction can't.
+  const lastSnareHitRef = useRef<number>(-10);
+  // Snare sustain — keeps the MID panel lit for ~400ms after a hit so
+  // it doesn't read as "left behind" when bass and hat fill the time
+  // axis between snare strikes (typical on a 2-and-4 snare pattern).
+  const snareSustainRef = useRef<number>(0);
+  // Perceptual-decay state per band. Each band tracks its last attack
+  // moment + peak so brightness follows a fast-release curve after a
+  // hit instead of faithfully tracking the physical tail. Models the
+  // ear releasing the transient within 150-250ms regardless of the
+  // actual audio envelope.
+  const lowDecayRef  = useRef<{ time: number; peak: number; prev: number }>({ time: -10, peak: 0, prev: 0 });
+  const midDecayRef  = useRef<{ time: number; peak: number; prev: number }>({ time: -10, peak: 0, prev: 0 });
+  const highDecayRef = useRef<{ time: number; peak: number; prev: number }>({ time: -10, peak: 0, prev: 0 });
   const [stemLevels, setStemLevels] = useState<Record<string, number>>({
     bass: 0, kick: 0, snare: 0, hat: 0, other: 0,
   });
@@ -130,16 +153,23 @@ export default function Home() {
   // Preset list: load from manifest.json (built by scripts/ingest_audio_dir.py),
   // fall back to the hardcoded list if manifest isn't available.
   const [presetSongs, setPresetSongs] = useState<PresetSong[]>(FALLBACK_PRESETS);
+  // Gate the auto-load effect until the manifest has resolved (success OR
+  // fail). Without this, auto-load races the manifest fetch and picks a
+  // fallback preset before the saved-song lookup has the full list to
+  // match against.
+  const [presetsReady, setPresetsReady] = useState(false);
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch('/songs/manifest.json');
-        if (!res.ok) return;
-        const arr = await res.json();
-        if (Array.isArray(arr) && arr.length) {
-          setPresetSongs(arr);
+        if (res.ok) {
+          const arr = await res.json();
+          if (Array.isArray(arr) && arr.length) {
+            setPresetSongs(arr);
+          }
         }
       } catch { /* fall back */ }
+      setPresetsReady(true);
     })();
   }, []);
   // Lazy-load song durations via metadata only (no full audio download)
@@ -225,7 +255,14 @@ export default function Home() {
           seek(Math.min(audioState.duration, audioState.currentTime + 5));
         }
       }
-      else if (e.code === 'KeyZ') { e.preventDefault(); setSpectroOn(v => !v); }
+      else if (e.code === 'KeyZ') {
+        e.preventDefault();
+        setSpectroOn(v => {
+          const next = !v;
+          if (next) setMultiOn(false);
+          return next;
+        });
+      }
       else if (e.code === 'Backquote') {
         e.preventDefault();
         setPinnedMod(prev => prev ? null : (prevPinRef.current ?? 'halfBarPulse'));
@@ -310,8 +347,14 @@ export default function Home() {
     const data = await loadScout(slug);
     setScout(data);
     setScoutLoading(false);
+    // v1.5 bass-first default. Scout can flip it off for non-bass-driven
+    // songs by setting primaryStem to something other than bass.
+    const bassFirst = !data?.primaryStem || data.primaryStem === 'bass';
+    setBassFirstEnabled(bassFirst);
     if (data) {
       configureAttention(buildStemWeights(data));
+    } else {
+      configureAttention();
     }
   }, []);
 
@@ -330,6 +373,8 @@ export default function Home() {
       const { scout: data } = await res.json();
       if (data) {
         setScout(data);
+        const bassFirst = !data.primaryStem || data.primaryStem === 'bass';
+        setBassFirstEnabled(bassFirst);
         configureAttention(buildStemWeights(data));
       }
     } catch (err) {
@@ -359,6 +404,12 @@ export default function Home() {
       setAnalysis(analysisRes);
       setSongName(name);
       currentSlugRef.current = slug;
+      // Persist so a refresh returns to this song.
+      try {
+        localStorage.setItem('lightflow:lastSong', JSON.stringify({ slug, name, ext }));
+      } catch {
+        // quota / private mode — not fatal
+      }
       precomputeTimeline(analysisRes);
       setStemEntries(detectStemEntries(analysisRes.frames, analysisRes.bpm, analysisRes.fps));
       fetchScout(slug);
@@ -457,15 +508,30 @@ export default function Home() {
     };
   }, [loadCustomFile]);
 
-  // Auto-load first song on mount
+  // Auto-load last-played song on mount (persisted in localStorage).
+  // Falls back to the first preset. Custom drops can't persist — the File
+  // blob is gone after a refresh — so we only remember preset slugs.
   const didAutoLoadRef = useRef(false);
   useEffect(() => {
     if (didAutoLoadRef.current) return;
+    if (!presetsReady) return;                 // wait for manifest to resolve
     if (presetSongs.length === 0) return;
     didAutoLoadRef.current = true;
-    const first = presetSongs[0];
-    loadPreset(first.slug, first.name, first.ext ?? '.mp3');
-  }, [loadPreset, presetSongs]);
+
+    let target = presetSongs[0];
+    try {
+      const raw = localStorage.getItem('lightflow:lastSong');
+      if (raw) {
+        const saved = JSON.parse(raw) as { slug?: string };
+        const match = saved.slug && presetSongs.find(p => p.slug === saved.slug);
+        if (match) target = match;
+      }
+    } catch {
+      // ignore corrupted storage
+    }
+
+    loadPreset(target.slug, target.name, target.ext ?? '.mp3');
+  }, [loadPreset, presetSongs, presetsReady]);
 
   // Energy waveform across the entire song, downsampled to fixed bar count
   const energyBars = useMemo(() => {
@@ -491,6 +557,69 @@ export default function Home() {
     if (max > 0) for (let i = 0; i < N_BARS; i++) bars[i] = bars[i] / max;
     return bars;
   }, [analysis]);
+
+  // Per-song + per-section normalization refs. Maps each stem's 99th
+  // percentile energy to ~0.85 brightness so real peaks hit near-max
+  // without sustained clipping. Earlier p90/0.9 combo clipped the top
+  // 10% of frames which showed as 5+ seconds of pure white on drops.
+  //
+  // p99 captures the genuine song peaks. Combined with a soft-knee
+  // above 0.9 (applied at render time) this gives: quiet songs brighten
+  // up appropriately, loud songs don't over-compress, and nothing
+  // hard-clips.
+  const normRefs = useMemo(() => {
+    if (!analysis?.frames.length) return null;
+    const frames = analysis.frames;
+    const sections = analysis.sections ?? [];
+
+    const pctl = (vals: number[], p: number): number => {
+      if (vals.length === 0) return 0;
+      const sorted = vals.slice().sort((a, b) => a - b);
+      return sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * p))];
+    };
+    const stemVals = (stem: string, slice: typeof frames) =>
+      slice.map(f => (f.stems as unknown as Record<string, number>)[stem] ?? 0);
+
+    const song = {
+      bass:  Math.max(0.2, pctl(stemVals('bass', frames), 0.99)),
+      snare: Math.max(0.2, pctl(stemVals('snare', frames), 0.99)),
+      other: Math.max(0.2, pctl(stemVals('other', frames), 0.99)),
+      kick:  Math.max(0.2, pctl(stemVals('kick', frames), 0.99)),
+    };
+
+    const perSection = sections.map(sec => {
+      const slice = frames.filter(f => f.time >= sec.start && f.time < sec.end);
+      return {
+        start: sec.start,
+        end: sec.end,
+        bass:  Math.max(0.2, pctl(stemVals('bass',  slice), 0.99)),
+        snare: Math.max(0.2, pctl(stemVals('snare', slice), 0.99)),
+        other: Math.max(0.2, pctl(stemVals('other', slice), 0.99)),
+        kick:  Math.max(0.2, pctl(stemVals('kick',  slice), 0.99)),
+      };
+    });
+
+    return { song, perSection };
+  }, [analysis]);
+
+  // Soft-knee ceiling: below 0.9, passthrough. Above 0.9, asymptotic
+  // approach toward 1.0 so nothing hard-clips. Keeps the top of the
+  // dynamic range intact instead of a flat-white plateau.
+  const softCeil = (x: number): number => {
+    if (x <= 0.9) return x;
+    // Map (0.9, ∞) → (0.9, 1.0) with exponential decay in the headroom
+    return 0.9 + 0.1 * (1 - Math.exp(-(x - 0.9) * 4));
+  };
+
+  // Look up the normalization reference for a stem at a given time.
+  // Blends section-specific (60%) with song-wide (40%) to soften jumps
+  // at section boundaries.
+  const getNormRef = useCallback((stem: 'bass' | 'snare' | 'other' | 'kick', t: number): number => {
+    if (!normRefs) return 0.5;
+    const sec = normRefs.perSection.find(s => t >= s.start && t < s.end);
+    if (!sec) return normRefs.song[stem];
+    return 0.6 * sec[stem] + 0.4 * normRefs.song[stem];
+  }, [normRefs]);
 
   // Dismiss settings popover on outside click
   const settingsRef = useRef<HTMLDivElement>(null);
@@ -613,9 +742,23 @@ export default function Home() {
     // If the director requests raw stem energy, bypass the attention layer's
     // envelope shaping and use the stem's natural dynamics directly.
     const directorWantsRaw = getDirectorUseRaw();
-    const resolvedSignal = directorWantsRaw && dominantForCtx
+    let resolvedSignal = directorWantsRaw && dominantForCtx
       ? Math.min(1.0, (rawStems[dominantForCtx] ?? 0) * 1.5)
       : baseSignal;
+
+    // Per-song + per-section normalization: map the dominant stem's
+    // 99th percentile to ~0.85 brightness, with a soft-knee above 0.9
+    // so nothing hard-clips during drops.
+    if (
+      dominantForCtx === 'bass' ||
+      dominantForCtx === 'snare' ||
+      dominantForCtx === 'other' ||
+      dominantForCtx === 'kick'
+    ) {
+      const ref = getNormRef(dominantForCtx, audioState.currentTime);
+      const TARGET = 0.85;
+      resolvedSignal = softCeil(resolvedSignal * (TARGET / ref));
+    }
 
     const modCtx = {
       signal: resolvedSignal,
@@ -649,7 +792,12 @@ export default function Home() {
       directorRate = fxBlock?.rate ?? 0;
     }
     let modulated: number;
-    if (modulator === 'director' && directorRate > 0) {
+    // v1.5 effects killswitch: short-circuit the pulse path from
+    // precomputed programBlocks (they were built before the killswitch
+    // flipped). Ordinary modulator calls route through MODULATORS which
+    // are already wrapped in modulators.ts.
+    const effectsKillswitch = true;
+    if (!effectsKillswitch && modulator === 'director' && directorRate > 0) {
       modulated = Math.max(0, Math.min(1, pulseAtBeatRate(modCtx, directorRate)));
     } else {
       const modFn = MODULATORS[activeMod]?.fn ?? MODULATORS.raw.fn;
@@ -684,6 +832,133 @@ export default function Home() {
       snare: Math.min(1, (stems.snare ?? 0) * 1.2),
       hat:   Math.min(1, (stems.hat   ?? 0) * 1.2),
       other: Math.min(1, (stems.other ?? 0) * 1.2),
+    });
+    // Multi-channel view packs the mix into 3 frequency bands.
+    //   LOW  = bass ∪ kick — whichever carries the low end for this song
+    //          (baby_again-style tracks have kick-driven low, not bass)
+    //   MID  = snare ∪ other — body of the arrangement
+    //   HIGH = hat (strobe-style, no smoothing)
+    // Each band uses its own per-song/per-section normalization so the
+    // same song reads the same visual intensity regardless of mix level.
+    const rawHat = stems.hat ?? 0;
+    const rawSnare = stems.snare ?? 0;
+    const hatOnset = (currentFrame.onsets as unknown as Record<string, number>).hat ?? 0;
+    const snareOnset = (currentFrame.onsets as unknown as Record<string, number>).snare ?? 0;
+
+    // Record snare hits for the temporal suppression window.
+    if (snareOnset > 0.3 || rawSnare > 0.5) {
+      lastSnareHitRef.current = audioState.currentTime;
+    }
+
+    // Demucs bleed correction: snare noise tails leak into the hat stem.
+    // Four-layer defense:
+    //   1. Temporal gate — hard-suppress hat for 150ms after any strong
+    //      snare hit. This is the main fix; subtraction alone can't kill
+    //      the delayed tail bleed.
+    //   2. Subtract weighted snare from raw hat energy (continuous bleed)
+    //   3. Penalize hat onset when it coincides with a stronger snare onset
+    //   4. Ratio check — if hat energy isn't meaningfully above snare,
+    //      it's almost certainly bleed; suppress.
+    const timeSinceSnare = audioState.currentTime - lastSnareHitRef.current;
+    const BLEED_WINDOW = 0.15; // seconds
+    // Suppression: 1.0 at t=0 → 0.0 at t=BLEED_WINDOW
+    const snareSuppress = timeSinceSnare < BLEED_WINDOW
+      ? Math.max(0, 1 - timeSinceSnare / BLEED_WINDOW)
+      : 0;
+
+    // Ratio check: true hats are much louder than concurrent snare in
+    // a clean separation. If hat < 1.2× snare, most of hat is bleed.
+    const ratioOk = rawSnare < 0.1 || rawHat > rawSnare * 1.2;
+
+    const hatBleedSub = Math.max(0, rawHat - rawSnare * 0.75);
+    const hatOnsetClean = snareOnset > hatOnset * 0.5
+      ? Math.max(0, hatOnset - snareOnset * 0.85)
+      : hatOnset;
+    const hatSuppressMul = 1 - snareSuppress * 0.92; // at snare hit, 92% off
+    const hatRatioMul = ratioOk ? 1 : 0.15;
+    const hatStrobe = Math.min(
+      1,
+      Math.max(hatBleedSub * 1.5, hatOnsetClean * 2.2) * hatSuppressMul * hatRatioMul,
+    );
+    const TARGET = 0.85;
+    const tNow = audioState.currentTime;
+    const norm = (value: number, stem: 'bass' | 'snare' | 'other' | 'kick') =>
+      softCeil(value * (TARGET / getNormRef(stem, tNow)));
+
+    const bassSmooth  = attention.stemSignals?.bass  ?? 0;
+    const kickSmooth  = attention.stemSignals?.kick  ?? 0;
+    const snareSmooth = attention.stemSignals?.snare ?? 0;
+    const otherSmooth = attention.stemSignals?.other ?? 0;
+
+    // LOW band: max of normalized bass and kick. Either can fill the
+    // channel. On bass-driven tracks bass wins; on kick-driven tracks
+    // (like baby_again with 85% of frames at near-zero bass) kick wins.
+    const lowRaw = Math.max(norm(bassSmooth, 'bass'), norm(kickSmooth, 'kick'));
+
+    // Perceptual-decay helper.
+    // Trap / sub-bass tracks have 800ms-long 808 tails that measure as
+    // high energy long after the listener has perceptually moved on
+    // from the hit. The ear locks to the transient attack and releases
+    // within 150-250ms regardless of the physical envelope. We model
+    // that by committing to a fast exponential decay curve from the
+    // attack peak, and displaying min(raw, curve) so tails can't drag
+    // the panel bright longer than the ear expects.
+    //
+    // Same treatment applied to all three bands with band-appropriate
+    // time constants (bass slowest, hat fastest).
+    const songTime = audioState.currentTime;
+    const ATTACK_JUMP = 0.15;
+    const perceptualDecay = (
+      raw: number,
+      state: { time: number; peak: number; prev: number },
+      tau: number,
+    ): number => {
+      const curveVal = state.peak * Math.exp(-(songTime - state.time) / tau);
+      const isAttack = raw > curveVal + ATTACK_JUMP && raw > state.prev + ATTACK_JUMP * 0.5;
+      if (isAttack) {
+        state.time = songTime;
+        state.peak = raw;
+      }
+      state.prev = raw;
+      const curveNow = state.peak * Math.exp(-(songTime - state.time) / tau);
+      return Math.min(raw, Math.max(curveNow, 0));
+    };
+
+    const lowBand = perceptualDecay(lowRaw, lowDecayRef.current, 0.22);
+
+    // Snare sustain — exponential decay with ~400ms half-life. Retriggers
+    // to 1.0 on every snare hit. Keeps the mid panel glowing between
+    // sparse snare strikes instead of flashing and going dark.
+    if (snareOnset > 0.2 || rawSnare > 0.3) {
+      snareSustainRef.current = 1;
+    }
+    if (dt > 0) {
+      snareSustainRef.current *= Math.pow(0.5, dt / 0.4);
+    }
+    // MID band: max of normalized snare (fast-decay), sustained snare
+    // envelope (fills gaps), and "other" at full weight. Whichever is
+    // loudest drives the panel. Perceptual decay at 0.25s — slightly
+    // slower than bass because snare tails feel slightly longer
+    // perceptually (noise-shaped vs. tonal).
+    const midRaw = Math.max(
+      norm(snareSmooth, 'snare'),
+      snareSustainRef.current * 0.6,
+      norm(otherSmooth, 'other'),
+    );
+    const midBand = perceptualDecay(midRaw, midDecayRef.current, 0.25);
+
+    // HIGH band: hat with a short perceptual tau so strobe pulses
+    // still read crisp but lingering tails (especially post-bleed-
+    // filter residue) are cut short.
+    const highBand = perceptualDecay(hatStrobe, highDecayRef.current, 0.10);
+
+    setSmoothStems({
+      bass:   lowBand,
+      kick:   norm(kickSmooth, 'kick'),
+      snare:  midBand,
+      hat:    highBand,
+      other:  norm(otherSmooth, 'other'),
+      vocals: (stems.vocals ?? 0),
     });
     // Pass through pan data — we have bass, vocals, other; default 0 for others
     const pans = currentFrame.pans as unknown as Record<string, number>;
@@ -721,7 +996,7 @@ export default function Home() {
     <div
       className="h-[100dvh] flex flex-col text-white overflow-hidden"
       style={{
-        backgroundColor: isReady && signalOn
+        backgroundColor: isReady && signalOn && !multiOn
           ? `rgb(${Math.round(signal * 255)}, ${Math.round(signal * 255)}, ${Math.round(signal * 255)})`
           : '#000',
       }}
@@ -856,51 +1131,18 @@ export default function Home() {
 
           {/* Spectro layer — full screen 3D scene */}
           {spectroOn && (() => {
-            // Stem-reactive radial gradient backdrop. Each stem owns one blob;
-            // its alpha tracks its live signal and its position drifts with
-            // pan + a slow per-stem time offset. Sum > sum-of-static so it
-            // breathes with the music like the 3D scene does.
-            const t = audioState.currentTime;
-            const blob = (stem: string, baseX: number, baseY: number, color: string, phase: number) => {
-              const sig = stemSignals[stem] ?? 0;
-              const pan = stemPans[stem] ?? 0;
-              const alpha = 0.14 + sig * 0.18;
-              const wobX = Math.sin(t * 0.25 + phase) * 5;
-              const wobY = Math.cos(t * 0.18 + phase * 1.3) * 4;
-              const x = baseX + wobX + pan * 8;
-              const y = baseY + wobY;
-              const radius = 70 + sig * 15;
-              return `radial-gradient(circle at ${x}% ${y}%, rgba(${color},${alpha}) 0%, transparent ${radius}%)`;
-            };
-            // Blobs roughly trace the 3D wave's footprint: clustered in the
-            // lower-right where the spectrograph crest sits, leaving the
-            // upper-left dark like the scene.
-            const gradients = [
-              blob('bass',  55, 75, '22,101,52',   0),    // dark green - foreground left of crest
-              blob('kick',  72, 60, '34,197,94',   1.2),  // green - crest base
-              blob('snare', 88, 50, '163,230,53',  2.4),  // lime - bright peak
-              blob('hat',   78, 70, '250,204,21',  3.6),  // yellow - crest highlight
-              blob('other', 95, 80, '156,163,175', 4.8),  // gray - far right tail
-            ].join(', ');
+            // 3-peak Three.js plane — low (bass+kick) peak at the front,
+            // mid (snare+other) back-right, high (hat) back-left. Driven
+            // by the same normalized bands the multi-view uses so both
+            // visualizations agree on the signal. Pure black backdrop;
+            // no fog, no flash overlay.
+            const low  = smoothStems.bass  ?? 0;
+            const mid  = smoothStems.snare ?? 0;
+            const high = smoothStems.hat   ?? 0;
             return (
-            <div className="fixed inset-0 z-0">
-              <div
-                className="absolute inset-0"
-                style={{ background: `${gradients}, #000` }}
-              />
-              <Screen3D
-                stemSignals={stemSignals}
-                stemPans={stemPans}
-                stemNovelty={stemNovelty}
-              />
-              {/* Single-channel brightness flash overlay */}
-              {signalOn && (
-                <div
-                  className="absolute inset-0 bg-white pointer-events-none mix-blend-screen"
-                  style={{ opacity: signal * 0.45 }}
-                />
-              )}
-            </div>
+              <div className="fixed inset-0 z-0 bg-black">
+                <Screen3D low={low} mid={mid} high={high} />
+              </div>
             );
           })()}
 
@@ -959,7 +1201,39 @@ export default function Home() {
           </div>
 
           <div className="flex-1 relative">
-            {signalOn && !spectroOn && (
+            {/* Multi-channel: 3 stacked horizontal panels, each a
+                black→white brightness driven by one stem's smoothed
+                envelope. Covers the full content area when active. */}
+            {multiOn && (() => {
+              const CHANNELS: Array<{ stem: keyof typeof smoothStems; label: string }> = [
+                { stem: 'hat',   label: 'HIGH · HAT'         },
+                { stem: 'snare', label: 'MID · SNARE+BODY'   },
+                { stem: 'bass',  label: 'LOW · BASS+KICK'    },
+              ];
+              return (
+                <div className="absolute inset-0 flex flex-col bg-black z-10">
+                  {CHANNELS.map(({ stem, label }) => {
+                    const v = Math.max(0, Math.min(1, smoothStems[stem] ?? 0));
+                    const level = Math.round(v * 255);
+                    return (
+                      <div
+                        key={stem}
+                        className="flex-1 flex items-end justify-start px-4 pb-2"
+                        style={{ backgroundColor: `rgb(${level}, ${level}, ${level})` }}
+                      >
+                        <span
+                          className="text-[10px] font-mono uppercase tracking-[0.2em] pointer-events-none"
+                          style={{ color: v > 0.5 ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)' }}
+                        >
+                          {label} · {(v * 100).toFixed(0)}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+            {signalOn && !spectroOn && !multiOn && (
               <div className="absolute bottom-0 left-0 right-0 h-1/4 opacity-20 pointer-events-none">
                 <SignalGraph signal={signal} dominant={dominantStem} time={audioState.currentTime} />
               </div>
@@ -1040,131 +1314,41 @@ export default function Home() {
               <span className="text-lg leading-none">{audioState.isPlaying ? '⏸' : '▶'}</span>
               <span className="hidden md:inline text-[10px] uppercase tracking-widest opacity-60">Space</span>
             </button>
-            <div className="flex items-center justify-center gap-1.5 md:gap-2 flex-1 order-3 md:order-none w-full md:w-auto flex-wrap md:flex-nowrap">
-            {/* Track focus (stems) */}
-            {STEMS.map((stem, i) => {
-              const level = stemLevels[stem] ?? 0;
-              const isActive = soloStem === stem || (dominantStem === stem && !soloStem);
-              const colorRgb = STEM_COLOR_RGB[stem];
-              const stemKey = keyMap === 'pro' ? ['A','S','D','F','G'][i] : String(i + 1);
-              return (
-                <button
-                  key={stem}
-                  onPointerDown={() => setSoloStem(stem)}
-                  onPointerUp={() => setSoloStem(null)}
-                  onPointerLeave={() => setSoloStem(null)}
-                  className={`relative text-[11px] md:text-xs px-2 md:px-3 py-2 md:py-1.5 min-h-9 md:min-h-0 rounded-full select-none overflow-hidden flex-1 min-w-0 md:flex-none md:w-[96px] font-medium active:bg-white/10 ${
-                    isActive
-                      ? 'border-2 bg-white/5 text-white'
-                      : 'border border-white/10 bg-black/60 text-white/60'
-                  }`}
-                  style={isActive ? { borderColor: colorRgb } : undefined}
-                >
-                  <div
-                    className="absolute inset-y-0 left-0 transition-none opacity-20"
-                    style={{
-                      width: `${Math.min(100, level * 100)}%`,
-                      backgroundColor: colorRgb,
-                    }}
-                  />
-                  <div className="relative flex items-center gap-1.5 justify-center">
-                    <span className="opacity-70 font-mono">{stemKey}</span>
-                    <span className="uppercase tracking-wide">{stem}</span>
-                  </div>
-                </button>
-              );
-            })}
-            <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
-            {/* Director sub-choices: auto unless user pins one */}
-            {(() => {
-              const FX_HINT = keyMap === 'pro' ? ['H','J','K'] : [null,null,null];
-              const subs = [
-                { key: 'raw',          label: 'RAW',      hint: FX_HINT[0], color: '#d4d4d8' },
-                { key: 'halfBarPulse', label: 'PULSE',    hint: FX_HINT[1], color: '#a8a3c4' },
-                { key: 'blackout',     label: 'BLACKOUT', hint: FX_HINT[2], color: '#1e0a3c' },
-              ] as const;
-              return (
-                <div className="flex items-center gap-1 pl-2 md:pl-3 pr-2 md:pr-3 py-1 rounded-full border bg-black/40 border-white/15">
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-semibold text-white/70 ml-1 md:ml-3">
-                    Effects
-                  </span>
-                  {(() => {
-                    const mode = !pinnedMod ? 'auto' : pinnedMod === 'raw' ? 'off' : 'manual';
-                    const cycleMode = () => {
-                      if (mode === 'auto') setPinnedMod('halfBarPulse');
-                      else if (mode === 'manual') setPinnedMod('raw');
-                      else setPinnedMod(null);
-                    };
-                    const txt = mode === 'auto'
-                      ? 'text-green-400'
-                      : mode === 'manual'
-                        ? 'text-yellow-300'
-                        : 'text-red-400';
-                    const label = mode === 'auto' ? 'Auto' : mode === 'manual' ? 'Manual' : 'Off';
-                    return (
-                      <button
-                        onClick={cycleMode}
-                        className="flex items-center gap-1.5 ml-1 mr-2 px-1.5 py-0.5 rounded hover:bg-white/5 transition-colors"
-                        title="Cycle: auto → manual → off"
-                      >
-                        <span className={`w-2 h-2 rounded-full ${
-                          mode === 'auto'
-                            ? 'bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.8)]'
-                            : mode === 'manual'
-                              ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)]'
-                              : 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]'
-                        }`} />
-                        <span className={`text-[10px] uppercase tracking-[0.15em] font-semibold ${txt}`}>
-                          {label}
-                        </span>
-                      </button>
-                    );
-                  })()}
-                  {subs.map((m) => {
-                    const isPinned = pinnedMod === m.key;
-                    const isAuto = !pinnedMod && directorChoice === m.key;
-                    // v1.2: show the actual rate on the active pulse/strobe
-                    // button by parsing it out of directorLabel ("strobe·16",
-                    // "pulse·4", etc). Only applied on live auto mode.
-                    const rateSuffix =
-                      isAuto && m.key === 'halfBarPulse'
-                        ? (directorLabel.split('·')[1] ?? null)
-                        : null;
-                    return (
-                      <button
-                        key={m.key}
-                        onClick={() => setPinnedMod(isPinned ? null : m.key)}
-                        className={`text-[11px] md:text-xs px-2 md:px-3 py-2 md:py-1.5 min-h-9 md:min-h-0 flex-1 md:flex-none min-w-0 md:min-w-[88px] rounded-full uppercase tracking-wide font-medium transition-colors active:bg-white/10 ${
-                          isPinned || isAuto
-                            ? 'border-2 bg-white/5 text-white'
-                            : 'border border-white/10 bg-black/60 text-white/60'
-                        }`}
-                        style={(isPinned || isAuto) ? { borderColor: m.color } : undefined}
-                      >
-                        <span className="flex items-center gap-1.5 justify-center">
-                          {m.hint && <span className="opacity-70 font-mono normal-case">{m.hint}</span>}
-                          <span>{m.label}</span>
-                          {rateSuffix && (
-                            <span className="text-[9px] font-mono tabular-nums text-white/60 normal-case">·{rateSuffix}</span>
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              );
-            })()}
-            <div className="hidden md:block w-px h-6 bg-white/15 mx-3" />
-            <button
-              onClick={() => setSpectroOn(v => !v)}
-              className={`hidden md:block text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
-                spectroOn
-                  ? 'bg-transparent text-amber-300 border-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
-                  : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
-              }`}
-            >
-              Spectro
-            </button>
+            <div className="flex items-center justify-center gap-2 flex-1 order-3 md:order-none w-full md:w-auto">
+              {/* View toggle: Scene (3D peaks) ↔ Bands (3 horizontal channels).
+                  Mutually exclusive. Only one active at a time. */}
+              <button
+                onClick={() => {
+                  setSpectroOn(v => {
+                    const next = !v;
+                    if (next) setMultiOn(false);
+                    return next;
+                  });
+                }}
+                className={`text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
+                  spectroOn
+                    ? 'bg-transparent text-amber-300 border-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
+                    : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
+                }`}
+              >
+                Scene
+              </button>
+              <button
+                onClick={() => {
+                  setMultiOn(v => {
+                    const next = !v;
+                    if (next) setSpectroOn(false);
+                    return next;
+                  });
+                }}
+                className={`text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
+                  multiOn
+                    ? 'bg-transparent text-cyan-300 border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.4)]'
+                    : 'bg-transparent text-white/40 border-dashed border-white/20 hover:text-white/70 hover:border-white/40'
+                }`}
+              >
+                Bands
+              </button>
             </div>
             <button
               onClick={() => setUiHidden(true)}
@@ -1232,13 +1416,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bottom: scrubber + play */}
-          <div className="px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shrink-0 space-y-2 relative z-10">
-            {/* Combined scrubber: waveform OR program focus timeline */}
+          {/* Bottom: simplified scrubber — waveform + playhead only */}
+          <div className="px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shrink-0 relative z-10">
             <div
               ref={scrubRef}
               className="relative w-full bg-black/20 rounded-md overflow-hidden cursor-pointer select-none"
-              style={{ height: scrubberView === 'waveform' ? 70 : 140 }}
+              style={{ height: 70 }}
               onPointerDown={(e) => {
                 (e.target as Element).setPointerCapture(e.pointerId);
                 scrubFromEvent(e.clientX);
@@ -1247,7 +1430,7 @@ export default function Home() {
                 if (e.buttons === 1) scrubFromEvent(e.clientX);
               }}
             >
-              {scrubberView === 'waveform' && energyBars && (
+              {energyBars && (
                 <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox={`0 0 ${energyBars.length} 100`}>
                   {Array.from(energyBars).map((v, i) => {
                     const h = v * 100;
@@ -1264,68 +1447,6 @@ export default function Home() {
                   })}
                 </svg>
               )}
-              {scrubberView === 'timeline' && audioState.duration > 0 && (() => {
-                const STEM_LANES = STEMS.map(s => ({ key: 'stem:' + s, label: s.toUpperCase(), color: STEM_COLOR_RGB[s] }));
-                const FX_LANES = [
-                  { key: 'fx:raw',          label: 'RAW',      color: '#d4d4d8' }, // very light desat (zinc-300)
-                  { key: 'fx:beatStrobe',   label: 'PULSE·F',  color: '#a8a3c4' }, // fast pulse ≥6/beat
-                  { key: 'fx:halfBarPulse', label: 'PULSE',    color: '#7c6f9e' }, // mid purple
-                ];
-                // Layout: lanes span the full container width so they align
-                // perfectly with the playhead. Labels and group headers are
-                // floated as an absolute overlay on top of the leftmost edge.
-                const dur = audioState.duration;
-                const ROW_H = 13;
-                const TOP_PAD = 34;
-                const STEM_TOP = TOP_PAD + 10; // after "STEMS" header
-                const FX_TOP   = STEM_TOP + STEM_LANES.length * ROW_H + 14; // gap + "EFFECTS" header
-                const allRows: { top: number; lane: typeof STEM_LANES[number] }[] = [];
-                STEM_LANES.forEach((lane, i) => allRows.push({ top: STEM_TOP + i * ROW_H, lane }));
-                FX_LANES.forEach((lane, i) => allRows.push({ top: FX_TOP + i * ROW_H, lane }));
-                return (
-                  <div className="absolute inset-0 pointer-events-none">
-                    {/* Lane bars: full container width, perfectly aligned to playhead */}
-                    {allRows.map(({ top, lane }) => (
-                      <div key={lane.key} className="absolute left-0 right-0" style={{ top, height: ROW_H }}>
-                        <div className="relative w-full h-full bg-white/[0.04] overflow-hidden">
-                          {programBlocks.filter(b => b.lane === lane.key).map((b, j) => {
-                            const left = (b.start / dur) * 100;
-                            const width = Math.max(0.2, ((b.end - b.start) / dur) * 100);
-                            return (
-                              <div
-                                key={j}
-                                className="absolute inset-y-0"
-                                style={{ left: `${left}%`, width: `${width}%`, backgroundColor: lane.color, opacity: 0.45 }}
-                              />
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
-                    {/* Floating labels overlay (left edge) */}
-                    <div className="absolute left-2 top-0 z-10">
-                      {STEM_LANES.map((lane, i) => (
-                        <div
-                          key={lane.key}
-                          className="absolute text-[9px] font-mono font-semibold"
-                          style={{ top: STEM_TOP + i * ROW_H, lineHeight: `${ROW_H}px`, color: lane.color, textShadow: '0 0 4px rgba(0,0,0,1), 0 0 2px rgba(0,0,0,1)' }}
-                        >
-                          {lane.label}
-                        </div>
-                      ))}
-                      {FX_LANES.map((lane, i) => (
-                        <div
-                          key={lane.key}
-                          className="absolute text-[9px] font-mono font-semibold"
-                          style={{ top: FX_TOP + i * ROW_H, lineHeight: `${ROW_H}px`, color: lane.color, textShadow: '0 0 4px rgba(0,0,0,1), 0 0 2px rgba(0,0,0,1)' }}
-                        >
-                          {lane.label}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
               {/* Played-portion overlay */}
               <div
                 className="absolute inset-y-0 left-0 bg-orange-200/[0.07] pointer-events-none"
@@ -1339,54 +1460,6 @@ export default function Home() {
               <span className="absolute top-1.5 left-2 text-[10px] text-white/70 font-mono pointer-events-none z-10">
                 {fmt(audioState.currentTime)} / {fmt(audioState.duration)}
               </span>
-              {/* View toggle (with copy button on the left when in timeline) */}
-              <div className="absolute top-1.5 right-1.5 flex items-center gap-1 z-10">
-                {scrubberView === 'timeline' && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const payload = {
-                        song: songName,
-                        bpm: analysis?.bpm,
-                        duration: audioState.duration,
-                        blocks: programBlocks.map(b => ({
-                          lane: b.lane,
-                          start: +b.start.toFixed(3),
-                          end: +b.end.toFixed(3),
-                        })),
-                      };
-                      navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
-                      setToast('Timeline data copied to clipboard');
-                    }}
-                    onPointerDown={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium px-2.5 py-0.5 rounded-full bg-black/30 border border-white/10 text-white/60 hover:text-white transition-colors"
-                  >
-                    <Copy size={11} />
-                    <span>Copy Data</span>
-                  </button>
-                )}
-                <div className="flex gap-1 bg-black/30 rounded-full p-0.5 border border-white/10">
-                {([
-                  { key: 'waveform' as const, Icon: AudioLines, label: 'Waveform' },
-                  { key: 'timeline' as const, Icon: ListMusic,  label: 'Timeline' },
-                ]).map(({ key, Icon, label }) => (
-                  <button
-                    key={key}
-                    title={label}
-                    onClick={(e) => { e.stopPropagation(); setScrubberView(key); }}
-                    onPointerDown={(e) => e.stopPropagation()}
-                    className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full transition-colors ${
-                      scrubberView === key
-                        ? 'bg-white/10 text-white/90'
-                        : 'text-white/40 hover:text-white/70'
-                    }`}
-                  >
-                    <Icon size={12} />
-                    <span className="text-[10px] uppercase tracking-wider font-medium">{label}</span>
-                  </button>
-                ))}
-                </div>
-              </div>
             </div>
           </div>
           </>

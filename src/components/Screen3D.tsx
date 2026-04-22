@@ -4,175 +4,86 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
+/**
+ * 3-peak Spectro scene.
+ * A tilted grid plane with three Gaussian peaks driven by the low /
+ * mid / high band values from the multi-channel pipeline. Low peak
+ * sits at the front (near camera), mid in the middle, high at the
+ * back. All monochrome white on black.
+ */
+
 interface Screen3DProps {
-  stemSignals: Record<string, number>;
-  stemPans: Record<string, number>;
-  stemNovelty: Record<string, number>;
+  /** 0..1 — normalized low-band signal (bass+kick) */
+  low: number;
+  /** 0..1 — normalized mid-band signal (snare+other) */
+  mid: number;
+  /** 0..1 — normalized high-band signal (hat strobe) */
+  high: number;
 }
 
-const STEM_COLORS: Record<string, THREE.Color> = {
-  bass:  new THREE.Color('#166534'), // dark green
-  kick:  new THREE.Color('#22c55e'), // green
-  snare: new THREE.Color('#a3e635'), // lime
-  hat:   new THREE.Color('#facc15'), // yellow
-  other: new THREE.Color('#6b7280'), // gray
-};
-
-// =============================================================================
-// SPECTROGRAPH SCENE
-// All 5 stems mapped to a continuous wave plane (or grid of points).
-// Bands ordered front-to-back like frequency: kick → bass → snare → other → hat
-// Pan biases amplitude horizontally.
-// =============================================================================
-function SpectrographScene({
-  stemSignals,
-  stemPans,
-  stemNovelty,
-}: {
-  stemSignals: Record<string, number>;
-  stemPans: Record<string, number>;
-  stemNovelty: Record<string, number>;
-}) {
-  const matRef = useRef<THREE.ShaderMaterial>(null);
-  const STEM_LIST = ['kick', 'bass', 'snare', 'other', 'hat'] as const;
-
+function PeakPlane({ low, mid, high }: Screen3DProps) {
   const SIZE = 40;
-  const GRID_DIVISIONS = 320; // visible grid cells across the plane
+  const SEGS = 220;
+  const GRID_DIVISIONS = 320;
 
-  // Triangulated plane — supports thick anti-aliased grid lines drawn in fragment.
-  const geometry = useMemo(() => {
-    const segs = 220;
-    return new THREE.PlaneGeometry(SIZE, SIZE, segs, segs);
-  }, []);
-
-  // Per-stem origins spread across the visible plane area.
-  // Each owns its own region so colors don't muddy together.
-  // Order: kick, bass, snare, other, hat
-  const STEM_ORIGINS = useMemo(
-    () => [
-      new THREE.Vector2(0, -7),     // kick — front center (closest, low energy)
-      new THREE.Vector2(-9, -2),    // bass — front-left
-      new THREE.Vector2(9, -2),     // snare — front-right
-      new THREE.Vector2(-6, 6),     // other — back-left
-      new THREE.Vector2(6, 6),      // hat — back-right
-    ],
-    []
+  const geometry = useMemo(
+    () => new THREE.PlaneGeometry(SIZE, SIZE, SEGS, SEGS),
+    [],
   );
 
-  // Pool ring constants
-  const RINGS_PER_STEM = 4;
-  const RING_POOL_SIZE = RINGS_PER_STEM * 5;
-  const RING_LIFE = 6.0;
-  const RING_SPEED = 3.0;
+  // Triangle layout on the plane. The plane is tilted so +y becomes
+  // depth — "front" is the near edge.
+  //   LOW  (bass)  → front-center, close to camera (y=-4 keeps it
+  //                  well above the near-edge fade at y=-16..-20 so
+  //                  the peak reads as a discrete bump, not part of
+  //                  the foreground gradient)
+  //   MID  (snare) → back-right, far
+  //   HIGH (hat)   → back-left,  far
+  const PEAK_ORIGINS = useMemo(
+    () => [
+      new THREE.Vector2( 0, -4),  // LOW — front center
+      new THREE.Vector2( 7,  3),  // MID (snare) — mid-right, closer in
+      new THREE.Vector2(-7,  3),  // HIGH (hat)  — mid-left,  closer in
+    ],
+    [],
+  );
 
   const uniforms = useMemo(
     () => ({
       uTime:    { value: 0 },
-      uSig:     { value: new Float32Array(5) },
-      uPans:    { value: new Float32Array(5) },
-      uRingAge: { value: new Float32Array(RING_POOL_SIZE) },
-      uRingAmp: { value: new Float32Array(RING_POOL_SIZE) },
-      uOrigins: { value: STEM_ORIGINS },
-      uColors: {
-        value: STEM_LIST.map((s) => {
-          const c = STEM_COLORS[s];
-          return new THREE.Vector3(c.r, c.g, c.b);
-        }),
-      },
+      uBands:   { value: new Float32Array([0, 0, 0]) },
+      uOrigins: { value: PEAK_ORIGINS },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [STEM_ORIGINS]
+    [PEAK_ORIGINS],
   );
-
-  // Initialize state once
-  const initRef = useRef(false);
-  if (!initRef.current) {
-    uniforms.uRingAge.value.fill(RING_LIFE * 2);
-    initRef.current = true;
-  }
-
-  const prevSigRef = useRef<Float32Array>(new Float32Array(5));
 
   useFrame((state, dt) => {
     uniforms.uTime.value = state.clock.elapsedTime;
-
-    // Slower attack smooths out per-frame jitter from the analysis.
-    const tauAttack = 0.18;
-    const tauRelease = 3.5;
-    const tauPan = 0.6;
-    const aAttack = 1.0 - Math.exp(-dt / tauAttack);
-    const aRelease = 1.0 - Math.exp(-dt / tauRelease);
-    const aPan = 1.0 - Math.exp(-dt / tauPan);
-
-    const sigs = uniforms.uSig.value;
-    const pans = uniforms.uPans.value;
-    const prevSig = prevSigRef.current;
-
-    // Common: smooth signals, pans
-    for (let i = 0; i < STEM_LIST.length; i++) {
-      const stem = STEM_LIST[i];
-      const target = stemSignals[stem] ?? 0;
-      const a = target > sigs[i] ? aAttack : aRelease;
-      sigs[i] += (target - sigs[i]) * a;
-      pans[i] += ((stemPans[stem] ?? 0) - pans[i]) * aPan;
+    // Smooth the incoming band values — lightly on attack, slower on
+    // release — so the 3D animation reads as continuous even when React
+    // updates at ~30Hz.
+    const aAttack  = 1 - Math.exp(-dt / 0.08);
+    const aRelease = 1 - Math.exp(-dt / 0.35);
+    const targets = [low, mid, high];
+    const bands = uniforms.uBands.value;
+    for (let i = 0; i < 3; i++) {
+      const a = targets[i] > bands[i] ? aAttack : aRelease;
+      bands[i] += (targets[i] - bands[i]) * a;
     }
-
-    // Pool ring spawning: each stem fires new rings on novelty/rise events
-    const ringAge = uniforms.uRingAge.value;
-    const ringAmp = uniforms.uRingAmp.value;
-    for (let k = 0; k < RING_POOL_SIZE; k++) ringAge[k] += dt;
-    for (let i = 0; i < STEM_LIST.length; i++) {
-      const stem = STEM_LIST[i];
-      const nov = stemNovelty[stem] ?? 0;
-      const rise = sigs[i] - prevSig[i];
-      const spawn = nov > 0.28 || rise > 0.20;
-      if (spawn) {
-        const newAmp = Math.min(1.0, Math.max(nov, rise) * 1.6 + 0.2);
-        const base = i * RINGS_PER_STEM;
-        let weakestSlot = base;
-        let weakestIntensity = Infinity;
-        for (let j = 0; j < RINGS_PER_STEM; j++) {
-          const k = base + j;
-          const intensity = ringAmp[k] * Math.exp(-ringAge[k] / RING_LIFE);
-          if (intensity < weakestIntensity) {
-            weakestIntensity = intensity;
-            weakestSlot = k;
-          }
-        }
-        if (newAmp > weakestIntensity * 0.6) {
-          ringAge[weakestSlot] = 0;
-          ringAmp[weakestSlot] = newAmp;
-        }
-      }
-    }
-
-    for (let i = 0; i < STEM_LIST.length; i++) prevSig[i] = sigs[i];
   });
 
   const vertexShader = `
     uniform float uTime;
-    uniform float uSig[5];
-    uniform float uPans[5];
-    uniform float uRingAge[20];
-    uniform float uRingAmp[20];
-    uniform vec2  uOrigins[5];
-    uniform vec3  uColors[5];
-    varying float vAlpha;
-    varying vec3  vColor;
+    uniform float uBands[3];
+    uniform vec2  uOrigins[3];
     varying float vEnergy;
+    varying float vAlpha;
     varying vec2  vUv;
 
-    const float RING_SPEED = 3.0;
-    const float RING_LIFE  = 6.0;
-
-    float poolContribution(vec2 p, vec2 origin, float age, float amp) {
+    float peak(vec2 p, vec2 origin, float amp, float radius) {
       if (amp < 0.001) return 0.0;
-      float r = distance(p, origin);
-      float r0 = age * RING_SPEED;
-      float width = 0.7 + age * 0.45;
-      float crest = exp(-pow((r - r0) / width, 2.0));
-      float decay = exp(-age / RING_LIFE);
-      return crest * decay * amp;
+      float d = distance(p, origin);
+      return amp * exp(-d * d / (radius * radius));
     }
 
     void main() {
@@ -180,87 +91,37 @@ function SpectrographScene({
       vec3 pos = position;
       vec2 p = pos.xy;
 
-      // Slow rolling base — gentle, always-on, very low frequency.
-      // Driven by total energy so plane breathes with the song.
-      float total = uSig[0] + uSig[1] + uSig[2] + uSig[3] + uSig[4];
+      // Total energy drives a gentle always-on base wobble so the plane
+      // breathes with the song.
+      float total = uBands[0] + uBands[1] + uBands[2];
       float t = uTime * 0.15;
       float base =
-        sin(p.x * 0.35 + t) * 0.25 +
-        cos(p.y * 0.3 - t * 0.7) * 0.2;
-      base *= 0.08 + total * 0.10;
+        sin(p.x * 0.3 + t) * 0.18 +
+        cos(p.y * 0.25 - t * 0.6) * 0.15;
+      base *= 0.05 + total * 0.08;
 
-      // Per-stem rings: 4 concurrent slots per stem, 20 total. Older rings
-      // keep traveling outward while new ones spawn behind them.
-      // Each stem keeps its own color identity in its region — we track the
-      // nearest origin and use that color, plus accumulate ring/puddle amplitude.
-      float ringSum = 0.0;
-      float closestDist = 1e9;
-      int   closestStem = 0;
-      float secondDist = 1e9;
-      int   secondStem = 0;
-      // Total puddle for the brightness contribution
-      float puddleSum = 0.0;
+      // Three tight peaks. Radii are deliberately small so the peaks
+      // stay distinct in a triangle layout instead of merging into one
+      // bulge. Amplitude nudges radius slightly for a "spread on hit"
+      // feel, but never enough to overlap.
+      float lowAmp  = uBands[0];
+      float midAmp  = uBands[1];
+      float highAmp = uBands[2];
+      // Heights are capped so no peak ever reaches above the camera
+      // line (camera is ~1.0 world unit above the plane). Going higher
+      // than that makes the peak envelop the view.
+      float z =
+        peak(p, uOrigins[0], lowAmp,  2.2 + lowAmp  * 0.8) * 2.2 +
+        peak(p, uOrigins[1], midAmp,  1.6 + midAmp  * 0.7) * 1.8 +
+        peak(p, uOrigins[2], highAmp, 1.5 + highAmp * 0.6) * 1.6;
 
-      for (int i = 0; i < 5; i++) {
-        vec2  origin = uOrigins[i];
-        vec3  color  = uColors[i];
+      pos.z = base + z;
+      vEnergy = clamp(z + total * 0.15, 0.0, 2.0);
 
-        // Track nearest two stems for smooth color blending at borders
-        float d = distance(p, origin);
-        if (d < closestDist) {
-          secondDist = closestDist;
-          secondStem = closestStem;
-          closestDist = d;
-          closestStem = i;
-        } else if (d < secondDist) {
-          secondDist = d;
-          secondStem = i;
-        }
-
-        // Sharper puddle, weighted by signal strength so stems still bleed
-        // outward when loud.
-        float radius = 3.5 + uSig[i] * 4.0;
-        float puddle = exp(-d * d / (radius * radius * 0.5)) * uSig[i] * 0.5;
-        puddleSum += puddle;
-
-        // Pool rings: 4 concurrent slots per stem expanding outward
-        for (int j = 0; j < 4; j++) {
-          int k = i * 4 + j;
-          float c = poolContribution(p, origin, uRingAge[k], uRingAmp[k]);
-          ringSum += c;
-        }
-      }
-
-      pos.z = base + ringSum * 0.198;
-      vEnergy = clamp(ringSum + total * 0.15 + puddleSum * 0.6, 0.0, 1.5);
-
-      // Color from nearest stem with smooth blend at the boundary
-      // (uses Voronoi-like distance ratio for soft edges)
-      vec3 c1 = uColors[0];
-      vec3 c2 = uColors[0];
-      // Pick color by index (avoid dynamic array indexing for compatibility)
-      if (closestStem == 0) c1 = uColors[0];
-      else if (closestStem == 1) c1 = uColors[1];
-      else if (closestStem == 2) c1 = uColors[2];
-      else if (closestStem == 3) c1 = uColors[3];
-      else c1 = uColors[4];
-
-      if (secondStem == 0) c2 = uColors[0];
-      else if (secondStem == 1) c2 = uColors[1];
-      else if (secondStem == 2) c2 = uColors[2];
-      else if (secondStem == 3) c2 = uColors[3];
-      else c2 = uColors[4];
-
-      // Blend factor: how close the second-nearest is to being equally close
-      float blendT = closestDist / max(secondDist, 0.001);
-      blendT = smoothstep(0.7, 1.0, blendT) * 0.5;
-      vColor = mix(c1, c2, blendT);
-
-      // Sides fade gently; near edge fades soft; far edge fades long for an
-      // infinite-horizon feel.
-      float edgeX = 1.0 - smoothstep(14.0, 20.0, abs(position.x));
+      // Edge fading so the plane melts into black at the horizon
+      float edgeX    = 1.0 - smoothstep(14.0, 20.0, abs(position.x));
       float edgeNear = 1.0 - smoothstep(16.0, 20.0, -position.y);
-      float edgeFar  = 1.0 - smoothstep(2.0, 18.0, position.y);
+      float edgeFar  = 1.0 - smoothstep(2.0,  18.0, position.y);
       vAlpha = edgeX * edgeNear * edgeFar;
 
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
@@ -268,21 +129,21 @@ function SpectrographScene({
   `;
 
   const fragmentShader = `
-    varying float vAlpha;
-    varying vec3  vColor;
     varying float vEnergy;
+    varying float vAlpha;
     varying vec2  vUv;
 
     void main() {
-      vec3 color = vColor + vEnergy * 0.25;
-      // Anti-aliased grid: thick lines drawn at every 1/${GRID_DIVISIONS} UV step.
+      // Anti-aliased grid — thick lines at every 1/${GRID_DIVISIONS} UV step.
       vec2 grid = abs(fract(vUv * ${GRID_DIVISIONS}.0 - 0.5) - 0.5);
       vec2 dgrid = fwidth(vUv * ${GRID_DIVISIONS}.0);
-      float lineThickness = 1.0;
-      vec2 g = smoothstep(dgrid * lineThickness, vec2(0.0), grid);
+      vec2 g = smoothstep(dgrid, vec2(0.0), grid);
       float line = max(g.x, g.y);
       if (line < 0.02) discard;
-      gl_FragColor = vec4(color, vAlpha * line * (0.5 + vEnergy * 0.6));
+
+      // Monochrome: line brightness modulated by local peak energy
+      float brightness = 0.25 + vEnergy * 0.55;
+      gl_FragColor = vec4(vec3(brightness), vAlpha * line * (0.45 + vEnergy * 0.6));
     }
   `;
 
@@ -293,7 +154,6 @@ function SpectrographScene({
       position={[0, -0.9, -2]}
     >
       <shaderMaterial
-        ref={matRef}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
@@ -305,21 +165,22 @@ function SpectrographScene({
   );
 }
 
-export function Screen3D({ stemSignals, stemPans, stemNovelty }: Screen3DProps) {
-  const fov = typeof window !== 'undefined' && window.innerWidth < 768 ? 95 : 75;
+export function Screen3D({ low, mid, high }: Screen3DProps) {
+  const fov =
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 95 : 75;
   return (
     <div className="absolute inset-0">
       <Canvas
-        camera={{ position: [0, 0.12, 2.5], fov, near: 0.1, far: 200 }}
+        // Pulled back from 2.5 → 4.0 and raised from 0.12 → 0.8 so the
+        // bass peak (capped ~2.2 world units tall near the camera) sits
+        // comfortably in frame instead of engulfing the view at peak
+        // amplitude.
+        camera={{ position: [0, 0.8, 4.0], fov, near: 0.1, far: 200 }}
         dpr={[1, 2]}
         gl={{ alpha: true, premultipliedAlpha: false }}
         style={{ background: 'transparent' }}
       >
-        <SpectrographScene
-          stemSignals={stemSignals}
-          stemPans={stemPans}
-          stemNovelty={stemNovelty}
-        />
+        <PeakPlane low={low} mid={mid} high={high} />
       </Canvas>
     </div>
   );

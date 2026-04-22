@@ -19,17 +19,18 @@
 // data/test_ratings.json for historical A/B. To see old code:
 //   git log --all --grep='DIRECTOR_VERSION' -- src/lib/modulators.ts
 //   git show <commit>:src/lib/modulators.ts
-export const DIRECTOR_VERSION = 'v1.4-2026-04-12';
+export const DIRECTOR_VERSION = 'v1.5-2026-04-21';
 export const DIRECTOR_DESCRIPTION =
-  'v1.4: Transient-locked sync. Energy derivative (dE/dt) boosts ' +
-  'signal on attacks so transients punch through instantly. Onset ' +
-  'hard-snap bypasses envelope smoothing on strong hits — frame-' +
-  'perfect visual on kick/snare. Pulse is now a 1-bar accent at ' +
-  'drop starts only, no rate variation or step-down ladder. Build ' +
-  'sections capped at pulse:2. Section transitions break director ' +
-  'commitment immediately. v1.3: scout architecture, hat-intro ' +
-  'blackout, raw signal mode. v1.2: composed bar patterns. v1.1: ' +
-  'Claude-as-editor. v1.0: unified pulse rate continuum.';
+  'v1.5: Bass-first attention. Default regime heavily favors bass ' +
+  '(priority 2.6 vs 0.3–0.8 for others) so ~80% of the show follows ' +
+  'the low end. Bass envelope retuned for SMOOTHNESS: slower attack ' +
+  '(100ms), longer release (600ms), lower shape weight (0.25) so ' +
+  'audio envelope dominates instead of synthetic plateau. Kick ' +
+  'becomes additive accent on top of bass, not a competitor. Fast ' +
+  'unlock when bass drops to zero so breakdowns hand off to another ' +
+  'stem quickly. Scout can disable bass-first for non-bass-driven ' +
+  'songs via primaryStem. v1.4: transient-locked sync. v1.3: scout. ' +
+  'v1.2: composed bar patterns. v1.1: Claude-as-editor.';
 
 export interface ModulatorContext {
   signal: number;       // 0-1 input from attention layer
@@ -402,7 +403,22 @@ function chooseNextMod(ctx: ModulatorContext, state: DirectorState): ChoiceResul
   return { mod: 'raw', rate: 0, durationBeats: 2 + Math.random() * 3 };
 }
 
+// v1.5 EFFECTS KILLSWITCH. When true, the director always returns the raw
+// signal — no pulse, no strobe, no blackout. Flip to false to re-enable
+// the full decision ladder. This is a temporary debug/eval mode for
+// tuning the bass-first attention layer without effect modulation
+// masking what the signal actually looks like.
+const EFFECTS_DISABLED = true;
+
 export const director: Modulator = (ctx) => {
+  if (EFFECTS_DISABLED) {
+    // Keep state shape stable so any telemetry reader that peeks at
+    // getDirectorChoice() / getDirectorPulseRate() still gets sane values.
+    _directorState.currentMod = 'raw';
+    _directorState.currentPulseRate = 0;
+    return ctx.signal;
+  }
+
   const state = _directorState;
 
   // Update history (keep ~1 second worth of frames at 30fps)
@@ -507,12 +523,18 @@ export const director: Modulator = (ctx) => {
   return raw(ctx);
 };
 
+// v1.5 effects killswitch also applies to the named modulators so pinning
+// STROBE / PULSE / BLACKOUT manually is a no-op while we're tuning the
+// signal layer. Flip EFFECTS_DISABLED above to re-enable all of them.
+const wrap = (fn: Modulator): Modulator =>
+  EFFECTS_DISABLED ? (ctx: ModulatorContext) => ctx.signal : fn;
+
 // --- Registry ---
 export const MODULATORS: Record<string, { name: string; fn: Modulator }> = {
   raw:          { name: 'Raw',            fn: raw },
-  blackout:     { name: 'Blackout',       fn: blackout },
-  beatStrobe:   { name: 'Beat Strobe',    fn: beatStrobe },
-  halfBarPulse: { name: 'Half-Bar Pulse', fn: halfBarPulse },
-  sineWobble:   { name: 'Sine Wobble',    fn: sineWobble },
+  blackout:     { name: 'Blackout',       fn: wrap(blackout) },
+  beatStrobe:   { name: 'Beat Strobe',    fn: wrap(beatStrobe) },
+  halfBarPulse: { name: 'Half-Bar Pulse', fn: wrap(halfBarPulse) },
+  sineWobble:   { name: 'Sine Wobble',    fn: wrap(sineWobble) },
   director:     { name: 'Director',       fn: director },
 };

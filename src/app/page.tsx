@@ -13,6 +13,7 @@ import { SignalGraph, resetSignalGraph } from '@/components/SignalGraph';
 import { Screen3D, resetScreen3D } from '@/components/Screen3D';
 import { useMidi, type ShowEvent } from '@/hooks/useMidi';
 import { MidiPanel } from '@/components/MidiPanel';
+import { sendDMX } from '@/lib/dmxClient';
 import type { Scout } from '@/lib/scout/schema';
 import { loadScout, getActiveMoment, isAnticipating, getSectionAnnotation, buildStemWeights, detectStemEntries, type StemEntryCue } from '@/lib/scout/apply';
 
@@ -147,6 +148,9 @@ export default function Home() {
   const [keyMap, setKeyMap] = useState<'basic' | 'pro'>('basic');
   const [scrubberView, setScrubberView] = useState<'waveform' | 'timeline'>('waveform');
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // DMX output controls — master brightness multiplier and CCT (0=warm, 1=cool)
+  const [dmxBrightness, setDmxBrightness] = useState(1);
+  const [dmxWarmth, setDmxWarmth] = useState(0.5);
   // Hydrate from localStorage on mount
   useEffect(() => {
     try {
@@ -157,12 +161,14 @@ export default function Home() {
         if (s.keyMap === 'basic' || s.keyMap === 'pro') setKeyMap(s.keyMap);
         if (s.scrubberView === 'waveform' || s.scrubberView === 'timeline') setScrubberView(s.scrubberView);
         if (typeof s.spectroOn === 'boolean') setSpectroOn(s.spectroOn);
+        if (typeof s.dmxBrightness === 'number') setDmxBrightness(Math.min(1, Math.max(0, s.dmxBrightness)));
+        if (typeof s.dmxWarmth === 'number') setDmxWarmth(Math.min(1, Math.max(0, s.dmxWarmth)));
       }
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem('lightflow.settings', JSON.stringify({ lookAhead, keyMap, scrubberView, spectroOn })); } catch {}
-  }, [lookAhead, keyMap, scrubberView, spectroOn]);
+    try { localStorage.setItem('lightflow.settings', JSON.stringify({ lookAhead, keyMap, scrubberView, spectroOn, dmxBrightness, dmxWarmth })); } catch {}
+  }, [lookAhead, keyMap, scrubberView, spectroOn, dmxBrightness, dmxWarmth]);
   const panHistoryRef = useRef<Record<string, number[]>>({});
   // Timestamp of last strong snare hit — used to suppress hat channel
   // during the bleed-tail window (~150ms after the snare). Demucs lets
@@ -886,6 +892,12 @@ export default function Home() {
     }
 
     setSignal(modulated);
+    // DMX out (Halo 100x, CCT 3ch @ addr 1): dim × master, cct from warmth, g/m neutral
+    sendDMX([
+      Math.round(modulated * dmxBrightness * 255),
+      Math.round(dmxWarmth * 255),
+      128,
+    ]);
     setActiveScoutCue(scoutMoment ? `${scoutMoment.type}${isAnticipating(scoutMoment, audioState.currentTime, analysis.bpm) ? '…' : ''}` : null);
     const fxNow = activeMod;
     if (modulator === 'director') {
@@ -1059,7 +1071,7 @@ export default function Home() {
       other: stems.other,
     });
     setStemScores(attention.scores);
-  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, scout, programBlocks, songMenuOpen, midi.strobeHeld, midi.blackoutHeld, midi.strobeRate, midi.fade, midi.lastPulseAt, midi.pulseVelocity, midi.lastPulseLengthBeats]);
+  }, [currentFrame, analysis, audioState.currentTime, audioState.isPlaying, soloStem, modulator, scout, programBlocks, songMenuOpen, midi.strobeHeld, midi.blackoutHeld, midi.strobeRate, midi.fade, midi.lastPulseAt, midi.pulseVelocity, midi.lastPulseLengthBeats, dmxBrightness, dmxWarmth]);
 
   const isReady = !!audioState.source;
   const isRawMode = isReady && !analysis;
@@ -1480,6 +1492,42 @@ export default function Home() {
                     />
                     <p className="text-[10px] text-white/40 leading-snug">
                       Compensates for output latency. Increase if visuals lag the audio.
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-baseline">
+                      <label className="text-xs uppercase tracking-wider text-white/80 font-medium">DMX brightness</label>
+                      <span className="text-sm font-mono text-white">{Math.round(dmxBrightness * 100)}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={dmxBrightness}
+                      onChange={(e) => setDmxBrightness(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white"
+                    />
+                    <p className="text-[10px] text-white/40 leading-snug">
+                      Master multiplier on Halo dimmer (channel 1).
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-baseline">
+                      <label className="text-xs uppercase tracking-wider text-white/80 font-medium">Warmth</label>
+                      <span className="text-sm font-mono text-white">{dmxWarmth < 0.5 ? 'warm' : dmxWarmth > 0.5 ? 'cool' : 'mid'}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={dmxWarmth}
+                      onChange={(e) => setDmxWarmth(parseFloat(e.target.value))}
+                      className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white"
+                    />
+                    <p className="text-[10px] text-white/40 leading-snug">
+                      Halo CCT (channel 2). 0 = warm (~2500K), 1 = cool (~10000K).
                     </p>
                   </div>
                   <div className="space-y-2">

@@ -132,7 +132,11 @@ export interface UseMidiOptions {
 export function useMidi(options: UseMidiOptions = {}) {
   const emitRef = useRef<typeof options.onShowEvent>(options.onShowEvent);
   useEffect(() => { emitRef.current = options.onShowEvent; }, [options.onShowEvent]);
-  const [supported] = useState(() => isMidiSupported());
+  // Start `false` so SSR and the first client render agree (the server has no
+  // navigator.requestMIDIAccess). Detect real support after mount to avoid a
+  // hydration mismatch on the MIDI button's class/title.
+  const [supported, setSupported] = useState(false);
+  useEffect(() => { setSupported(isMidiSupported()); }, []);
   const [devices, setDevices] = useState<Array<{ id: string; name: string }>>([]);
   const [connected, setConnected] = useState(false);
   const [mapping, setMapping] = useState<MidiMapping>(() => loadMapping());

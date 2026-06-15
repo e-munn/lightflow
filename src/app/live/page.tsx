@@ -322,7 +322,9 @@ export default function LivePage() {
       if (paletteOpenRef.current) return; // palette owns keys while open
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return;
+      // ignore keys only while a TEXT field is focused (e.g. BPM input) — a range
+      // slider (the sim scrubber) doesn't capture letter/number keys, so let them through
+      if (target && (target.tagName === 'TEXTAREA' || (target.tagName === 'INPUT' && (target as HTMLInputElement).type !== 'range'))) return;
       // ↑/↓ lean AutoPilot more/less intense (high / low modes)
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         e.preventDefault();

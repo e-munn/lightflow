@@ -7,7 +7,7 @@
 // Layout: everything sits in the bottom ~60% (thumb reach). Scenes are the big,
 // most-reachable buttons at the very bottom; colours are small dots above.
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { SCENES } from '@/lib/scenes';
 import { COLOR_KEYS } from '@/lib/fixtures';
 
@@ -33,6 +33,50 @@ export default function RemotePage() {
     },
     [connected],
   );
+
+  // pick a random scene (not the one we just sent) and fire it
+  const lastSceneRef = useRef('');
+  const randomScene = useCallback(() => {
+    const opts = SCENES.filter((s) => s.key.toLowerCase() !== lastSceneRef.current);
+    const pick = opts[Math.floor(Math.random() * opts.length)] ?? SCENES[0];
+    lastSceneRef.current = pick.key.toLowerCase();
+    send(pick.key.toLowerCase());
+  }, [send]);
+
+  // shake → random scene. iOS 13+ requires a permission grant from a tap.
+  const [shake, setShake] = useState(false);
+  const prevAccel = useRef({ x: 0, y: 0, z: 0 });
+  const lastShakeRef = useRef(0);
+  const enableShake = useCallback(async () => {
+    const D = window.DeviceMotionEvent as unknown as { requestPermission?: () => Promise<string> };
+    if (D && typeof D.requestPermission === 'function') {
+      try {
+        if ((await D.requestPermission()) !== 'granted') return;
+      } catch {
+        return;
+      }
+    }
+    setShake(true);
+  }, []);
+  useEffect(() => {
+    if (!shake) return;
+    const onMotion = (e: DeviceMotionEvent) => {
+      const a = e.accelerationIncludingGravity;
+      if (!a) return;
+      const dx = (a.x ?? 0) - prevAccel.current.x;
+      const dy = (a.y ?? 0) - prevAccel.current.y;
+      const dz = (a.z ?? 0) - prevAccel.current.z;
+      prevAccel.current = { x: a.x ?? 0, y: a.y ?? 0, z: a.z ?? 0 };
+      const delta = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      const now = Date.now();
+      if (delta > 18 && now - lastShakeRef.current > 700) {
+        lastShakeRef.current = now;
+        randomScene();
+      }
+    };
+    window.addEventListener('devicemotion', onMotion);
+    return () => window.removeEventListener('devicemotion', onMotion);
+  }, [shake, randomScene]);
 
   const live = connected ? '' : 'pointer-events-none opacity-30';
 
@@ -64,6 +108,17 @@ export default function RemotePage() {
               <span className="h-4 w-4 rounded-full" style={{ background: `rgb(${c.rgb.map((v) => Math.round(v * 255)).join(',')})` }} />
             </button>
           ))}
+        </div>
+
+        {/* random scene — tap, or enable shake-to-randomise */}
+        <div className="grid grid-cols-[1fr_auto] gap-2.5">
+          <button onClick={randomScene} className="h-12 rounded-xl border border-white/15 font-mono text-xs text-white/80 active:bg-white active:text-black">🎲 RANDOM</button>
+          <button
+            onClick={shake ? () => setShake(false) : enableShake}
+            className={`h-12 rounded-xl border px-5 font-mono text-xs ${shake ? 'border-white bg-white text-black' : 'border-white/15 text-white/50'}`}
+          >
+            shake
+          </button>
         </div>
 
         {/* transport */}

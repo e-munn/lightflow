@@ -13,9 +13,12 @@ import { RefObject, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { Visual } from '@/lib/fixtures';
+import { RIG, Visual } from '@/lib/fixtures';
 
 export type RigMode = 'abstract' | 'literal';
+
+// don't draw fixtures that aren't physically present (e.g. Halo not at this event)
+const HALO_ACTIVE = RIG.find((f) => f.id === 'halo')?.active !== false;
 type FrameRef = RefObject<Record<string, Visual>>;
 
 // 3D placement of each fixture (world units; floor = y0, camera looks down +Z).
@@ -275,7 +278,7 @@ export function Rig3D({ frameRef, mode }: { frameRef: FrameRef; mode: RigMode })
       )}
       <gridHelper args={[28, 28, '#1a1a26', mode === 'literal' ? '#0c0c12' : '#101018']} position={[0, 0.001, 0]} />
 
-      <Halo mode={mode} frameRef={frameRef} />
+      {HALO_ACTIVE && <Halo mode={mode} frameRef={frameRef} />}
       <Mover id="spotL" mode={mode} frameRef={frameRef} />
       <Mover id="spotR" mode={mode} frameRef={frameRef} />
       <Shocker id="shockerL" mode={mode} frameRef={frameRef} />

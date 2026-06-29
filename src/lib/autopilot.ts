@@ -155,8 +155,15 @@ export class AutoPilot {
 
   private commitTop(now: number, a: AudioFrame, rel: number): string | null {
     let key = '8'; // Peak — the default drop
-    if (rel >= 0.9 && a.bass >= 0.4) key = '9'; // absolute peak -> Blinder
-    else if (this.topCount % 2 === 1) key = '0'; // alternate -> Party (colour + variety)
+    if (this.bias < 0) {
+      // LOW mode: minimise strobe — top out on Pulse (rhythmic, NO strobe);
+      // only the very biggest peaks earn the strobing Peak.
+      key = rel >= 0.92 && a.bass >= 0.45 ? '8' : '7';
+    } else if (rel >= 0.9 && a.bass >= 0.4) {
+      key = '9'; // absolute peak -> Blinder
+    } else if (this.topCount % 2 === 1) {
+      key = '0'; // alternate -> Party (colour + variety)
+    }
     this.topCount++;
     return this.commit(key, now);
   }

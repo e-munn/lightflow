@@ -11,7 +11,26 @@
 import { SerialPort } from 'serialport';
 import { WebSocketServer } from 'ws';
 
-const PORT_PATH = process.env.DMX_PORT ?? '/dev/cu.usbserial-EN518139';
+// Port: an explicit DMX_PORT wins; otherwise auto-detect the Enttec (FTDI USB
+// serial) so a new unit "just works" without hardcoding its serial number.
+async function resolvePort() {
+  if (process.env.DMX_PORT) return process.env.DMX_PORT;
+  try {
+    const ports = await SerialPort.list();
+    const hit = ports.find(
+      (p) =>
+        /usbserial|usbmodem/i.test(p.path || '') ||
+        /FTDI|ENTTEC/i.test(p.manufacturer || '') ||
+        p.vendorId === '0403',
+    );
+    // macOS: use the callout device (cu.*) for output, not the dialin (tty.*),
+    // which can block/not flush when sending.
+    if (hit) return hit.path.replace('/dev/tty.', '/dev/cu.');
+  } catch {
+    /* fall through */
+  }
+  return null;
+}
 const BAUD = 250000;
 const WS_PORT = Number(process.env.DMX_WS_PORT ?? 7777);
 const TICK_HZ = 40;
@@ -40,8 +59,14 @@ function buildPacket(data) {
   return packet;
 }
 
-function openPort() {
-  const p = new SerialPort({ path: PORT_PATH, baudRate: BAUD }, (err) => {
+async function openPort() {
+  const path = await resolvePort();
+  if (!path) {
+    // no Enttec present yet — keep looking
+    setTimeout(openPort, RECONNECT_MS);
+    return;
+  }
+  const p = new SerialPort({ path, baudRate: BAUD }, (err) => {
     if (err) {
       // Don't spam — ENXIO/ENOENT just means device not present yet
       if (err.code !== 'ENOENT' && err.code !== 'ENXIO') {
@@ -51,7 +76,7 @@ function openPort() {
       setTimeout(openPort, RECONNECT_MS);
       return;
     }
-    console.log(`[dmx] opened ${PORT_PATH} @ ${BAUD}`);
+    console.log(`[dmx] opened ${path} @ ${BAUD}`);
     port = p;
   });
   // Suppress unhandled-error crash and trigger reopen on transport failure

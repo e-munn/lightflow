@@ -59,9 +59,13 @@ const TILT_SLEW = 0.42;
 export const SCENES: Scene[] = [
   // --- 1-3 isolation: solo one fixture group, everything else dark ---
   {
-    id: 'halo', name: 'Halo', key: '1', fade: 1.5, energy: 0.1,
+    id: 'warm', name: 'Warm', key: '1', fade: 1.5, energy: 0.12,
+    // (Amaran Halo absent this event) — soft warm wash from the shockers instead,
+    // the calm fill/intro look. halo state kept for when the Halo returns.
     states: {
       halo: { dim: 0.8, cct: 0.12 },
+      shockerL: { dim: 0.5, r: 1, g: 0.6, b: 0.3 },
+      shockerR: { dim: 0.5, r: 1, g: 0.6, b: 0.3 },
     },
   },
   {

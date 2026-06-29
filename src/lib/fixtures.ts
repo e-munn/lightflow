@@ -201,16 +201,27 @@ const titanTubeProfile: Profile = {
   },
 };
 
-// STUB — Chauvet Shocker Panel FX (maybe-buy; also a Halo backup as a warm
-// wash). Placeholder dimmer+RGB+strobe. Replace with the real chart on purchase.
+// Chauvet DJ Shocker Panel FX — 8CH mode:
+// 1 Master Dimmer · 2 RGB Strobe Rate · 3 Red · 4 Green · 5 Blue · 6 White
+// 7 RGBW Program (MUST be 0 for DMX control) · 8 Program Speed.
 const shockerPanelProfile: Profile = {
-  channels: 5,
-  defaults: { dim: 0, r: 1, g: 0.7, b: 0.4, strobeHz: 0 },
+  channels: 8,
+  defaults: { dim: 0, r: 1, g: 0.7, b: 0.4, white: 0, strobeHz: 0 },
   snapKeys: [],
   encode: (s, cal) => {
     const dim = Math.pow(u01(s.dim), cal.dimGamma ?? 1);
-    const strobe = s.strobeHz > 0 ? clamp255(8 + clamp(s.strobeHz / 20, 0, 1) * (255 - 8)) : 0;
-    return [clamp255(dim * 255), clamp255(u01(s.r) * 255), clamp255(u01(s.g) * 255), clamp255(u01(s.b) * 255), strobe];
+    // ch2: 0 = steady, higher = faster strobe
+    const strobe = s.strobeHz > 0 ? clamp255(20 + clamp(s.strobeHz / 20, 0, 1) * (255 - 20)) : 0;
+    return [
+      clamp255(dim * 255), // 1 master dimmer
+      strobe, // 2 RGB strobe rate
+      clamp255(u01(s.r) * 255), // 3 red
+      clamp255(u01(s.g) * 255), // 4 green
+      clamp255(u01(s.b) * 255), // 5 blue
+      clamp255(u01(s.white ?? 0) * 255), // 6 white blinder
+      0, // 7 RGBW program — keep 0 = DMX control (else it ignores colour)
+      0, // 8 program speed
+    ];
   },
   decode: (s) => ({ shape: 'wash', rgb: [u01(s.r) * 255, u01(s.g) * 255, u01(s.b) * 255], intensity: u01(s.dim) }),
   applyColor: (s, ov) => {
@@ -237,11 +248,11 @@ export const PROFILES: Record<FixtureKind, Profile> = {
 // be set to 11CH mode. Shocker addresses are provisional until the real chart
 // is confirmed (the stub is 5ch — real footprint will shift @31/@40).
 export const RIG: FixtureInstance[] = [
-  { id: 'halo', kind: 'halo100x', label: 'Amaran Halo', addr: 1, cal: {}, pos: { x: 0.5, y: 0.3 }, active: true },
-  { id: 'spotL', kind: 'spot160', label: 'Spot 160 · L', addr: 4, cal: { tiltCenter: 0.55 }, pos: { x: 0.2, y: 0.16 }, active: true },
-  { id: 'spotR', kind: 'spot160', label: 'Spot 160 · R', addr: 15, cal: { tiltCenter: 0.55 }, pos: { x: 0.8, y: 0.16 }, active: true },
-  { id: 'shockerL', kind: 'shockerPanel', label: 'Shocker · L', addr: 26, cal: {}, pos: { x: 0, y: 0.5 }, active: true },
-  { id: 'shockerR', kind: 'shockerPanel', label: 'Shocker · R', addr: 31, cal: {}, pos: { x: 1, y: 0.5 }, active: true },
+  { id: 'halo', kind: 'halo100x', label: 'Amaran Halo', addr: 1, cal: {}, pos: { x: 0.5, y: 0.3 }, active: false }, // not at this event — shockers cover the warm wash
+  { id: 'spotL', kind: 'spot160', label: 'Spot 160 · L', addr: 17, cal: { tiltCenter: 0.55 }, pos: { x: 0.2, y: 0.16 }, active: true }, // 11CH → 17-27
+  { id: 'spotR', kind: 'spot160', label: 'Spot 160 · R', addr: 28, cal: { tiltCenter: 0.55 }, pos: { x: 0.8, y: 0.16 }, active: true }, // 11CH → 28-38
+  { id: 'shockerL', kind: 'shockerPanel', label: 'Shocker · L', addr: 1, cal: {}, pos: { x: 0, y: 0.5 }, active: true }, // 8CH → 1-8
+  { id: 'shockerR', kind: 'shockerPanel', label: 'Shocker · R', addr: 9, cal: {}, pos: { x: 1, y: 0.5 }, active: true }, // 8CH → 9-16
   { id: 'tube', kind: 'titanTube', label: 'Titan Tube (stub)', addr: 40, cal: {}, pos: { x: 0.5, y: 0.85 }, active: false },
 ];
 
@@ -254,6 +265,7 @@ export function defaultsFor(id: string): FixtureState {
 export function composeUniverse(states: Record<string, FixtureState>): Uint8Array {
   const u = new Uint8Array(UNIVERSE_SIZE);
   for (const f of RIG) {
+    if (f.active === false) continue; // fixture not present (e.g. Halo this event)
     const prof = PROFILES[f.kind];
     const st = { ...prof.defaults, ...states[f.id] };
     const bytes = prof.encode(st, f.cal);

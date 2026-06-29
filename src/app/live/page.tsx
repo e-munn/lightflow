@@ -38,7 +38,7 @@ export default function LivePage() {
   const frameRef = useRef<Record<string, Visual>>({});
   const engineRef = useRef<SceneEngine | null>(null);
   const tapRef = useRef<TapTempo | null>(null);
-  const outputRef = useRef<Output>('preview');
+  const outputRef = useRef<Output>('live'); // default to live — DMX transmits on load
   // colour override applied every frame. Defaults to AMBER — the rig's resting
   // colour — never null, so there's always a warm base. null colorKey = amber.
   const colorRef = useRef<ColorOverride>(AMBER);
@@ -62,7 +62,7 @@ export default function LivePage() {
   const [colorKey, setColorKey] = useState<string | null>(null);
   const [strobe, setStrobe] = useState(false);
   const [pulseOn, setPulseOn] = useState(false);
-  const [output, setOutput] = useState<Output>('preview');
+  const [output, setOutput] = useState<Output>('live');
   const [connected, setConnected] = useState(false);
   const [bpm, setBpm] = useState<number | null>(null);
   const [bpmInput, setBpmInput] = useState('');
@@ -84,7 +84,14 @@ export default function LivePage() {
   const [remoteUrl, setRemoteUrl] = useState('');
 
   useEffect(() => {
-    setRemoteUrl(`${window.location.protocol}//${window.location.host}/remote`);
+    const port = window.location.port || '3000';
+    const fallback = `${window.location.protocol}//${window.location.host}/remote`;
+    // ask the server for its real LAN IP so the QR works even when /live is
+    // opened via localhost (a browser can't read its own LAN address)
+    fetch('/api/lan-ip')
+      .then((r) => r.json())
+      .then(({ ip }: { ip?: string }) => setRemoteUrl(ip ? `http://${ip}:${port}/remote` : fallback))
+      .catch(() => setRemoteUrl(fallback));
   }, []);
   const remoteIsLocalhost = /^(localhost|127\.|\[?::1)/.test(remoteUrl.replace(/^https?:\/\//, ''));
 
@@ -406,9 +413,18 @@ export default function LivePage() {
         states = g;
       }
       if (strobeRef.current) {
-        const gate = (now * 0.012) % 1 < 0.5 ? 1 : 0; // ~12 Hz manual strobe-all
         const g: Record<string, FixtureState> = {};
-        for (const f of RIG) g[f.id] = { ...states[f.id], dim: (states[f.id].dim ?? 0) * gate };
+        for (const f of RIG) {
+          const st = { ...states[f.id] };
+          if (f.kind === 'spot160' || f.kind === 'shockerPanel') {
+            st.strobeHz = 14; // hardware shutter strobe — crisp on real fixtures (needs 11CH)
+            if ((st.dim ?? 0) < 0.25) st.dim = 1; // keep output up so the strobe shows
+          } else {
+            const gate = (now * 0.012) % 1 < 0.5 ? 1 : 0; // software flash for non-strobe fixtures
+            st.dim = (st.dim ?? 0) * gate;
+          }
+          g[f.id] = st;
+        }
         states = g;
       }
       const universe = composeUniverse(states);

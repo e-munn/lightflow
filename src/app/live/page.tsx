@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { RIG, composeUniverse, applyColorOverride, visualFor, COLOR_KEYS, AMBER, ColorOverride, Visual, FixtureState } from '@/lib/fixtures';
 import { SceneEngine, SCENE_BY_KEY } from '@/lib/scenes';
-import { sendDMX, isDMXConnected } from '@/lib/dmxClient';
+import { sendDMX, isDMXConnected, connectDMX } from '@/lib/dmxClient';
 import { TapTempo } from '@/lib/tapTempo';
 import { AudioReactor, AudioFrame } from '@/lib/liveAudio';
 import { applyReactive } from '@/lib/reactive';
@@ -239,6 +239,7 @@ export default function LivePage() {
         setActiveSceneKey(null);
         break;
       case 'toggleLive':
+        connectDMX(); // user gesture: on a hosted origin this is the only time we dial localhost
         setOutput((o) => (o === 'live' ? 'preview' : 'live'));
         break;
     }

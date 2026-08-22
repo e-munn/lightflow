@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useCallback, useState, useRef, useMemo } from 'react';
+import Link from 'next/link';
 import { Settings, Menu, Copy, EyeOff } from 'lucide-react';
 import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
 import { AnalysisResult, StemFrame } from '@/types/v3';
@@ -545,9 +546,9 @@ export default function Home() {
     if (presetSongs.length === 0) return;
     didAutoLoadRef.current = true;
 
-    // First visit (nothing saved): open on mcdonalds, parked at 0:30.
-    const FIRST_VISIT_SLUG = 'mcdonalds';
-    const FIRST_VISIT_SEEK = 30;
+    // First visit (nothing saved): open on Damn Right from the top.
+    const FIRST_VISIT_SLUG = 'damn_right_-_audrey_nuna';
+    const FIRST_VISIT_SEEK = 0;
     let target = presetSongs.find(p => p.slug === FIRST_VISIT_SLUG) ?? presetSongs[0];
     let firstVisit = true;
     try {
@@ -562,7 +563,7 @@ export default function Home() {
     }
 
     loadPreset(target.slug, target.name, target.ext ?? '.mp3').then(() => {
-      if (firstVisit && target.slug === FIRST_VISIT_SLUG) seek(FIRST_VISIT_SEEK);
+      if (firstVisit && target.slug === FIRST_VISIT_SLUG && FIRST_VISIT_SEEK > 0) seek(FIRST_VISIT_SEEK);
     });
   }, [loadPreset, presetSongs, presetsReady, seek]);
 
@@ -1230,6 +1231,14 @@ export default function Home() {
           <>
           {/* Top bar */}
           <div className="px-3 pt-[max(0.5rem,env(safe-area-inset-top))] pb-1 shrink-0 flex items-center gap-2 z-10 relative">
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 px-3 py-2 md:py-1.5 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10 shrink-0 font-mono text-xs"
+              title="lightflow home"
+            >
+              <span aria-hidden>←</span>
+              <span className="hidden sm:inline">lightflow</span>
+            </Link>
             <button
               onClick={() => setSongMenuOpen(v => !v)}
               className="flex items-center gap-2 px-3 py-2 md:py-1.5 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white border border-white/10 shrink-0 min-w-0 max-w-[70vw] md:max-w-none"

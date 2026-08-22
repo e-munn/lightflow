@@ -7,13 +7,6 @@ const RECONNECT_MS = 2000;
 
 let ws: WebSocket | null = null;
 let connecting = false;
-let cmdHandler: ((msg: unknown) => void) | null = null;
-
-// Register a handler for remote commands relayed through the bridge (e.g. the
-// phone /remote page). Each incoming text frame is parsed as JSON and passed in.
-export function onRemoteCommand(fn: (msg: unknown) => void) {
-  cmdHandler = fn;
-}
 
 function connect() {
   if (connecting || (ws && ws.readyState <= 1)) return;
@@ -21,15 +14,6 @@ function connect() {
   try {
     const sock = new WebSocket(URL);
     sock.binaryType = 'arraybuffer';
-    sock.onmessage = (e) => {
-      if (typeof e.data === 'string' && cmdHandler) {
-        try {
-          cmdHandler(JSON.parse(e.data));
-        } catch {
-          /* ignore malformed */
-        }
-      }
-    };
     sock.onopen = () => {
       connecting = false;
       ws = sock;

@@ -108,20 +108,12 @@ console.log(`[ws]  listening on ws://localhost:${WS_PORT}`);
 wss.on('connection', (ws) => {
   console.log('[ws]  client connected');
   ws.on('message', (msg, isBinary) => {
-    if (isBinary) {
-      // binary frame = a DMX universe from the console
-      const len = Math.min(msg.length, UNIVERSE_SIZE);
-      for (let i = 0; i < len; i++) universe[i] = msg[i];
-      lastFrameAt = Date.now();
-      flush();
-    } else {
-      // text frame = a remote command (e.g. from the phone /remote page) —
-      // relay it to every OTHER client (the laptop console picks it up).
-      const text = msg.toString();
-      for (const c of wss.clients) {
-        if (c !== ws && c.readyState === 1) c.send(text);
-      }
-    }
+    if (!isBinary) return;
+    // binary frame = a DMX universe from the console
+    const len = Math.min(msg.length, UNIVERSE_SIZE);
+    for (let i = 0; i < len; i++) universe[i] = msg[i];
+    lastFrameAt = Date.now();
+    flush();
   });
   ws.on('close', () => console.log('[ws]  client disconnected'));
 });

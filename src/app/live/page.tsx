@@ -23,10 +23,8 @@ import { Action, COMMAND_BY_KEY } from '@/lib/commands';
 import { KeyboardMap } from '@/components/KeyboardMap';
 import { CommandPalette } from '@/components/CommandPalette';
 import { TimelineStrip, LiveTimeline } from '@/components/TimelineStrip';
-import { useRemoteControl } from '@/hooks/useRemoteControl';
 import { Cue } from '@/lib/shows';
 import { useShowPlayer } from '@/hooks/useShowPlayer';
-import { QRCodeSVG } from 'qrcode.react';
 
 // WebGL/3D layer — client only, no SSR.
 const Rig3D = dynamic(() => import('@/components/Rig3D').then((m) => m.Rig3D), { ssr: false });
@@ -80,20 +78,6 @@ export default function LivePage() {
   const [simPaused, setSimPaused] = useState(false);
   const [rigMode, setRigMode] = useState<RigMode>('abstract');
   const [dragging, setDragging] = useState(false);
-  const [phoneOpen, setPhoneOpen] = useState(false);
-  const [remoteUrl, setRemoteUrl] = useState('');
-
-  useEffect(() => {
-    const port = window.location.port || '3000';
-    const fallback = `${window.location.protocol}//${window.location.host}/remote`;
-    // ask the server for its real LAN IP so the QR works even when /live is
-    // opened via localhost (a browser can't read its own LAN address)
-    fetch('/api/lan-ip')
-      .then((r) => r.json())
-      .then(({ ip }: { ip?: string }) => setRemoteUrl(ip ? `http://${ip}:${port}/remote` : fallback))
-      .catch(() => setRemoteUrl(fallback));
-  }, []);
-  const remoteIsLocalhost = /^(localhost|127\.|\[?::1)/.test(remoteUrl.replace(/^https?:\/\//, ''));
 
   // Stop whatever is currently feeding the reactor (live mic OR a sim file).
   const stopListen = () => {
@@ -292,32 +276,11 @@ export default function LivePage() {
     },
   });
 
-  // Phone-as-remote over Bluetooth MIDI → same command dispatch as the keyboard.
-  const remote = useRemoteControl({ onAction: (a) => dispatchRef.current(a) });
-  const [learnRemote, setLearnRemote] = useState(false);
-  const learnRemoteRef = useRef(false);
-  const remoteArmRef = useRef(remote.arm);
-  useEffect(() => { learnRemoteRef.current = learnRemote; }, [learnRemote]);
-  useEffect(() => { remoteArmRef.current = remote.arm; }, [remote.arm]);
-
   useEffect(() => {
     const engine = new SceneEngine();
     engineRef.current = engine;
     tapRef.current = new TapTempo();
     autopilotRef.current = new AutoPilot();
-
-    // phone /remote → /api/remote/send → SSE here. A command is { key } matching
-    // a keyboard command; fire the same Action so the phone mirrors the keyboard.
-    const remoteEvents = new EventSource('/api/remote/stream');
-    remoteEvents.onmessage = (e) => {
-      try {
-        const { key } = JSON.parse(e.data);
-        const cmd = typeof key === 'string' ? COMMAND_BY_KEY[key] : undefined;
-        if (cmd) dispatchRef.current(cmd.action);
-      } catch {
-        /* keepalive / malformed — ignore */
-      }
-    };
 
     const onKey = (e: KeyboardEvent) => {
       // palette toggle: Cmd/Ctrl + Space
@@ -341,9 +304,7 @@ export default function LivePage() {
       const cmd = COMMAND_BY_KEY[e.key.toLowerCase()] ?? (e.code === 'Space' ? COMMAND_BY_KEY[' '] : undefined);
       if (cmd) {
         if (e.key === ' ' || e.code === 'Space') e.preventDefault();
-        // MIDI-learn: arm this command, then the next pad press binds to it
-        if (learnRemoteRef.current) remoteArmRef.current(cmd.eventKey);
-        else dispatchRef.current(cmd.action);
+        dispatchRef.current(cmd.action);
       }
     };
     window.addEventListener('keydown', onKey);
@@ -451,7 +412,6 @@ export default function LivePage() {
       cancelAnimationFrame(raf);
       clearInterval(meta);
       window.removeEventListener('keydown', onKey);
-      remoteEvents.close();
       micRef.current?.stop();
       simAudioRef.current?.pause();
       micOnRef.current = false;
@@ -555,16 +515,6 @@ export default function LivePage() {
               </span>
             </span>
           )}
-          {remote.supported && (
-            <span
-              className="flex items-center gap-1.5"
-              title={remote.error ? remote.error : remote.devices.length ? `MIDI: ${remote.devices.map((d) => d.name).join(', ')}` : remote.connected ? 'MIDI ready — pair a BLE-MIDI device' : 'MIDI not authorised — click phone'}
-            >
-              <span className={`h-1.5 w-1.5 rounded-full ${remote.devices.length ? 'bg-white' : remote.connected ? 'bg-white/40' : 'bg-white/20'}`} />
-              midi{remote.devices.length ? ` ${remote.devices.length}` : ''}
-              {remote.lastNote != null && <span className="tabular-nums text-white/60">· {remote.lastNote}</span>}
-            </span>
-          )}
           <span className="flex items-center gap-1.5">
             <span className={`h-1.5 w-1.5 rounded-full transition-colors ${beat ? 'bg-white' : 'bg-white/20'}`} />
             {bpmEditing ? (
@@ -660,39 +610,6 @@ export default function LivePage() {
           <button onClick={() => dispatchRef.current({ kind: 'toggleLive' })} className={stackBtn(output === 'live')}>
             {output === 'live' ? 'live' : 'preview'}
           </button>
-          <div className="relative">
-            <button
-              onClick={() => {
-                setPhoneOpen((v) => !v);
-                remote.connect(); // also (re)connect MIDI on this gesture
-              }}
-              title="phone remote — scan the QR to open it on your phone"
-              className={`w-full ${stackBtn(phoneOpen)}`}
-            >
-              <span className={`h-1.5 w-1.5 rounded-full ${remote.devices.length ? 'bg-white' : 'bg-white/25'}`} />
-              phone
-            </button>
-            {phoneOpen && (
-              <div className="absolute bottom-full left-0 z-50 mb-1.5 w-56 rounded-lg border border-white/15 bg-black p-3 shadow-2xl">
-                <div className="mb-2 font-mono text-[11px] text-white/60">scan to open the phone remote</div>
-                {remoteUrl && (
-                  <div className="flex justify-center rounded bg-white p-2">
-                    <QRCodeSVG value={remoteUrl} size={150} />
-                  </div>
-                )}
-                <div className="mt-2 break-all font-mono text-[10px] text-white/40">{remoteUrl}</div>
-                {remoteIsLocalhost && (
-                  <div className="mt-1 font-mono text-[10px] text-amber-400/80">open /live via your LAN IP (not localhost) so the QR is reachable from the phone</div>
-                )}
-                <div className="mt-2 flex items-center justify-between border-t border-white/10 pt-2">
-                  <button onClick={() => setLearnRemote((v) => !v)} className="font-mono text-[10px] text-white/40 hover:text-white/70">
-                    {learnRemote ? (remote.learning ? 'tap pad…' : 'tap a key…') : 'midi learn'}
-                  </button>
-                  <span className="font-mono text-[10px] text-white/30">{remote.devices.length ? `midi ${remote.devices.length}` : 'no midi'}</span>
-                </div>
-              </div>
-            )}
-          </div>
           {player.show && (
             <button onClick={() => player.stop()} className={stackBtn(true)}>■ stop</button>
           )}

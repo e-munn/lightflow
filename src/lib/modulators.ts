@@ -11,12 +11,11 @@
 
 // ---------------------------------------------------------------------------
 // DIRECTOR VERSION METADATA — bump this every time you change how the Director
-// picks effects or tunes thresholds. The test page reads it to tag rating
-// cohorts so we can compare old vs new algorithm performance.
+// picks effects or tunes thresholds.
 // ---------------------------------------------------------------------------
 // Clean-slate version numbering starting 2026-04-09. Past versions (v2–v9)
-// are preserved in git history; ratings tagged with those strings stay in
-// data/test_ratings.json for historical A/B. To see old code:
+// are preserved in git history (as is the old /test rating harness and
+// data/test_ratings.json, removed 2026-08-22). To see old code:
 //   git log --all --grep='DIRECTOR_VERSION' -- src/lib/modulators.ts
 //   git show <commit>:src/lib/modulators.ts
 export const DIRECTOR_VERSION = 'v1.5-2026-04-21';

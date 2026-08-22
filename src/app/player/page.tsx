@@ -102,7 +102,7 @@ export default function Home() {
   const [activeScoutCue, setActiveScoutCue] = useState<string | null>(null);
   // Independent layer toggles
   const [signalOn, setSignalOn] = useState(true);   // 1-Channel: full screen brightness
-  const [spectroOn, setSpectroOn] = useState(false); // screen mode: false = flat full-screen brightness, true = 3D scene (Z toggles; persisted)
+  const [spectroOn, setSpectroOn] = useState(false); // screen mode: false = flat full-screen brightness (default every load), true = 3D scene (Z / Flat-3D button)
   const [multiOn, setMultiOn] = useState(false);    // Multi-channel: 3 horizontal stem panels
   // Smoothed per-stem envelopes (from attention.stemSignals). Tracks the
   // same bass-style smoothing the main signal uses — one per channel.
@@ -137,15 +137,14 @@ export default function Home() {
         if (typeof s.lookAhead === 'number') setLookAhead(Math.min(0.08, Math.max(0, s.lookAhead)));
         if (s.keyMap === 'basic' || s.keyMap === 'pro') setKeyMap(s.keyMap);
         if (s.scrubberView === 'waveform' || s.scrubberView === 'timeline') setScrubberView(s.scrubberView);
-        if (typeof s.spectroOn === 'boolean') setSpectroOn(s.spectroOn);
         if (typeof s.dmxBrightness === 'number') setDmxBrightness(Math.min(1, Math.max(0, s.dmxBrightness)));
         if (typeof s.dmxWarmth === 'number') setDmxWarmth(Math.min(1, Math.max(0, s.dmxWarmth)));
       }
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem('lightflow.settings', JSON.stringify({ lookAhead, keyMap, scrubberView, spectroOn, dmxBrightness, dmxWarmth })); } catch {}
-  }, [lookAhead, keyMap, scrubberView, spectroOn, dmxBrightness, dmxWarmth]);
+    try { localStorage.setItem('lightflow.settings', JSON.stringify({ lookAhead, keyMap, scrubberView, dmxBrightness, dmxWarmth })); } catch {}
+  }, [lookAhead, keyMap, scrubberView, dmxBrightness, dmxWarmth]);
   const panHistoryRef = useRef<Record<string, number[]>>({});
   // Timestamp of last strong snare hit — used to suppress hat channel
   // during the bleed-tail window (~150ms after the snare). Demucs lets
@@ -546,20 +545,26 @@ export default function Home() {
     if (presetSongs.length === 0) return;
     didAutoLoadRef.current = true;
 
-    let target = presetSongs[0];
+    // First visit (nothing saved): open on mcdonalds, parked at 0:30.
+    const FIRST_VISIT_SLUG = 'mcdonalds';
+    const FIRST_VISIT_SEEK = 30;
+    let target = presetSongs.find(p => p.slug === FIRST_VISIT_SLUG) ?? presetSongs[0];
+    let firstVisit = true;
     try {
       const raw = localStorage.getItem('lightflow:lastSong');
       if (raw) {
         const saved = JSON.parse(raw) as { slug?: string };
         const match = saved.slug && presetSongs.find(p => p.slug === saved.slug);
-        if (match) target = match;
+        if (match) { target = match; firstVisit = false; }
       }
     } catch {
       // ignore corrupted storage
     }
 
-    loadPreset(target.slug, target.name, target.ext ?? '.mp3');
-  }, [loadPreset, presetSongs, presetsReady]);
+    loadPreset(target.slug, target.name, target.ext ?? '.mp3').then(() => {
+      if (firstVisit && target.slug === FIRST_VISIT_SLUG) seek(FIRST_VISIT_SEEK);
+    });
+  }, [loadPreset, presetSongs, presetsReady, seek]);
 
   // Energy waveform across the entire song, downsampled to fixed bar count
   const energyBars = useMemo(() => {

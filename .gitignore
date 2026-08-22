@@ -69,3 +69,14 @@ archive/v3-python/synthetic/
 archive/v3-python/real_songs/
 archive/v3-python/.cache/
 .director-cache/
+
+# Hosted demo songs (public deploy) — explicitly tracked
+!public/songs/actin_tough.mp3
+!public/songs/actin_tough_analysis.json
+!public/songs/actin_tough_scout.json
+!public/songs/blaze_that_ass.mp3
+!public/songs/blaze_that_ass_analysis.json
+!public/songs/blaze_that_ass_scout.json
+!public/songs/blood.mp3
+!public/songs/blood_analysis.json
+!public/songs/blood_scout.json

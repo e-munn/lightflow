@@ -5,8 +5,8 @@ import './globals.css';
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
-  title: 'LightFlow v3',
-  description: 'Audio-reactive lighting with 31 composable effects',
+  title: 'LightFlow',
+  description: 'Audio-reactive lighting: live console + automated song shows',
 };
 
 export const viewport: Viewport = {

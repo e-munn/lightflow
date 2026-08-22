@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
 const LINKS = [
-  { href: '/live', label: 'LIVE', desc: 'Console: mic + tap tempo, scenes, AutoPilot, DMX out' },
-  { href: '/player', label: 'PLAYER', desc: 'Analyzed-song playback, Scout, MIDI show recorder' },
+  { href: '/live', label: 'LIVE', desc: 'Live console: mic + tap tempo, scenes, AutoPilot, DMX out' },
+  { href: '/player', label: 'PLAYER', desc: 'Automated show: analyzed songs, Director, Scout, on-screen rig' },
+  { href: '/docs', label: 'DOCS', desc: 'How it works: architecture, signal pipeline, roadmap' },
 ];
 
 export default function Home() {

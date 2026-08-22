@@ -23,17 +23,14 @@ interface PresetSong {
   ext?: string;   // defaults to .mp3
 }
 
-// Hardcoded fallback list — used only if manifest.json can't be loaded
-// (e.g., before any songs have been ingested).
+// Hardcoded fallback list — used when manifest.json can't be loaded. Locally
+// the manifest (built by scripts/ingest_audio_dir.py) lists the full library;
+// on the hosted deploy there is no manifest, so these three demo songs (whose
+// mp3 + analysis + scout files are tracked in git) are what you get.
 const FALLBACK_PRESETS: PresetSong[] = [
-  { name: "Actin' Tough (Dean Turnley)", slug: 'actin_tough' },
-  { name: "I Don't Sell (Makonnen)", slug: 'i_dont_sell_makonnen' },
-  { name: 'Life During Wartime [jazz version]', slug: 'life_during_wartime' },
-  { name: 'Hide and Seek (VIP)', slug: 'hide_and_seek' },
-  { name: 'Tell Me', slug: 'tell_me_KLICKAUD' },
-  { name: 'Gorilla (Little Simz)', slug: 'Little_Simz_-_Gorilla_Know_Good_Flip_KLICKAUD' },
-  { name: 'Смерти Больше Нет', slug: 'Смерти_Больше_Нет_KLICKAUD' },
-  { name: 'Pop Lock Drop It (Whethan Remix)', slug: 'Huey_-_Pop_Lock_Drop_It_Whethan_Remix_KLICKAUD' },
+  { name: "Actin' Tough (Dean Turnley)", slug: 'actin_tough', ext: '.mp3' },
+  { name: 'Blaze That Ass', slug: 'blaze_that_ass', ext: '.mp3' },
+  { name: 'Blood', slug: 'blood', ext: '.mp3' },
 ];
 
 const STEMS = ['bass', 'kick', 'snare', 'hat', 'other'] as const;

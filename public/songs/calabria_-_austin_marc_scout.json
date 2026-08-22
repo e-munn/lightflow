@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "song": "calabria_-_austin_marc",
+  "bpm": 136,
+  "arc": "Sparse melodic intro with recurring vocal hook, then a dense bass-heavy section (24-45s), a long vocal breakdown (45-67s), a short punchy drop (67-73s), then energy collapses and fades out",
+  "primaryStem": "bass",
+  "modulatorBias": "moderate",
+  "moments": [
+    {
+      "t": 23.96,
+      "type": "bass_drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.8,
+      "confidence": 0.84
+    },
+    {
+      "t": 45.51,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 16,
+      "intensity": 0.4,
+      "confidence": 0.8
+    },
+    {
+      "t": 66.97,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 6,
+      "intensity": 0.85,
+      "confidence": 0.76
+    },
+    {
+      "t": 73.19,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 24,
+      "intensity": 0.25,
+      "confidence": 0.75
+    }
+  ],
+  "sections": [
+    {
+      "sectionIndex": 0,
+      "semanticLabel": "sparse_melodic_intro",
+      "stemFocus": "other",
+      "signalMode": "shaped",
+      "intensityScale": 0.5,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 1,
+      "semanticLabel": "bass_groove_section",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.1
+    },
+    {
+      "sectionIndex": 2,
+      "semanticLabel": "bass_groove_continuation",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1
+    },
+    {
+      "sectionIndex": 3,
+      "semanticLabel": "bass_groove_with_vocals",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1
+    },
+    {
+      "sectionIndex": 4,
+      "semanticLabel": "vocal_breakdown",
+      "stemFocus": "vocals",
+      "signalMode": "shaped",
+      "intensityScale": 0.65,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 5,
+      "semanticLabel": "main_drop",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.2
+    },
+    {
+      "sectionIndex": 6,
+      "semanticLabel": "energy_collapse_outro",
+      "stemFocus": "other",
+      "signalMode": "shaped",
+      "intensityScale": 0.4,
+      "suppressEscalation": true
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "song": "mcdonalds",
+  "bpm": 152,
+  "arc": "Sparse low-energy intro (0-32s) built on vocals and minimal drums, then bass arrives hard at 32s and drives the track through cycling drop/breakdown patterns with a brief vocal-free climax zone around 83-90s before settling into a busy final section",
+  "primaryStem": "bass",
+  "modulatorBias": "aggressive",
+  "moments": [
+    {
+      "t": 31.86,
+      "type": "bass_drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.9,
+      "confidence": 0.85
+    },
+    {
+      "t": 70.5,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 8,
+      "intensity": 0.5,
+      "confidence": 0.8
+    },
+    {
+      "t": 83.22,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 6,
+      "intensity": 0.95,
+      "confidence": 0.75
+    },
+    {
+      "t": 98.82,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.8,
+      "confidence": 0.78
+    },
+    {
+      "t": 1.1,
+      "type": "vocal_entry",
+      "anticipationBeats": 0,
+      "durationBeats": 8,
+      "intensity": 0.4,
+      "confidence": 0.8
+    }
+  ],
+  "sections": [
+    {
+      "sectionIndex": 0,
+      "semanticLabel": "sparse_vocal_intro",
+      "stemFocus": "vocals",
+      "signalMode": "shaped",
+      "intensityScale": 0.55,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 1,
+      "semanticLabel": "minimal_buildup_no_bass",
+      "stemFocus": "vocals",
+      "signalMode": "shaped",
+      "intensityScale": 0.5,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 2,
+      "semanticLabel": "bass_arrival_drop",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.2
+    },
+    {
+      "sectionIndex": 3,
+      "semanticLabel": "bass_drop_sustained",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.1
+    },
+    {
+      "sectionIndex": 4,
+      "semanticLabel": "bass_drop_decay",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 0.9
+    },
+    {
+      "sectionIndex": 5,
+      "semanticLabel": "bass_resurge",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.1
+    },
+    {
+      "sectionIndex": 6,
+      "semanticLabel": "energy_withdrawal_interlude",
+      "stemFocus": "other",
+      "signalMode": "shaped",
+      "intensityScale": 0.65,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 7,
+      "semanticLabel": "climax_bass_no_vocals",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.3
+    },
+    {
+      "sectionIndex": 8,
+      "semanticLabel": "post_climax_busy",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1
+    },
+    {
+      "sectionIndex": 9,
+      "semanticLabel": "final_section_kick_active",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 1.05
+    }
+  ]
+}

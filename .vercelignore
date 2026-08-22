@@ -1,0 +1,14 @@
+# Only the three tracked demo songs ship to Vercel; the local library stays local.
+public/songs/*
+!public/songs/calabria_-_austin_marc.mp3
+!public/songs/calabria_-_austin_marc_analysis.json
+!public/songs/calabria_-_austin_marc_scout.json
+!public/songs/damn_right_-_audrey_nuna.mp3
+!public/songs/damn_right_-_audrey_nuna_analysis.json
+!public/songs/damn_right_-_audrey_nuna_scout.json
+!public/songs/mcdonalds.mp3
+!public/songs/mcdonalds_analysis.json
+!public/songs/mcdonalds_scout.json
+archive
+data
+.director-cache

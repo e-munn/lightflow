@@ -28,9 +28,9 @@ interface PresetSong {
 // on the hosted deploy there is no manifest, so these three demo songs (whose
 // mp3 + analysis + scout files are tracked in git) are what you get.
 const FALLBACK_PRESETS: PresetSong[] = [
-  { name: "Actin' Tough (Dean Turnley)", slug: 'actin_tough', ext: '.mp3' },
-  { name: 'Blaze That Ass', slug: 'blaze_that_ass', ext: '.mp3' },
-  { name: 'Blood', slug: 'blood', ext: '.mp3' },
+  { name: 'Calabria (Austin Marc)', slug: 'calabria_-_austin_marc', ext: '.mp3' },
+  { name: 'Damn Right (Audrey Nuna)', slug: 'damn_right_-_audrey_nuna', ext: '.mp3' },
+  { name: 'mcdonalds', slug: 'mcdonalds', ext: '.mp3' },
 ];
 
 const STEMS = ['bass', 'kick', 'snare', 'hat', 'other'] as const;

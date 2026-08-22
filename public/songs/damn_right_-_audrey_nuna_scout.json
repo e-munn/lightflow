@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "song": "damn_right_-_audrey_nuna",
+  "bpm": 80.7,
+  "arc": "Near-silence intro explodes into a mid-energy groove that rides steady through two verses, briefly peaks around section 9, dips into a bass-only half-time break at section 15, rebuilds to a late-song energy peak at section 19, then strips vocals and fades into a sparse outro",
+  "primaryStem": "vocals",
+  "modulatorBias": "moderate",
+  "moments": [
+    {
+      "t": 10.87,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.75,
+      "confidence": 0.8
+    },
+    {
+      "t": 12.7,
+      "type": "vocal_entry",
+      "anticipationBeats": 1,
+      "durationBeats": 16,
+      "intensity": 0.7,
+      "confidence": 0.8
+    },
+    {
+      "t": 64.18,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.85,
+      "confidence": 0.82
+    },
+    {
+      "t": 103.19,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 8,
+      "intensity": 0.6,
+      "confidence": 0.75
+    },
+    {
+      "t": 129.94,
+      "type": "drop",
+      "anticipationBeats": 2,
+      "durationBeats": 8,
+      "intensity": 0.8,
+      "confidence": 0.72
+    },
+    {
+      "t": 150.28,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 8,
+      "intensity": 0.55,
+      "confidence": 0.78
+    },
+    {
+      "t": 156.6,
+      "type": "breakdown",
+      "anticipationBeats": 1,
+      "durationBeats": 12,
+      "intensity": 0.4,
+      "confidence": 0.8
+    }
+  ],
+  "sections": [
+    {
+      "sectionIndex": 0,
+      "semanticLabel": "near_silence_intro",
+      "stemFocus": "other",
+      "signalMode": "shaped",
+      "intensityScale": 0.3,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 8,
+      "semanticLabel": "sustained_groove_no_bass_drop",
+      "stemFocus": "kick",
+      "signalMode": "raw",
+      "intensityScale": 0.75,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 15,
+      "semanticLabel": "bass_only_half_time_no_drums",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "modulatorHint": "half_time",
+      "intensityScale": 0.65,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 16,
+      "semanticLabel": "bass_led_low_drum_activity",
+      "stemFocus": "bass",
+      "signalMode": "raw",
+      "intensityScale": 0.7,
+      "suppressEscalation": false
+    },
+    {
+      "sectionIndex": 22,
+      "semanticLabel": "vocals_exit_instrumental_wind_down",
+      "stemFocus": "other",
+      "signalMode": "shaped",
+      "intensityScale": 0.6,
+      "suppressEscalation": true
+    },
+    {
+      "sectionIndex": 23,
+      "semanticLabel": "sparse_outro",
+      "stemFocus": "kick",
+      "signalMode": "raw",
+      "intensityScale": 0.4,
+      "suppressEscalation": true
+    }
+  ]
+}

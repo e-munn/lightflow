@@ -6,17 +6,6 @@ import remarkGfm from 'remark-gfm';
 
 export const dynamic = 'force-static';
 
-const INTRO = `# LightFlow
-
-Audio-reactive lighting. Two surfaces:
-
-- **/live**: the live console. Mic or tap-tempo input drives a scene engine (keyboard-triggered scenes, AutoPilot, strobe/pulse/blackout) rendered on an on-screen 3D rig and, when the Enttec USB Pro bridge is running on the host laptop, out over DMX.
-- **/player**: the automated show. Songs are pre-analyzed offline (Demucs stem separation + librosa), then an attention layer + Director pick stem focus and pulse rate per frame; an optional Claude "Scout" pass adds song-level moments. The on-screen rig previews exactly what the fixtures would do.
-
-Dropping your own audio file onto /player plays it in raw mode unless the local Python analyzer is running (see below).
-
----
-`;
 
 async function md(rel: string): Promise<string> {
   try {
@@ -28,7 +17,7 @@ async function md(rel: string): Promise<string> {
 
 export default async function DocsPage() {
   const [readme, roadmap] = await Promise.all([md('README.md'), md('docs/ML_ROADMAP.md')]);
-  const body = `${INTRO}\n${readme}\n\n---\n\n${roadmap}`;
+  const body = `${readme}\n\n---\n\n${roadmap}`;
   return (
     <main className="min-h-[100dvh] bg-black text-white">
       <div className="mx-auto max-w-3xl px-6 py-10">

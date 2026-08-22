@@ -58,24 +58,10 @@ export default function Home() {
 
   // MIDI show-recorder input surface
   const [midiPanelOpen, setMidiPanelOpen] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  // Live recording buffer. Refs so MIDI callbacks don't recreate them
-  // on every React render. Flushed to POST /api/shows on stop.
-  const recordBufferRef   = useRef<Array<{ t: number } & Record<string, unknown>>>([]);
-  const recordStartTimeRef = useRef<number>(0);
-  const [recordedEventCount, setRecordedEventCount] = useState(0);
-  const isRecordingRef = useRef(false);
   // Set of slugs that already have a saved show — used for the song-list
   // indicator dot. Refreshed on mount and after each save.
   const [recordedSlugs, setRecordedSlugs] = useState<Set<string>>(new Set());
 
-  // Stable refs so the MIDI onShowEvent callback doesn't rebind every render
-  // (which would tear down the MIDI subscription).
-  const audioTimeRef = useRef(0);
-  const audioPlayingRef = useRef(false);
-  useEffect(() => { isRecordingRef.current = isRecording; }, [isRecording]);
-  useEffect(() => { audioTimeRef.current = audioState.currentTime; }, [audioState.currentTime]);
-  useEffect(() => { audioPlayingRef.current = audioState.isPlaying; }, [audioState.isPlaying]);
 
   // Fetch the list of songs that already have a saved show.
   const refreshRecordedSlugs = useCallback(async () => {
@@ -90,14 +76,8 @@ export default function Home() {
   }, []);
   useEffect(() => { refreshRecordedSlugs(); }, [refreshRecordedSlugs]);
 
-  const midi = useMidi({
-    onShowEvent: useCallback((ev: ShowEvent) => {
-      if (!isRecordingRef.current) return;
-      if (!audioPlayingRef.current) return;
-      recordBufferRef.current.push({ t: audioTimeRef.current, ...ev });
-      setRecordedEventCount(recordBufferRef.current.length);
-    }, []),
-  });
+  // Show recording was removed (2026-08-22); MIDI input still drives transport/panel.
+  const midi = useMidi({ onShowEvent: useCallback((_ev: ShowEvent) => {}, []) });
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [songName, setSongName] = useState<string | null>(null);
@@ -1392,66 +1372,6 @@ export default function Home() {
               <span className="text-lg leading-none">{audioState.isPlaying ? '⏸' : '▶'}</span>
               <span className="hidden md:inline text-[10px] uppercase tracking-widest opacity-60">Space</span>
             </button>
-            <div className="flex items-center justify-center gap-2 flex-1 order-3 md:order-none w-full md:w-auto">
-              {/* RECORD — toggles show capture. Last-rec-wins semantics:
-                  pressing stop POSTs the buffered events to /api/shows
-                  which overwrites public/songs/<slug>_show.json. */}
-              <button
-                onClick={async () => {
-                  if (!isRecording) {
-                    // Arm: clear buffer, capture start time, flip on.
-                    recordBufferRef.current = [];
-                    recordStartTimeRef.current = audioState.currentTime;
-                    setRecordedEventCount(0);
-                    setIsRecording(true);
-                    return;
-                  }
-                  // Commit: POST buffer to /api/shows, then clear.
-                  const slug = currentSlugRef.current;
-                  const events = recordBufferRef.current;
-                  setIsRecording(false);
-                  if (!slug || events.length === 0) {
-                    setToast(
-                      !slug
-                        ? 'Recording stopped — no song loaded, nothing saved'
-                        : 'Recording stopped — no events captured'
-                    );
-                    recordBufferRef.current = [];
-                    return;
-                  }
-                  try {
-                    const res = await fetch('/api/shows', {
-                      method: 'POST',
-                      headers: { 'content-type': 'application/json' },
-                      body: JSON.stringify({
-                        slug,
-                        songDuration: audioState.duration,
-                        bpm: analysis?.bpm ?? null,
-                        startTime: recordStartTimeRef.current,
-                        endTime: audioState.currentTime,
-                        events,
-                      }),
-                    });
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    setToast(`Saved show — ${events.length} events`);
-                    recordBufferRef.current = [];
-                    refreshRecordedSlugs();
-                  } catch (err) {
-                    console.error('[shows] save failed:', err);
-                    setToast('Save failed — events kept in memory');
-                  }
-                }}
-                className={`flex items-center gap-2 text-xs px-4 py-2 rounded-full whitespace-nowrap border font-mono uppercase tracking-widest transition-colors ${
-                  isRecording
-                    ? 'bg-red-600/20 text-red-300 border-red-500 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-pulse'
-                    : 'bg-transparent text-white/50 border-white/20 hover:text-white/80 hover:border-white/40'
-                }`}
-                title={isRecording ? 'Recording — click to stop & save' : 'Start recording'}
-              >
-                <span className={`inline-block w-2 h-2 rounded-full ${isRecording ? 'bg-red-400' : 'bg-white/40'}`} />
-                {isRecording ? `Rec · ${recordedEventCount}` : 'Record'}
-              </button>
-            </div>
             <button
               onClick={() => setSpectroOn(v => { const next = !v; if (next) setMultiOn(false); return next; })}
               className={`h-9 px-3 flex items-center justify-center rounded-full border text-[11px] font-mono uppercase tracking-widest shrink-0 transition-colors ${
@@ -1618,23 +1538,6 @@ export default function Home() {
         open={midiPanelOpen}
         onToggle={() => setMidiPanelOpen((v) => !v)}
       />
-      {/* Recording indicator — red pulsing ring inset + REC badge. */}
-      {isRecording && (
-        <>
-          <div
-            className="fixed inset-0 pointer-events-none z-30 animate-pulse"
-            style={{
-              boxShadow: 'inset 0 0 0 4px rgba(239,68,68,0.9), inset 0 0 40px rgba(239,68,68,0.35)',
-            }}
-          />
-          <div className="fixed top-3 left-1/2 -translate-x-1/2 z-40 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-500 shadow-[0_0_16px_rgba(239,68,68,0.6)]">
-            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-red-200 font-bold">
-              Rec
-            </span>
-          </div>
-        </>
-      )}
     </div>
   );
 }

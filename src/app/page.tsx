@@ -21,6 +21,14 @@ export default function Home() {
           <span className="text-[11px] opacity-60">Live console: mic + tap tempo, scenes, AutoPilot, DMX out</span>
         </Link>
       </nav>
+      <a
+        href="https://github.com/e-munn/lightflow"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-5 left-6 font-mono text-[11px] text-white/40 hover:text-white"
+      >
+        github
+      </a>
       <Link href="/docs" className="absolute bottom-5 right-6 font-mono text-[11px] text-white/40 hover:text-white">
         docs
       </Link>

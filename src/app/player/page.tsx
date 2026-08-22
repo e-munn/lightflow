@@ -122,7 +122,7 @@ export default function Home() {
   const [activeScoutCue, setActiveScoutCue] = useState<string | null>(null);
   // Independent layer toggles
   const [signalOn, setSignalOn] = useState(true);   // 1-Channel: full screen brightness
-  const [spectroOn, setSpectroOn] = useState(true); // Spectro: 3D scene
+  const [spectroOn, setSpectroOn] = useState(false); // screen mode: false = flat full-screen brightness, true = 3D scene (Z toggles; persisted)
   const [multiOn, setMultiOn] = useState(false);    // Multi-channel: 3 horizontal stem panels
   // Smoothed per-stem envelopes (from attention.stemSignals). Tracks the
   // same bass-style smoothing the main signal uses — one per channel.
@@ -1452,6 +1452,15 @@ export default function Home() {
                 {isRecording ? `Rec · ${recordedEventCount}` : 'Record'}
               </button>
             </div>
+            <button
+              onClick={() => setSpectroOn(v => { const next = !v; if (next) setMultiOn(false); return next; })}
+              className={`h-9 px-3 flex items-center justify-center rounded-full border text-[11px] font-mono uppercase tracking-widest shrink-0 transition-colors ${
+                spectroOn ? 'bg-white text-black border-white' : 'bg-black/40 hover:bg-black/60 text-white/70 hover:text-white border-white/10'
+              }`}
+              title={spectroOn ? 'Screen: 3D scene — click for flat full-screen light (Z)' : 'Screen: flat full-screen light — click for 3D scene (Z)'}
+            >
+              {spectroOn ? '3D' : 'Flat'}
+            </button>
             <button
               onClick={() => setUiHidden(true)}
               className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 active:bg-black/70 text-white/70 hover:text-white border border-white/10 shrink-0"

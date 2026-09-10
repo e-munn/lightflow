@@ -10,7 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { readdir, readFile, writeFile } from 'fs/promises';
+import { readdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 export const runtime = 'nodejs';
@@ -90,16 +90,5 @@ export async function DELETE(req: NextRequest) {
       { error: err instanceof Error ? err.message : String(err) },
       { status: 500 },
     );
-  }
-}
-
-// Utility: read a single show. Handy for replay flows.
-export async function _unused_readShow(slug: string) {
-  try {
-    const safe = slug.replace(/[^a-zA-Z0-9._\-]/g, '_');
-    const buf = await readFile(join(SONGS_DIR, `${safe}${SHOW_SUFFIX}`), 'utf8');
-    return JSON.parse(buf);
-  } catch {
-    return null;
   }
 }

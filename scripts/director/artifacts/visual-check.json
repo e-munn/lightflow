@@ -1,0 +1,55 @@
+{
+  "scenes": [
+    {
+      "scene": "scene-AI-Blob",
+      "mean": 2.36457785742732,
+      "lit_fraction": 0.1345489844683393
+    },
+    {
+      "scene": "scene-ASCII-Waves",
+      "mean": 4.602469135802469,
+      "lit_fraction": 0.18565860215053764
+    },
+    {
+      "scene": "scene-Aurora",
+      "mean": 5.038750497809637,
+      "lit_fraction": 0.26557347670250897
+    },
+    {
+      "scene": "scene-Black-Hole",
+      "mean": 1.4186638789326962,
+      "lit_fraction": 0.079668458781362
+    },
+    {
+      "scene": "scene-Light-Tunnel",
+      "mean": 1.738136200716846,
+      "lit_fraction": 0.09781959378733572
+    },
+    {
+      "scene": "scene-Liquid-Metal",
+      "mean": 13.639662485065712,
+      "lit_fraction": 0.5177583632019116
+    },
+    {
+      "scene": "scene-Particles",
+      "mean": 1.0001179808841099,
+      "lit_fraction": 0.04227598566308244
+    },
+    {
+      "scene": "scene-Pixel-Sculpt",
+      "mean": 6.264879530067702,
+      "lit_fraction": 0.3454106929510155
+    },
+    {
+      "scene": "scene-Prism",
+      "mean": 0.9926597968936679,
+      "lit_fraction": 0.05041816009557945
+    },
+    {
+      "scene": "scene-Silk",
+      "mean": 8.646101652727998,
+      "lit_fraction": 0.37891129032258064
+    }
+  ],
+  "blackout_max": 0
+}

@@ -6,6 +6,7 @@ const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
   title: 'LightFlow',
+  icons: { icon: '/icon.svg' },
   description: 'Audio-reactive lighting: live console + automated song shows',
 };
 

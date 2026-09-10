@@ -1,0 +1,41 @@
+[
+  {
+    "track": "damn_right_-_audrey_nuna",
+    "phraseBrightness": {
+      "std": 0.11777742565490137,
+      "range": 0.6170742495728214
+    },
+    "descriptorBrightness": {
+      "std": 0.01838978583768831,
+      "range": 0.3546293055977648
+    },
+    "maxFrameJump": 0.09030687502278567,
+    "sceneChanges": 1
+  },
+  {
+    "track": "calabria_-_austin_marc",
+    "phraseBrightness": {
+      "std": 0.06945437582297205,
+      "range": 0.2694679808377907
+    },
+    "descriptorBrightness": {
+      "std": 0.007759913717492939,
+      "range": 0.03491875952848866
+    },
+    "maxFrameJump": 0.019213102184011288,
+    "sceneChanges": 1
+  },
+  {
+    "track": "mcdonalds",
+    "phraseBrightness": {
+      "std": 0.11808075762676047,
+      "range": 0.3902237942011143
+    },
+    "descriptorBrightness": {
+      "std": 0.010736781650452708,
+      "range": 0.05521091055238658
+    },
+    "maxFrameJump": 0.021208118642785156,
+    "sceneChanges": 1
+  }
+]

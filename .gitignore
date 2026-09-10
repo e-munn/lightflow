@@ -80,3 +80,25 @@ archive/v3-python/.cache/
 !public/songs/mcdonalds.mp3
 !public/songs/mcdonalds_analysis.json
 !public/songs/mcdonalds_scout.json
+
+# Local research corpus and experimental checkpoints
+/data
+/ml/checkpoints*/
+/archive/v3-python/corpus
+/archive/v3-python/data
+/archive/v3-python/songs
+/archive/v3-python/songs_v2
+/scripts/director/artifacts/*.npz
+/scripts/director/artifacts/*.pt
+
+.next-production/
+/scripts/director/artifacts/*.f32
+
+# Recreated from dependencies / build output on each machine
+/public/ort/
+/public/director-cache.json
+/ml/musdb_cache
+# Large local evaluation traces and screenshots; concise reports stay tracked
+/scripts/director/artifacts/*-trace.json
+/scripts/director/artifacts/*-phrase-performance.json
+/scripts/director/artifacts/*.png

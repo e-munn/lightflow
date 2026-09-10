@@ -1,0 +1,20 @@
+{
+  "selected_epoch": 2,
+  "real_audio": {
+    "cross_entropy": 3.0333019376504318,
+    "accuracy": 0.13883344422266578
+  },
+  "shuffled_audio": {
+    "cross_entropy": 3.3254019052831922,
+    "accuracy": 0.06409403415391439
+  },
+  "loudness_only": {
+    "cross_entropy": 3.2099332380573493,
+    "accuracy": 0.0955866045686405
+  },
+  "prior": {
+    "cross_entropy": 3.1608414077880207,
+    "accuracy": 0.04546462630294966
+  },
+  "interpretation": "Validation diagnostic only. Clip split does not prove unseen-show generalization."
+}

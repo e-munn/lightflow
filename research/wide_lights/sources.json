@@ -1,0 +1,33 @@
+{
+  "coordinate_size": [960, 540],
+  "duration_per_clip": 240,
+  "fps": 10,
+  "note": "Stage-interior appearance regions, not guaranteed isolated fixture beams. Explicit exclusions remove obvious screens, headers and foreground objects where defensible. Geometry and motion require review.",
+  "sources": {
+    "ravenscoon": {
+      "source": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-194931/concerts/ravenscoon_electric_forest_2026_kAyzUI5l2pk.mp4",
+      "split": "train", "starts": [600, 1800, 3000], "reference_second": 1800,
+      "stage_box": [315, 290, 635, 388], "exclude": [[431, 332, 495, 388]], "tracking_box": [100, 205, 825, 416]
+    },
+    "alleycvt": {
+      "source": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-194931/concerts/alleycvt_electric_forest_2026_P0x24Tz2XOY.mp4",
+      "split": "train", "starts": [600, 1800, 3000], "reference_second": 1320,
+      "stage_box": [367, 324, 601, 425], "exclude": [], "tracking_box": [265, 220, 710, 455]
+    },
+    "griz": {
+      "source": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-200434/concerts/griz_electric_forest_2026_SoDOMjCCytw.mp4",
+      "split": "train", "starts": [600, 1800, 3000], "reference_second": 1800,
+      "stage_box": [371, 336, 587, 401], "exclude": [], "tracking_box": [220, 175, 730, 419]
+    },
+    "levity_forest": {
+      "source": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-194931/concerts/levity_electric_forest_2026_m4NIAPJiFbM.mp4",
+      "split": "validation", "starts": [900, 2100, 3300], "reference_second": 1430,
+      "stage_box": [359, 246, 596, 343], "exclude": [], "tracking_box": [212, 180, 748, 445]
+    },
+    "forest": {
+      "source": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-194931/concerts/of_the_trees_electric_forest_25_Cxb4TCmXG1c.mp4",
+      "split": "test", "starts": [600, 1800, 3000], "reference_second": 2560,
+      "stage_box": [310, 212, 630, 328], "exclude": [], "tracking_box": [194, 130, 735, 405]
+    }
+  }
+}

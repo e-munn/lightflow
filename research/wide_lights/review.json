@@ -1,0 +1,128 @@
+{
+  "version": "wide-appearance-review-v1",
+  "reviewer": "agent sampled visual review",
+  "scope": "Four source/target stills per clip at 0,60,120,180 seconds. Supplemented by short source/target replay exports at +60 seconds in each show middle clip. Not exhaustive full-video inspection; no human model approval.",
+  "admission": "Weak observed stage appearance only, not clean lighting labels. Geometry failures and unknown color use masks; exposure/occlusions/LED content can remain. Missingness depends on scene brightness.",
+  "clips": {
+    "alleycvt_0600": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9358333333333333,
+      "color_valid_fraction": 0.8816666666666667,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/alleycvt/review.jpg",
+      "notes": "Sampled stage correspondence remains stable. Large header and audience mostly outside measurement box. Central screen graphics and clipped washes remain appearance evidence.",
+      "exclude_intervals": []
+    },
+    "alleycvt_1800": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9883333333333333,
+      "color_valid_fraction": 0.98125,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/alleycvt/review.jpg",
+      "notes": "Sampled stage correspondence remains stable. Large header and audience mostly outside measurement box. Central screen graphics and clipped washes remain appearance evidence.",
+      "exclude_intervals": []
+    },
+    "alleycvt_3000": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9641666666666666,
+      "color_valid_fraction": 0.9604166666666667,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/alleycvt/review.jpg",
+      "notes": "Sampled stage correspondence remains stable. Large header and audience mostly outside measurement box. Central screen graphics and clipped washes remain appearance evidence.",
+      "exclude_intervals": []
+    },
+    "forest_0600": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9920833333333333,
+      "color_valid_fraction": 0.9920833333333333,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/forest/review.jpg",
+      "notes": "Four stage-interior regions preserve sampled dark intervals and bright accents. Header and side panels excluded in sampled alignment. This show and its alternate recording are test-only.",
+      "exclude_intervals": []
+    },
+    "forest_1800": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9841666666666666,
+      "color_valid_fraction": 0.9216666666666666,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/forest/review.jpg",
+      "notes": "Four stage-interior regions preserve sampled dark intervals and bright accents. Header and side panels excluded in sampled alignment. This show and its alternate recording are test-only.",
+      "exclude_intervals": []
+    },
+    "forest_3000": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.9654166666666667,
+      "color_valid_fraction": 0.935,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/forest/review.jpg",
+      "notes": "Four stage-interior regions preserve sampled dark intervals and bright accents. Header and side panels excluded in sampled alignment. This show and its alternate recording are test-only.",
+      "exclude_intervals": []
+    },
+    "griz_0600": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.8229166666666666,
+      "color_valid_fraction": 0.8075,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/griz/review.jpg",
+      "notes": "Lower stage rectangle excludes major upper logo and side screens in samples, but lower LED visuals and beams remain mixed. Dark intervals retained when geometry is valid.",
+      "exclude_intervals": []
+    },
+    "griz_1800": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 1.0,
+      "color_valid_fraction": 1.0,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/griz/review.jpg",
+      "notes": "Lower stage rectangle excludes major upper logo and side screens in samples, but lower LED visuals and beams remain mixed. Dark intervals retained when geometry is valid.",
+      "exclude_intervals": []
+    },
+    "griz_3000": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.7791666666666667,
+      "color_valid_fraction": 0.7725,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/griz/review.jpg",
+      "notes": "Lower stage rectangle excludes major upper logo and side screens in samples, but lower LED visuals and beams remain mixed. Dark intervals retained when geometry is valid.",
+      "exclude_intervals": []
+    },
+    "levity_forest_0900": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.4841666666666667,
+      "color_valid_fraction": 0.4791666666666667,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/levity_forest/review.jpg",
+      "notes": "Upper interior box avoids the bright lower center panel in samples. Camera movement and obstructions cause many masked frames. Sparse six-match registrations are uncertain; validation is exploratory.",
+      "exclude_intervals": []
+    },
+    "levity_forest_2100": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.5658333333333333,
+      "color_valid_fraction": 0.5591666666666667,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/levity_forest/review.jpg",
+      "notes": "Upper interior box avoids the bright lower center panel in samples. Camera movement and obstructions cause many masked frames. Sparse six-match registrations are uncertain; validation is exploratory.",
+      "exclude_intervals": []
+    },
+    "levity_forest_3300": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 0.4191666666666667,
+      "color_valid_fraction": 0.415,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/levity_forest/review.jpg",
+      "notes": "Upper interior box avoids the bright lower center panel in samples. Camera movement and obstructions cause many masked frames. Sparse six-match registrations are uncertain; validation is exploratory.",
+      "exclude_intervals": []
+    },
+    "ravenscoon_0600": {
+      "status": "reject_registration",
+      "geometry_valid_fraction": 0.21416666666666667,
+      "color_valid_fraction": 0.21416666666666667,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/ravenscoon/review.jpg",
+      "notes": "Central logo exclusion retained. 600-second clip rejected for low registration support and sampled misalignment. Later samples maintain stage correspondence; screen effects remain.",
+      "exclude_intervals": []
+    },
+    "ravenscoon_1800": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 1.0,
+      "color_valid_fraction": 1.0,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/ravenscoon/review.jpg",
+      "notes": "Central logo exclusion retained. 600-second clip rejected for low registration support and sampled misalignment. Later samples maintain stage correspondence; screen effects remain.",
+      "exclude_intervals": []
+    },
+    "ravenscoon_3000": {
+      "status": "admit_weak_appearance",
+      "geometry_valid_fraction": 1.0,
+      "color_valid_fraction": 1.0,
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1/ravenscoon/review.jpg",
+      "notes": "Central logo exclusion retained. 600-second clip rejected for low registration support and sampled misalignment. Later samples maintain stage correspondence; screen effects remain.",
+      "exclude_intervals": []
+    }
+  }
+}

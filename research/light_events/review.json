@@ -1,0 +1,11 @@
+{
+  "admission": "weak_events_for_offline_pilot",
+  "labels": "/Volumes/ExtremePro/Code/lightflow/research/light_events/labels_v2",
+  "review": "Agent sampled before/event/after frame review. No exhaustive video review or user model approval. Rise/release samples show beams, flashes, washes and screen changes; some quick events are subtle between sampled frames. They remain inferred appearance changes, not isolated authored fixture cues.",
+  "v1_rejected": "Clipping produced false holds; positive forecast windows were preferentially retained near gaps. Preserved unchanged and excluded from training.",
+  "v2_changes": "Both forecast classes require fully observed future windows. Hold labels additionally mask clipping/high mapped energy. Audit decodes the exact fps-filter sequence used by extraction.",
+  "hold_decision": "Insufficient training/validation support after saturation masks; do not fit hold head in this run. Intentional holds remain part of the project objective.",
+  "timing": "10 Hz observations and 0.3-second difference detector. Original audience audio offset and physical timing unverified.",
+  "exclude_intervals": {},
+  "review_sheets": ["ravenscoon_events.jpg", "alleycvt_events.jpg", "griz_events.jpg", "levity_forest_events.jpg", "forest_events.jpg"]
+}

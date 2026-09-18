@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "provenance": "Direct user feedback and attached screenshot, 2026-09-17 at 22:14:46",
+  "user_feedback": "these work best for this song",
+  "source": null,
+  "source_position_seconds": null,
+  "known_settings": {
+    "radius": 0.33,
+    "below": "soft",
+    "above": "expand",
+    "ratio": 3.3,
+    "adaptive": false,
+    "adaptSeconds": 3
+  },
+  "settings_not_visible": ["attackMs", "releaseMs", "makeup"],
+  "instantaneous_display": {
+    "radius": 0.33,
+    "outsideFraction": 0.58
+  },
+  "interpretation": "A preferred static configuration on one unidentified song. The 58% outside figure is one displayed instant, not a validated target occupancy. The 3-second adaptation control was disabled. Unknown controls are not inferred from defaults.",
+  "reference_audio_calibrated": false,
+  "cross_song_validation": false,
+  "numeric_frame_targets_available": false
+}

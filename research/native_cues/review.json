@@ -1,0 +1,39 @@
+{
+  "admission": "reviewed_measurement_pilot_only",
+  "full_training_dataset_admitted": false,
+  "reviewer": "agent sampled source review",
+  "human_musical_quality_approval": false,
+  "source_pts_max_error_seconds": 3.33334e-07,
+  "physical_timing_measured": false,
+  "synthetic_tests": "Six passed: flash, step, ramp, strobe sequence, gaps/unknown geometry, prefix/ambiguous edge",
+  "event_sheets_reviewed": [
+    "forest_1800_060",
+    "alleycvt_1800_060",
+    "griz_1800_060",
+    "levity_forest_2100_060",
+    "ravenscoon_3000_060",
+    "forest_1800_180"
+  ],
+  "event_triptychs_reviewed": 19,
+  "mask_source_frames_reviewed": {
+    "griz": [
+      1860,
+      1870,
+      1980
+    ],
+    "ravenscoon": [
+      3060,
+      3070,
+      3180
+    ]
+  },
+  "region_decision": "Keep screen interiors, mixed crops and candidate light fields separately identified. Proposed fields avoid recognizable screen interiors in these sampled views; remaining graphics/spill and unreviewed intervals are uncertain.",
+  "required_before_longer_training_dataset": [
+    "Review region masks throughout the longer selected clips",
+    "Preserve native PTS and missing-frame handling",
+    "Keep candidate edge timestamps distinct from physical switching times",
+    "Specify future windows and uncertainty rules before fitting",
+    "Do not label clipped plateaus or absence of edges as clean holds"
+  ],
+  "native_timestamps_checked": 6595
+}

@@ -1,5 +1,11 @@
 # LightFlow ML Roadmap
 
+> Historical roadmap. For the `codex/new-research` direction, read
+> [TRAINING_GOAL.md](TRAINING_GOAL.md) before any training run. The current goal
+> is one continuous brightness signal that retains stereoscope detail and adds
+> context-dependent expression. Additional output dimensions are deferred.
+> RPMC-L2 is excluded from the new work.
+
 Plan for evolving LightFlow from a deterministic, per-song precomputed light show into a learned model that can drive live shows from microphone input — and continue to be tweaked and improved over time.
 
 ## Where we are today

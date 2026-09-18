@@ -1,0 +1,13 @@
+{
+  "source_audit": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues/audit_levity_v1/manifest.json",
+  "review_method": "Agent visual inspection of before/boundary/after stills; not continuous-video ground truth",
+  "random_sample_count": 12,
+  "clear_camera_change": [593, 654, 1179, 1241, 1242, 1282, 1412],
+  "same_view_lighting_change": [112, 1136],
+  "ambiguous_requires_continuous_review": [301, 920, 1333],
+  "challenge_sample": {
+    "same_view_lighting_change": [679],
+    "ambiguous_requires_continuous_review": [513, 720, 184]
+  },
+  "decision": "Reject unfiltered threshold-0.5 candidates as clean camera-cut labels. At least 2/12 randomly sampled candidates are lighting changes. Test a stricter subset and retain uncertain targets as unknown rather than negative. Recall remains unknown."
+}

@@ -1,0 +1,375 @@
+{
+  "note": "Handles are hints only. Revalidate with the tool or process state; this file is not proof a job is live.",
+  "jobs": [
+    {
+      "task": "Full Levity TransNet V2 shot-boundary scan on MPS",
+      "exec_session_id": 23323,
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues/transnet_levity_full_gpu_v1",
+      "previous_cpu_session": 10815,
+      "previous_cpu_status": "intentionally terminated after GPU parity verification; folder preserved",
+      "status": "completed; 1498 cut candidates, not all reviewed"
+    },
+    {
+      "task": "Local Next.js preview",
+      "exec_session_id": 81309,
+      "url": "http://localhost:3001/scope"
+    },
+    {
+      "task": "Sequential full-show TransNet scans: Whethan, REZZ, Skrillex Chile",
+      "exec_session_id": 19332,
+      "status": "completed; Whethan 1119, REZZ 1280, Skrillex Chile 1596 cut candidates; weak labels only",
+      "output_root": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues"
+    },
+    {
+      "task": "Jack White browser playback verified",
+      "status": "completed",
+      "evidence": "Muted headless test: stereo nonzero audio, 206 byte ranges, forecast inference, no JS errors, no queue overflow",
+      "audio": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/audio/9-16-26-193630/jack_white_at_pine_knob_july_25_2026_4qWhG3JPdNU.m4a"
+    },
+    {
+      "task": "Four wide-shot downloads copied and checked",
+      "status": "completed",
+      "output": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/reference/9-16-26-194931"
+    },
+    {
+      "task": "Forest alternate-recording audio alignment and wide-shot replay",
+      "status": "completed; candidate only, no training labels accepted",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues/wide_pilot_forest_v1",
+      "alignment": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues/forest_recording_alignment_v2"
+    },
+    {
+      "task": "Masked editorial TCN training and held-out evaluation",
+      "exec_session_id": 82391,
+      "status": "completed; rejected for deployment, simple baselines outperform it",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/editorial/run_masked_v1"
+    },
+    {
+      "task": "Wide-shot pixel methods comparison",
+      "status": "completed; peak and lit area retained separately",
+      "output": "/Volumes/ExtremePro/Movies/Exports/lightflow_pixel_methods_9-16-26.mp4"
+    },
+    {
+      "task": "Five-show wide-shot extraction and 24-feature audio extraction",
+      "status": "completed; 14 weak-appearance clips admitted, 1 rejected; missing geometry/color masked",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/dataset_v1"
+    },
+    {
+      "task": "Fresh wide-shot light appearance TCN and three held-out comparisons",
+      "status": "completed; not promoted, response too flat and wrong-history control comparable",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/run_v1",
+      "comparisons": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/comparison_v1"
+    },
+    {
+      "task": "Relative light-event labels v2 and fresh model",
+      "status": "completed; offline only, no learned trigger threshold met validation precision gate",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/light_events/run_v1"
+    },
+    {
+      "task": "Local camera tracking bridge audit",
+      "status": "completed; only 0.9 seconds recovered in two minutes, not adopted",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/wide_lights/tracking_audit_v1"
+    },
+    {
+      "task": "Pinned MERT music encoder downloaded",
+      "status": "completed; official weights SHA verified, no downloaded code executed",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/third_party/mert_v1_95m_2026-09-16"
+    },
+    {
+      "task": "MERT past-window feasibility benchmark",
+      "status": "completed; strict state load, prefix error 0, warm p50 49.6ms / p95 51.3ms; physical latency unmeasured",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/music_encoder/benchmark_v1"
+    },
+    {
+      "task": "Frozen causal MERT features for fourteen reviewed clips",
+      "exec_session_id": 61882,
+      "status": "completed; fourteen finite 470x3072 feature files, total 350.7 seconds",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/music_encoder/features_v1"
+    },
+    {
+      "task": "Frozen music-feature cue probes",
+      "exec_session_id": 15085,
+      "status": "completed; no head passed validation cue gate; combined features fail signal/prior/wrong-history comparisons",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/music_encoder/probe_v1"
+    },
+    {
+      "task": "Fixed Forest 31-32 minute music-feature diagnostic",
+      "exec_session_id": 96767,
+      "status": "completed and verified; 60 seconds, 1800 frames at 30 fps, stereo audio; SHA-verified export; learned cues disabled",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/music_encoder/diagnostic_v1",
+      "validation_exec_session_id": 77672,
+      "export": "/Volumes/ExtremePro/Movies/Exports/lightflow_music_probe_forest_31m_9-16-26.mp4"
+    },
+    {
+      "task": "Cross-show label brightness and coverage profile",
+      "exec_session_id": 45349,
+      "status": "completed; moderate brightness mapping changes preserve most events",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/label_audit/profile_v1"
+    },
+    {
+      "task": "Native-rate versus 10 Hz lighting-event sampling audit",
+      "exec_session_id": 71714,
+      "status": "stopped before analysis; raw output had leading timestamp padding; preserved",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/label_audit/sampling_v1"
+    },
+    {
+      "task": "Corrected 30 Hz sampling audit",
+      "exec_session_id": 84251,
+      "status": "completed; ten fixed 20-second spans; original source command 2430 frames versus corrected 660 including context; exact frame counts checked",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/label_audit/sampling_v2"
+    },
+    {
+      "task": "Cross-show source semantics and flash-timing audit",
+      "status": "completed; mapping-gain test, sampling comparison, reviewed screen/beam distinctions, synthetic 200\u2013267 ms release-label error",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/label_audit",
+      "report": "research/label_audit/RESULTS.md"
+    },
+    {
+      "task": "Sampling audit replay",
+      "exec_session_id": 16013,
+      "status": "completed and verified; 20 seconds, 600 frames at 30 fps, stereo audio; SHA-verified export",
+      "validation_exec_session_id": 43552,
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/label_audit/replay_v1",
+      "export": "/Volumes/ExtremePro/Movies/Exports/lightflow_sampling_audit_forest_31m_9-16-26.mp4"
+    },
+    {
+      "task": "Native-clock typed cue extraction pilot",
+      "exec_session_id": 87410,
+      "status": "stopped before artifact admission; independent metadata query omitted two reordered tail frames; preserved",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/pilot_v1"
+    },
+    {
+      "task": "Corrected native-clock cue pilot",
+      "exec_session_id": 92754,
+      "status": "completed; 6595 frames across ten spans, every PTS matched ffprobe within 0.334 microseconds, zero source gaps over 50 ms",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/pilot_v2"
+    },
+    {
+      "task": "Separate candidate light-field and screen observations",
+      "exec_session_id": 26240,
+      "status": "completed; four spans, disjoint masks, native timestamps exactly match pilot",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/region_comparison_v1"
+    },
+    {
+      "task": "Screen/light-field native-clock comparison replays",
+      "exec_session_id": 65619,
+      "validation_exec_session_id": 89055,
+      "status": "completed and verified; two 20-second stereo exports, 600 frames each; decoder early-close stall fixed and tested",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/region_replay_v1",
+      "exports": [
+        "/Volumes/ExtremePro/Movies/Exports/lightflow_separate_regions_griz_9-16-26.mp4",
+        "/Volumes/ExtremePro/Movies/Exports/lightflow_separate_regions_ravenscoon_9-16-26.mp4"
+      ]
+    },
+    {
+      "task": "Fourteen-clip native-clock typed observation dataset",
+      "exec_session_id": 77133,
+      "status": "completed; 100688 native frames, 14 clips, all source PTS verified; 126 sampled source/mask frames reviewed; 6595 pilot observations regressed",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1"
+    },
+    {
+      "task": "Fresh four-head native-cue forecast model and baseline comparison",
+      "exec_session_id": 96752,
+      "status": "completed; selected epoch 7, saved trained weights and controls; validation improves but Forest development transfer fails; no live promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_v1"
+    },
+    {
+      "task": "Saved model reload and file inference check",
+      "exec_session_id": 99299,
+      "status": "completed; 60 seconds freshly extracted and CPU predictions match saved MPS run within 1.37e-7",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/inference_forest_v1"
+    },
+    {
+      "task": "Native-cue trained model playable comparison",
+      "exec_session_id": 56737,
+      "status": "stopped for renderer NPZ decompression bottleneck; partial output preserved; replaced by new forecast_replay_v2, no files overwritten",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_replay_v1"
+    },
+    {
+      "task": "Saved native-cue model on reserved Jack White audio",
+      "exec_session_id": 76819,
+      "status": "completed; 600 finite prediction rows, file execution check only",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/inference_jack_white_v1"
+    },
+    {
+      "task": "Corrected trained native-cue model comparison",
+      "exec_session_id": 77445,
+      "validation_exec_session_id": 81916,
+      "status": "completed and verified; 60 seconds, 1800 frames at 30 fps, stereo audio, SHA-verified export, three sampled render frames reviewed",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_replay_v2",
+      "export": "/Volumes/ExtremePro/Movies/Exports/lightflow_trained_native_cues_forest_31m_9-16-26.mp4"
+    },
+    {
+      "task": "Trained model runnable package",
+      "status": "completed; copied inference runtime, model weights, instructions and independent verification; development transfer failure documented; no live promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_v1",
+      "report": "research/native_cues/MODEL_RESULTS.md"
+    },
+    {
+      "task": "Fixed-weight recording-gain sensitivity audit",
+      "exec_session_id": 77104,
+      "status": "completed; original model changes with gain, but gain changes alone do not solve transfer; waveform transform validated within 4.75e-7",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/gain_audit_v1"
+    },
+    {
+      "task": "Training-only gain-augmented native cue candidate",
+      "exec_session_id": 18635,
+      "status": "completed; selected epoch 3; modest error improvement but simple controls and wrong-history gate still fail; weights and source snapshot preserved",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_gain_v1"
+    },
+    {
+      "task": "Gain-augmented model robustness and independent verification",
+      "exec_session_id": 67544,
+      "verification_exec_session_id": 40505,
+      "status": "completed; aggregate gain sensitivity reduced but not eliminated; original targets/masks/times unchanged; CPU reload and checkpoint parity pass",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/gain_audit_aug_v1",
+      "report": "research/native_cues/GAIN_RESULTS.md"
+    },
+    {
+      "task": "Causal modulation traces, fixed policy and four conditions",
+      "exec_session_id": 17556,
+      "status": "completed; Forest and Jack White; all prefixes and scheduling checks pass; direct fast detail remains in all panels",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/modulation_v1"
+    },
+    {
+      "task": "Playable learned-modulation comparisons",
+      "exec_session_id": 45964,
+      "status": "completed and verified; two 60-second stereo comparisons, 1800 frames each, SHA-verified exports; no live promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/modulation_replay_v1",
+      "validation_exec_session_id": 42643,
+      "exports": [
+        "/Volumes/ExtremePro/Movies/Exports/lightflow_learned_modulation_forest_9-16-26.mp4",
+        "/Volumes/ExtremePro/Movies/Exports/lightflow_learned_modulation_jack_white_9-16-26.mp4"
+      ],
+      "report": "research/native_cues/MODULATION_RESULTS.md"
+    },
+    {
+      "task": "Streaming parity fixtures",
+      "exec_session_id": 3573,
+      "status": "completed; verified",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/streaming_v1",
+      "report": "research/native_cues/STREAMING_RESULTS.md"
+    },
+    {
+      "task": "Streaming model and policy parity",
+      "exec_session_id": 60661,
+      "status": "completed; verified",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/streaming_v1",
+      "report": "research/native_cues/STREAMING_RESULTS.md"
+    },
+    {
+      "task": "Browser trained-candidate comparison and synthetic capture verification",
+      "exec_session_id": 13308,
+      "status": "completed; verified",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/browser_streaming_v1",
+      "report": "research/native_cues/STREAMING_RESULTS.md"
+    },
+    {
+      "task": "Within-clip forecast timing and mean-bias decomposition",
+      "exec_session_id": 18537,
+      "status": "completed; Forest fluctuations remain harmful after diagnostic mean correction; no alignment or model change",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/timing_specificity_v1",
+      "report": "research/native_cues/TIMING_SPECIFICITY.md"
+    },
+    {
+      "task": "Audio-only local alignment of paired Forest recordings",
+      "exec_session_id": 64077,
+      "status": "completed; verified; no quality promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/alternate_alignment_v1",
+      "report": "research/native_cues/ALTERNATE_RECORDING_RESULTS.md"
+    },
+    {
+      "task": "Fixed-weight alternate-recording comparison",
+      "exec_session_id": 65095,
+      "status": "completed; verified; no quality promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/alternate_recording_v1",
+      "report": "research/native_cues/ALTERNATE_RECORDING_RESULTS.md"
+    },
+    {
+      "task": "Training-only causal recording waveform features",
+      "exec_session_id": 49497,
+      "status": "completed; 32 variants, timestamps and finiteness verified",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/recording_features_v1"
+    },
+    {
+      "task": "Recording waveform augmented native cue model",
+      "exec_session_id": 17001,
+      "status": "completed; saved trained checkpoint; validation improves but Forest transfer fails; no live promotion",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_recording_v1",
+      "report": "research/native_cues/RECORDING_RESULTS.md"
+    },
+    {
+      "task": "Recording candidate reload and paired alternate-audio verification",
+      "exec_session_id": 60505,
+      "status": "completed; unchanged labels, CPU reload and independent scores pass",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/forecast_recording_v1",
+      "report": "research/native_cues/RECORDING_RESULTS.md"
+    },
+    {
+      "task": "Native sustained-state candidate scan",
+      "exec_session_id": 21423,
+      "status": "completed; 7 overlapping candidates, no rising candidate, no labels admitted",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/structure_review_v1"
+    },
+    {
+      "task": "Sustained-state source clips and sampled visual review",
+      "exec_session_id": 11233,
+      "status": "completed; four stereo clips verified, 64 sample frames inspected; candidate names do not establish musical intent",
+      "report": "research/native_cues/STRUCTURE_REVIEW.md"
+    },
+    {
+      "task": "Spatial persistence review version 1",
+      "exec_session_id": 23658,
+      "status": "completed; preserved; superseded first-frame validity by v2",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/spatial_persistence_v1"
+    },
+    {
+      "task": "Spatial persistence review with explicit first-frame validity",
+      "exec_session_id": 62619,
+      "status": "completed; 960 native frames, timestamp and reconstruction checks pass, four sheets reviewed; no training admission",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/spatial_persistence_v2",
+      "report": "research/native_cues/SPATIAL_PERSISTENCE_RESULTS.md"
+    },
+    {
+      "task": "Blinded listening-review browser workflow verification",
+      "exec_session_id": 91032,
+      "status": "completed; blinded playback/save/export/cleanup checks passed; automated answers excluded from human evidence",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/blind_review_ui_v1",
+      "report": "research/native_cues/BLIND_REVIEW_PROTOCOL.md"
+    },
+    {
+      "task": "Visible-panel review timing and human-evidence audit",
+      "exec_session_id": 13272,
+      "status": "completed; browser and five audit tests pass; both automated exports excluded, zero human judgments established",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/blind_review_ui_v2",
+      "report": "research/native_cues/BLIND_REVIEW_PROTOCOL.md"
+    },
+    {
+      "task": "Fixture dry-run adapter browser verification",
+      "exec_session_id": 62464,
+      "status": "completed; four dimmers respond, blackout/stop pass, no DMX bridge connection",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/fixture_preview_v1",
+      "report": "research/native_cues/FIXTURE_ADAPTER.md"
+    },
+    {
+      "task": "Physical timing stimulus and uncertainty-aware event analyzer",
+      "status": "completed tooling; seven tests and synthetic probe checks pass; no physical capture performed",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/physical_timing/probe_v1",
+      "report": "research/physical_timing/README.md"
+    },
+    {
+      "task": "Suspended/resumed audio browser fault check",
+      "exec_session_id": 53046,
+      "status": "completed; passed; synthetic/software evidence only",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/audio_stall_v1",
+      "report": "research/native_cues/AUDIO_FRESHNESS.md"
+    },
+    {
+      "task": "Streaming regression after sample-age expiry fix",
+      "exec_session_id": 49029,
+      "status": "completed; passed; synthetic/software evidence only",
+      "output": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/browser_streaming_v2",
+      "report": "research/native_cues/AUDIO_FRESHNESS.md"
+    }
+  ],
+  "updated": "2026-09-17T00:01:44.794145-07:00"
+}

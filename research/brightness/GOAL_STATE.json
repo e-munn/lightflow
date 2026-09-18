@@ -1,0 +1,42 @@
+{
+  "updated": "2026-09-18T19:40:28.288461+00:00",
+  "status": "incomplete",
+  "previous_goal_turn": "progress: eleven live interplay prototypes; user subsequently found their outputs too similar",
+  "consecutive_no_progress_turns": 0,
+  "model": "/Volumes/ExtremePro/Code/lightflow/research/brightness_restoration_model_v3",
+  "live_promoted": false,
+  "missing": [
+    "musical usefulness of direct scalar across stereo and mono",
+    "noticeable learned improvement on unfamiliar music",
+    "measured physical live latency"
+  ],
+  "pending_question": "Does B phrase this 32-second Forest passage better while preserving useful detail, or does A/no clear improvement/detail loss describe the result?",
+  "next": "Use the source-linked A/B judgment to accept or revise a concrete expressive target. Forest is development material; reserve other unheard tracks before fitting or selecting a learned controller.",
+  "feedback_directory": "/Volumes/ExtremePro/Code/lightflow/research/brightness_feedback",
+  "candidate_listener_observations": 0,
+  "training_ready_labels": 0,
+  "current_goal_turn": "progress: focused preferred-scope versus marked phrase target built, sample-aligned, mean-matched and browser-verified; no model promotion",
+  "blocked_audit_basis": "Fresh resumed audit: this turn made implementation and verification progress. No dependency-only recurrence has occurred.",
+  "server": {
+    "pid": 19580,
+    "launcher_pid": 19579,
+    "url": "http://localhost:3001/scope/phrase",
+    "http_status": 200,
+    "checked_at": "2026-09-18T19:40:28.288461+00:00",
+    "log": "/tmp/lightflow-interplay-server-nuc7muzw.log",
+    "launch": "detached session"
+  },
+  "completion_audit": "research/brightness/COMPLETION_AUDIT.md",
+  "resume_condition": "A listening judgment or replayable marked failure on the current scalar permits target design to resume. Actual documented capture/display timing evidence remains required for completion.",
+  "work_status": "resumed: focused phrase target is ready for source-linked listening judgment",
+  "current_demo": "http://localhost:3001/scope/phrase",
+  "latest_evidence": "/Volumes/ExtremePro/Code/lightflow/research/brightness_phrase_ui_v2/report.json",
+  "experiment": "research/brightness/PHRASE_TARGET_EXPERIMENT.md",
+  "preferred_configuration": "research/brightness/PREFERRED_CIRCLE_2026-09-17.json",
+  "routing_spec": "research/brightness/DYNAMIC_STYLE_ROUTING_SPEC.md",
+  "interplay_options": "research/brightness/DYNAMIC_INTERPLAY_OPTIONS.md",
+  "routing_preference": "research/brightness/STYLE_ROUTING_PREFERENCE_2026-09-17.json",
+  "goal_tool_status": "blocked from earlier run; user resumed useful target work",
+  "target_dataset": "/Volumes/ExtremePro/Code/lightflow/research/brightness_phrase_target_v2",
+  "target_approved": false
+}

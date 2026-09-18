@@ -1,0 +1,33 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const out=process.argv[2];await fs.mkdir(out,{recursive:false});
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--autoplay-policy=no-user-gesture-required','--mute-audio']});
+const report={testOnly:true,humanEvaluation:false,checks:[],errors:[]};
+try{
+ const page=await browser.newPage({viewport:{width:1440,height:1000}});page.on('pageerror',e=>report.errors.push(e.message));await page.goto('http://127.0.0.1:3001/scope/review');
+ await page.setViewportSize({width:1440,height:1400});
+ const finish=page.getByRole('button',{name:'Finish excerpt and judge'});assert(await finish.isDisabled());
+ await page.locator('input[type=file]').setInputFiles('public/songs/calabria_-_austin_marc.mp3');
+ await page.waitForTimeout(3000);assert(await finish.isDisabled());
+ const pixels=()=>page.locator('canvas').evaluateAll(cs=>cs.map(c=>{const p=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let s=0;for(let i=0;i<p.length;i+=4)s+=p[i]+p[i+1]+p[i+2];return s;}));
+ assert((await pixels()).every(x=>x===0));assert.equal(await page.getByRole('button',{name:'Reveal identities'}).count(),0);
+ await page.waitForFunction(()=>document.querySelector('[role=status]')?.textContent?.startsWith('Comparing A and B'),null,{timeout:65000});
+ await page.setViewportSize({width:1440,height:400});await page.waitForTimeout(500);assert((await page.getByRole('status').textContent()).includes('Keep both views'));
+ await page.waitForTimeout(1500);assert(await finish.isDisabled());await page.setViewportSize({width:1440,height:1400});
+ await finish.waitFor({state:'visible'});await page.waitForFunction(()=>[...document.querySelectorAll('button')].some(b=>b.textContent==='Finish excerpt and judge'&&!b.disabled),null,{timeout:80000});
+ assert((await pixels()).every(x=>x>10000));await page.screenshot({path:out+'/blinded-playing.png',fullPage:true});
+ await finish.click();await page.waitForTimeout(100);assert((await pixels()).every(x=>x===0));
+ assert(await page.getByRole('button',{name:'Save judgment',exact:true}).isDisabled());
+ for(const name of ['overall','timing','detail','phrasing'])await page.locator(`input[name=${name}][value=tie]`).check();
+ await page.locator('textarea').fill('AUTOMATED UI TEST ONLY. Not a human judgment.');
+ await page.getByRole('button',{name:'Save judgment',exact:true}).click();assert(await page.getByRole('button',{name:'Judgment saved',exact:true}).isDisabled());
+ const download=page.waitForEvent('download');await page.getByRole('button',{name:'Export judgments'}).click();await (await download).saveAs(out+'/AUTOMATED-test-export.json');
+ const data=JSON.parse(await fs.readFile(out+'/AUTOMATED-test-export.json','utf8'));assert.equal(data.records.length,1);const t=data.records[0].trial;assert(t.readySeconds>=20);assert.equal(t.modelHash.length,64);assert(t.order.includes(1)&&t.order.length===2&&t.order[0]!==t.order[1]);assert.equal(t.errors.length,0);assert.equal(t.evaluationVersion,2);assert.equal(t.automated,true);assert.equal(t.visibleOnly,true);
+ await page.getByRole('button',{name:'Reveal identities'}).click();assert((await page.locator('body').innerText()).includes('A: '+data.methods[t.order[0]]));
+ await page.reload();await page.getByRole('heading',{name:'1 saved judgments'}).waitFor();report.checks.push('real file playback, warm-up blackout, minimum duration, blind order, ratings required, reveal only after save, JSON export and reload persistence');
+ await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:out+'/mobile.png',fullPage:true});report.checks.push('mobile no horizontal overflow');
+ await page.route('**/api/scope-research/cue-model',r=>r.fulfill({status:503,body:'unavailable'}));await page.locator('input[type=file]').setInputFiles('public/songs/calabria_-_austin_marc.mp3');await page.getByRole('alert').waitFor();assert(await finish.isDisabled());report.checks.push('missing model prevents trial rather than evaluating direct fallback');
+ assert.deepEqual(report.errors,[]);report.testRecord=t;
+}finally{await fs.writeFile(out+'/test-report.json',JSON.stringify(report,null,2),{flag:'wx'});await browser.close();}
+console.log(JSON.stringify(report,null,2));

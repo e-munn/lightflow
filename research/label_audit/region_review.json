@@ -1,0 +1,39 @@
+{
+  "review_type": "agent_visual_review_of_sampled_registered_crops",
+  "human_quality_approval": false,
+  "evidence_root": "/Volumes/ExtremePro/Code/lightflow/research/label_audit/sampling_v2",
+  "existing_artifacts": "Historical observations and weak-label results preserved unchanged",
+  "timing_decision": "Existing 300 ms contrast labels must not be interpreted as instantaneous flash-off times. Faster extraction alone does not fix that definition.",
+  "sources": {
+    "griz": {
+      "reviewed_seconds": [1860, 1870, 1879, 1980, 1990, 1999],
+      "region_kind": "screen_dominated_stage_appearance",
+      "observed": "Current box contains animated LED screen graphics across all six sampled images.",
+      "next_use": "Retain as screen-appearance evidence; define and review separate beam/fixture masks before any beam-target admission."
+    },
+    "ravenscoon": {
+      "reviewed_seconds": [3060, 3070, 3079, 3180, 3190, 3199],
+      "region_kind": "mixed_beams_structures_and_screen",
+      "observed": "Small center exclusion leaves substantial rear-screen graphics inside the measured box.",
+      "next_use": "Separate visible screen surfaces from light fields; retain uncertainty for haze/overlap."
+    },
+    "alleycvt": {
+      "reviewed_seconds": [1860, 1870, 1879],
+      "region_kind": "beam_fixture_haze_observation_with_clipping",
+      "observed": "Sampled box contains light sources, beams and haze; one sampled geometry mask is invalid.",
+      "next_use": "Candidate weak light-field region only; preserve geometry and clipping uncertainty."
+    },
+    "levity_forest": {
+      "reviewed_seconds": [2160, 2170, 2179],
+      "region_kind": "beam_fixture_haze_observation_with_clipping",
+      "observed": "Beams and large clipped flashes; one sampled geometry mask is invalid.",
+      "next_use": "Candidate weak light-field region, with severe coverage limitations; no inferred frames across gaps."
+    },
+    "forest": {
+      "reviewed_seconds": [1860, 1870, 1879],
+      "region_kind": "beam_fixture_observation",
+      "observed": "Measured box mainly contains beams and visible light sources; adjacent stage screens remain outside the sampled box.",
+      "next_use": "Development-only weak light-field evidence; inspect fast flashes at near-native frame rate."
+    }
+  }
+}

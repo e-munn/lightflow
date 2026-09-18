@@ -1,0 +1,4917 @@
+{
+  "audio": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "file",
+      "value": "/Applications/TouchDesigner.app/Contents/Resources/tfs/Samples/Audio/JeremyCaulfield_www.dumb-unit.com.mp3",
+      "menus": []
+    },
+    {
+      "name": "reloadpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "play",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "playmode",
+      "value": "sequential",
+      "menus": [
+        "locked",
+        "specify",
+        "sequential",
+        "timecodeop"
+      ]
+    },
+    {
+      "name": "speed",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "cue",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "cuepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "cuepoint",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "cuepointunit",
+      "value": "seconds",
+      "menus": [
+        "samples",
+        "frames",
+        "seconds",
+        "fraction"
+      ]
+    },
+    {
+      "name": "index",
+      "value": "6.633333333333334",
+      "menus": []
+    },
+    {
+      "name": "indexunit",
+      "value": "seconds",
+      "menus": [
+        "samples",
+        "frames",
+        "seconds",
+        "fraction"
+      ]
+    },
+    {
+      "name": "timecodeop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "repeat",
+      "value": "on",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "trim",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "trimstart",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "trimstartunit",
+      "value": "seconds",
+      "menus": [
+        "samples",
+        "frames",
+        "seconds",
+        "fraction"
+      ]
+    },
+    {
+      "name": "trimend",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "trimendunit",
+      "value": "seconds",
+      "menus": [
+        "samples",
+        "frames",
+        "seconds",
+        "fraction"
+      ]
+    },
+    {
+      "name": "prereadlength",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "prereadlengthunit",
+      "value": "seconds",
+      "menus": [
+        "samples",
+        "frames",
+        "seconds",
+        "fraction"
+      ]
+    },
+    {
+      "name": "opentimeout",
+      "value": "999999",
+      "menus": []
+    },
+    {
+      "name": "mono",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "volume",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "fade",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "timeslice",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "scope",
+      "value": "*",
+      "menus": [
+        "*"
+      ]
+    },
+    {
+      "name": "srselect",
+      "value": "max",
+      "menus": [
+        "first",
+        "max",
+        "min",
+        "err"
+      ]
+    },
+    {
+      "name": "exportmethod",
+      "value": "datindex",
+      "menus": [
+        "datindex",
+        "datname",
+        "autoname"
+      ]
+    },
+    {
+      "name": "autoexportroot",
+      "value": "/project1/scope_probe",
+      "menus": []
+    },
+    {
+      "name": "exporttable",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "renamefrom",
+      "value": "*",
+      "menus": [
+        "*"
+      ]
+    },
+    {
+      "name": "renameto",
+      "value": "",
+      "menus": [
+        "*"
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "callbacks",
+      "value": "/project1/scope_probe/data_callbacks",
+      "menus": []
+    },
+    {
+      "name": "setuppars",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "modoutsidecook",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputresolution",
+      "value": "custom",
+      "menus": [
+        "useinput",
+        "eighth",
+        "quarter",
+        "half",
+        "2x",
+        "4x",
+        "8x",
+        "fit",
+        "limit",
+        "custom",
+        "parpanel"
+      ]
+    },
+    {
+      "name": "resolutionw",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resolutionh",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resmult",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputaspect",
+      "value": "resolution",
+      "menus": [
+        "useinput",
+        "resolution",
+        "custom"
+      ]
+    },
+    {
+      "name": "aspect1",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "aspect2",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "inputfiltertype",
+      "value": "linear",
+      "menus": [
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "fillmode",
+      "value": "best",
+      "menus": [
+        "useinput",
+        "fill",
+        "width",
+        "height",
+        "best",
+        "outside",
+        "nativeres"
+      ]
+    },
+    {
+      "name": "filtertype",
+      "value": "linear",
+      "menus": [
+        "useinput",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "npasses",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "chanmask",
+      "value": "15",
+      "menus": []
+    },
+    {
+      "name": "format",
+      "value": "rgba8fixed",
+      "menus": [
+        "useinput",
+        "rgba8fixed",
+        "rgba16float",
+        "rgba32float",
+        "rgb10a2fixed",
+        "rgba16fixed",
+        "rgba11float",
+        "mono8fixed",
+        "mono16fixed",
+        "mono16float",
+        "mono32float",
+        "rg8fixed",
+        "rg16fixed",
+        "rg16float",
+        "rg32float",
+        "a8fixed",
+        "a16fixed",
+        "a16float",
+        "a32float",
+        "monoalpha8fixed",
+        "monoalpha16fixed",
+        "monoalpha16float",
+        "monoalpha32float"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "default",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    }
+  ],
+  "glsl": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "glslversion",
+      "value": "glsl430",
+      "menus": [
+        "glsl120",
+        "glsl430",
+        "glsl440",
+        "glsl450",
+        "glsl460"
+      ]
+    },
+    {
+      "name": "mode",
+      "value": "vertexpixel",
+      "menus": [
+        "vertexpixel",
+        "compute"
+      ]
+    },
+    {
+      "name": "predat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "vertexdat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "pixeldat",
+      "value": "/project1/scope_probe/glsl_pixel",
+      "menus": []
+    },
+    {
+      "name": "computedat",
+      "value": "/project1/scope_probe/glsl_compute",
+      "menus": []
+    },
+    {
+      "name": "compilebehavior",
+      "value": "stalluntildone",
+      "menus": [
+        "stalluntildone",
+        "threadedcheckerboard",
+        "threadedblack",
+        "threadedprevious"
+      ]
+    },
+    {
+      "name": "errorbehavior",
+      "value": "showcheckerboard",
+      "menus": [
+        "showcheckerboard",
+        "showblack",
+        "showprevious"
+      ]
+    },
+    {
+      "name": "loaduniformnames",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "autodispatchsize",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dispatchsizex",
+      "value": "64",
+      "menus": []
+    },
+    {
+      "name": "dispatchsizey",
+      "value": "64",
+      "menus": []
+    },
+    {
+      "name": "dispatchsizez",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "outputaccess",
+      "value": "writeonly",
+      "menus": [
+        "writeonly",
+        "readwrite"
+      ]
+    },
+    {
+      "name": "type",
+      "value": "texture2d",
+      "menus": [
+        "texture2d",
+        "texture2darray",
+        "texture3d"
+      ]
+    },
+    {
+      "name": "depth",
+      "value": "input",
+      "menus": [
+        "input",
+        "custom"
+      ]
+    },
+    {
+      "name": "customdepth",
+      "value": "32",
+      "menus": []
+    },
+    {
+      "name": "clearoutputs",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "clearvaluer",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "clearvalueg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "clearvalueb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "clearvaluea",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "inputmapping",
+      "value": "all",
+      "menus": [
+        "all",
+        "ninputs"
+      ]
+    },
+    {
+      "name": "nval",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "inputextenduv",
+      "value": "zero",
+      "menus": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror"
+      ]
+    },
+    {
+      "name": "inputextendw",
+      "value": "repeat",
+      "menus": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror"
+      ]
+    },
+    {
+      "name": "numcolorbufs",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "tops",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "simplexnoise",
+      "value": "performance",
+      "menus": [
+        "performance",
+        "quality"
+      ]
+    },
+    {
+      "name": "premultrgbbyalpha",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "color",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "color0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "color0rgbr",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "color0rgbg",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "color0rgbb",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "color0alpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "vec",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "vec0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "vec0valuex",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "vec0valuey",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vec0valuez",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vec0valuew",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "array",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "array0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "array0type",
+      "value": "float",
+      "menus": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4"
+      ]
+    },
+    {
+      "name": "array0chop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "array0arraytype",
+      "value": "uniformarray",
+      "menus": [
+        "uniformarray",
+        "texturebuffer"
+      ]
+    },
+    {
+      "name": "matrix",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "matrix0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "matrix0value",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "ac",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "ac0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "ac0initvalue",
+      "value": "val",
+      "menus": [
+        "val",
+        "chop"
+      ]
+    },
+    {
+      "name": "ac0singlevalue",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "ac0chopvalue",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "const",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "const0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "const0value",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "buffer",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "buffer0pop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "buffer0attrclass",
+      "value": "point",
+      "menus": [
+        "point",
+        "primitive",
+        "vertex"
+      ]
+    },
+    {
+      "name": "buffer0attr",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "buffer0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "outputresolution",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "eighth",
+        "quarter",
+        "half",
+        "2x",
+        "4x",
+        "8x",
+        "fit",
+        "limit",
+        "custom",
+        "parpanel"
+      ]
+    },
+    {
+      "name": "resolutionw",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resolutionh",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resmult",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputaspect",
+      "value": "resolution",
+      "menus": [
+        "useinput",
+        "resolution",
+        "custom"
+      ]
+    },
+    {
+      "name": "aspect1",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "aspect2",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "inputfiltertype",
+      "value": "linear",
+      "menus": [
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "fillmode",
+      "value": "best",
+      "menus": [
+        "useinput",
+        "fill",
+        "width",
+        "height",
+        "best",
+        "outside",
+        "nativeres"
+      ]
+    },
+    {
+      "name": "filtertype",
+      "value": "linear",
+      "menus": [
+        "useinput",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "npasses",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "chanmask",
+      "value": "15",
+      "menus": []
+    },
+    {
+      "name": "format",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "rgba8fixed",
+        "rgba16float",
+        "rgba32float",
+        "rgb10a2fixed",
+        "rgba16fixed",
+        "rgba11float",
+        "mono8fixed",
+        "mono16fixed",
+        "mono16float",
+        "mono32float",
+        "rg8fixed",
+        "rg16fixed",
+        "rg16float",
+        "rg32float",
+        "a8fixed",
+        "a16fixed",
+        "a16float",
+        "a32float",
+        "monoalpha8fixed",
+        "monoalpha16fixed",
+        "monoalpha16float",
+        "monoalpha32float"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "default",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    }
+  ],
+  "switch": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "index",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "blend",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "extend",
+      "value": "clamp",
+      "menus": [
+        "clamp",
+        "loop",
+        "zigzag"
+      ]
+    },
+    {
+      "name": "outputresolution",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "eighth",
+        "quarter",
+        "half",
+        "2x",
+        "4x",
+        "8x",
+        "fit",
+        "limit",
+        "custom",
+        "parpanel"
+      ]
+    },
+    {
+      "name": "resolutionw",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resolutionh",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resmult",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputaspect",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "resolution",
+        "custom"
+      ]
+    },
+    {
+      "name": "aspect1",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "aspect2",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "inputfiltertype",
+      "value": "linear",
+      "menus": [
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "fillmode",
+      "value": "best",
+      "menus": [
+        "useinput",
+        "fill",
+        "width",
+        "height",
+        "best",
+        "outside",
+        "nativeres"
+      ]
+    },
+    {
+      "name": "filtertype",
+      "value": "linear",
+      "menus": [
+        "useinput",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "npasses",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "chanmask",
+      "value": "15",
+      "menus": []
+    },
+    {
+      "name": "format",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "rgba8fixed",
+        "rgba16float",
+        "rgba32float",
+        "rgb10a2fixed",
+        "rgba16fixed",
+        "rgba11float",
+        "mono8fixed",
+        "mono16fixed",
+        "mono16float",
+        "mono32float",
+        "rg8fixed",
+        "rg16fixed",
+        "rg16float",
+        "rg32float",
+        "a8fixed",
+        "a16fixed",
+        "a16float",
+        "a32float",
+        "monoalpha8fixed",
+        "monoalpha16fixed",
+        "monoalpha16float",
+        "monoalpha32float"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "default",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    }
+  ],
+  "container": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "x",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "y",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "w",
+      "value": "400",
+      "menus": []
+    },
+    {
+      "name": "h",
+      "value": "300",
+      "menus": []
+    },
+    {
+      "name": "fixedaspect",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical"
+      ]
+    },
+    {
+      "name": "aspect",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "layer",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "hmode",
+      "value": "fixed",
+      "menus": [
+        "fixed",
+        "fill",
+        "anchors"
+      ]
+    },
+    {
+      "name": "leftanchor",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "leftoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "rightanchor",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "rightoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "horigin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "hfillweight",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "vmode",
+      "value": "fixed",
+      "menus": [
+        "fixed",
+        "fill",
+        "anchors"
+      ]
+    },
+    {
+      "name": "bottomanchor",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bottomoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "topanchor",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "topoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vorigin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vfillweight",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "alignallow",
+      "value": "allow",
+      "menus": [
+        "allow",
+        "ignore",
+        "ignoremargin"
+      ]
+    },
+    {
+      "name": "alignorder",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "postoffsetx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "postoffsety",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "sizefromwindow",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "display",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enable",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "helpdat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "cursor",
+      "value": "pointer",
+      "menus": [
+        "pointer",
+        "linkselect",
+        "ibeam",
+        "cross",
+        "busy",
+        "activate",
+        "invisible",
+        "arrowUp",
+        "arrowDown",
+        "arrowLeft",
+        "arrowRight",
+        "arrowUpDown",
+        "arrowLeftRight",
+        "arrowAll",
+        "arrowD1",
+        "arrowD2",
+        "arrowD3",
+        "arrowD4",
+        "arrowD1D3",
+        "arrowD2D4",
+        "arrowAllDiagonal",
+        "arrow"
+      ]
+    },
+    {
+      "name": "multitouch",
+      "value": "mtouchparent",
+      "menus": [
+        "mtouchparent",
+        "mtouchyes",
+        "mtouchno"
+      ]
+    },
+    {
+      "name": "constraincursor",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "clickthrough",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "allowuishortcuts",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "mousewheel",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "uvbuttonsleft",
+      "value": "True",
+      "menus": []
+    },
+    {
+      "name": "uvbuttonsmiddle",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "uvbuttonsright",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "mouserel",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "resizel",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizer",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizeb",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizet",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizecomp",
+      "value": "/project1/scope_probe/container",
+      "menus": []
+    },
+    {
+      "name": "resizewmin",
+      "value": "5.0",
+      "menus": []
+    },
+    {
+      "name": "resizewmax",
+      "value": "400.0",
+      "menus": []
+    },
+    {
+      "name": "resizehmin",
+      "value": "5.0",
+      "menus": []
+    },
+    {
+      "name": "resizehmax",
+      "value": "400.0",
+      "menus": []
+    },
+    {
+      "name": "reposition",
+      "value": "off",
+      "menus": [
+        "off",
+        "window",
+        "component"
+      ]
+    },
+    {
+      "name": "repocomp",
+      "value": "/project1/scope_probe/container",
+      "menus": []
+    },
+    {
+      "name": "repositionxmin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "repositionxmax",
+      "value": "100.0",
+      "menus": []
+    },
+    {
+      "name": "repositionymin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "repositionymax",
+      "value": "100.0",
+      "menus": []
+    },
+    {
+      "name": "anchordrag",
+      "value": "anchors",
+      "menus": [
+        "anchors",
+        "offsets"
+      ]
+    },
+    {
+      "name": "bgcolorr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgalpha",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "top",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "topfill",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical",
+        "best",
+        "native",
+        "outside"
+      ]
+    },
+    {
+      "name": "topsmoothness",
+      "value": "linear",
+      "menus": [
+        "usetop",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "borderar",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderag",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderab",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderaalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderbr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "leftborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "leftborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "borderover",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dodisablecolor",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "disablecolorr",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablecolorg",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablecolorb",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablealpha",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "multrgb",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "composite",
+      "value": "over",
+      "menus": [
+        "over",
+        "under",
+        "inside",
+        "outside",
+        "add",
+        "subtract",
+        "multiply"
+      ]
+    },
+    {
+      "name": "opacity",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "align",
+      "value": "none",
+      "menus": [
+        "none",
+        "horizlr",
+        "horizrl",
+        "verttb",
+        "vertbt",
+        "gridrows",
+        "gridcols",
+        "nodes"
+      ]
+    },
+    {
+      "name": "spacing",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "alignmax",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "marginl",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "marginr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "marginb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "margint",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "justifymethod",
+      "value": "group",
+      "menus": [
+        "individual",
+        "group"
+      ]
+    },
+    {
+      "name": "justifyh",
+      "value": "off",
+      "menus": [
+        "off",
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    {
+      "name": "justifyv",
+      "value": "off",
+      "menus": [
+        "off",
+        "top",
+        "center",
+        "bottom"
+      ]
+    },
+    {
+      "name": "fit",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical",
+        "best"
+      ]
+    },
+    {
+      "name": "scalex",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "scaley",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "offsetx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "offsety",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "crop",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "never"
+      ]
+    },
+    {
+      "name": "phscrollbar",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "auto"
+      ]
+    },
+    {
+      "name": "pvscrollbar",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "auto"
+      ]
+    },
+    {
+      "name": "scrollbarthickness",
+      "value": "10",
+      "menus": []
+    },
+    {
+      "name": "scrolloverlay",
+      "value": "off",
+      "menus": [
+        "off",
+        "ignore",
+        "ignoreover"
+      ]
+    },
+    {
+      "name": "drag",
+      "value": "dragparent",
+      "menus": [
+        "dragparent",
+        "legacy",
+        "usecallbacks"
+      ]
+    },
+    {
+      "name": "dragscript",
+      "value": "/sys/drag",
+      "menus": []
+    },
+    {
+      "name": "droptypescript",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "dropdestscript",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "paneldragop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "drop",
+      "value": "dropparent",
+      "menus": [
+        "dropparent",
+        "legacy",
+        "usecallbacks",
+        "fillparm"
+      ]
+    },
+    {
+      "name": "builtindrop",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dropscript",
+      "value": "/sys/drop",
+      "menus": []
+    },
+    {
+      "name": "dropparm",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "dragdropcallbacks",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "ext",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "ext0object",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "ext0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "ext0promote",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "reinitextensions",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "initextonstart",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "parentshortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "opshortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "iop",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "iop0shortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "iop0op",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "nodeview",
+      "value": "default",
+      "menus": [
+        "default",
+        "opviewer"
+      ]
+    },
+    {
+      "name": "opviewer",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "keepmemory",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enablecloning",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enablecloningpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "clone",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "loadondemand",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enableexternaltox",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enableexternaltoxpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "externaltox",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "reloadcustom",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "reloadbuiltin",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "savebackup",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "subcompname",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "relpath",
+      "value": "inherit",
+      "menus": [
+        "inherit",
+        "project",
+        "externaltox"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "useparent",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    },
+    {
+      "name": "chop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "namedchop",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "overridemethod",
+      "value": "trigger",
+      "menus": [
+        "trigger",
+        "always"
+      ]
+    },
+    {
+      "name": "overlay",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    }
+  ],
+  "button": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "label",
+      "value": "Button",
+      "menus": []
+    },
+    {
+      "name": "value0",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "buttontype",
+      "value": "toggledown",
+      "menus": [
+        "momentary",
+        "momentaryup",
+        "toggledown",
+        "toggleup",
+        "toggleupany",
+        "radiodown",
+        "radioup",
+        "radionupany",
+        "exclusivedown",
+        "exclusiveup",
+        "exclusivenupany"
+      ]
+    },
+    {
+      "name": "buttongroup",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "buttongroupdat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "scaletofit",
+      "value": "never",
+      "menus": [
+        "never",
+        "always",
+        "onlyshrink"
+      ]
+    },
+    {
+      "name": "fontsize",
+      "value": "10.0",
+      "menus": []
+    },
+    {
+      "name": "linespacing",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "textpaddingl",
+      "value": "3.0",
+      "menus": []
+    },
+    {
+      "name": "textpaddingr",
+      "value": "3.0",
+      "menus": []
+    },
+    {
+      "name": "textpaddingb",
+      "value": "3.0",
+      "menus": []
+    },
+    {
+      "name": "textpaddingt",
+      "value": "3.0",
+      "menus": []
+    },
+    {
+      "name": "colorr",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "colorg",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "colorb",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "x",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "y",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "w",
+      "value": "50",
+      "menus": []
+    },
+    {
+      "name": "h",
+      "value": "40",
+      "menus": []
+    },
+    {
+      "name": "fixedaspect",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical"
+      ]
+    },
+    {
+      "name": "aspect",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "layer",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "hmode",
+      "value": "fixed",
+      "menus": [
+        "fixed",
+        "fill",
+        "anchors"
+      ]
+    },
+    {
+      "name": "leftanchor",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "leftoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "rightanchor",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "rightoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "horigin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "hfillweight",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "vmode",
+      "value": "fixed",
+      "menus": [
+        "fixed",
+        "fill",
+        "anchors"
+      ]
+    },
+    {
+      "name": "bottomanchor",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bottomoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "topanchor",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "topoffset",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vorigin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "vfillweight",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "alignallow",
+      "value": "allow",
+      "menus": [
+        "allow",
+        "ignore",
+        "ignoremargin"
+      ]
+    },
+    {
+      "name": "alignorder",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "postoffsetx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "postoffsety",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "sizefromwindow",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "display",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enable",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "helpdat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "cursor",
+      "value": "pointer",
+      "menus": [
+        "pointer",
+        "linkselect",
+        "ibeam",
+        "cross",
+        "busy",
+        "activate",
+        "invisible",
+        "arrowUp",
+        "arrowDown",
+        "arrowLeft",
+        "arrowRight",
+        "arrowUpDown",
+        "arrowLeftRight",
+        "arrowAll",
+        "arrowD1",
+        "arrowD2",
+        "arrowD3",
+        "arrowD4",
+        "arrowD1D3",
+        "arrowD2D4",
+        "arrowAllDiagonal",
+        "arrow"
+      ]
+    },
+    {
+      "name": "multitouch",
+      "value": "mtouchparent",
+      "menus": [
+        "mtouchparent",
+        "mtouchyes",
+        "mtouchno"
+      ]
+    },
+    {
+      "name": "constraincursor",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "clickthrough",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "allowuishortcuts",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "mousewheel",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "uvbuttonsleft",
+      "value": "True",
+      "menus": []
+    },
+    {
+      "name": "uvbuttonsmiddle",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "uvbuttonsright",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "mouserel",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "resizel",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizer",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizeb",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizet",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "resizecomp",
+      "value": "/project1/scope_probe/button1",
+      "menus": []
+    },
+    {
+      "name": "resizewmin",
+      "value": "5.0",
+      "menus": []
+    },
+    {
+      "name": "resizewmax",
+      "value": "400.0",
+      "menus": []
+    },
+    {
+      "name": "resizehmin",
+      "value": "5.0",
+      "menus": []
+    },
+    {
+      "name": "resizehmax",
+      "value": "400.0",
+      "menus": []
+    },
+    {
+      "name": "reposition",
+      "value": "off",
+      "menus": [
+        "off",
+        "window",
+        "component"
+      ]
+    },
+    {
+      "name": "repocomp",
+      "value": "/project1/scope_probe/button1",
+      "menus": []
+    },
+    {
+      "name": "repositionxmin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "repositionxmax",
+      "value": "100.0",
+      "menus": []
+    },
+    {
+      "name": "repositionymin",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "repositionymax",
+      "value": "100.0",
+      "menus": []
+    },
+    {
+      "name": "anchordrag",
+      "value": "anchors",
+      "menus": [
+        "anchors",
+        "offsets"
+      ]
+    },
+    {
+      "name": "bgcolorr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgalpha",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "top",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "topfill",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical",
+        "best",
+        "native",
+        "outside"
+      ]
+    },
+    {
+      "name": "topsmoothness",
+      "value": "linear",
+      "menus": [
+        "usetop",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "borderar",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderag",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderab",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderaalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderbr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "leftborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "leftborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "borderover",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dodisablecolor",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "disablecolorr",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablecolorg",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablecolorb",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "disablealpha",
+      "value": "0.5",
+      "menus": []
+    },
+    {
+      "name": "multrgb",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "composite",
+      "value": "over",
+      "menus": [
+        "over",
+        "under",
+        "inside",
+        "outside",
+        "add",
+        "subtract",
+        "multiply"
+      ]
+    },
+    {
+      "name": "opacity",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "align",
+      "value": "none",
+      "menus": [
+        "none",
+        "horizlr",
+        "horizrl",
+        "verttb",
+        "vertbt",
+        "gridrows",
+        "gridcols",
+        "nodes"
+      ]
+    },
+    {
+      "name": "spacing",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "alignmax",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "marginl",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "marginr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "marginb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "margint",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "justifymethod",
+      "value": "group",
+      "menus": [
+        "individual",
+        "group"
+      ]
+    },
+    {
+      "name": "justifyh",
+      "value": "off",
+      "menus": [
+        "off",
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    {
+      "name": "justifyv",
+      "value": "off",
+      "menus": [
+        "off",
+        "top",
+        "center",
+        "bottom"
+      ]
+    },
+    {
+      "name": "fit",
+      "value": "off",
+      "menus": [
+        "off",
+        "horizontal",
+        "vertical",
+        "best"
+      ]
+    },
+    {
+      "name": "scalex",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "scaley",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "offsetx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "offsety",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "crop",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "never"
+      ]
+    },
+    {
+      "name": "phscrollbar",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "auto"
+      ]
+    },
+    {
+      "name": "pvscrollbar",
+      "value": "off",
+      "menus": [
+        "off",
+        "on",
+        "auto"
+      ]
+    },
+    {
+      "name": "scrollbarthickness",
+      "value": "10",
+      "menus": []
+    },
+    {
+      "name": "scrolloverlay",
+      "value": "off",
+      "menus": [
+        "off",
+        "ignore",
+        "ignoreover"
+      ]
+    },
+    {
+      "name": "drag",
+      "value": "dragparent",
+      "menus": [
+        "dragparent",
+        "legacy",
+        "usecallbacks"
+      ]
+    },
+    {
+      "name": "dragscript",
+      "value": "/sys/drag",
+      "menus": []
+    },
+    {
+      "name": "droptypescript",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "dropdestscript",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "paneldragop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "drop",
+      "value": "dropparent",
+      "menus": [
+        "dropparent",
+        "legacy",
+        "usecallbacks",
+        "fillparm"
+      ]
+    },
+    {
+      "name": "builtindrop",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dropscript",
+      "value": "/sys/drop",
+      "menus": []
+    },
+    {
+      "name": "dropparm",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "dragdropcallbacks",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "ext",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "ext0object",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "ext0name",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "ext0promote",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "reinitextensions",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "initextonstart",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "parentshortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "opshortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "iop",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "iop0shortcut",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "iop0op",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "nodeview",
+      "value": "default",
+      "menus": [
+        "default",
+        "opviewer"
+      ]
+    },
+    {
+      "name": "opviewer",
+      "value": "/project1/scope_probe/button1/out1",
+      "menus": []
+    },
+    {
+      "name": "keepmemory",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enablecloning",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enablecloningpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "clone",
+      "value": "/sys/TDTox/defaultCOMPs/button",
+      "menus": []
+    },
+    {
+      "name": "loadondemand",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enableexternaltox",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enableexternaltoxpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "externaltox",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "reloadcustom",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "reloadbuiltin",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "savebackup",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "subcompname",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "relpath",
+      "value": "externaltox",
+      "menus": [
+        "inherit",
+        "project",
+        "externaltox"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "useparent",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    },
+    {
+      "name": "chop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "namedchop",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "overridemethod",
+      "value": "trigger",
+      "menus": [
+        "trigger",
+        "always"
+      ]
+    },
+    {
+      "name": "overlay",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    }
+  ],
+  "text": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "field",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "dat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "rowindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "colindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "specdat",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "text",
+      "value": "derivative",
+      "menus": []
+    },
+    {
+      "name": "legacyparsing",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "appendvalue",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "valuetouse",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "totaldigits",
+      "value": "5",
+      "menus": []
+    },
+    {
+      "name": "decimaldigits",
+      "value": "2",
+      "menus": []
+    },
+    {
+      "name": "leadingzero",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "posttext",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "chopvaluereplace",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "chop",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "wordwrap",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "smartpunct",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "legacyfontselection",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "font",
+      "value": "Verdana",
+      "menus": [
+        "Academy Engraved LET",
+        "Akkordeon Slab TRIAL",
+        "Akkordeon TRIAL",
+        "Al Bayan",
+        "Al Nile",
+        "Al Tarikh",
+        "American Typewriter",
+        "Andale Mono",
+        "Apple Braille",
+        "Apple Chancery",
+        "Apple Color Emoji",
+        "Apple SD Gothic Neo",
+        "Apple Symbols",
+        "AppleGothic",
+        "AppleMyungjo",
+        "Approach Mono TRIAL",
+        "Approach TRIAL",
+        "Archer",
+        "Arial",
+        "Arial Black",
+        "Arial Hebrew",
+        "Arial Hebrew Scholar",
+        "Arial Narrow",
+        "Arial Rounded MT Bold",
+        "Arial Unicode MS",
+        "Aribau Grotesk TRIAL",
+        "Aribau Rounded Trial",
+        "Aribau Rounded VF Trial",
+        "Arimo",
+        "Avenir",
+        "Avenir Next",
+        "Avenir Next Condensed",
+        "Ayuthaya",
+        "BN BOOP",
+        "BN Bergen St",
+        "BN Breezy",
+        "BN Brick House",
+        "BN Califone",
+        "BN Canteen",
+        "BN Canyon",
+        "BN Carrol St",
+        "BN Carta Noir",
+        "BN Cicero",
+        "BN Creek Lane",
+        "BN Dixon",
+        "BN Elephant Gothic",
+        "BN Finland",
+        "BN Grimer",
+        "BN Hand Gothic",
+        "BN Harrold Bold",
+        "BN Hillside Grotesk",
+        "BN Kinx",
+        "BN Kragen",
+        "BN Mainz",
+        "BN Matrix",
+        "BN Minay",
+        "BN Modern Ombra",
+        "BN Naples",
+        "BN Nord",
+        "BN Norplay",
+        "BN Paradox",
+        "BN Pen And Gram",
+        "BN Rakka",
+        "BN Recon Grotesk",
+        "BN Rigidly",
+        "BN Riptide",
+        "BN Romaine Light",
+        "BN Scouts Hand",
+        "BN Slabby Bold",
+        "BN Tillsdale",
+        "BN Times Gothic",
+        "BN Wispy",
+        "BNBrick House",
+        "Baghdad",
+        "Bangla MN",
+        "Bangla Sangam MN",
+        "Baskerville",
+        "Beirut",
+        "Big Caslon",
+        "Blacker Pro Titling",
+        "Blade Brotherhood",
+        "Bodoni 72",
+        "Bodoni 72 Oldstyle",
+        "Bodoni 72 Smallcaps",
+        "Bodoni Moda 9pt",
+        "Bodoni Moda 18pt",
+        "Bodoni Moda 28pt",
+        "Bodoni Moda 48pt",
+        "Bodoni Moda 72pt",
+        "Bodoni Ornaments",
+        "Bradley Hand",
+        "Brush Script MT",
+        "Camber TRIAL",
+        "Cambridge",
+        "Canela Text",
+        "Chalkboard",
+        "Chalkboard SE",
+        "Chalkduster",
+        "Champion Gothic",
+        "Charter",
+        "Chiaroscura TRIAL",
+        "Chronicle Text G1",
+        "Circular Std",
+        "Ciutadella Display TRIAL",
+        "Ciutadella Rounded TRIAL",
+        "Ciutadella Slab TRIAL",
+        "Ciutadella TRIAL",
+        "Classike TRIAL",
+        "Classike VF TRIAL",
+        "Cochin",
+        "Comic Sans MS",
+        "Copperplate",
+        "Coraline's Cat",
+        "Corsiva Hebrew",
+        "Courier New",
+        "DIN Alternate",
+        "DIN Condensed",
+        "DIN Pro",
+        "Damascus",
+        "Decagram TRIAL",
+        "Decagram VF TRIAL",
+        "DecoType Naskh",
+        "Devanagari MT",
+        "Devanagari Sangam MN",
+        "Didot",
+        "Diwan Kufi",
+        "Diwan Thuluth",
+        "Dixplay TRIAL",
+        "EB Garamond",
+        "Euphemia UCAS",
+        "Farah",
+        "Farisi",
+        "Futura",
+        "GB18030 Bitmap",
+        "Galvji",
+        "Geeza Pro",
+        "Geneva",
+        "GeogrotSharp TRIAL",
+        "Geogrotesque Comp TRIAL",
+        "Geogrotesque Cond TRIAL",
+        "Geogrotesque Exp TRIAL",
+        "Geogrotesque Ext TRIAL",
+        "Geogrotesque Mono Trial",
+        "Geogrotesque Mono U Trial",
+        "Geogrotesque Mono U VF Trial",
+        "Geogrotesque Mono VF Trial",
+        "Geogrotesque Sharp VF TRIAL",
+        "Geogrotesque Slab TRIAL",
+        "Geogrotesque TRIAL",
+        "Geogrotesque Wide TRIAL",
+        "Geogrotesque XComp TRIAL",
+        "GeogrotesqueStencil A TRIAL",
+        "GeogrotesqueStencil B TRIAL",
+        "GeogrotesqueStencil C TRIAL",
+        "Georgia",
+        "Gill Sans",
+        "Goalking TRIAL",
+        "Goalking VF TRIAL",
+        "Gotham",
+        "Gotham Rounded",
+        "Grantha Sangam MN",
+        "Great Vibes",
+        "Gujarati MT",
+        "Gujarati Sangam MN",
+        "Gurmukhi MN",
+        "Gurmukhi MT",
+        "Gurmukhi Sangam MN",
+        "HeavenGate",
+        "Heiti SC",
+        "Heiti TC",
+        "Helvetica",
+        "Helvetica Neue",
+        "Herculanum",
+        "Hiragino Maru Gothic ProN",
+        "Hiragino Mincho ProN",
+        "Hiragino Sans",
+        "Hiragino Sans GB",
+        "Hoefler Text",
+        "ITF Devanagari",
+        "ITF Devanagari Marathi",
+        "Impact",
+        "Imprint MT Shadow",
+        "InaiMathi",
+        "Inklination Mono TRIAL",
+        "Inklination TRIAL",
+        "Inter",
+        "InterFace",
+        "Isotonic TRIAL",
+        "Kailasa",
+        "Kannada MN",
+        "Kannada Sangam MN",
+        "Kefa III",
+        "Khmer MN",
+        "Khmer Sangam MN",
+        "Kohinoor Bangla",
+        "Kohinoor Devanagari",
+        "Kohinoor Gujarati",
+        "Kohinoor Telugu",
+        "Kokonor",
+        "Krungthep",
+        "KufiStandardGK",
+        "Landmark",
+        "Lao MN",
+        "Lao Sangam MN",
+        "Lucida Grande",
+        "Luminari",
+        "Majorant TRIAL",
+        "Malayalam MN",
+        "Malayalam Sangam MN",
+        "Marker Felt",
+        "Material Design Icons",
+        "Menlo",
+        "Mercury Display",
+        "Mercury Text G1",
+        "Micrograph Trial",
+        "Micrograph VF Trial",
+        "Microsoft Sans Serif",
+        "Mishafi",
+        "Mishafi Gold",
+        "Monaco",
+        "Mono Script Clean",
+        "Monotype Old Style MT Std",
+        "Mshtakan",
+        "Mukta Mahee",
+        "Muna",
+        "Myanmar MN",
+        "Myanmar Sangam MN",
+        "Nadeem",
+        "New Peninim MT",
+        "Niconne",
+        "Noteworthy",
+        "Noto Nastaliq Urdu",
+        "Noto Sans",
+        "Noto Sans Batak",
+        "Noto Sans CJK JP",
+        "Noto Sans Condensed",
+        "Noto Sans ExtraCondensed",
+        "Noto Sans Kannada",
+        "Noto Sans Myanmar",
+        "Noto Sans NKo",
+        "Noto Sans Oriya",
+        "Noto Sans SemiCondensed",
+        "Noto Sans Syriac",
+        "Noto Sans Tagalog",
+        "Noto Serif Myanmar",
+        "Open Sans",
+        "Optima",
+        "Oriya MN",
+        "Oriya Sangam MN",
+        "PT Mono",
+        "PT Sans",
+        "PT Sans Caption",
+        "PT Sans Narrow",
+        "PT Serif",
+        "PT Serif Caption",
+        "Palatino",
+        "Papyrus",
+        "Party LET",
+        "Periodico Display TRIAL",
+        "Periodico Text TRIAL",
+        "Phosphate",
+        "Pica10 BT",
+        "PingFang HK",
+        "PingFang MO",
+        "PingFang SC",
+        "PingFang TC",
+        "Plantagenet Cherokee",
+        "Poppins",
+        "Poppins Black",
+        "Poppins ExtraBold",
+        "Poppins ExtraLight",
+        "Poppins Light",
+        "Poppins Medium",
+        "Poppins SemiBold",
+        "Poppins Thin",
+        "Proxima Nova",
+        "Publico Text",
+        "Raanana",
+        "Realgar TRIAL",
+        "Realgar VF TRIAL",
+        "Reddit Mono",
+        "Relato Sans TRIAL",
+        "Relato TRIAL",
+        "Roboto",
+        "Roboto Mono",
+        "Rockwell",
+        "Rubik",
+        "STIX Two Math",
+        "STIX Two Text",
+        "STSong",
+        "Sana",
+        "Sathu",
+        "Savoye LET",
+        "Scarythin St",
+        "Shentox TRIAL",
+        "Shree Devanagari 714",
+        "SignPainter",
+        "Silom",
+        "Sinhala MN",
+        "Sinhala Sangam MN",
+        "Skia",
+        "Snell Roundhand",
+        "Songti SC",
+        "Songti TC",
+        "Steradian TRIAL",
+        "Sukhumvit Set",
+        "Symbol",
+        "Tahoma",
+        "Tamil MN",
+        "Tamil Sangam MN",
+        "Telugu MN",
+        "Telugu Sangam MN",
+        "Thabit",
+        "Thonburi",
+        "Times New Roman",
+        "Trattatello",
+        "Trebuchet MS",
+        "Verdana",
+        "Waseem",
+        "Webdings",
+        "Wingdings",
+        "Wingdings 2",
+        "Wingdings 3",
+        "Work Sans",
+        "Zapf Dingbats",
+        "Zapfino"
+      ]
+    },
+    {
+      "name": "fontfile",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "typeface",
+      "value": "Regular",
+      "menus": [
+        "Regular",
+        "Italic",
+        "Bold",
+        "Bold Italic"
+      ]
+    },
+    {
+      "name": "bold",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "italic",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "dispmethod",
+      "value": "automatic",
+      "menus": [
+        "automatic",
+        "polygon",
+        "stroke",
+        "bitmap",
+        "scalable"
+      ]
+    },
+    {
+      "name": "antialias",
+      "value": "",
+      "menus": [
+        "aa1",
+        "aa2",
+        "aa4",
+        "aa8",
+        "aa16",
+        "aa32"
+      ]
+    },
+    {
+      "name": "strokewidth",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "fontautosize",
+      "value": "nofit",
+      "menus": [
+        "nofit",
+        "alwaysfit",
+        "fitiffat"
+      ]
+    },
+    {
+      "name": "fontsizex",
+      "value": "30.0",
+      "menus": []
+    },
+    {
+      "name": "fontsizexunit",
+      "value": "points",
+      "menus": [
+        "pixels",
+        "fract",
+        "relfract",
+        "points"
+      ]
+    },
+    {
+      "name": "fontsizey",
+      "value": "30.0",
+      "menus": []
+    },
+    {
+      "name": "fontsizeyunit",
+      "value": "points",
+      "menus": [
+        "pixels",
+        "fract",
+        "relfract",
+        "points"
+      ]
+    },
+    {
+      "name": "keepfontratio",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "breaklang",
+      "value": "english",
+      "menus": [
+        "english",
+        "german",
+        "spanish",
+        "french",
+        "japanese",
+        "korean",
+        "russian",
+        "chinese"
+      ]
+    },
+    {
+      "name": "readingdirection",
+      "value": "lefttoright",
+      "menus": [
+        "lefttoright",
+        "righttoleft"
+      ]
+    },
+    {
+      "name": "trackingx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "trackingy",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "positionx",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "positiony",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "positionunit",
+      "value": "pixels",
+      "menus": [
+        "pixels",
+        "fraction",
+        "fractionaspect"
+      ]
+    },
+    {
+      "name": "linespacing",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "linespacingunit",
+      "value": "pixels",
+      "menus": [
+        "pixels",
+        "fraction",
+        "fractionaspect"
+      ]
+    },
+    {
+      "name": "alignx",
+      "value": "center",
+      "menus": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    {
+      "name": "alignxmode",
+      "value": "metrics",
+      "menus": [
+        "metrics",
+        "bbox"
+      ]
+    },
+    {
+      "name": "aligny",
+      "value": "center",
+      "menus": [
+        "bottom",
+        "center",
+        "top"
+      ]
+    },
+    {
+      "name": "alignymode",
+      "value": "metrics",
+      "menus": [
+        "metrics",
+        "bbox"
+      ]
+    },
+    {
+      "name": "borderspace1",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderspace2",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "premultrgbbyalpha",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "fontcolorr",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "fontcolorg",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "fontcolorb",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "fontalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgcolorb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "bgalpha",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderar",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderag",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderab",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderaalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "borderbr",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbg",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbb",
+      "value": "0.0",
+      "menus": []
+    },
+    {
+      "name": "borderbalpha",
+      "value": "1.0",
+      "menus": []
+    },
+    {
+      "name": "leftborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "leftborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "rightborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "bottomborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborder",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "topborderi",
+      "value": "off",
+      "menus": [
+        "off",
+        "bordera",
+        "borderb"
+      ]
+    },
+    {
+      "name": "combineinput",
+      "value": "compres",
+      "menus": [
+        "res",
+        "compres"
+      ]
+    },
+    {
+      "name": "operand",
+      "value": "over",
+      "menus": [
+        "add",
+        "atop",
+        "average",
+        "brightest",
+        "burncolor",
+        "burnlinear",
+        "chromadifference",
+        "color",
+        "darkercolor",
+        "difference",
+        "dimmest",
+        "divide",
+        "dodge",
+        "exclude",
+        "freeze",
+        "glow",
+        "hardlight",
+        "hardmix",
+        "heat",
+        "hue",
+        "inside",
+        "insideluminance",
+        "inverse",
+        "lightercolor",
+        "luminancedifference",
+        "maximum",
+        "minimum",
+        "multiply",
+        "negate",
+        "outside",
+        "outsideluminance",
+        "over",
+        "overlay",
+        "pinlight",
+        "reflect",
+        "screen",
+        "softlight",
+        "linearlight",
+        "stencilluminance",
+        "subtract",
+        "subtractive",
+        "under",
+        "vividlight",
+        "xor",
+        "yfilm",
+        "zfilm"
+      ]
+    },
+    {
+      "name": "swaporder",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputresolution",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "eighth",
+        "quarter",
+        "half",
+        "2x",
+        "4x",
+        "8x",
+        "fit",
+        "limit",
+        "custom",
+        "parpanel"
+      ]
+    },
+    {
+      "name": "resolutionw",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resolutionh",
+      "value": "256",
+      "menus": [
+        "400 300",
+        "640 480",
+        "800 600",
+        "1024 768",
+        "1280 720",
+        "1920 1080",
+        "1920 1200",
+        "3840 2160",
+        "4096 2160",
+        "256 256",
+        "512 512",
+        "1024 1024",
+        "2048 2048",
+        "4096 4096"
+      ]
+    },
+    {
+      "name": "resmult",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "outputaspect",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "resolution",
+        "custom"
+      ]
+    },
+    {
+      "name": "aspect1",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "aspect2",
+      "value": "1.0",
+      "menus": [
+        "1 1",
+        "4 3",
+        "16 9",
+        "16 10"
+      ]
+    },
+    {
+      "name": "inputfiltertype",
+      "value": "linear",
+      "menus": [
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "fillmode",
+      "value": "best",
+      "menus": [
+        "useinput",
+        "fill",
+        "width",
+        "height",
+        "best",
+        "outside",
+        "nativeres"
+      ]
+    },
+    {
+      "name": "filtertype",
+      "value": "linear",
+      "menus": [
+        "useinput",
+        "nearest",
+        "linear",
+        "mipmap"
+      ]
+    },
+    {
+      "name": "npasses",
+      "value": "1",
+      "menus": []
+    },
+    {
+      "name": "chanmask",
+      "value": "15",
+      "menus": []
+    },
+    {
+      "name": "format",
+      "value": "useinput",
+      "menus": [
+        "useinput",
+        "rgba8fixed",
+        "rgba16float",
+        "rgba32float",
+        "rgb10a2fixed",
+        "rgba16fixed",
+        "rgba11float",
+        "mono8fixed",
+        "mono16fixed",
+        "mono16float",
+        "mono32float",
+        "rg8fixed",
+        "rg16fixed",
+        "rg16float",
+        "rg32float",
+        "a8fixed",
+        "a16fixed",
+        "a16float",
+        "a32float",
+        "monoalpha8fixed",
+        "monoalpha16fixed",
+        "monoalpha16float",
+        "monoalpha32float"
+      ]
+    },
+    {
+      "name": "parmcolorspace",
+      "value": "srgb",
+      "menus": [
+        "srgb",
+        "srgblinear",
+        "rec601ntsc",
+        "rec709",
+        "rec2020",
+        "dcip3",
+        "dcip3d60",
+        "displayp3d65",
+        "aces2065-1",
+        "acescg",
+        "passthrough"
+      ]
+    },
+    {
+      "name": "parmreferencewhite",
+      "value": "default",
+      "menus": [
+        "default",
+        "useparent",
+        "sdr",
+        "hdr",
+        "ui"
+      ]
+    }
+  ],
+  "parexec": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "active",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "executeloc",
+      "value": "here",
+      "menus": [
+        "current",
+        "here",
+        "op"
+      ]
+    },
+    {
+      "name": "fromop",
+      "value": "/project1/scope_probe",
+      "menus": []
+    },
+    {
+      "name": "op",
+      "value": "None",
+      "menus": []
+    },
+    {
+      "name": "pars",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "valuechange",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "valueschanged",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "onpulse",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "expressionchange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "exportchange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "enablechange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "modechange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "custom",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "builtin",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "edit",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "file",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "defaultreadencoding",
+      "value": "autodetect",
+      "menus": [
+        "autodetect",
+        "utf8",
+        "utf16le",
+        "utf16be",
+        "cp1252"
+      ]
+    },
+    {
+      "name": "syncfile",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "loadonstart",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "loadonstartpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "write",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "writepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "language",
+      "value": "python",
+      "menus": [
+        "input",
+        "parameter",
+        "text",
+        "python",
+        "glsl",
+        "json",
+        "yaml",
+        "xml",
+        "tscript"
+      ]
+    },
+    {
+      "name": "extension",
+      "value": "languageext",
+      "menus": [
+        "csv",
+        "dat",
+        "frag",
+        "glsl",
+        "html",
+        "json",
+        "md",
+        "py",
+        "rtf",
+        "sdp",
+        "tsv",
+        "txt",
+        "vert",
+        "xml",
+        "yaml",
+        "yml",
+        "languageext",
+        "customext"
+      ]
+    },
+    {
+      "name": "customext",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "wordwrap",
+      "value": "input",
+      "menus": [
+        "input",
+        "on",
+        "off"
+      ]
+    }
+  ],
+  "execute": [
+    {
+      "name": "pageindex",
+      "value": "0",
+      "menus": []
+    },
+    {
+      "name": "active",
+      "value": "True",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "executeloc",
+      "value": "here",
+      "menus": [
+        "current",
+        "here",
+        "op"
+      ]
+    },
+    {
+      "name": "fromop",
+      "value": "/project1/scope_probe",
+      "menus": []
+    },
+    {
+      "name": "start",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "startpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "create",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "createpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "exit",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "exitpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "framestart",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "framestartpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "frameend",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "frameendpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "playstatechange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "playstatepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "devicechange",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "devicechangepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "projectpresave",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "projectpresavepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "projectpostsave",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "projectpostsavepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "edit",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "file",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "defaultreadencoding",
+      "value": "autodetect",
+      "menus": [
+        "autodetect",
+        "utf8",
+        "utf16le",
+        "utf16be",
+        "cp1252"
+      ]
+    },
+    {
+      "name": "syncfile",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "loadonstart",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "loadonstartpulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "write",
+      "value": "False",
+      "menus": [
+        "off",
+        "on"
+      ]
+    },
+    {
+      "name": "writepulse",
+      "value": "False",
+      "menus": []
+    },
+    {
+      "name": "language",
+      "value": "python",
+      "menus": [
+        "input",
+        "parameter",
+        "text",
+        "python",
+        "glsl",
+        "json",
+        "yaml",
+        "xml",
+        "tscript"
+      ]
+    },
+    {
+      "name": "extension",
+      "value": "languageext",
+      "menus": [
+        "csv",
+        "dat",
+        "frag",
+        "glsl",
+        "html",
+        "json",
+        "md",
+        "py",
+        "rtf",
+        "sdp",
+        "tsv",
+        "txt",
+        "vert",
+        "xml",
+        "yaml",
+        "yml",
+        "languageext",
+        "customext"
+      ]
+    },
+    {
+      "name": "customext",
+      "value": "",
+      "menus": []
+    },
+    {
+      "name": "wordwrap",
+      "value": "input",
+      "menus": [
+        "input",
+        "on",
+        "off"
+      ]
+    }
+  ]
+}

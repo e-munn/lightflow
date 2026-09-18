@@ -1,0 +1,26 @@
+{
+  "purpose": "Prevent alternate recordings or repeated artists from being mistaken for independent holdouts. This is a partial explicit grouping registry, not a complete track-duplicate audit.",
+  "performance_groups": {
+    "of_the_trees_electric_forest_2025": {
+      "youtube_ids": ["-eVk7dh8dO4", "Cxb4TCmXG1c"],
+      "evidence": "/Volumes/ExtremePro/Code/lightflow/research/concert_cues/forest_recording_alignment_v2/alignment.json",
+      "status": "Strong matching audio evidence across multiple separated sections; exact A/V timing unresolved",
+      "split": "Keep both recordings in the Forest holdout group. Do not train on one and evaluate on the other."
+    }
+  },
+  "artist_groups": {
+    "of_the_trees": ["b3E9eB6Uw_E", "-eVk7dh8dO4", "Cxb4TCmXG1c"],
+    "levity": ["WCaZ6PalOsc", "m4NIAPJiFbM", "R1RbnGztK1Q"],
+    "skrillex": ["ni2pGkTPLDo", "loD-whuR5zc"],
+    "griz": ["SoDOMjCCytw"]
+  },
+  "new_wide_shot_sources": {
+    "kAyzUI5l2pk": "Ravenscoon Electric Forest 2026 — candidate wide lighting reference",
+    "P0x24Tz2XOY": "ALLEYCVT Electric Forest 2026 — candidate wide lighting reference",
+    "m4NIAPJiFbM": "Levity Electric Forest 2026 — same artist as editorial training, so not an artist-disjoint evaluation of a combined pipeline",
+    "Cxb4TCmXG1c": "Of The Trees Electric Forest 25 — alternate recording in the Forest holdout group",
+    "SoDOMjCCytw": "GRiZ Electric Forest 2026 — training source in the fresh wide-appearance pilot",
+    "R1RbnGztK1Q": "Levity / Crankdat / Tape B Electric Forest — unused in this pilot; shares a named artist with Levity sources. Attribution from download filename, not independently verified."
+  },
+  "track_overlap": "Unknown beyond the matched Forest recording. Repeated songs across different sets still need fingerprinting."
+}

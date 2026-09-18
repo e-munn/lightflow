@@ -1,0 +1,40 @@
+{
+  "test": {
+    "clips": 3,
+    "seconds": 643.5,
+    "valid_geometry_seconds": 633.3,
+    "valid_color_seconds": 623.8,
+    "peak_saturation_fraction": [
+      0.07071665875652587,
+      0.017365967365967367,
+      0.12025468524747718
+    ]
+  },
+  "train": {
+    "clips": 8,
+    "seconds": 1716.0,
+    "valid_geometry_seconds": 1594.6999999999998,
+    "valid_color_seconds": 1580.1000000000001,
+    "peak_saturation_fraction": [
+      0.35225669957686884,
+      0.4377197388247112,
+      0.3895094706168043,
+      0.08904428904428904,
+      0.34102564102564104,
+      0.17855477855477855,
+      0.056104651162790696,
+      0.1825077399380805
+    ]
+  },
+  "validation": {
+    "clips": 3,
+    "seconds": 643.5,
+    "valid_geometry_seconds": 307.3,
+    "valid_color_seconds": 303.9,
+    "peak_saturation_fraction": [
+      0.45500438981562774,
+      0.20157384987893462,
+      0.09070397111913357
+    ]
+  }
+}

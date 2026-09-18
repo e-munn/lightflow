@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "provenance": "Direct user feedback in this task",
+  "user_feedback": "for this particular audio excerpt , an interplay of snap at the drop (intense) and space / grain at prebuild less intense parts works well",
+  "source": null,
+  "source_position_seconds": null,
+  "preferences": [
+    {
+      "context": "drop / intense section",
+      "preferred_styles": ["snap"],
+      "relative_intensity": "higher"
+    },
+    {
+      "context": "prebuild / less intense section",
+      "acceptable_styles": ["space", "grain"],
+      "relative_intensity": "lower",
+      "exact_style_allocation": null
+    }
+  ],
+  "style_parameters": null,
+  "exact_boundary_labels_available": false,
+  "cross_song_validation": false,
+  "interpretation": "A contextual preference on one unidentified excerpt. It supports a three-style routing experiment, not a universal genre rule or a fixed blend. It does not identify which prebuild instants prefer Space versus Grain, exact transition times, or numerical output gains."
+}

@@ -1,0 +1,12 @@
+{
+  "export": "/Volumes/ExtremePro/Movies/Exports/lightflow_wide_forest_regions_9-16-26.mp4",
+  "duration_seconds": 60,
+  "observed_frames": 1800,
+  "accepted_training_seconds": 0,
+  "model_output": false,
+  "human_quality_review": {
+    "feedback": "The one-minute preview seems great; no comparison available, pixel choices may be improvable. Continue.",
+    "interpretation": "Positive first impression of source extraction; target-selection comparison remains useful; no model quality judgment implied."
+  },
+  "next": "Review continuous camera/occlusion and timing, then extract training targets from non-Forest wide shows. Do not use either matched Forest recording for training."
+}

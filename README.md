@@ -7,6 +7,28 @@ Audio-reactive lighting. Two surfaces in one Next.js app:
 
 Hosted demo: https://lightflow-emunns-projects.vercel.app (three pre-analyzed songs; the full library stays local).
 
+## Stereoscope research
+
+The `codex/new-research` branch adds an experimental one-channel brightness
+pipeline. The current goal is detailed live response plus musical phrasing;
+there is not yet a validated expressive model. Read
+[the training goal](docs/TRAINING_GOAL.md) and
+[the focused comparison protocol](research/brightness/PHRASE_TARGET_EXPERIMENT.md)
+before training or interpreting results.
+
+Run `npm run dev`, then visit:
+
+- `http://localhost:3001/scope/phrase`: preferred scope versus a marked Grain-to-Snap phrase.
+- `http://localhost:3001/scope/threshold`: radial threshold and compression/expansion controls.
+- `http://localhost:3001/scope/styles`: ten signal-shaping alternatives.
+- `http://localhost:3001/scope/interplay`: experimental dynamic transitions between styles.
+
+Research media, model checkpoints, prepared comparison frames and submitted
+feedback live under `/Volumes/ExtremePro`, outside Git. Hosted previews do not
+have those files: built-in excerpts and saved research comparisons require the
+local server with SanDisk connected. Live/file-input tools can run without the
+bundled excerpts. Never delete or overwrite existing SanDisk artifacts.
+
 ## Architecture
 
 ```
@@ -39,7 +61,7 @@ dmxClient.ts ──ws://localhost:7777──► scripts/dmx-bridge.mjs ──ser
 ```bash
 npm install
 echo 'ANTHROPIC_API_KEY=sk-ant-...' >> .env   # optional, only for Scout generation
-npm run dev                                   # http://localhost:3000
+npm run dev                                   # http://localhost:3001
 ```
 
 `/player` with no local song library shows the three demo songs tracked in git. To use your own library, drop `<slug>.mp3` + `<slug>_analysis.json` (+ optional `<slug>_scout.json`) into `public/songs/` and regenerate `public/songs/manifest.json` with `scripts/ingest_audio_dir.py`. Everything in `public/songs/` except the three demo songs is gitignored and excluded from Vercel uploads (`.vercelignore`).
@@ -91,6 +113,9 @@ Known quirks: torchaudio wants ffmpeg 4–7 (Homebrew ships 8, use conda's); `KM
 | `archive/v3-python/` | Analyzer (FastAPI + Demucs + librosa) |
 
 ## Deploying
+
+`npm run build` writes to `.next-production`; `vercel.json` explicitly selects
+that output directory so Vercel can locate the Next.js route manifest.
 
 The Vercel project deploys from GitHub. Pushes to `live` build a Preview; promote it (`vercel promote <url>`) or set the project's production branch to `live` so pushes go straight to production. Set `ANTHROPIC_API_KEY` in the Vercel environment for Scout. Do not deploy with `vercel --prod` from a working tree that has the full song library unless `.vercelignore` is present: the CLI uploads `public/` wholesale.
 

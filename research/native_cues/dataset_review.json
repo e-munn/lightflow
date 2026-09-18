@@ -1,0 +1,281 @@
+{
+  "admission": "weak_native_light_field_forecast_pilot",
+  "dataset": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1",
+  "reviewer": "agent sampled visual review",
+  "source_frames_reviewed": 126,
+  "scope": "Nine fixed source/mask frames per clip at +1,+30,+60,+90,+120,+150,+180,+210,+239 seconds; supplemented by earlier short source/target replays, not continuous review of all clips.",
+  "physical_desk_commands": false,
+  "human_musical_quality_approval": false,
+  "physical_latency_measured": false,
+  "model_scope": "Four weak appearance-edge probability heads, source timestamps retained. Screen namespaces are not pooled into light-field targets. No hold labels.",
+  "forest_role": "Repeatedly inspected development-transfer evaluation, not untouched test",
+  "uncertainty": "Appearance edges may reflect exposure, clipping, occlusions or screen spill. Full-horizon geometry masks do not make scene observations clean fixture signals.",
+  "clips": {
+    "alleycvt_0600": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        601.0004,
+        630.0294,
+        660.0260333333333,
+        690.0226666666666,
+        720.0193,
+        750.0159333333334,
+        780.0125666666667,
+        810.0092,
+        839.0048333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/alleycvt_0600_review.jpg",
+      "geometry_valid_fraction": 0.8884872080088988,
+      "pair_valid_fraction": 0.8841768631813126,
+      "notes": "Sampled stage correspondence is retained. Beam fields and dark gaps are visible; frequent clipped washes, residual screen/spill and occasional small foreground objects remain.",
+      "exclude_intervals": []
+    },
+    "alleycvt_1800": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        1801.0325666666668,
+        1830.0282,
+        1860.0248333333334,
+        1890.0214666666666,
+        1920.0181,
+        1950.0147333333334,
+        1980.0113666666666,
+        2010.008,
+        2039.0036333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/alleycvt_1800_review.jpg",
+      "geometry_valid_fraction": 0.8145161290322581,
+      "pair_valid_fraction": 0.8058954393770856,
+      "notes": "Sampled stage correspondence is retained. Beam fields and dark gaps are visible; frequent clipped washes, residual screen/spill and occasional small foreground objects remain.",
+      "exclude_intervals": []
+    },
+    "alleycvt_3000": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        3001.0313666666666,
+        3030.027,
+        3060.0236333333332,
+        3090.020266666667,
+        3120.0169,
+        3150.0135333333333,
+        3180.0101666666665,
+        3210.0068,
+        3239.0024333333336
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/alleycvt_3000_review.jpg",
+      "geometry_valid_fraction": 0.9409065628476084,
+      "pair_valid_fraction": 0.9390989988876529,
+      "notes": "Sampled stage correspondence is retained. Beam fields and dark gaps are visible; frequent clipped washes, residual screen/spill and occasional small foreground objects remain.",
+      "exclude_intervals": []
+    },
+    "forest_0600": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        601.0004,
+        630.0294,
+        660.0260333333333,
+        690.0226666666666,
+        720.0193,
+        750.0159333333334,
+        780.0125666666667,
+        810.0092,
+        839.0048333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/forest_0600_review.jpg",
+      "geometry_valid_fraction": 0.9044771968854283,
+      "pair_valid_fraction": 0.900027808676307,
+      "notes": "Sampled upper interior field excludes the lower main graphic panel and most side/header panels. Beam motion and dark gaps are visible. Haze and some audience silhouettes remain; geometry/jump masks are retained. Development evaluation only.",
+      "exclude_intervals": []
+    },
+    "forest_1800": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        1801.0325666666668,
+        1830.0282,
+        1860.0248333333334,
+        1890.0214666666666,
+        1920.0181,
+        1950.0147333333334,
+        1980.0113666666666,
+        2010.008,
+        2039.0036333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/forest_1800_review.jpg",
+      "geometry_valid_fraction": 0.9299221357063404,
+      "pair_valid_fraction": 0.9270022246941045,
+      "notes": "Sampled upper interior field excludes the lower main graphic panel and most side/header panels. Beam motion and dark gaps are visible. Haze and some audience silhouettes remain; geometry/jump masks are retained. Development evaluation only.",
+      "exclude_intervals": []
+    },
+    "forest_3000": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        3001.0313666666666,
+        3030.027,
+        3060.0236333333332,
+        3090.020266666667,
+        3120.0169,
+        3150.0135333333333,
+        3180.0101666666665,
+        3210.0068,
+        3239.0024333333336
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/forest_3000_review.jpg",
+      "geometry_valid_fraction": 0.9196329254727474,
+      "pair_valid_fraction": 0.9165739710789766,
+      "notes": "Sampled upper interior field excludes the lower main graphic panel and most side/header panels. Beam motion and dark gaps are visible. Haze and some audience silhouettes remain; geometry/jump masks are retained. Development evaluation only.",
+      "exclude_intervals": []
+    },
+    "griz_0600": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        601.0004,
+        630.0294,
+        660.0260333333333,
+        690.0226666666666,
+        720.0193,
+        750.0159333333334,
+        780.0125666666667,
+        810.0092,
+        839.0048333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/griz_0600_review.jpg",
+      "geometry_valid_fraction": 0.7729421579532815,
+      "pair_valid_fraction": 0.7671023359288098,
+      "notes": "Both upper side bands stay outside the recognizable center logo and lower screen interiors in all nine samples. Beams and dark gaps remain visible; background points, haze, spill and clipped washes can remain.",
+      "exclude_intervals": []
+    },
+    "griz_1800": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        1801.0325666666668,
+        1830.0282,
+        1860.0248333333334,
+        1890.0214666666666,
+        1920.0181,
+        1950.0147333333334,
+        1980.0113666666666,
+        2010.008,
+        2039.0036333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/griz_1800_review.jpg",
+      "geometry_valid_fraction": 0.9795606229143493,
+      "pair_valid_fraction": 0.978448275862069,
+      "notes": "Both upper side bands stay outside the recognizable center logo and lower screen interiors in all nine samples. Beams and dark gaps remain visible; background points, haze, spill and clipped washes can remain.",
+      "exclude_intervals": []
+    },
+    "griz_3000": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        3001.0313666666666,
+        3030.027,
+        3060.0236333333332,
+        3090.020266666667,
+        3120.0169,
+        3150.0135333333333,
+        3180.0101666666665,
+        3210.0068,
+        3239.0024333333336
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/griz_3000_review.jpg",
+      "geometry_valid_fraction": 0.7203837597330367,
+      "pair_valid_fraction": 0.7139877641824249,
+      "notes": "Both upper side bands stay outside the recognizable center logo and lower screen interiors in all nine samples. Beams and dark gaps remain visible; background points, haze, spill and clipped washes can remain.",
+      "exclude_intervals": []
+    },
+    "levity_forest_0900": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        901.0001,
+        930.0291,
+        960.0257333333333,
+        990.0223666666667,
+        1020.019,
+        1050.0156333333334,
+        1080.0122666666666,
+        1110.0089,
+        1139.0045333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/levity_forest_0900_review.jpg",
+      "geometry_valid_fraction": 0.4587041156840934,
+      "pair_valid_fraction": 0.45189098998887656,
+      "notes": "Upper interior field remains above the recognizable lower screen in samples. Bright camera-motion frames and missing registrations are often masked; usable coverage is sparse and validation remains exploratory. Clipping and poles can remain.",
+      "exclude_intervals": []
+    },
+    "levity_forest_2100": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        2101.0322666666666,
+        2130.0279,
+        2160.0245333333332,
+        2190.021166666667,
+        2220.0178,
+        2250.0144333333333,
+        2280.0110666666665,
+        2310.0077,
+        2339.0033333333336
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/levity_forest_2100_review.jpg",
+      "geometry_valid_fraction": 0.4883203559510567,
+      "pair_valid_fraction": 0.47900444938820913,
+      "notes": "Upper interior field remains above the recognizable lower screen in samples. Bright camera-motion frames and missing registrations are often masked; usable coverage is sparse and validation remains exploratory. Clipping and poles can remain.",
+      "exclude_intervals": []
+    },
+    "levity_forest_3300": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        3301.0310666666664,
+        3330.0267,
+        3360.0233333333335,
+        3390.0199666666667,
+        3420.0166,
+        3450.013233333333,
+        3480.0098666666668,
+        3510.0065,
+        3539.0021333333334
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/levity_forest_3300_review.jpg",
+      "geometry_valid_fraction": 0.4029477196885428,
+      "pair_valid_fraction": 0.3971078976640712,
+      "notes": "Upper interior field remains above the recognizable lower screen in samples. Bright camera-motion frames and missing registrations are often masked; usable coverage is sparse and validation remains exploratory. Clipping and poles can remain.",
+      "exclude_intervals": []
+    },
+    "ravenscoon_1800": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        1801.0325666666668,
+        1830.0282,
+        1860.0248333333334,
+        1890.0214666666666,
+        1920.0181,
+        1950.0147333333334,
+        1980.0113666666666,
+        2010.008,
+        2039.0036333333333
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/ravenscoon_1800_review.jpg",
+      "geometry_valid_fraction": 0.9912402669632926,
+      "pair_valid_fraction": 0.9906840934371524,
+      "notes": "Upper and side fields exclude the recognizable rear-screen interior in samples. Some projected structural graphics and light spill remain. The late 3000-second clip contains prolonged clipping and cannot establish a clean physical hold.",
+      "exclude_intervals": []
+    },
+    "ravenscoon_3000": {
+      "status": "admit_weak_light_field",
+      "review_seconds": [
+        3001.0313666666666,
+        3030.027,
+        3060.0236333333332,
+        3090.020266666667,
+        3120.0169,
+        3150.0135333333333,
+        3180.0101666666665,
+        3210.0068,
+        3239.0024333333336
+      ],
+      "review_sheet": "/Volumes/ExtremePro/Code/lightflow/research/native_cues/dataset_v1/ravenscoon_3000_review.jpg",
+      "geometry_valid_fraction": 1.0,
+      "pair_valid_fraction": 0.999860956618465,
+      "notes": "Upper and side fields exclude the recognizable rear-screen interior in samples. Some projected structural graphics and light spill remain. The late 3000-second clip contains prolonged clipping and cannot establish a clean physical hold.",
+      "exclude_intervals": []
+    }
+  }
+}

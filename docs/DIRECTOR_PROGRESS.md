@@ -1,5 +1,12 @@
 # Live browser director — active work
 
+> Research direction updated 2026-09-16: read [TRAINING_GOAL.md](TRAINING_GOAL.md)
+> before training. This document retains historical experiments. The new branch
+> excludes RPMC-L2. The current milestone is one brightness signal, preserving
+> stereoscope detail while adding context-dependent expression. Additional
+> output dimensions are deferred; see `research/brightness/PHRASE_TARGET_EXPERIMENT.md`
+> for the latest target comparison. No expressive model has been promoted.
+
 ## User quality rejection — supersedes the previous direction
 
 The user auditioned the result and said it still feels like an energy meter.

@@ -1,0 +1,20 @@
+{
+  "rule": "Strong candidates require detector score >= 0.9 and no reviewed ambiguity. All lower-scored or flagged candidates mask negative claims, rather than being treated as no cut.",
+  "provenance": "Agent inspection of sampled before/peak/after sheets. Weak supervision only; exact cut-frame timing and recall remain unverified.",
+  "uncertain_boundary_indices": {
+    "levity": [1317, 222],
+    "whethan": [165],
+    "rezz": [974, 712],
+    "skrillex_chile": [339, 1328]
+  },
+  "audits": {
+    "levity_threshold_0.5": "12 random: 7 clear view changes, 2 same-view lighting changes, 3 ambiguous. Rejected as clean cuts.",
+    "levity_threshold_0.8": "12 random plus 4 boundary-score cases: all have visibly different camera views across review span.",
+    "whethan_threshold_0.8": "Random 464 and 702 are same-view changes; 955 is ambiguous. Challenge 386 is also same-view. Reject 0.8 as clean threshold.",
+    "levity_threshold_0.9": "12 random: 11 clear view changes and crowd shot 1317 ambiguous; 4 boundary-score cases: 3 clear, 222 same-view lighting change.",
+    "whethan_threshold_0.9": "12 random clear view changes; 4 boundary-score cases: 3 clear, 165 same-view lighting change.",
+    "rezz_threshold_0.9": "12 random: 11 visible view changes (including dissolves), 974 ambiguous same wide view. Four boundary-score cases: 3 clear, 712 same-view change. Both ambiguous cases masked.",
+    "skrillex_chile_threshold_0.9": "12 random: 11 visible view changes, 339 ambiguous performer view. Four boundary-score cases: 3 clear changes, crowd view 1328 ambiguous. Both ambiguous cases masked before model training/evaluation."
+  },
+  "limitation": "Score 0.9 does not guarantee a cut. Masks account only for detected or reviewed uncertainty. Training/test measures refer to this selective detector-defined task, not all human edits or fixture choices."
+}

@@ -1,0 +1,21 @@
+{
+  "coordinate_size": [640, 360],
+  "status": "manual spatial proposals pending sampled review; no training admission",
+  "meaning": "Separate candidate light fields from visible screen interiors. Overlap, haze, projected scenery and unmapped screens can remain; no desk-command recovery is claimed.",
+  "sources": {
+    "griz": {
+      "clip_start": 1800,
+      "sample_seconds": [1860, 1870, 1980],
+      "light_field_rectangles": [[244, 156, 286, 221], [350, 156, 394, 221]],
+      "screen_rectangles": [[248, 226, 389, 266]],
+      "notes": "The original lower-stage crop is a screen interior. Proposed light fields flank the central circular logo and stay above the lower screen; backdrop graphics may contaminate these bands."
+    },
+    "ravenscoon": {
+      "clip_start": 3000,
+      "sample_seconds": [3060, 3070, 3180],
+      "light_field_rectangles": [[211, 190, 425, 209], [209, 211, 237, 257], [413, 211, 431, 257]],
+      "screen_rectangles": [[248, 219, 402, 258]],
+      "notes": "Proposed upper/side fields exclude most of the large rear screen missed by the old small center exclusion. Lit structures or projected scenery may remain."
+    }
+  }
+}

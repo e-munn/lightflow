@@ -1,3 +1,30 @@
-.director-studio{--ink:#eef6f4;--muted:#8fa5a3;--line:#293332;background:#080c0c;color:var(--ink);min-height:100dvh;font-family:Arial,sans-serif;padding:0 28px 24px}.studio-header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.studio-header a{font-size:22px;letter-spacing:-1px}.studio-header a span{color:var(--muted)}.status-dot{font-size:12px;letter-spacing:2px;color:#8dedbb}.status-dot:before{content:'●';margin-right:10px}.director-studio button,.file-button{border:1px solid var(--line);padding:11px 16px;border-radius:6px;font-size:14px;cursor:pointer;background:#111817;color:var(--ink)}.director-studio button:hover,.file-button:hover{border-color:#75918c}.director-studio button:focus-visible,.file-button:focus-within{outline:2px solid #b9f3d3;outline-offset:4px}.studio-stage{height:53vh;min-height:300px;position:relative;overflow:hidden;background:#000;border:1px solid var(--line);border-radius:10px}.stage-caption{position:absolute;left:28px;bottom:24px;pointer-events:none}.stage-caption span,.eyebrow{font-size:12px;letter-spacing:2px;color:var(--muted)}.stage-caption h1{font-size:38px;letter-spacing:-1.5px;margin:7px 0}.stage-caption p{font-size:14px;color:var(--muted)}.stage-state{position:absolute;top:22px;right:24px;font-size:14px;color:#b9f3d3}.studio-controls{padding-top:24px}.source-controls{display:flex;align-items:center;gap:12px}.source-controls>div:first-child{flex:1;min-width:160px}.source-controls p{margin-top:6px;font-size:16px;overflow:hidden;text-overflow:ellipsis;max-width:40vw;white-space:nowrap}.director-studio .primary,.director-studio .selected{background:#b9f3d3;color:#092016;border-color:#b9f3d3}.file-button input{position:absolute;width:1px;height:1px;opacity:0}.director-settings{display:flex;align-items:center;gap:20px;margin:22px 0}.director-settings label{display:flex;gap:12px;align-items:center;font-size:14px}.director-settings input{accent-color:#b9f3d3}.director-settings>span{margin-left:auto;font-size:13px;color:var(--muted)}.scene-bank{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px}.scene-bank button{text-align:left;padding:14px 10px;min-height:77px;font-size:14px}.scene-bank button span{display:block;font-size:12px;margin-bottom:12px;color:var(--muted)}.scene-bank .active-scene{border-color:#b9f3d3;background:#1b3027}.engine-note{font-size:13px;color:var(--muted);margin-top:18px}.studio-error{color:#ffc0b8;margin:12px 0}@media(max-width:900px){.scene-bank{grid-template-columns:repeat(5,1fr)}.director-settings{flex-wrap:wrap}.director-settings>span{margin-left:0}.source-controls{flex-wrap:wrap}.source-controls>div:first-child{flex-basis:100%}.source-controls p{max-width:85vw}}@media(max-width:500px){.director-studio{padding:0 14px 20px}.status-dot{display:none}.studio-stage{height:45vh}.scene-bank{grid-template-columns:repeat(2,1fr)}.stage-caption h1{font-size:30px}.stage-caption{left:16px}.studio-header{gap:8px}.studio-header a{font-size:19px}}
-
-.raw-light{width:100%;height:100%;background:#000}.output-settings{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}.output-settings>span{font-size:13px;color:var(--muted)}.studio-stage:fullscreen{width:100vw;height:100dvh;min-height:0;border:0;border-radius:0;background:#000;cursor:none}.studio-stage:fullscreen .stage-caption,.studio-stage:fullscreen .stage-state{display:none}
+.director-studio .raw-light { width: 100%; height: 100%; background: #000; }
+.director-studio .studio-stage { overflow: hidden; }
+.director-mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.director-mode-switch > button { display: flex; align-items: center; gap: 10px; padding: 14px 12px; border: 1px solid var(--flash-line); border-radius: 10px; background: #ffffff03; text-align: left; }
+.director-mode-switch > button[aria-pressed=true] { border-color: #c1f3d660; background: #c1f3d609; }
+.director-mode-switch > button > svg { color: var(--flash-accent); }
+.director-mode-switch > button > span { flex: 1; font-size: 12px; }
+.director-mode-switch small { display: block; font-size: 10px; color: var(--flash-muted); margin-top: 5px; line-height: 1.4; }
+.director-mode-switch > button > svg:last-child { width: 13px; height: 13px; }
+.director-scene-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.director-scene-heading button[aria-pressed=true] { color: var(--flash-accent); border-color: #c1f3d640; }
+.director-looks .flash-recipe-card { min-height: 70px; }
+.director-response-options { display: grid; grid-template-columns: repeat(3,1fr); padding: 4px; gap: 4px; border: 1px solid var(--flash-line); border-radius: 10px; margin-bottom: 16px; background: #0003; }
+.director-response-options > button { border: 0; border-radius: 6px; padding: 10px 5px; font-size: 12px; background: transparent; color: var(--flash-muted); }
+.director-response-options > button[aria-pressed=true] { background: var(--flash-accent); color: #112019; }
+.director-timing { border-block: 1px solid var(--flash-line); padding-block: 6px; margin-block: 18px; font-size: 11px; }
+.director-timing > div { display: flex; justify-content: space-between; align-items: center; padding-block: 7px; gap: 12px; }
+.director-timing dt { color: var(--flash-muted); }
+.director-timing dd { font-variant-numeric: tabular-nums; }
+.director-model-info { display: flex; align-items: flex-start; gap: 10px; padding: 10px 8px; }
+.director-model-info > svg { color: var(--flash-accent); width: 16px; height: 16px; margin-top: 2px; }
+.director-model-info p { font-size: 11px; line-height: 1.6; }
+.director-model-info p + p { color: var(--flash-muted); margin-top: 5px; }
+@media (max-width: 700px) {
+ .director-studio .flash-dock { grid-template-columns: minmax(0,3fr) minmax(0,4fr); }
+ .director-mode-switch { gap: 8px; }
+ .director-mode-switch > button { padding: 12px 10px; flex-wrap: wrap; gap: 8px; }
+ .director-mode-switch > button > span { flex-basis: calc(100% - 32px); }
+ .director-mode-switch > button > svg:last-child { display: none; }
+}

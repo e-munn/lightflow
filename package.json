@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/director/prepare-runtime.mjs",
     "dev": "next dev --webpack --port 3001",
     "build": "LIGHTFLOW_BUILD_DIR=.next-production next build --webpack && node scripts/director/offline-manifest.mjs",
     "start": "LIGHTFLOW_BUILD_DIR=.next-production next start",

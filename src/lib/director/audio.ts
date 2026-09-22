@@ -19,6 +19,7 @@ export class DirectorAudio {
   this.worklet.port.onmessage=({data})=>this.worker?.postMessage({type:'pcm',...data},[data.pcm.buffer]);
   if(this.media)await this.media.play();
  }
+ setLevelWindow(samples:number){if(this.analyser&&this.analyser.fftSize!==samples){this.analyser.fftSize=samples;this.data=new Float32Array(samples);}}
  get level(){if(!this.analyser)return 0;this.analyser.getFloatTimeDomainData(this.data);let sum=0;for(const x of this.data)sum+=x*x;return Math.sqrt(sum/this.data.length);}
  get time(){return this.context?.currentTime??0;}
  stop(){this.stopped=true;this.stream?.getTracks().forEach(t=>t.stop());this.worker?.terminate();this.worklet?.disconnect();if(this.media){this.media.pause();URL.revokeObjectURL(this.media.src);}void this.context?.close();}

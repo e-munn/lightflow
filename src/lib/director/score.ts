@@ -7,7 +7,7 @@ const profiles = [[.35,.75,.8],[.25,.35,.35],[.65,.7,.45],[.55,.8,.7],[.15,.3,.9
 export class Score {
  cue=initialCue();
  private short=0;private long=0;private lastScene=-20;private previousTime=0;private lastEnergy=0;private used=Array(10).fill(-100);
- update(time:number,level:number,manual:number|null,learned?:number[]):Cue{
+ update(time:number,level:number,manual:number|null,learned?:number[],brightnessSeconds=.2):Cue{
   const dt=Math.min(.1,Math.max(0,time-this.previousTime));this.previousTime=time;
   const energy=Math.min(1,level*5);this.short+=(energy-this.short)*(1-Math.exp(-dt/.7));this.long+=(energy-this.long)*(1-Math.exp(-dt/9));
   const rise=this.short-this.long;
@@ -23,7 +23,7 @@ export class Score {
   this.cue.blend=Math.min(1,this.cue.blend+dt/2.5);
   const target=learned??[energy*.6,.25,.4,.57,.5];
   const keys=['brightness','motion','complexity','hue','spread'] as const;
-  keys.forEach((k,i)=>{const v=k==='brightness'&&energy<.025?0:target[i];let delta=v-this.cue[k];if(k==='hue')delta=((delta+.5)%1+1)%1-.5;this.cue[k]+=delta*(1-Math.exp(-dt/(k==='brightness'?.2:2)));if(k==='hue')this.cue[k]=(this.cue[k]+1)%1;});
+  keys.forEach((k,i)=>{const v=k==='brightness'&&energy<.025?0:target[i];let delta=v-this.cue[k];if(k==='hue')delta=((delta+.5)%1+1)%1-.5;this.cue[k]+=delta*(1-Math.exp(-dt/(k==='brightness'?Math.max(.001,brightnessSeconds):2)));if(k==='hue')this.cue[k]=(this.cue[k]+1)%1;});
   // A restrained transient layer handles arrivals between the slower model hops.
   const attack=Math.min(1,Math.max(0,energy-this.lastEnergy)*4);this.lastEnergy=energy;
   this.cue.accent=Math.max(attack,this.cue.accent*Math.exp(-dt/.12));

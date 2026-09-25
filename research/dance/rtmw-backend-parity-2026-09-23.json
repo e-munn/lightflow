@@ -1,0 +1,18 @@
+{
+  "frames": 480,
+  "duration": 7.991316,
+  "cpuRun": "37c76245-6d91-4ad3-8c32-889d52f5d3c6",
+  "coremlRun": "36b62e47-8674-4d6a-ae9a-81b583272ee4",
+  "timestampsIdentical": true,
+  "personCountChanges": 0,
+  "primaryAssignmentChanges": 0,
+  "confidenceThresholdCrossings": 0,
+  "comparedVisiblePoints": 78869,
+  "pixelDistance": {
+    "median": 0.0,
+    "p95": 0.0,
+    "max": 2.433599999999956
+  },
+  "maxScoreDifference": 0.004899999999999682,
+  "method": "Paired decoded poses from identical frames; person order assumed stable when counts match. Not an anatomical accuracy evaluation."
+}

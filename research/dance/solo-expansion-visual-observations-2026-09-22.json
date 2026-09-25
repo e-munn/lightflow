@@ -1,0 +1,520 @@
+[
+  {
+    "runId": "8e704036-1d15-4047-a81e-0f6c07ca607c",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/8e704036-1d15-4047-a81e-0f6c07ca607c/sample-review-83gj5748",
+    "text": "Uniform overlays remain on the sole dancer; coarse legs plausible against snow, with forearm occlusion on side/back-facing poses.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/a9af2c35-798f-410b-91a0-858e8f828d12/sample-review-qt0gtivq",
+    "text": "Uniform overlays remain on the sole dancer across wide stances and bends. Raised hands approach or leave the top edge; occluded near-torso wrists are uncertain.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "77b9f996-1d50-453d-ba07-d4ee8b132d78",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      112,
+      224,
+      337,
+      449,
+      561,
+      674,
+      786,
+      898
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/77b9f996-1d50-453d-ba07-d4ee8b132d78/sample-review-i732jmg0",
+    "text": "Uniform overlays remain on the stage soloist; some ankle and wrist confidence loss. Framing/scale changes make absolute travel camera-confounded despite good joint coverage.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [
+      0,
+      290,
+      428,
+      577,
+      824,
+      1099,
+      1240,
+      1412,
+      1622
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/3946f65e-3938-4d38-ae54-4854c937d099/sample-review-m6mb2e8k",
+    "text": "Uniform overlays remain on the sole dancer; side-facing and near-torso forearms lose confidence repeatedly while legs remain visible. Closed cabinets do not attract another body in inspected samples.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "f7f5684d-344f-4b20-a633-d0ebabaf89aa",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/f7f5684d-344f-4b20-a633-d0ebabaf89aa/sample-review-6yapqi_g",
+    "text": "Uniform overlays remain on the sole dancer; side-facing and near-torso forearms lose confidence repeatedly while legs remain visible. Closed cabinets do not attract another body in inspected samples.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "9ff85da3-4e31-40ae-b139-62005d4c20b3",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      112,
+      224,
+      336,
+      448,
+      559,
+      671,
+      783,
+      895
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/9ff85da3-4e31-40ae-b139-62005d4c20b3/sample-review-tkti6pp3",
+    "text": "Uniform overlays remain on the foreground dancer. A mirror reflection is visible but is not assigned as primary in inspected frames. Side/back turns and late cropped/hidden joints remain limitations.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "cdcaa625-8176-4ea0-a78f-165593e75179",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/cdcaa625-8176-4ea0-a78f-165593e75179/sample-review-usrbjdfi",
+    "text": "Sampled primary overlays stay on the sole dancer. Coarse limbs plausible; side-facing/crossed hands lose confidence, especially later in the performance.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "daa4342c-5a00-4ba7-b500-1de031ef83fa",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      269,
+      359,
+      449,
+      538,
+      628,
+      718
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/daa4342c-5a00-4ba7-b500-1de031ef83fa/sample-review-ls_exb9b",
+    "text": "Sampled primary overlays stay on the sole dancer. Coarse limbs plausible; side-facing/crossed hands lose confidence, especially later in the performance.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [
+      4,
+      61,
+      106,
+      199,
+      236,
+      281,
+      320,
+      485,
+      621
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/35ad6ce5-109d-4431-bf59-7c8936482124/sample-review-d7k3rp6a",
+    "text": "Sampled uniform overlays stay on the sole dancer and show plausible coarse limbs. Strong required-joint confidence even in the dark room; fingers/chest detail and full-span accuracy remain unverified.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "36fe8631-6258-497f-aaef-4070507681d2",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      269,
+      359,
+      449,
+      538,
+      628,
+      718
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/36fe8631-6258-497f-aaef-4070507681d2/sample-review-yvob3s99",
+    "text": "Sampled uniform overlays stay on the sole dancer and show plausible coarse limbs. Strong required-joint confidence even in the dark room; fingers/chest detail and full-span accuracy remain unverified.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "a49dd8a8-5b28-4589-8ae1-38863dad04f3",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      112,
+      224,
+      337,
+      449,
+      561,
+      674,
+      786,
+      898
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/a49dd8a8-5b28-4589-8ae1-38863dad04f3/sample-review-q1x9_2wr",
+    "text": "Uniform overlays remain on the sole dancer; feet/legs generally stable. Near-torso hands are often missing or uncertain. Keep leg evidence separate from arm masks.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "099ae693-359c-4df4-9947-664a57bd3bbf",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      112,
+      225,
+      337,
+      450,
+      562,
+      674,
+      787,
+      899
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/099ae693-359c-4df4-9947-664a57bd3bbf/sample-review-lq6y4xj0",
+    "text": "Uniform overlays remain on the sole dancer; feet/legs generally stable. Near-torso hands are often missing or uncertain. Keep leg evidence separate from arm masks.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "7538b392-8a53-46db-81dd-5d06b33ec4da",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/7538b392-8a53-46db-81dd-5d06b33ec4da/sample-review-pe5_adgm",
+    "text": "Uniform overlays remain on the sole dancer, but side/back poses hide wrists and elbows for much of the passage. Confidence loss explains poor whole-body coverage.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "29d00a80-c65e-4536-83b8-6c328bbf51d3",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/29d00a80-c65e-4536-83b8-6c328bbf51d3/sample-review-r15zapml",
+    "text": "Sampled primary overlays stay on the sole dancer. Side/back turns hide elbows and wrists; later passage has substantially more missing arms. Landscape framing is broadly stable in samples.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "53f84bc6-7b73-49fd-aa9c-f2ba7462f58b",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      269,
+      359,
+      449,
+      538,
+      628,
+      718
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/53f84bc6-7b73-49fd-aa9c-f2ba7462f58b/sample-review-p7bb0szx",
+    "text": "Sampled primary overlays stay on the sole dancer. Side/back turns hide elbows and wrists; later passage has substantially more missing arms. Landscape framing is broadly stable in samples.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [
+      110,
+      276,
+      462,
+      624,
+      864,
+      1210,
+      1368,
+      1520,
+      1670
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/32e7239a-1f50-486a-82ee-afd3ac8875ed/sample-review-0x1w45go",
+    "text": "Uniform samples follow the sole dancer. Difficult samples show a duplicate body proposal during a deep bend around20.19s; lifted/crossed legs and forearms also lose confidence.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "8418d7bd-9d88-48a4-ba45-ad67ccf059a6",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [
+      47,
+      192,
+      337,
+      532,
+      679,
+      791,
+      896,
+      1041,
+      1751
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/8418d7bd-9d88-48a4-ba45-ad67ccf059a6/sample-review-z85fshum",
+    "text": "Sampled primary overlays follow the sole dancer where assigned. Difficult samples show unassigned partial detections around13-15s and hidden crossed arms; no hold/stillness label may be inferred from these gaps.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "e0279535-d68a-436a-a42b-a133181d6c60",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/e0279535-d68a-436a-a42b-a133181d6c60/sample-review-af8tfgkn",
+    "text": "Sampled overlays remain on the dancer; head is clipped near the top, and overhead perspective foreshortens limbs. Treat as extraction stress case, not a geometry reference.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "84c76181-2bcf-4729-8b1b-64bfcf737d09",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/84c76181-2bcf-4729-8b1b-64bfcf737d09/sample-review-0915_1mo",
+    "text": "Sampled primary overlays stay on the sole dancer with plausible coarse limbs. Arms overlap the torso on turns. Lighting colors change; these pixels are not light-training labels.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "6ff3f1c3-331a-4ef8-b58a-d3341a428118",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      269,
+      359,
+      449,
+      538,
+      628,
+      718
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/6ff3f1c3-331a-4ef8-b58a-d3341a428118/sample-review-1cgpju62",
+    "text": "Sampled primary overlays stay on the sole dancer with plausible coarse limbs. Arms overlap the torso on turns. Lighting colors change; these pixels are not light-training labels.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "fee3937d-526f-4286-a19f-5876512868b3",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      56,
+      112,
+      168,
+      224,
+      280,
+      336,
+      392,
+      448
+    ],
+    "difficultFrameIndices": [
+      3,
+      89,
+      141,
+      220,
+      305,
+      368,
+      434
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/fee3937d-526f-4286-a19f-5876512868b3/sample-review-399p93js",
+    "text": "Sampled overlays remain on the dancer, but side-facing forearm and knee observations are often missing; some hands/feet are blurred. Later source mirror edits were excluded by selecting20-35s.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      90,
+      180,
+      270,
+      360,
+      449,
+      539,
+      629,
+      719
+    ],
+    "difficultFrameIndices": [],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/89dab10c-317e-4ea4-aa70-beb1b86d0438/sample-review-s9n0kwfw",
+    "text": "Uniform overlays remain on the sole dancer, with plausible coarse torso and limbs across wide stances and arm gestures. Fine hand positions and timing need continuous review.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  },
+  {
+    "runId": "7451c690-66d7-48db-96c0-085b13530d3a",
+    "method": "sampled",
+    "uniformFrameIndices": [
+      0,
+      225,
+      450,
+      674,
+      899,
+      1124,
+      1348,
+      1573,
+      1798
+    ],
+    "difficultFrameIndices": [
+      30,
+      306,
+      448,
+      850,
+      951,
+      1254,
+      1442,
+      1536,
+      1638
+    ],
+    "sampleDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/runs/7451c690-66d7-48db-96c0-085b13530d3a/sample-review-xv20ndd4",
+    "text": "Uniform samples follow the sole dancer. Difficult samples show two overlapping pose proposals on that dancer at7.47s, no detection at24.06s, and poor legs at25.63s. Strict gate withholds ambiguous assignment.",
+    "fullSpanReviewed": false,
+    "audioAlignmentVerified": false
+  }
+]

@@ -1,0 +1,106 @@
+{
+  "automated": true,
+  "realMusicPlayback": true,
+  "musicalQualityMeasured": false,
+  "physicalLatencyMeasured": false,
+  "decisions": [
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.74,
+      "roundTripMs": 275
+    },
+    {
+      "status": 429,
+      "error": "Wait before requesting another decision."
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.71,
+      "roundTripMs": 225
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.58,
+      "roundTripMs": 135
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.45,
+      "roundTripMs": 126
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.56,
+      "roundTripMs": 102
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.76,
+      "roundTripMs": 183
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.78,
+      "roundTripMs": 108
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.77,
+      "roundTripMs": 145
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.77,
+      "roundTripMs": 100
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "real audio playback and live TypeSafe decisions",
+    "source-linked decision export",
+    "full viewport display",
+    "A/B keyboard switching",
+    "blackout",
+    "stop cancels capture and API activity",
+    "mobile overflow",
+    "no browser exceptions"
+  ],
+  "maxDifference": 0.60114,
+  "nonzeroCircle": 60,
+  "nonzeroJev": 60,
+  "appliedModes": [
+    "snap"
+  ],
+  "dispositions": [
+    "accepted",
+    "uncertain"
+  ],
+  "browserLatencies": [
+    813,
+    237,
+    146,
+    139,
+    115,
+    194,
+    120,
+    156,
+    110
+  ],
+  "fullscreen": {
+    "width": 1440,
+    "height": 1050,
+    "viewport": [
+      1440,
+      1050
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": "v2-recent-audio-support",
+  "status": "rejected as general replacement",
+  "hashes": {
+    "src/lib/pipeline/brightness-v0.ts": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "src/lib/pipeline/brightness-timing.ts": "0ccf0ef199175a8b402464fdf487e99a8ff30dd948990f123775ea08b63a0a78",
+    "research/dance/V2_PROTOCOL.md": "1b66d543a99c18413ade5e5424173e4b68efc29a3c5602ba2d7ef67c29958913"
+  },
+  "report": "research/dance/timing-evaluation-development-2026-09-22T05-58-29-414Z.json"
+}

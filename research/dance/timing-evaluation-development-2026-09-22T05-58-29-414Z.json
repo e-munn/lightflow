@@ -1,0 +1,952 @@
+{
+  "createdAt": "2026-09-22T05:58:29.413Z",
+  "stage": "V2 support / V3 amplitude-only study",
+  "protocol": "research/dance/V2_PROTOCOL.md",
+  "caveats": [
+    "Energy anchors and phase grids are algorithmic, not beat ground truth.",
+    "V3 uses V2 event times by construction; identical timing is not validation of expression.",
+    "No human perceptual judgment is available."
+  ],
+  "hashes": {
+    "movement-brightness": "ac30a0e3887c85fc12d2af29de059493c9d19f7ea801da78e1da9a0d0d7edddb",
+    "brightness-v0": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "music-context": "56e12f4b4efb8b885576b5de901a5f3b3858508d1b7227327019796370b7ba8c",
+    "brightness-timing": "0ccf0ef199175a8b402464fdf487e99a8ff30dd948990f123775ea08b63a0a78"
+  },
+  "rows": [
+    {
+      "runId": "86dab5e0-9793-4cb4-8a1a-5c9c7f0c04f6",
+      "title": "Poppin John | AI Naafyish | Old School Electro 2023",
+      "split": "development",
+      "music": {
+        "bpm": 82,
+        "confidence": 0.4952937955276323,
+        "texture": "mixed",
+        "percussiveness": 0.47776258256518206,
+        "density": 6.504336224149433,
+        "continuity": 0.4372066002795682,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 218,
+        "energy": 145,
+        "grid": null
+      },
+      "retention": 0.8958333333333334,
+      "controls": {
+        "original": 48,
+        "realAccepted": 43,
+        "shiftedAccepted": 44,
+        "wrongAccepted": 29,
+        "wrongSourceId": "rAyYpkWuZKk"
+      },
+      "variants": {
+        "V1": {
+          "gain": 0.9,
+          "fade": 90,
+          "validSeconds": 27.402,
+          "mean": 0.1109,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 48,
+            "energyWithin120": 0.875,
+            "medianEnergyDistanceMs": 52,
+            "constructionWithin120": 0.9791666666666666,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.8996,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 0.9,
+          "fade": 90,
+          "validSeconds": 27.402,
+          "mean": 0.0985,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 43,
+            "energyWithin120": 0.8604651162790697,
+            "medianEnergyDistanceMs": 53,
+            "constructionWithin120": 0.9767441860465116,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.0138,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0.0107,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 0.9,
+          "fade": 90,
+          "validSeconds": 27.402,
+          "mean": 0.065,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 43,
+            "energyWithin120": 0.8604651162790697,
+            "medianEnergyDistanceMs": 53,
+            "constructionWithin120": 0.9767441860465116,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.5922,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0.0152,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 0.9,
+          "fade": 90,
+          "validSeconds": 27.402,
+          "mean": 0.4107,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 204,
+            "energyWithin120": 0.9313725490196079,
+            "medianEnergyDistanceMs": 42,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.2429,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 0.9,
+          "fade": 90,
+          "validSeconds": 27.402,
+          "mean": 0.5082,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.1963,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 27.402,
+          "mean": 0.236,
+          "saturation": 0.0335,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 48,
+            "energyWithin120": 0.875,
+            "medianEnergyDistanceMs": 52,
+            "constructionWithin120": 0.9791666666666666,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.5991,
+            "validSeconds": 27.402,
+            "mean": 0.1109,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    },
+    {
+      "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "split": "development",
+      "music": {
+        "bpm": 120,
+        "confidence": 0.518692956185446,
+        "texture": "mixed",
+        "percussiveness": 0.2974624248745836,
+        "density": 5.270180120080053,
+        "continuity": 0.46402890939354074,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 161,
+        "energy": 119,
+        "grid": null
+      },
+      "retention": 0.6904761904761905,
+      "controls": {
+        "original": 42,
+        "realAccepted": 29,
+        "shiftedAccepted": 19,
+        "wrongAccepted": 26,
+        "wrongSourceId": "DpbzG37isyg"
+      },
+      "variants": {
+        "V1": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 27.819,
+          "mean": 0.0926,
+          "saturation": 0.0075,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 42,
+            "energyWithin120": 0.9047619047619048,
+            "medianEnergyDistanceMs": 70,
+            "constructionWithin120": 0.9047619047619048,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.0495,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0.0075,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 27.819,
+          "mean": 0.0613,
+          "saturation": 0.003,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 29,
+            "energyWithin120": 1,
+            "medianEnergyDistanceMs": 60,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.6514,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0.0165,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 27.819,
+          "mean": 0.0358,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 29,
+            "energyWithin120": 1,
+            "medianEnergyDistanceMs": 60,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 2.9173,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0.021,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 27.819,
+          "mean": 0.3704,
+          "saturation": 0.0989,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 150,
+            "energyWithin120": 0.8866666666666667,
+            "medianEnergyDistanceMs": 30,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.2591,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 27.819,
+          "mean": 0.5398,
+          "saturation": 0.072,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.1789,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 27.819,
+          "mean": 0.1816,
+          "saturation": 0.0195,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 42,
+            "energyWithin120": 0.9047619047619048,
+            "medianEnergyDistanceMs": 70,
+            "constructionWithin120": 0.9047619047619048,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.6534,
+            "validSeconds": 27.819,
+            "mean": 0.0926,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    },
+    {
+      "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "split": "development",
+      "music": {
+        "bpm": 124,
+        "confidence": 0.3494671075210718,
+        "texture": "mixed",
+        "percussiveness": 0.3037274127157739,
+        "density": 5.603735823882588,
+        "continuity": 0.11554810327220195,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 162,
+        "energy": 123,
+        "grid": null
+      },
+      "retention": 0.6595744680851063,
+      "controls": {
+        "original": 47,
+        "realAccepted": 31,
+        "shiftedAccepted": 29,
+        "wrongAccepted": 26,
+        "wrongSourceId": "52IM62PeonY"
+      },
+      "variants": {
+        "V1": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 28.028,
+          "mean": 0.1039,
+          "saturation": 0.003,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 47,
+            "energyWithin120": 0.8723404255319149,
+            "medianEnergyDistanceMs": 46,
+            "constructionWithin120": 0.9148936170212766,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.0492,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0.003,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 28.028,
+          "mean": 0.0687,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 31,
+            "energyWithin120": 0.8387096774193549,
+            "medianEnergyDistanceMs": 46,
+            "constructionWithin120": 0.967741935483871,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.6514,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0.0223,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 28.028,
+          "mean": 0.0424,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 31,
+            "energyWithin120": 0.8387096774193549,
+            "medianEnergyDistanceMs": 46,
+            "constructionWithin120": 0.967741935483871,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 2.8863,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0.0313,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 28.028,
+          "mean": 0.3581,
+          "saturation": 0.0952,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 154,
+            "energyWithin120": 0.7987012987012987,
+            "medianEnergyDistanceMs": 46,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.3006,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 1.05,
+          "fade": 80,
+          "validSeconds": 28.028,
+          "mean": 0.5086,
+          "saturation": 0.1131,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.2128,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 28.028,
+          "mean": 0.2098,
+          "saturation": 0.0179,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 47,
+            "energyWithin120": 0.8723404255319149,
+            "medianEnergyDistanceMs": 46,
+            "constructionWithin120": 0.9148936170212766,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.6377,
+            "validSeconds": 28.028,
+            "mean": 0.1039,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    },
+    {
+      "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+      "title": "Radiohead - Lotus Flower",
+      "split": "development",
+      "music": {
+        "bpm": 86,
+        "confidence": 0.2788476317733374,
+        "texture": "mixed",
+        "percussiveness": 0.2941109382332122,
+        "density": 4.469646430953969,
+        "continuity": 0.6221913950771528,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 136,
+        "energy": 108,
+        "grid": null
+      },
+      "retention": 0.5348837209302325,
+      "controls": {
+        "original": 43,
+        "realAccepted": 23,
+        "shiftedAccepted": 24,
+        "wrongAccepted": 21,
+        "wrongSourceId": "OHThAzS5Wew"
+      },
+      "variants": {
+        "V1": {
+          "gain": 1.3,
+          "fade": 110,
+          "validSeconds": 24.858,
+          "mean": 0.1218,
+          "saturation": 0.0027,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 43,
+            "energyWithin120": 0.8604651162790697,
+            "medianEnergyDistanceMs": 71,
+            "constructionWithin120": 0.9302325581395349,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.299,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0.0027,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 1.3,
+          "fade": 110,
+          "validSeconds": 24.858,
+          "mean": 0.0689,
+          "saturation": 0.0027,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 23,
+            "energyWithin120": 0.9130434782608695,
+            "medianEnergyDistanceMs": 67,
+            "constructionWithin120": 0.9565217391304348,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 2.5254,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0.0403,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 1.3,
+          "fade": 110,
+          "validSeconds": 24.858,
+          "mean": 0.0415,
+          "saturation": 0.0007,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 23,
+            "energyWithin120": 0.9130434782608695,
+            "medianEnergyDistanceMs": 67,
+            "constructionWithin120": 0.9565217391304348,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 4.6826,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0.0456,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 1.3,
+          "fade": 110,
+          "validSeconds": 24.858,
+          "mean": 0.4727,
+          "saturation": 0.0993,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 114,
+            "energyWithin120": 0.8596491228070176,
+            "medianEnergyDistanceMs": 29,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.3222,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 1.3,
+          "fade": 110,
+          "validSeconds": 24.858,
+          "mean": 0.8402,
+          "saturation": 0.3523,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.1792,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 24.858,
+          "mean": 0.159,
+          "saturation": 0.004,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 43,
+            "energyWithin120": 0.8604651162790697,
+            "medianEnergyDistanceMs": 71,
+            "constructionWithin120": 0.9302325581395349,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.9926,
+            "validSeconds": 24.858,
+            "mean": 0.1218,
+            "saturation": 0.0007,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    },
+    {
+      "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "split": "development",
+      "music": {
+        "bpm": 123,
+        "confidence": 0.48808655308789217,
+        "texture": "mixed",
+        "percussiveness": 0.3941569610436854,
+        "density": 4.603068712474983,
+        "continuity": 0.41124946932642487,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 142,
+        "energy": 120,
+        "grid": null
+      },
+      "retention": 0.7297297297297297,
+      "controls": {
+        "original": 37,
+        "realAccepted": 27,
+        "shiftedAccepted": 28,
+        "wrongAccepted": 19,
+        "wrongSourceId": "874n70J1sFs"
+      },
+      "variants": {
+        "V1": {
+          "gain": 1.3,
+          "fade": 80,
+          "validSeconds": 23.44,
+          "mean": 0.0803,
+          "saturation": 0.0021,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 37,
+            "energyWithin120": 0.918918918918919,
+            "medianEnergyDistanceMs": 59,
+            "constructionWithin120": 0.918918918918919,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.2989,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0.0021,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 1.3,
+          "fade": 80,
+          "validSeconds": 23.44,
+          "mean": 0.0609,
+          "saturation": 0.0021,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 27,
+            "energyWithin120": 0.9259259259259259,
+            "medianEnergyDistanceMs": 70,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 1.7434,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0.0085,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 1.3,
+          "fade": 80,
+          "validSeconds": 23.44,
+          "mean": 0.0388,
+          "saturation": 0.0007,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 27,
+            "energyWithin120": 0.9259259259259259,
+            "medianEnergyDistanceMs": 70,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 2.8232,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0.0142,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 1.3,
+          "fade": 80,
+          "validSeconds": 23.44,
+          "mean": 0.3242,
+          "saturation": 0.0676,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 109,
+            "energyWithin120": 0.9357798165137615,
+            "medianEnergyDistanceMs": 21,
+            "constructionWithin120": 1,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.3107,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 1.3,
+          "fade": 80,
+          "validSeconds": 23.44,
+          "mean": 0.6588,
+          "saturation": 0.1986,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.1511,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 23.44,
+          "mean": 0.1304,
+          "saturation": 0.0028,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 37,
+            "energyWithin120": 0.918918918918919,
+            "medianEnergyDistanceMs": 59,
+            "constructionWithin120": 0.918918918918919,
+            "gridWithin80": null
+          },
+          "meanMatchedToV1": {
+            "gain": 0.7986,
+            "validSeconds": 23.44,
+            "mean": 0.0803,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    },
+    {
+      "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "split": "stress",
+      "music": {
+        "bpm": 120,
+        "confidence": 0.2592224859109529,
+        "texture": "mixed",
+        "percussiveness": 0.29742744445859065,
+        "density": 3.535690460306871,
+        "continuity": 0.4507721828031767,
+        "duration": 29.98
+      },
+      "anchors": {
+        "spectral": 114,
+        "energy": 72,
+        "grid": {
+          "period": 0.5,
+          "phase": 0.1693102933483146,
+          "confidence": 0.4322662605281712
+        }
+      },
+      "retention": 0.5263157894736842,
+      "controls": {
+        "original": 19,
+        "realAccepted": 10,
+        "shiftedAccepted": 10,
+        "wrongAccepted": 17,
+        "wrongSourceId": "2EnI4bnVxP0"
+      },
+      "variants": {
+        "V1": {
+          "gain": 1,
+          "fade": 90,
+          "validSeconds": 15.449,
+          "mean": 0.0496,
+          "saturation": 0.0022,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 19,
+            "energyWithin120": 0.7368421052631579,
+            "medianEnergyDistanceMs": 85,
+            "constructionWithin120": 1,
+            "gridWithin80": 0.3684210526315789
+          },
+          "meanMatchedToV1": {
+            "gain": 0.9989,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0.0022,
+            "oneFramePulses": 0
+          }
+        },
+        "V2": {
+          "gain": 1,
+          "fade": 90,
+          "validSeconds": 15.449,
+          "mean": 0.0232,
+          "saturation": 0.0011,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 10,
+            "energyWithin120": 0.9,
+            "medianEnergyDistanceMs": 62,
+            "constructionWithin120": 1,
+            "gridWithin80": 0.5
+          },
+          "meanMatchedToV1": {
+            "gain": 2.4529,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0.0184,
+            "oneFramePulses": 0
+          }
+        },
+        "V3": {
+          "gain": 1,
+          "fade": 90,
+          "validSeconds": 15.449,
+          "mean": 0.0085,
+          "saturation": 0,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 10,
+            "energyWithin120": 0.9,
+            "medianEnergyDistanceMs": 62,
+            "constructionWithin120": 1,
+            "gridWithin80": 0.5
+          },
+          "meanMatchedToV1": {
+            "gain": 6.9521,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0.0184,
+            "oneFramePulses": 0
+          }
+        },
+        "AudioOnly": {
+          "gain": 1,
+          "fade": 90,
+          "validSeconds": 15.449,
+          "mean": 0.216,
+          "saturation": 0.0259,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 63,
+            "energyWithin120": 0.6349206349206349,
+            "medianEnergyDistanceMs": 36,
+            "constructionWithin120": 1,
+            "gridWithin80": 0.42857142857142855
+          },
+          "meanMatchedToV1": {
+            "gain": 0.2294,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "RMS": {
+          "gain": 1,
+          "fade": 90,
+          "validSeconds": 15.449,
+          "mean": 0.5493,
+          "saturation": 0.0616,
+          "oneFramePulses": 0,
+          "alignment": null,
+          "meanMatchedToV1": {
+            "gain": 0.0902,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        },
+        "V0": {
+          "gain": 1.3,
+          "fade": 160,
+          "validSeconds": 15.449,
+          "mean": 0.0877,
+          "saturation": 0.0065,
+          "oneFramePulses": 0,
+          "alignment": {
+            "events": 19,
+            "energyWithin120": 0.7368421052631579,
+            "medianEnergyDistanceMs": 85,
+            "constructionWithin120": 1,
+            "gridWithin80": 0.3684210526315789
+          },
+          "meanMatchedToV1": {
+            "gain": 0.7268,
+            "validSeconds": 15.449,
+            "mean": 0.0496,
+            "saturation": 0,
+            "oneFramePulses": 0
+          }
+        }
+      }
+    }
+  ]
+}

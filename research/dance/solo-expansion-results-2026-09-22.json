@@ -1,0 +1,880 @@
+{
+  "since": "2026-09-22T04:00",
+  "runs": [
+    {
+      "runId": "8e704036-1d15-4047-a81e-0f6c07ca607c",
+      "sourceId": "04XKyeSrOes",
+      "title": "SOME COLD ANIMATION! | POPPIN JOHN | 2 Souls - Dawn",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8152777777777778,
+      "movementCoverage": 0.7708333333333334,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8152777777777778,
+        "legs": 0.9861111111111112
+      },
+      "missingMajorJoints": {
+        "13": 104,
+        "15": 33,
+        "14": 24,
+        "16": 12,
+        "25": 10
+      },
+      "armLegSpeedCorrelation": 0.7751610023523505,
+      "medianArmSpeed": 0.5009893478729013,
+      "medianLegSpeed": 0.27536762936703957,
+      "candidateEvents": {
+        "hold": 7,
+        "arrival": 15,
+        "transition": 8
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=8e704036-1d15-4047-a81e-0f6c07ca607c",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+      "sourceId": "52IM62PeonY",
+      "title": "Radiohead - Lotus Flower",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.9043913285158421,
+      "movementCoverage": 0.886603668704836,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.9043913285158421,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "14": 146,
+        "16": 70,
+        "15": 10
+      },
+      "armLegSpeedCorrelation": 0.12522327550415419,
+      "medianArmSpeed": 0.7387378728011316,
+      "medianLegSpeed": 0.33302574555245873,
+      "candidateEvents": {
+        "transition": 12,
+        "arrival": 26
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=a9af2c35-798f-410b-91a0-858e8f828d12",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "77b9f996-1d50-453d-ba07-d4ee8b132d78",
+      "sourceId": "7cqwRqex8Ks",
+      "title": "City Dance : Spring Onstage | BOOGIE FRANTICK | Solo -- Official Video",
+      "sourceStart": 20,
+      "duration": 30.029633333333333,
+      "frames": 899,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8921023359288098,
+      "movementCoverage": 0.8309232480533927,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.9299221357063404,
+        "legs": 0.9510567296996663
+      },
+      "missingMajorJoints": {
+        "14": 37,
+        "16": 33,
+        "26": 26,
+        "28": 20,
+        "15": 20,
+        "27": 18,
+        "13": 15,
+        "25": 10
+      },
+      "armLegSpeedCorrelation": 0.31829051525251584,
+      "medianArmSpeed": 0.8548373916302113,
+      "medianLegSpeed": 0.6358331508767283,
+      "candidateEvents": {
+        "transition": 14,
+        "arrival": 29
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=77b9f996-1d50-453d-ba07-d4ee8b132d78",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "sourceId": "874n70J1sFs",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.603112840466926,
+      "movementCoverage": 0.5330739299610895,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.6075597554196775,
+        "legs": 0.991106170094497
+      },
+      "missingMajorJoints": {
+        "14": 441,
+        "16": 435,
+        "15": 229,
+        "26": 15,
+        "13": 15,
+        "28": 1
+      },
+      "armLegSpeedCorrelation": -0.03353375006086428,
+      "medianArmSpeed": 0.4836782190699421,
+      "medianLegSpeed": 0.37891437089075175,
+      "candidateEvents": {
+        "arrival": 20,
+        "transition": 3,
+        "hold": 2
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=3946f65e-3938-4d38-ae54-4854c937d099",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "f7f5684d-344f-4b20-a633-d0ebabaf89aa",
+      "sourceId": "874n70J1sFs",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "sourceStart": 70,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.7609783212896053,
+      "movementCoverage": 0.7153974430239022,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.7615341856586992,
+        "legs": 0.9994441356309061
+      },
+      "missingMajorJoints": {
+        "14": 298,
+        "16": 228,
+        "15": 110,
+        "13": 10,
+        "27": 1
+      },
+      "armLegSpeedCorrelation": 0.20028000910934912,
+      "medianArmSpeed": 1.0043197345958073,
+      "medianLegSpeed": 0.7672013548098023,
+      "candidateEvents": {
+        "transition": 13,
+        "arrival": 25
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=f7f5684d-344f-4b20-a633-d0ebabaf89aa",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "9ff85da3-4e31-40ae-b139-62005d4c20b3",
+      "sourceId": "B-ROuWsPGQs",
+      "title": "SG Lewis - Chemicals",
+      "sourceStart": 20,
+      "duration": 30.03184179654768,
+      "frames": 896,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8571428571428571,
+      "movementCoverage": 0.8337053571428571,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.859375,
+        "legs": 0.9866071428571429
+      },
+      "missingMajorJoints": {
+        "14": 80,
+        "16": 64,
+        "15": 41,
+        "13": 19,
+        "26": 7,
+        "25": 4,
+        "28": 1,
+        "27": 1
+      },
+      "armLegSpeedCorrelation": 0.3903858980471001,
+      "medianArmSpeed": 0.6356641608765486,
+      "medianLegSpeed": 0.421319680578304,
+      "candidateEvents": {
+        "transition": 11,
+        "arrival": 22,
+        "hold": 3
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=9ff85da3-4e31-40ae-b139-62005d4c20b3",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "cdcaa625-8176-4ea0-a78f-165593e75179",
+      "sourceId": "BKAn_yhgrWQ",
+      "title": "Poppin John | Freestyle | The Tuxedo Way",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.925,
+      "movementCoverage": 0.8986111111111111,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.925,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "13": 49,
+        "15": 20,
+        "14": 4,
+        "16": 3
+      },
+      "armLegSpeedCorrelation": 0.3219718031732772,
+      "medianArmSpeed": 0.7386821985985246,
+      "medianLegSpeed": 0.4057640986437138,
+      "candidateEvents": {
+        "transition": 14,
+        "arrival": 20,
+        "hold": 1
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=cdcaa625-8176-4ea0-a78f-165593e75179",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "daa4342c-5a00-4ba7-b500-1de031ef83fa",
+      "sourceId": "BKAn_yhgrWQ",
+      "title": "Poppin John | Freestyle | The Tuxedo Way",
+      "sourceStart": 70,
+      "duration": 30.029291666666666,
+      "frames": 719,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8636995827538247,
+      "movementCoverage": 0.8484005563282336,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8636995827538247,
+        "legs": 0.9624478442280946
+      },
+      "missingMajorJoints": {
+        "13": 92,
+        "15": 87,
+        "25": 27,
+        "14": 3,
+        "27": 2,
+        "16": 1
+      },
+      "armLegSpeedCorrelation": -0.24382745266128938,
+      "medianArmSpeed": 0.7757879573855826,
+      "medianLegSpeed": 0.3463385252377557,
+      "candidateEvents": {
+        "transition": 11,
+        "arrival": 20
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=daa4342c-5a00-4ba7-b500-1de031ef83fa",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+      "sourceId": "DpbzG37isyg",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 1.0,
+      "movementCoverage": 0.9972222222222222,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 1.0,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {},
+      "armLegSpeedCorrelation": 0.5303449975195407,
+      "medianArmSpeed": 0.3078325335824542,
+      "medianLegSpeed": 0.14043930021275802,
+      "candidateEvents": {
+        "hold": 23,
+        "transition": 3,
+        "arrival": 7
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=35ad6ce5-109d-4431-bf59-7c8936482124",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "36fe8631-6258-497f-aaef-4070507681d2",
+      "sourceId": "DpbzG37isyg",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "sourceStart": 70,
+      "duration": 30.029291666666666,
+      "frames": 719,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.9986091794158554,
+      "movementCoverage": 0.9930458970792768,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.9986091794158554,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "13": 1,
+        "15": 1
+      },
+      "armLegSpeedCorrelation": 0.22916164736971892,
+      "medianArmSpeed": 0.3297377553967462,
+      "medianLegSpeed": 0.1753120305375766,
+      "candidateEvents": {
+        "transition": 10,
+        "arrival": 11,
+        "hold": 13
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=36fe8631-6258-497f-aaef-4070507681d2",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "a49dd8a8-5b28-4589-8ae1-38863dad04f3",
+      "sourceId": "HCD-zfVfxZM",
+      "title": "Kormac - Studio Sorcery (TSC - Ogg)",
+      "sourceStart": 20,
+      "duration": 30.029633333333333,
+      "frames": 899,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.7230255839822024,
+      "movementCoverage": 0.6651835372636262,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.7230255839822024,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "15": 218,
+        "13": 119
+      },
+      "armLegSpeedCorrelation": 0.7225582043530129,
+      "medianArmSpeed": 0.3665144013091369,
+      "medianLegSpeed": 0.3366067816936269,
+      "candidateEvents": {
+        "hold": 4,
+        "arrival": 16,
+        "transition": 3
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=a49dd8a8-5b28-4589-8ae1-38863dad04f3",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "099ae693-359c-4df4-9947-664a57bd3bbf",
+      "sourceId": "HCD-zfVfxZM",
+      "title": "Kormac - Studio Sorcery (TSC - Ogg)",
+      "sourceStart": 70,
+      "duration": 30.029999999999998,
+      "frames": 900,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8822222222222222,
+      "movementCoverage": 0.8133333333333334,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8822222222222222,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "14": 51,
+        "15": 46,
+        "16": 45,
+        "13": 29
+      },
+      "armLegSpeedCorrelation": -0.004630417166704142,
+      "medianArmSpeed": 1.9465105933348716,
+      "medianLegSpeed": 0.950461668158725,
+      "candidateEvents": {
+        "transition": 16,
+        "arrival": 23
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=099ae693-359c-4df4-9947-664a57bd3bbf",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "7538b392-8a53-46db-81dd-5d06b33ec4da",
+      "sourceId": "LOYdYnT3P6I",
+      "title": "POPPIN JOHN | EVERYTHING I WANTED | BILLIE EILISH",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.55,
+      "movementCoverage": 0.5222222222222223,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.55,
+        "legs": 0.9722222222222222
+      },
+      "missingMajorJoints": {
+        "16": 157,
+        "14": 151,
+        "13": 134,
+        "15": 131,
+        "25": 19,
+        "26": 1
+      },
+      "armLegSpeedCorrelation": 0.7040139802855849,
+      "medianArmSpeed": 0.49638512307843885,
+      "medianLegSpeed": 0.17732808433959218,
+      "candidateEvents": {
+        "hold": 4,
+        "transition": 7,
+        "arrival": 7
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=7538b392-8a53-46db-81dd-5d06b33ec4da",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "29d00a80-c65e-4536-83b8-6c328bbf51d3",
+      "sourceId": "NGxA5XsdhBY",
+      "title": "Poppin John | Lauterbrunnen Switzerland | Cradles | 2025",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8125,
+      "movementCoverage": 0.7625,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8194444444444444,
+        "legs": 0.9472222222222222
+      },
+      "missingMajorJoints": {
+        "13": 73,
+        "15": 63,
+        "14": 56,
+        "25": 31,
+        "16": 25,
+        "26": 7,
+        "27": 6,
+        "28": 2
+      },
+      "armLegSpeedCorrelation": 0.059148311103745056,
+      "medianArmSpeed": 0.6991937025450368,
+      "medianLegSpeed": 0.3347699347246595,
+      "candidateEvents": {
+        "transition": 13,
+        "arrival": 21,
+        "hold": 2
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=29d00a80-c65e-4536-83b8-6c328bbf51d3",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "53f84bc6-7b73-49fd-aa9c-f2ba7462f58b",
+      "sourceId": "NGxA5XsdhBY",
+      "title": "Poppin John | Lauterbrunnen Switzerland | Cradles | 2025",
+      "sourceStart": 70,
+      "duration": 30.029291666666666,
+      "frames": 719,
+      "primaryCoverage": 0.9944367176634215,
+      "poseCoverage": 0.56884561891516,
+      "movementCoverage": 0.5104311543810849,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0.08341700000000074,
+      "groupVisibility": {
+        "torso": 0.9944367176634215,
+        "arms": 0.6022253129346314,
+        "legs": 0.8650904033379694
+      },
+      "missingMajorJoints": {
+        "16": 251,
+        "14": 145,
+        "15": 114,
+        "26": 77,
+        "28": 60,
+        "25": 2,
+        "27": 2,
+        "13": 1
+      },
+      "armLegSpeedCorrelation": 0.04972336048869649,
+      "medianArmSpeed": 0.4015672248922932,
+      "medianLegSpeed": 0.4980662521162251,
+      "candidateEvents": {
+        "hold": 3,
+        "transition": 9,
+        "arrival": 12
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=53f84bc6-7b73-49fd-aa9c-f2ba7462f58b",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "sourceId": "OHThAzS5Wew",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 0.9988882712618121,
+      "poseCoverage": 0.877709838799333,
+      "movementCoverage": 0.8076709282934964,
+      "multipleBodyFrames": 2,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0.03336700000000192,
+      "groupVisibility": {
+        "torso": 0.9988882712618121,
+        "arms": 0.9288493607559756,
+        "legs": 0.9416342412451362
+      },
+      "missingMajorJoints": {
+        "15": 60,
+        "27": 53,
+        "13": 48,
+        "28": 40,
+        "14": 40,
+        "16": 38,
+        "26": 13,
+        "25": 6
+      },
+      "armLegSpeedCorrelation": 0.06185673391844323,
+      "medianArmSpeed": 1.2700768285817492,
+      "medianLegSpeed": 1.178701164083075,
+      "candidateEvents": {
+        "transition": 13,
+        "arrival": 35
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "8418d7bd-9d88-48a4-ba45-ad67ccf059a6",
+      "sourceId": "QENwS_VEwFc",
+      "title": "aKu - Final Blow",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 0.9933296275708727,
+      "poseCoverage": 0.6359088382434686,
+      "movementCoverage": 0.575319622012229,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0.08341699999999896,
+      "groupVisibility": {
+        "torso": 0.9933296275708727,
+        "arms": 0.6720400222345748,
+        "legs": 0.9082823790994997
+      },
+      "missingMajorJoints": {
+        "14": 406,
+        "16": 346,
+        "15": 154,
+        "13": 142,
+        "28": 86,
+        "27": 79,
+        "25": 73,
+        "26": 28
+      },
+      "armLegSpeedCorrelation": 0.3564807315483682,
+      "medianArmSpeed": 0.933975104407497,
+      "medianLegSpeed": 0.4180249246598034,
+      "candidateEvents": {
+        "arrival": 27,
+        "transition": 8
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=8418d7bd-9d88-48a4-ba45-ad67ccf059a6",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "e0279535-d68a-436a-a42b-a133181d6c60",
+      "sourceId": "SqwJBODxG_M",
+      "title": "Give me one reason",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 0.9977765425236242,
+      "poseCoverage": 0.708171206225681,
+      "movementCoverage": 0.6247915508615898,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0.03336699999999837,
+      "groupVisibility": {
+        "torso": 0.9977765425236242,
+        "arms": 0.7787659811006115,
+        "legs": 0.8921623123957755
+      },
+      "missingMajorJoints": {
+        "14": 206,
+        "27": 144,
+        "16": 143,
+        "15": 125,
+        "13": 118,
+        "28": 35,
+        "25": 21,
+        "26": 8
+      },
+      "armLegSpeedCorrelation": 0.306110897942696,
+      "medianArmSpeed": 1.1414422411433949,
+      "medianLegSpeed": 1.1752897933231485,
+      "candidateEvents": {
+        "arrival": 28,
+        "transition": 9
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=e0279535-d68a-436a-a42b-a133181d6c60",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "84c76181-2bcf-4729-8b1b-64bfcf737d09",
+      "sourceId": "eOC6XtJxxPo",
+      "title": "POPPIN JOHN | J**e's House Thriftworks",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8847222222222222,
+      "movementCoverage": 0.8430555555555556,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8847222222222222,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "15": 42,
+        "16": 35,
+        "14": 35,
+        "13": 34
+      },
+      "armLegSpeedCorrelation": -0.039982231461406934,
+      "medianArmSpeed": 0.7072730006313379,
+      "medianLegSpeed": 0.2286182968264769,
+      "candidateEvents": {
+        "arrival": 17,
+        "transition": 14,
+        "hold": 4
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=84c76181-2bcf-4729-8b1b-64bfcf737d09",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "6ff3f1c3-331a-4ef8-b58a-d3341a428118",
+      "sourceId": "eOC6XtJxxPo",
+      "title": "POPPIN JOHN | J**e's House Thriftworks",
+      "sourceStart": 70,
+      "duration": 30.029291666666666,
+      "frames": 719,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.8414464534075105,
+      "movementCoverage": 0.8317107093184979,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.8414464534075105,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "14": 114,
+        "16": 65
+      },
+      "armLegSpeedCorrelation": -0.0006194035238710011,
+      "medianArmSpeed": 0.3815286531889413,
+      "medianLegSpeed": 0.17329469741620082,
+      "candidateEvents": {
+        "hold": 13,
+        "arrival": 5,
+        "transition": 4
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=6ff3f1c3-331a-4ef8-b58a-d3341a428118",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "fee3937d-526f-4286-a19f-5876512868b3",
+      "sourceId": "mIMqlCWAwKM",
+      "title": "Sylvan Esso - Ferris Wheel",
+      "sourceStart": 20,
+      "duration": 15.014633333333332,
+      "frames": 449,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.512249443207127,
+      "movementCoverage": 0.4209354120267261,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.621380846325167,
+        "legs": 0.7661469933184856
+      },
+      "missingMajorJoints": {
+        "14": 170,
+        "26": 101,
+        "16": 98,
+        "28": 24
+      },
+      "armLegSpeedCorrelation": 0.1659603399002747,
+      "medianArmSpeed": 0.5847644530392145,
+      "medianLegSpeed": 0.7262481600436048,
+      "candidateEvents": {
+        "arrival": 7,
+        "transition": 2
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=fee3937d-526f-4286-a19f-5876512868b3",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "sourceId": "rAyYpkWuZKk",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "sourceStart": 20,
+      "duration": 30.029999999999998,
+      "frames": 720,
+      "primaryCoverage": 1.0,
+      "poseCoverage": 0.9958333333333333,
+      "movementCoverage": 0.9875,
+      "multipleBodyFrames": 0,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0,
+      "groupVisibility": {
+        "torso": 1.0,
+        "arms": 0.9958333333333333,
+        "legs": 1.0
+      },
+      "missingMajorJoints": {
+        "15": 3
+      },
+      "armLegSpeedCorrelation": 0.2301740225556707,
+      "medianArmSpeed": 0.5992255938458909,
+      "medianLegSpeed": 0.2603177285588892,
+      "candidateEvents": {
+        "hold": 7,
+        "transition": 14,
+        "arrival": 20
+      },
+      "quantitativeReviewTier": "higher-coverage",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "identityAccuracy": null
+    },
+    {
+      "runId": "7451c690-66d7-48db-96c0-085b13530d3a",
+      "sourceId": "shRtJVupsec",
+      "title": "Max Frost - Withdrawal",
+      "sourceStart": 20,
+      "duration": 30.013315088679544,
+      "frames": 1799,
+      "primaryCoverage": 0.9833240689271817,
+      "poseCoverage": 0.7676486937187327,
+      "movementCoverage": 0.7142857142857143,
+      "multipleBodyFrames": 5,
+      "cutFlags": 0,
+      "reviewRequiredFrames": 0,
+      "longestUnassignedGapSeconds": 0.15015,
+      "groupVisibility": {
+        "torso": 0.9833240689271817,
+        "arms": 0.7998888271261813,
+        "legs": 0.9455252918287937
+      },
+      "missingMajorJoints": {
+        "15": 250,
+        "13": 217,
+        "14": 71,
+        "28": 54,
+        "26": 23,
+        "27": 18,
+        "25": 14,
+        "16": 8
+      },
+      "armLegSpeedCorrelation": 0.12986209031258303,
+      "medianArmSpeed": 0.6443891788425496,
+      "medianLegSpeed": 0.7126736199201564,
+      "candidateEvents": {
+        "arrival": 29,
+        "transition": 15,
+        "hold": 2
+      },
+      "quantitativeReviewTier": "needs-inspection",
+      "previewUrl": "http://localhost:3001/pipeline/live?run=7451c690-66d7-48db-96c0-085b13530d3a",
+      "identityAccuracy": null
+    }
+  ],
+  "totals": {
+    "runs": 23,
+    "sources": 17,
+    "seconds": 675.5561140839711,
+    "frames": 24552,
+    "higherCoverageRuns": 11
+  },
+  "limits": "Frame-weighted coverage is confidence/visibility, not anatomical or identity accuracy. Movement features require all major joints and use offline centered smoothing. Automatic arrival/hold/transition proposals are not validated music or lighting events. Source A/V offset unverified. No new model trained."
+}

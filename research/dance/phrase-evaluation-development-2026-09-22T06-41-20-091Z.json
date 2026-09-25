@@ -1,0 +1,494 @@
+{
+  "createdAt": "2026-09-22T06:41:20.092Z",
+  "protocol": "research/dance/V3_PROTOCOL.md",
+  "hashes": {
+    "brightness-v0": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "movement-brightness": "ac30a0e3887c85fc12d2af29de059493c9d19f7ea801da78e1da9a0d0d7edddb",
+    "music-context": "56e12f4b4efb8b885576b5de901a5f3b3858508d1b7227327019796370b7ba8c",
+    "brightness-timing": "0ccf0ef199175a8b402464fdf487e99a8ff30dd948990f123775ea08b63a0a78",
+    "brightness-phrase": "6d42d9b29e3154a7214c3dd5d367de1bfc3b623f5b178b7cec346e55741586da"
+  },
+  "stage": "Development diagnostics before freezing V3",
+  "caveats": [
+    "No human perceptual approval.",
+    "Timing shared by candidate and constant ablation is not evidence for Open.",
+    "No manually annotated beat or source-offset ground truth.",
+    "Wrong movement correlating with audio level more/less is not a taste metric."
+  ],
+  "rows": [
+    {
+      "runId": "86dab5e0-9793-4cb4-8a1a-5c9c7f0c04f6",
+      "title": "Poppin John | AI Naafyish | Old School Electro 2023",
+      "split": "development",
+      "bpm": 82,
+      "texture": "mixed",
+      "broadAccents": 218,
+      "strongAccents": 55,
+      "visibleEvents": 55,
+      "droppedForTracking": 0,
+      "refractoryMs": 300,
+      "settings": {
+        "gain": 0.95,
+        "fade": 260
+      },
+      "amplitude": {
+        "p10": 0.36693272624164963,
+        "p50": 0.6860654620672946,
+        "p90": 0.9416350990496496,
+        "successiveMeanChange": 0.08355815752037422
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 21.666999999998993,
+        "displayQuantizationMaxMs": 38.25000000000145
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.9272727272727272,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 29.738,
+        "mean": 0.2734,
+        "saturationFraction": 0,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 29.738,
+          "mean": 0.256,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 1.0147242546081543,
+          "targetMean": 0.27327265153212443,
+          "actualMean": 0.2732726676326661,
+          "matched": true,
+          "sharedSeconds": 29.779751
+        },
+        "matched": {
+          "validSeconds": 29.738,
+          "mean": 0.2734,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "rAyYpkWuZKk",
+        "sharedEvents": 55,
+        "coverage": 1,
+        "actualAmplitudeVsAudioRms": 0.12249750426983833,
+        "wrongAmplitudeVsAudioRms": -0.11257777987424294,
+        "matching": {
+          "gain": 1.0550060272216797,
+          "targetMean": 0.27368335465599175,
+          "actualMean": 0.27368336419445555,
+          "matched": true,
+          "sharedSeconds": 29.654626
+        },
+        "matched": {
+          "validSeconds": 29.613,
+          "mean": 0.2739,
+          "saturationFraction": 0.0056,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "split": "development",
+      "bpm": 120,
+      "texture": "mixed",
+      "broadAccents": 161,
+      "strongAccents": 50,
+      "visibleEvents": 50,
+      "droppedForTracking": 0,
+      "refractoryMs": 250,
+      "settings": {
+        "gain": 1.15,
+        "fade": 250
+      },
+      "amplitude": {
+        "p10": 0.3855534014679773,
+        "p50": 0.5966922025453144,
+        "p90": 0.7801484127354241,
+        "successiveMeanChange": 0.11042177657592173
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 9.374999999998579,
+        "displayQuantizationMaxMs": 40.37500000000094
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.96,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 29.821,
+        "mean": 0.2499,
+        "saturationFraction": 0.0028,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 29.821,
+          "mean": 0.2638,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 1.0893480777740479,
+          "targetMean": 0.25026370015268856,
+          "actualMean": 0.250263751507084,
+          "matched": true,
+          "sharedSeconds": 29.863167
+        },
+        "matched": {
+          "validSeconds": 29.821,
+          "mean": 0.2499,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "DpbzG37isyg",
+        "sharedEvents": 50,
+        "coverage": 1,
+        "actualAmplitudeVsAudioRms": 0.12451180284372276,
+        "wrongAmplitudeVsAudioRms": -0.23579733820350507,
+        "matching": {
+          "gain": 1.1010911464691162,
+          "targetMean": 0.25026370015268856,
+          "actualMean": 0.2502637283431836,
+          "matched": true,
+          "sharedSeconds": 29.863167
+        },
+        "matched": {
+          "validSeconds": 29.821,
+          "mean": 0.2502,
+          "saturationFraction": 0.0154,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "split": "development",
+      "bpm": 124,
+      "texture": "mixed",
+      "broadAccents": 162,
+      "strongAccents": 50,
+      "visibleEvents": 50,
+      "droppedForTracking": 0,
+      "refractoryMs": 242,
+      "settings": {
+        "gain": 0.95,
+        "fade": 240
+      },
+      "amplitude": {
+        "p10": 0.2931125563241462,
+        "p50": 0.5684461106383693,
+        "p90": 0.961262213051481,
+        "successiveMeanChange": 0.11090314678668621
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 20.58300000000024,
+        "displayQuantizationMaxMs": 40.66699999999912
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.74,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 29.947,
+        "mean": 0.2298,
+        "saturationFraction": 0,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 29.947,
+          "mean": 0.2273,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 0.9603097438812256,
+          "targetMean": 0.22965502018054593,
+          "actualMean": 0.22965503275047303,
+          "matched": true,
+          "sharedSeconds": 29.988292
+        },
+        "matched": {
+          "validSeconds": 29.947,
+          "mean": 0.2298,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "52IM62PeonY",
+        "sharedEvents": 47,
+        "coverage": 0.94,
+        "actualAmplitudeVsAudioRms": 0.027850234416886572,
+        "wrongAmplitudeVsAudioRms": 0.0278211832226759,
+        "matching": {
+          "gain": 0.9523253440856934,
+          "targetMean": 0.2250398563413276,
+          "actualMean": 0.22503985742813085,
+          "matched": true,
+          "sharedSeconds": 28.695332999999998
+        },
+        "matched": {
+          "validSeconds": 28.654,
+          "mean": 0.2252,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+      "title": "Radiohead - Lotus Flower",
+      "split": "development",
+      "bpm": 86,
+      "texture": "mixed",
+      "broadAccents": 136,
+      "strongAccents": 52,
+      "visibleEvents": 50,
+      "droppedForTracking": 2,
+      "refractoryMs": 300,
+      "settings": {
+        "gain": 1,
+        "fade": 330
+      },
+      "amplitude": {
+        "p10": 0.3585788374145751,
+        "p50": 0.6384612715450154,
+        "p90": 0.8873035159813881,
+        "successiveMeanChange": 0.0882944255235819
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 8.315999999999768,
+        "displayQuantizationMaxMs": 15.481999999998663
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.94,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 28.645,
+        "mean": 0.2867,
+        "saturationFraction": 0.0012,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 28.645,
+          "mean": 0.2833,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 1.0118787288665771,
+          "targetMean": 0.2867571522906244,
+          "actualMean": 0.28675721266136145,
+          "matched": true,
+          "sharedSeconds": 28.661966
+        },
+        "matched": {
+          "validSeconds": 28.645,
+          "mean": 0.2867,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "OHThAzS5Wew",
+        "sharedEvents": 42,
+        "coverage": 0.84,
+        "actualAmplitudeVsAudioRms": -0.021563042199085485,
+        "wrongAmplitudeVsAudioRms": -0.025717272445099637,
+        "matching": {
+          "gain": 1.3740630149841309,
+          "targetMean": 0.28001887326671937,
+          "actualMean": 0.2800188759103664,
+          "matched": true,
+          "sharedSeconds": 25.70902
+        },
+        "matched": {
+          "validSeconds": 25.692,
+          "mean": 0.2798,
+          "saturationFraction": 0.0273,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "split": "development",
+      "bpm": 123,
+      "texture": "mixed",
+      "broadAccents": 142,
+      "strongAccents": 46,
+      "visibleEvents": 40,
+      "droppedForTracking": 6,
+      "refractoryMs": 244,
+      "settings": {
+        "gain": 0.95,
+        "fade": 250
+      },
+      "amplitude": {
+        "p10": 0.31335476791706984,
+        "p50": 0.5880938084083441,
+        "p90": 0.9563197129518035,
+        "successiveMeanChange": 0.1212007690014368
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 5.600000000000271,
+        "displayQuantizationMaxMs": 15.432999999999808
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 1,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 26.894,
+        "mean": 0.1624,
+        "saturationFraction": 0,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 26.894,
+          "mean": 0.1584,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 0.9740486145019531,
+          "targetMean": 0.1624239808427331,
+          "actualMean": 0.1624239858211334,
+          "matched": true,
+          "sharedSeconds": 26.910220000000002
+        },
+        "matched": {
+          "validSeconds": 26.894,
+          "mean": 0.1624,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "2EnI4bnVxP0",
+        "sharedEvents": 39,
+        "coverage": 0.975,
+        "actualAmplitudeVsAudioRms": -0.17793554965495598,
+        "wrongAmplitudeVsAudioRms": -0.04439479076007546,
+        "matching": {
+          "gain": 0.8789942264556885,
+          "targetMean": 0.16272597907845418,
+          "actualMean": 0.16272599064659565,
+          "matched": true,
+          "sharedSeconds": 26.710019000000003
+        },
+        "matched": {
+          "validSeconds": 26.693,
+          "mean": 0.1626,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "split": "stress",
+      "bpm": 120,
+      "texture": "mixed",
+      "broadAccents": 114,
+      "strongAccents": 44,
+      "visibleEvents": 28,
+      "droppedForTracking": 16,
+      "refractoryMs": 250,
+      "settings": {
+        "gain": 1.45,
+        "fade": 280
+      },
+      "amplitude": {
+        "p10": 0.26616558002058055,
+        "p50": 0.40547357657214944,
+        "p90": 0.618104898030623,
+        "successiveMeanChange": 0.11534140674683714
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 5.717000000000194,
+        "displayQuantizationMaxMs": 15.515999999999863
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.9642857142857143,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 19.336,
+        "mean": 0.1682,
+        "saturationFraction": 0.0121,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 19.336,
+          "mean": 0.2297,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 1.0633740425109863,
+          "targetMean": 0.16849432838363151,
+          "actualMean": 0.16849434331540006,
+          "matched": true,
+          "sharedSeconds": 19.352665000000016
+        },
+        "matched": {
+          "validSeconds": 19.336,
+          "mean": 0.1685,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": null,
+        "sharedEvents": 0,
+        "coverage": 0,
+        "actualAmplitudeVsAudioRms": null,
+        "wrongAmplitudeVsAudioRms": null,
+        "matching": {
+          "gain": 2.384185791015625e-7,
+          "targetMean": 0,
+          "actualMean": 0,
+          "matched": false,
+          "sharedSeconds": 0
+        },
+        "matched": {
+          "validSeconds": 0,
+          "mean": 0,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      }
+    }
+  ]
+}

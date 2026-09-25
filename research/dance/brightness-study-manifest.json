@@ -1,0 +1,121 @@
+{
+  "version": "brightness-study-2026-09-21",
+  "status": "predeclared before V2/V3 tuning; V1 engineering checks in progress",
+  "splitCaveat": "All sources previously screened for pose quality. Reserved means held out from choosing V2/V3; it does not mean never previously seen. Check audio/song duplication before claiming song independence.",
+  "baseline": {
+    "code": "src/lib/pipeline/brightness-v0.ts",
+    "gain": 1.3,
+    "fadeMs": 160,
+    "primaryModes": [
+      "snap",
+      "open"
+    ]
+  },
+  "initialHashes": {
+    "src/lib/pipeline/brightness-v0.ts": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "src/lib/pipeline/movement-brightness.ts": "ac30a0e3887c85fc12d2af29de059493c9d19f7ea801da78e1da9a0d0d7edddb",
+    "src/lib/pipeline/music-context.ts": "a85413d9d497f14896f66d83fc28ff17ccc740959ceed5006d5c920c6681554b"
+  },
+  "passages": [
+    {
+      "split": "development",
+      "runId": "86dab5e0-9793-4cb4-8a1a-5c9c7f0c04f6",
+      "sourceId": "2EnI4bnVxP0",
+      "title": "Poppin John | AI Naafyish | Old School Electro 2023",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.9861111111111112,
+      "preview": "/pipeline/live?run=86dab5e0-9793-4cb4-8a1a-5c9c7f0c04f6"
+    },
+    {
+      "split": "development",
+      "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "sourceId": "rAyYpkWuZKk",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.9958333333333333,
+      "preview": "/pipeline/live?run=89dab10c-317e-4ea4-aa70-beb1b86d0438"
+    },
+    {
+      "split": "development",
+      "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+      "sourceId": "DpbzG37isyg",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 1.0,
+      "preview": "/pipeline/live?run=35ad6ce5-109d-4431-bf59-7c8936482124"
+    },
+    {
+      "split": "development",
+      "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+      "sourceId": "52IM62PeonY",
+      "title": "Radiohead - Lotus Flower",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.9043913285158421,
+      "preview": "/pipeline/live?run=a9af2c35-798f-410b-91a0-858e8f828d12"
+    },
+    {
+      "split": "development",
+      "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "sourceId": "OHThAzS5Wew",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.877709838799333,
+      "preview": "/pipeline/live?run=32e7239a-1f50-486a-82ee-afd3ac8875ed"
+    },
+    {
+      "split": "stress",
+      "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "sourceId": "874n70J1sFs",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.603112840466926,
+      "preview": "/pipeline/live?run=3946f65e-3938-4d38-ae54-4854c937d099"
+    },
+    {
+      "split": "reserved",
+      "runId": "cdcaa625-8176-4ea0-a78f-165593e75179",
+      "sourceId": "BKAn_yhgrWQ",
+      "title": "Poppin John | Freestyle | The Tuxedo Way",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.925,
+      "preview": "/pipeline/live?run=cdcaa625-8176-4ea0-a78f-165593e75179"
+    },
+    {
+      "split": "reserved",
+      "runId": "84c76181-2bcf-4729-8b1b-64bfcf737d09",
+      "sourceId": "eOC6XtJxxPo",
+      "title": "POPPIN JOHN | J**e's House Thriftworks",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.8847222222222222,
+      "preview": "/pipeline/live?run=84c76181-2bcf-4729-8b1b-64bfcf737d09"
+    },
+    {
+      "split": "reserved",
+      "runId": "9ff85da3-4e31-40ae-b139-62005d4c20b3",
+      "sourceId": "B-ROuWsPGQs",
+      "title": "SG Lewis - Chemicals",
+      "start": 20,
+      "duration": 30,
+      "poseCoverage": 0.8571428571428571,
+      "preview": "/pipeline/live?run=9ff85da3-4e31-40ae-b139-62005d4c20b3"
+    },
+    {
+      "split": "reserved",
+      "runId": "099ae693-359c-4df4-9947-664a57bd3bbf",
+      "sourceId": "HCD-zfVfxZM",
+      "title": "Kormac - Studio Sorcery (TSC - Ogg)",
+      "start": 70,
+      "duration": 30,
+      "poseCoverage": 0.8822222222222222,
+      "preview": "/pipeline/live?run=099ae693-359c-4df4-9947-664a57bd3bbf"
+    }
+  ]
+}

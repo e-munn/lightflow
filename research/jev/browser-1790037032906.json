@@ -1,0 +1,130 @@
+{
+  "automated": true,
+  "realMusicPlayback": true,
+  "musicalQualityMeasured": false,
+  "physicalLatencyMeasured": false,
+  "decisions": [
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.86,
+      "roundTripMs": 321
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.76,
+      "roundTripMs": 151
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.89,
+      "roundTripMs": 103
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.86,
+      "roundTripMs": 153
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.86,
+      "roundTripMs": 142
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.53,
+      "roundTripMs": 201
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.75,
+      "roundTripMs": 98
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.54,
+      "roundTripMs": 148
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.56,
+      "roundTripMs": 119
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.83,
+      "roundTripMs": 139
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.8,
+      "roundTripMs": 234
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.76,
+      "roundTripMs": 142
+    },
+    {
+      "status": 200,
+      "choice": "snap",
+      "confidence": 0.8,
+      "roundTripMs": 116
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "real audio playback and live TypeSafe decisions",
+    "source-linked decision export",
+    "full viewport display",
+    "A/B keyboard switching",
+    "blackout",
+    "stop cancels capture and API activity",
+    "mobile overflow",
+    "no browser exceptions"
+  ],
+  "maxDifference": 0.61241,
+  "nonzeroCircle": 60,
+  "nonzeroJev": 60,
+  "appliedModes": [
+    "snap"
+  ],
+  "dispositions": [
+    "accepted",
+    "uncertain"
+  ],
+  "browserLatencies": [
+    561,
+    163,
+    113,
+    167,
+    155,
+    213,
+    111,
+    159,
+    131,
+    150,
+    251,
+    152,
+    125
+  ],
+  "fullscreen": {
+    "width": 1440,
+    "height": 1050,
+    "viewport": [
+      1440,
+      1050
+    ]
+  }
+}

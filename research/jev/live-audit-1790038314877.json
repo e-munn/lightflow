@@ -1,0 +1,610 @@
+{
+  "recordedAt": "2026-09-22T00:51:54.875Z",
+  "model": "jev-1.13.0",
+  "synthetic": true,
+  "musicalQualityMeasured": false,
+  "physicalLatencyMeasured": false,
+  "trials": [
+    {
+      "kind": "smooth",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 0.24000000000000063,
+          "rms": 0.07874642843158332,
+          "variation": 0,
+          "attacksPerSecond": 0,
+          "low": 0.22950073631319165,
+          "mid": 0.9275094628419486,
+          "high": 0.019571800255782684,
+          "texture": 0.06106172206342652,
+          "flatness": 0.38972644386636296,
+          "build": 0.0002747405139224765,
+          "lowNovelty": 2.1047978175185259e-16,
+          "midNovelty": 1.3415194880887307e-16,
+          "highNovelty": 2.2551405187698492e-17
+        },
+        "phrase": {
+          "duration": 2.0000000000000004,
+          "rms": 0.07874642843158332,
+          "variation": 0,
+          "attacksPerSecond": 0,
+          "low": 0.22950073631319157,
+          "mid": 0.9275094628419498,
+          "high": 0.01957180025578271,
+          "texture": 0.061061722063427706,
+          "flatness": 0.38972644386636296,
+          "build": 0.0003458731612840407,
+          "lowNovelty": 2.5021651417489467e-16,
+          "midNovelty": 1.4099832412739488e-16,
+          "highNovelty": 1.1726730697603216e-17
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.0787464284315831,
+          "variation": 2.819741915253329e-15,
+          "attacksPerSecond": 0.125,
+          "low": 0.22952033844543718,
+          "mid": 0.9275000052850965,
+          "high": 0.019572250189225336,
+          "texture": 0.061061722063427595,
+          "flatness": 0.38974868961501835,
+          "build": 0.0013959510275328147,
+          "lowNovelty": 0.0011144398349372331,
+          "midNovelty": 0.0016116760632752846,
+          "highNovelty": 0.00023132673836867733
+        },
+        "recentGestures": []
+      },
+      "observations": {
+        "evidence": "Observed causal signal summaries. Now = trailing 240 ms; phrase = trailing 2 s; earlier = preceding available audio up to 8 s. Bands are not instruments. No future audio.",
+        "current": {
+          "level": "moderate recording",
+          "immediateMotion": "even and continuous",
+          "immediateTexture": "smooth/narrowband",
+          "immediateAttacks": "few",
+          "energyChange": "similar",
+          "prominentBand": "mid",
+          "changingLayer": "little spectral change",
+          "phraseMotion": "even and continuous",
+          "phraseTexture": "smooth/narrowband",
+          "phraseAttacks": "few",
+          "phraseDirection": "similar",
+          "spectralRise": "little rise"
+        },
+        "recentInferredGestures": [],
+        "limits": "Recorded level depends on gain. Do not invent instruments, song sections, tempo, or future events. Recent gestures are our earlier decisions, not musical evidence."
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "answers": {
+          "gesture": {
+            "type": "choice",
+            "choice": "uncertain",
+            "confidence": 0.4,
+            "probabilities": {
+              "trace": 0.33,
+              "strike": 0,
+              "bloom": 0.12,
+              "carve": 0,
+              "grain": 0,
+              "space": 0.05,
+              "uncertain": 0.5
+            }
+          },
+          "focus": {
+            "type": "choice",
+            "choice": "mid",
+            "confidence": 0.35,
+            "probabilities": {
+              "broad": 0.01,
+              "low": 0,
+              "mid": 0.48,
+              "high": 0.07,
+              "uncertain": 0.44
+            }
+          },
+          "contrast": {
+            "type": "choice",
+            "choice": "soft",
+            "confidence": 0.75,
+            "probabilities": {
+              "soft": 0.81,
+              "balanced": 0.16,
+              "deep": 0,
+              "uncertain": 0.03
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1145,
+          "output_tokens": 169
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 350
+      }
+    },
+    {
+      "kind": "texture",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 0.24000000000000063,
+          "rms": 0.01882520719430697,
+          "variation": 0.009810323292692743,
+          "attacksPerSecond": 0,
+          "low": 0.0398481256177999,
+          "mid": 0.31238135703901593,
+          "high": 0.6702206084074175,
+          "texture": 1,
+          "flatness": 0.44204861823041314,
+          "build": 0.006455007656497337,
+          "lowNovelty": 0.0007450565110713555,
+          "midNovelty": 0.0018527812419730902,
+          "highNovelty": 0.0023629169618739443
+        },
+        "phrase": {
+          "duration": 2.0000000000000004,
+          "rms": 0.0187721207045175,
+          "variation": 0.012578501928195866,
+          "attacksPerSecond": 0,
+          "low": 0.04053404934687707,
+          "mid": 0.315153003553427,
+          "high": 0.6672767485784489,
+          "texture": 1,
+          "flatness": 0.4460288694719714,
+          "build": 0.005521231177708723,
+          "lowNovelty": 0.0006233106463855339,
+          "midNovelty": 0.0015952496888723216,
+          "highNovelty": 0.002040223802381367
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.01874020732522264,
+          "variation": 0.01435847614558528,
+          "attacksPerSecond": 0.125,
+          "low": 0.041155920366923324,
+          "mid": 0.3169929799333695,
+          "high": 0.6655589200326425,
+          "texture": 1,
+          "flatness": 0.4482043094673951,
+          "build": 0.0036459599305765887,
+          "lowNovelty": 0.00064743833623765,
+          "midNovelty": 0.0015771926580004556,
+          "highNovelty": 0.0022088418280109706
+        },
+        "recentGestures": []
+      },
+      "observations": {
+        "evidence": "Observed causal signal summaries. Now = trailing 240 ms; phrase = trailing 2 s; earlier = preceding available audio up to 8 s. Bands are not instruments. No future audio.",
+        "current": {
+          "level": "moderate recording",
+          "immediateMotion": "even and continuous",
+          "immediateTexture": "rough/broadband",
+          "immediateAttacks": "few",
+          "energyChange": "similar",
+          "prominentBand": "high",
+          "changingLayer": "little spectral change",
+          "phraseMotion": "even and continuous",
+          "phraseTexture": "rough/broadband",
+          "phraseAttacks": "few",
+          "phraseDirection": "similar",
+          "spectralRise": "little rise"
+        },
+        "recentInferredGestures": [],
+        "limits": "Recorded level depends on gain. Do not invent instruments, song sections, tempo, or future events. Recent gestures are our earlier decisions, not musical evidence."
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "answers": {
+          "gesture": {
+            "type": "choice",
+            "choice": "grain",
+            "confidence": 0.42,
+            "probabilities": {
+              "trace": 0.2,
+              "strike": 0.01,
+              "bloom": 0.02,
+              "carve": 0.01,
+              "grain": 0.5,
+              "space": 0.05,
+              "uncertain": 0.21
+            }
+          },
+          "focus": {
+            "type": "choice",
+            "choice": "uncertain",
+            "confidence": 0.4,
+            "probabilities": {
+              "broad": 0.04,
+              "low": 0,
+              "mid": 0.01,
+              "high": 0.43,
+              "uncertain": 0.52
+            }
+          },
+          "contrast": {
+            "type": "choice",
+            "choice": "balanced",
+            "confidence": 0.53,
+            "probabilities": {
+              "soft": 0.29,
+              "balanced": 0.65,
+              "deep": 0,
+              "uncertain": 0.06
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1145,
+          "output_tokens": 170
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 269
+      }
+    },
+    {
+      "kind": "attacks",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 0.24000000000000063,
+          "rms": 0.0019997012657765553,
+          "variation": 1.0929474654241902,
+          "attacksPerSecond": 0,
+          "low": 0.874018888962957,
+          "mid": 0.2159830951567103,
+          "high": 0.055695774999817725,
+          "texture": 0.4407098075854417,
+          "flatness": 0.4649613874430405,
+          "build": 0,
+          "lowNovelty": 0,
+          "midNovelty": 0,
+          "highNovelty": 0
+        },
+        "phrase": {
+          "duration": 2.0000000000000004,
+          "rms": 0.022471815893321832,
+          "variation": 1.6127972424397092,
+          "attacksPerSecond": 2.4999999999999996,
+          "low": 0.874358209133441,
+          "mid": 0.21616310134819577,
+          "high": 0.05501749804693265,
+          "texture": 0.4370696111954833,
+          "flatness": 0.46435794669498953,
+          "build": 0.003028250276252689,
+          "lowNovelty": 0.04054705669217361,
+          "midNovelty": 0.01625238159636343,
+          "highNovelty": 0.015114632947952091
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.02250035378426996,
+          "variation": 1.614288816870616,
+          "attacksPerSecond": 2.5,
+          "low": 0.8744622236856537,
+          "mid": 0.21641578257701535,
+          "high": 0.054759077001426196,
+          "texture": 0.4350399553596517,
+          "flatness": 0.46409473952147196,
+          "build": 0,
+          "lowNovelty": 0.04058234707377683,
+          "midNovelty": 0.016240383389180754,
+          "highNovelty": 0.014881518873270659
+        },
+        "recentGestures": []
+      },
+      "observations": {
+        "evidence": "Observed causal signal summaries. Now = trailing 240 ms; phrase = trailing 2 s; earlier = preceding available audio up to 8 s. Bands are not instruments. No future audio.",
+        "current": {
+          "level": "quiet recording",
+          "immediateMotion": "strong gaps and peaks",
+          "immediateTexture": "rough/broadband",
+          "immediateAttacks": "few",
+          "energyChange": "falling strongly",
+          "prominentBand": "low",
+          "changingLayer": "little spectral change",
+          "phraseMotion": "strong gaps and peaks",
+          "phraseTexture": "rough/broadband",
+          "phraseAttacks": "frequent",
+          "phraseDirection": "similar",
+          "spectralRise": "little rise"
+        },
+        "recentInferredGestures": [],
+        "limits": "Recorded level depends on gain. Do not invent instruments, song sections, tempo, or future events. Recent gestures are our earlier decisions, not musical evidence."
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "answers": {
+          "gesture": {
+            "type": "choice",
+            "choice": "space",
+            "confidence": 0.97,
+            "probabilities": {
+              "trace": 0,
+              "strike": 0,
+              "bloom": 0,
+              "carve": 0,
+              "grain": 0.01,
+              "space": 0.99,
+              "uncertain": 0
+            }
+          },
+          "focus": {
+            "type": "choice",
+            "choice": "uncertain",
+            "confidence": 0.43,
+            "probabilities": {
+              "broad": 0.12,
+              "low": 0.29,
+              "mid": 0.01,
+              "high": 0.03,
+              "uncertain": 0.55
+            }
+          },
+          "contrast": {
+            "type": "choice",
+            "choice": "deep",
+            "confidence": 0.88,
+            "probabilities": {
+              "soft": 0.04,
+              "balanced": 0.02,
+              "deep": 0.91,
+              "uncertain": 0.03
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1149,
+          "output_tokens": 169
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 132
+      }
+    },
+    {
+      "kind": "arrival",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 0.24000000000000063,
+          "rms": 0.0019997012657765553,
+          "variation": 1.0929474654241902,
+          "attacksPerSecond": 0,
+          "low": 0.874018888962957,
+          "mid": 0.2159830951567103,
+          "high": 0.055695774999817725,
+          "texture": 0.4407098075854417,
+          "flatness": 0.4649613874430405,
+          "build": 0.15138363291307075,
+          "lowNovelty": 0,
+          "midNovelty": 0,
+          "highNovelty": 0
+        },
+        "phrase": {
+          "duration": 2.0000000000000004,
+          "rms": 0.022471815893321832,
+          "variation": 1.6127972424397092,
+          "attacksPerSecond": 2.4999999999999996,
+          "low": 0.8743581427592672,
+          "mid": 0.21616311431134322,
+          "high": 0.0550175380133637,
+          "texture": 0.4370696111954833,
+          "flatness": 0.46435809604023703,
+          "build": 0.2985830051972764,
+          "lowNovelty": 0.040546788636773225,
+          "midNovelty": 0.016252321814667785,
+          "highNovelty": 0.015114642397797216
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.0005142938008194002,
+          "variation": 1.6142888171444554,
+          "attacksPerSecond": 0,
+          "low": 0.8701965142857297,
+          "mid": 0.21536209508129264,
+          "high": 0.054494536608596524,
+          "texture": 0.2176170109579837,
+          "flatness": 0.5199596722538353,
+          "build": 0.000013003676610110192,
+          "lowNovelty": 0.00016041376904380583,
+          "midNovelty": 0.000017411439850571825,
+          "highNovelty": 0.000014953388641181829
+        },
+        "recentGestures": []
+      },
+      "observations": {
+        "evidence": "Observed causal signal summaries. Now = trailing 240 ms; phrase = trailing 2 s; earlier = preceding available audio up to 8 s. Bands are not instruments. No future audio.",
+        "current": {
+          "level": "quiet recording",
+          "immediateMotion": "strong gaps and peaks",
+          "immediateTexture": "rough/broadband",
+          "immediateAttacks": "few",
+          "energyChange": "falling strongly",
+          "prominentBand": "low",
+          "changingLayer": "little spectral change",
+          "phraseMotion": "strong gaps and peaks",
+          "phraseTexture": "rough/broadband",
+          "phraseAttacks": "frequent",
+          "phraseDirection": "rising strongly",
+          "spectralRise": "some rise"
+        },
+        "recentInferredGestures": [],
+        "limits": "Recorded level depends on gain. Do not invent instruments, song sections, tempo, or future events. Recent gestures are our earlier decisions, not musical evidence."
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "answers": {
+          "gesture": {
+            "type": "choice",
+            "choice": "space",
+            "confidence": 0.83,
+            "probabilities": {
+              "trace": 0.01,
+              "strike": 0.02,
+              "bloom": 0.01,
+              "carve": 0.02,
+              "grain": 0.08,
+              "space": 0.86,
+              "uncertain": 0
+            }
+          },
+          "focus": {
+            "type": "choice",
+            "choice": "uncertain",
+            "confidence": 0.39,
+            "probabilities": {
+              "broad": 0.09,
+              "low": 0.24,
+              "mid": 0.02,
+              "high": 0.14,
+              "uncertain": 0.51
+            }
+          },
+          "contrast": {
+            "type": "choice",
+            "choice": "deep",
+            "confidence": 0.93,
+            "probabilities": {
+              "soft": 0.02,
+              "balanced": 0.02,
+              "deep": 0.95,
+              "uncertain": 0.01
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1151,
+          "output_tokens": 169
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 106
+      }
+    },
+    {
+      "kind": "rise",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 0.24000000000000063,
+          "rms": 0.07644588613195401,
+          "variation": 0.013317066230229838,
+          "attacksPerSecond": 0,
+          "low": 0.5597740586035479,
+          "mid": 0.7768421876953545,
+          "high": 0.05765978528280554,
+          "texture": 0.4395195150896955,
+          "flatness": 0.5989079349792812,
+          "build": 0.42883211418312484,
+          "lowNovelty": 0.0029682114254925515,
+          "midNovelty": 0.004654104410580455,
+          "highNovelty": 0.004912156378463635
+        },
+        "phrase": {
+          "duration": 2.0000000000000004,
+          "rms": 0.06997539420920944,
+          "variation": 0.059362995663854286,
+          "attacksPerSecond": 0,
+          "low": 0.5597033662029743,
+          "mid": 0.7770516643820166,
+          "high": 0.057464073104004525,
+          "texture": 0.4391667866812281,
+          "flatness": 0.5985445862315507,
+          "build": 0.4309413210304415,
+          "lowNovelty": 0.003837927265798559,
+          "midNovelty": 0.004637350177567756,
+          "highNovelty": 0.003897904417646595
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.034947733376534014,
+          "variation": 0.4628060410293918,
+          "attacksPerSecond": 0,
+          "low": 0.5596454928475599,
+          "mid": 0.7770371031150518,
+          "high": 0.05747848458101393,
+          "texture": 0.438236139658053,
+          "flatness": 0.5985773012906224,
+          "build": 0.301120420759525,
+          "lowNovelty": 0.003043058810654805,
+          "midNovelty": 0.0029122667251590224,
+          "highNovelty": 0.0015872685706435192
+        },
+        "recentGestures": []
+      },
+      "observations": {
+        "evidence": "Observed causal signal summaries. Now = trailing 240 ms; phrase = trailing 2 s; earlier = preceding available audio up to 8 s. Bands are not instruments. No future audio.",
+        "current": {
+          "level": "moderate recording",
+          "immediateMotion": "even and continuous",
+          "immediateTexture": "rough/broadband",
+          "immediateAttacks": "few",
+          "energyChange": "similar",
+          "prominentBand": "mid",
+          "changingLayer": "little spectral change",
+          "phraseMotion": "even and continuous",
+          "phraseTexture": "rough/broadband",
+          "phraseAttacks": "few",
+          "phraseDirection": "rising strongly",
+          "spectralRise": "clear rise"
+        },
+        "recentInferredGestures": [],
+        "limits": "Recorded level depends on gain. Do not invent instruments, song sections, tempo, or future events. Recent gestures are our earlier decisions, not musical evidence."
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "answers": {
+          "gesture": {
+            "type": "choice",
+            "choice": "bloom",
+            "confidence": 0.67,
+            "probabilities": {
+              "trace": 0.02,
+              "strike": 0.02,
+              "bloom": 0.73,
+              "carve": 0,
+              "grain": 0.21,
+              "space": 0,
+              "uncertain": 0.02
+            }
+          },
+          "focus": {
+            "type": "choice",
+            "choice": "mid",
+            "confidence": 0.47,
+            "probabilities": {
+              "broad": 0.03,
+              "low": 0,
+              "mid": 0.58,
+              "high": 0.15,
+              "uncertain": 0.24
+            }
+          },
+          "contrast": {
+            "type": "choice",
+            "choice": "balanced",
+            "confidence": 0.86,
+            "probabilities": {
+              "soft": 0.04,
+              "balanced": 0.89,
+              "deep": 0.02,
+              "uncertain": 0.05
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 1147,
+          "output_tokens": 168
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 130
+      }
+    }
+  ],
+  "latencyMs": {
+    "min": 106,
+    "median": 132,
+    "max": 350
+  },
+  "totalInputTokens": 5737
+}

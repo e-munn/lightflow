@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { identityStatus, validateReview } from '../../src/lib/pipeline/reviews.ts';
+const entry = { id: 'test', createdAt: '', start: 0, end: 30, method: 'sampled', outcome: 'clear', reviewer: 'user', text: 'Test evidence' };
+assert.equal(identityStatus([], 30), 'Not audited');
+assert.equal(identityStatus([entry], 30), 'Partially reviewed');
+assert.equal(identityStatus([{ ...entry, method: 'continuous' }], 30), 'Entire span reviewed');
+assert.equal(identityStatus([{ ...entry, method: 'continuous', reviewer: 'automated' }], 30), 'Not audited');
+assert.equal(identityStatus([{ ...entry, method: 'continuous' }, { ...entry, start: 5, end: 6, outcome: 'issue' }], 30), 'Issues flagged');
+assert.equal(identityStatus([{ ...entry, end: 10, method: 'continuous' }, { ...entry, start: 11, method: 'continuous' }], 30), 'Partially reviewed');
+assert.throws(() => validateReview({ ...entry, start: -1 }, 30));
+assert.throws(() => validateReview({ ...entry, start: 5, end: 4 }, 30));
+assert.throws(() => validateReview({ ...entry, end: 31 }, 30));
+assert.throws(() => validateReview({ ...entry, text: '' }, 30));
+assert.throws(() => validateReview({ ...entry, method: 'continuous', start: 3, end: 3 }, 30));
+assert.equal(validateReview({ ...entry, start: 3, end: 3 }, 30).method, 'sampled');
+console.log('Identity review tests passed: samples and automated QA never certify identity accuracy.');

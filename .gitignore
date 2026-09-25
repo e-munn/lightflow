@@ -102,3 +102,8 @@ archive/v3-python/.cache/
 /scripts/director/artifacts/*-trace.json
 /scripts/director/artifacts/*-phrase-performance.json
 /scripts/director/artifacts/*.png
+# Machine-local pose runtime paths; dependencies and model stay on SanDisk.
+research/dance/runtime.local.json
+research/dance/training.local.json
+
+research/dance/rtmw-runtime-*.local.json

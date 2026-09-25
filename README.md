@@ -7,6 +7,15 @@ Audio-reactive lighting. Two surfaces in one Next.js app:
 
 Hosted demo: https://lightflow-emunns-projects.vercel.app (three pre-analyzed songs; the full library stays local).
 
+## Current research handoff
+
+The `codex/dance-choreography` branch adds local dance extraction, synchronized
+music/skeleton playback, brightness studies, and a Full/Heavy/RTMW pose comparison.
+Read [the current handoff](docs/HANDOFF.md) for startup, SanDisk dependencies,
+verification, known failures and next steps. These are research tools; an
+expressive audio-to-light model has not been validated. The realistic 3D lighting
+scene is saved as a specification and is not yet wired into the renderer.
+
 ## Stereoscope research
 
 The `codex/new-research` branch adds an experimental one-channel brightness

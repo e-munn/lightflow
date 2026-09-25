@@ -1,0 +1,327 @@
+{
+  "benchmark": "/Users/elijah/studio/lightflow/research/dance/pose-quality-benchmark-20260923T234729.json",
+  "method": "Identical media, timestamps, detection thresholds and identity policy. No added smoothing. Coverage measures confidence and in-frame positions, not anatomical accuracy. Uniform samples and deliberately selected difficult/disagreement samples are separate; neither is full-span review.",
+  "rows": [
+    {
+      "title": "Beat Killer",
+      "baseline": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "candidate": "c61442f6-ab46-4511-80c0-80006d2bd6be",
+      "reason": "clean popping",
+      "before": {
+        "frames": 720,
+        "coverage": {
+          "arms": 0.9958333333333333,
+          "legs": 1.0,
+          "body": 0.9958333333333333
+        },
+        "jointCoverage": {
+          "11": 1.0,
+          "12": 1.0,
+          "13": 1.0,
+          "14": 1.0,
+          "15": 0.9958333333333333,
+          "16": 1.0,
+          "23": 1.0,
+          "24": 1.0,
+          "25": 1.0,
+          "26": 1.0,
+          "27": 1.0,
+          "28": 1.0
+        },
+        "multipleBodyFrames": 0,
+        "unassignedFrames": 0,
+        "cutFlags": 0
+      },
+      "after": {
+        "frames": 720,
+        "coverage": {
+          "arms": 0.9819444444444444,
+          "legs": 0.9986111111111111,
+          "body": 0.9819444444444444
+        },
+        "jointCoverage": {
+          "11": 1.0,
+          "12": 1.0,
+          "13": 0.9916666666666667,
+          "14": 0.9902777777777778,
+          "15": 0.9930555555555556,
+          "16": 0.9986111111111111,
+          "23": 1.0,
+          "24": 1.0,
+          "25": 1.0,
+          "26": 0.9986111111111111,
+          "27": 1.0,
+          "28": 1.0
+        },
+        "multipleBodyFrames": 0,
+        "unassignedFrames": 0,
+        "cutFlags": 0
+      },
+      "timestampsIdentical": true,
+      "uniformSamples": [
+        {
+          "index": 144,
+          "t": 6.006
+        },
+        {
+          "index": 288,
+          "t": 12.012
+        },
+        {
+          "index": 431,
+          "t": 17.976292
+        },
+        {
+          "index": 575,
+          "t": 23.982292
+        }
+      ],
+      "diagnosticSamples": [
+        {
+          "index": 171,
+          "t": 7.132125,
+          "usableJointsBefore": 12,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 321,
+          "t": 13.388375,
+          "usableJointsBefore": 12,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 382,
+          "t": 15.932583,
+          "usableJointsBefore": 12,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 440,
+          "t": 18.351667,
+          "usableJointsBefore": 12,
+          "usableJointsAfter": 12
+        }
+      ],
+      "sheets": {
+        "uniform": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/c61442f6-ab46-4511-80c0-80006d2bd6be-uniform.jpg",
+        "diagnostic": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/c61442f6-ab46-4511-80c0-80006d2bd6be-diagnostic.jpg"
+      },
+      "model": "MediaPipe Pose Landmarker Heavy",
+      "extractionSeconds": 52.521021749824286
+    },
+    {
+      "title": "Crave You",
+      "baseline": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "candidate": "f6806359-9530-421b-91ad-83f8b5c17b7b",
+      "reason": "missing arm joints",
+      "before": {
+        "frames": 1799,
+        "coverage": {
+          "arms": 0.6075597554196775,
+          "legs": 0.991106170094497,
+          "body": 0.603112840466926
+        },
+        "jointCoverage": {
+          "11": 1.0,
+          "12": 1.0,
+          "13": 0.9916620344635909,
+          "14": 0.754863813229572,
+          "15": 0.8727070594774875,
+          "16": 0.7581989994441356,
+          "23": 1.0,
+          "24": 1.0,
+          "25": 1.0,
+          "26": 0.9916620344635909,
+          "27": 1.0,
+          "28": 0.9994441356309061
+        },
+        "multipleBodyFrames": 0,
+        "unassignedFrames": 0,
+        "cutFlags": 0
+      },
+      "after": {
+        "frames": 1799,
+        "coverage": {
+          "arms": 0.443023902167871,
+          "legs": 0.9933296275708727,
+          "body": 0.43802112284602557
+        },
+        "jointCoverage": {
+          "11": 1.0,
+          "12": 1.0,
+          "13": 0.857698721511951,
+          "14": 0.6431350750416899,
+          "15": 0.7926625903279599,
+          "16": 0.6464702612562535,
+          "23": 1.0,
+          "24": 1.0,
+          "25": 1.0,
+          "26": 0.9955530850472485,
+          "27": 1.0,
+          "28": 0.9938854919399667
+        },
+        "multipleBodyFrames": 0,
+        "unassignedFrames": 0,
+        "cutFlags": 0
+      },
+      "timestampsIdentical": true,
+      "uniformSamples": [
+        {
+          "index": 360,
+          "t": 6.006
+        },
+        {
+          "index": 719,
+          "t": 11.995316
+        },
+        {
+          "index": 1079,
+          "t": 18.001316
+        },
+        {
+          "index": 1438,
+          "t": 23.990632
+        }
+      ],
+      "diagnosticSamples": [
+        {
+          "index": 24,
+          "t": 0.4004,
+          "usableJointsBefore": 10,
+          "usableJointsAfter": 11
+        },
+        {
+          "index": 455,
+          "t": 7.590916,
+          "usableJointsBefore": 10,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 1169,
+          "t": 19.502816,
+          "usableJointsBefore": 11,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 1541,
+          "t": 25.709015,
+          "usableJointsBefore": 11,
+          "usableJointsAfter": 12
+        }
+      ],
+      "sheets": {
+        "uniform": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/f6806359-9530-421b-91ad-83f8b5c17b7b-uniform.jpg",
+        "diagnostic": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/f6806359-9530-421b-91ad-83f8b5c17b7b-diagnostic.jpg"
+      },
+      "model": "MediaPipe Pose Landmarker Heavy",
+      "extractionSeconds": 130.51414087507874
+    },
+    {
+      "title": "Feel the Way I Feel",
+      "baseline": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "candidate": "7fbad7b9-094f-4f25-b090-ab6177240ca2",
+      "reason": "duplicate proposals",
+      "before": {
+        "frames": 1799,
+        "coverage": {
+          "arms": 0.9288493607559756,
+          "legs": 0.9416342412451362,
+          "body": 0.877709838799333
+        },
+        "jointCoverage": {
+          "11": 0.9988882712618121,
+          "12": 0.9988882712618121,
+          "13": 0.9722067815453029,
+          "14": 0.9766536964980544,
+          "15": 0.9655364091161757,
+          "16": 0.9777654252362423,
+          "23": 0.9988882712618121,
+          "24": 0.9988882712618121,
+          "25": 0.9955530850472485,
+          "26": 0.9916620344635909,
+          "27": 0.9694274596998332,
+          "28": 0.9766536964980544
+        },
+        "multipleBodyFrames": 2,
+        "unassignedFrames": 2,
+        "cutFlags": 0
+      },
+      "after": {
+        "frames": 1799,
+        "coverage": {
+          "arms": 0.8588104502501389,
+          "legs": 0.8871595330739299,
+          "body": 0.7765425236242357
+        },
+        "jointCoverage": {
+          "11": 0.9977765425236242,
+          "12": 0.9977765425236242,
+          "13": 0.9644246803779878,
+          "14": 0.9099499722067815,
+          "15": 0.9583101723179545,
+          "16": 0.9460811561978877,
+          "23": 0.9977765425236242,
+          "24": 0.9977765425236242,
+          "25": 0.9738743746525848,
+          "26": 0.9672040022234575,
+          "27": 0.9394107837687604,
+          "28": 0.9727626459143969
+        },
+        "multipleBodyFrames": 4,
+        "unassignedFrames": 4,
+        "cutFlags": 0
+      },
+      "timestampsIdentical": true,
+      "uniformSamples": [
+        {
+          "index": 360,
+          "t": 6.006
+        },
+        {
+          "index": 719,
+          "t": 11.995316
+        },
+        {
+          "index": 1079,
+          "t": 18.001316
+        },
+        {
+          "index": 1438,
+          "t": 23.990632
+        }
+      ],
+      "diagnosticSamples": [
+        {
+          "index": 622,
+          "t": 10.377033,
+          "usableJointsBefore": 11,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 1211,
+          "t": 20.203516,
+          "usableJointsBefore": 0,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 1368,
+          "t": 22.822799,
+          "usableJointsBefore": 10,
+          "usableJointsAfter": 12
+        },
+        {
+          "index": 1709,
+          "t": 28.511815,
+          "usableJointsBefore": 10,
+          "usableJointsAfter": 12
+        }
+      ],
+      "sheets": {
+        "uniform": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/7fbad7b9-094f-4f25-b090-ab6177240ca2-uniform.jpg",
+        "diagnostic": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/pose-quality-20260923-rh_67oxv/review-sv_x8hih/7fbad7b9-094f-4f25-b090-ab6177240ca2-diagnostic.jpg"
+      },
+      "model": "MediaPipe Pose Landmarker Heavy",
+      "extractionSeconds": 131.7950247079134
+    }
+  ]
+}

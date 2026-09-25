@@ -1,0 +1,336 @@
+{
+  "createdAt": "2026-09-22T06:44:32.687Z",
+  "protocol": "research/dance/V3_PROTOCOL.md",
+  "hashes": {
+    "brightness-v0": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "movement-brightness": "ac30a0e3887c85fc12d2af29de059493c9d19f7ea801da78e1da9a0d0d7edddb",
+    "music-context": "56e12f4b4efb8b885576b5de901a5f3b3858508d1b7227327019796370b7ba8c",
+    "brightness-timing": "0ccf0ef199175a8b402464fdf487e99a8ff30dd948990f123775ea08b63a0a78",
+    "brightness-phrase": "6d42d9b29e3154a7214c3dd5d367de1bfc3b623f5b178b7cec346e55741586da"
+  },
+  "stage": "Frozen candidate: reserved-source evaluation, do not tune from these results",
+  "caveats": [
+    "No human perceptual approval.",
+    "Timing shared by candidate and constant ablation is not evidence for Open.",
+    "No manually annotated beat or source-offset ground truth.",
+    "Wrong movement correlating with audio level more/less is not a taste metric."
+  ],
+  "rows": [
+    {
+      "runId": "cdcaa625-8176-4ea0-a78f-165593e75179",
+      "title": "Poppin John | Freestyle | The Tuxedo Way",
+      "split": "reserved",
+      "bpm": 119,
+      "texture": "mixed",
+      "broadAccents": 120,
+      "strongAccents": 53,
+      "visibleEvents": 52,
+      "droppedForTracking": 1,
+      "refractoryMs": 252,
+      "settings": {
+        "gain": 1.1,
+        "fade": 240
+      },
+      "amplitude": {
+        "p10": 0.3128832896263917,
+        "p50": 0.4571691323635956,
+        "p90": 0.8249930864119425,
+        "successiveMeanChange": 0.0804113898362154
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 19.50000000000074,
+        "displayQuantizationMaxMs": 39.8750000000021
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.9038461538461539,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 28.987,
+        "mean": 0.2099,
+        "saturationFraction": 0.0058,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 28.987,
+          "mean": 0.2631,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 0.877326250076294,
+          "targetMean": 0.20973033391711435,
+          "actualMean": 0.2097303382455464,
+          "matched": true,
+          "sharedSeconds": 29.028999000000006
+        },
+        "matched": {
+          "validSeconds": 28.987,
+          "mean": 0.2098,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "eOC6XtJxxPo",
+        "sharedEvents": 48,
+        "coverage": 0.9230769230769231,
+        "actualAmplitudeVsAudioRms": 0.025430301394588295,
+        "wrongAmplitudeVsAudioRms": 0.07749627382270381,
+        "matching": {
+          "gain": 0.9867303371429443,
+          "targetMean": 0.2070895835971219,
+          "actualMean": 0.20708960530662743,
+          "matched": true,
+          "sharedSeconds": 25.942582000000005
+        },
+        "matched": {
+          "validSeconds": 25.901,
+          "mean": 0.2073,
+          "saturationFraction": 0.0016,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "84c76181-2bcf-4729-8b1b-64bfcf737d09",
+      "title": "POPPIN JOHN | J**e's House Thriftworks",
+      "split": "reserved",
+      "bpm": 120,
+      "texture": "mixed",
+      "broadAccents": 136,
+      "strongAccents": 56,
+      "visibleEvents": 48,
+      "droppedForTracking": 8,
+      "refractoryMs": 250,
+      "settings": {
+        "gain": 0.95,
+        "fade": 280
+      },
+      "amplitude": {
+        "p10": 0.28035653019108225,
+        "p50": 0.5306249726959053,
+        "p90": 0.9431291510703002,
+        "successiveMeanChange": 0.08726534198054231
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 15.667000000000542,
+        "displayQuantizationMaxMs": 40.37500000000005
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.75,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 26.735,
+        "mean": 0.2281,
+        "saturationFraction": 0,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 26.735,
+          "mean": 0.2509,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 0.8633959293365479,
+          "targetMean": 0.22777524095431168,
+          "actualMean": 0.22777524787293404,
+          "matched": true,
+          "sharedSeconds": 26.77675
+        },
+        "matched": {
+          "validSeconds": 26.735,
+          "mean": 0.228,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "B-ROuWsPGQs",
+        "sharedEvents": 43,
+        "coverage": 0.8958333333333334,
+        "actualAmplitudeVsAudioRms": -0.22292922356654685,
+        "wrongAmplitudeVsAudioRms": -0.07948185425339359,
+        "matching": {
+          "gain": 0.9506051540374756,
+          "targetMean": 0.23948877132566943,
+          "actualMean": 0.23948882305857935,
+          "matched": true,
+          "sharedSeconds": 23.189833999999998
+        },
+        "matched": {
+          "validSeconds": 23.19,
+          "mean": 0.2395,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "9ff85da3-4e31-40ae-b139-62005d4c20b3",
+      "title": "SG Lewis - Chemicals",
+      "split": "reserved",
+      "bpm": 115,
+      "texture": "mixed",
+      "broadAccents": 125,
+      "strongAccents": 45,
+      "visibleEvents": 41,
+      "droppedForTracking": 4,
+      "refractoryMs": 261,
+      "settings": {
+        "gain": 0.95,
+        "fade": 280
+      },
+      "amplitude": {
+        "p10": 0.2786430032153634,
+        "p50": 0.5788056907997179,
+        "p90": 0.9250486324956627,
+        "successiveMeanChange": 0.10820036172171694
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 18.658999999999537,
+        "displayQuantizationMaxMs": 31.83199999999964
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.926829268292683,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 26.445,
+        "mean": 0.2175,
+        "saturationFraction": 0,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 26.445,
+          "mean": 0.2238,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 0.9231078624725342,
+          "targetMean": 0.21745031383804952,
+          "actualMean": 0.21745032078761567,
+          "matched": true,
+          "sharedSeconds": 26.445450000000005
+        },
+        "matched": {
+          "validSeconds": 26.445,
+          "mean": 0.2175,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "HCD-zfVfxZM",
+        "sharedEvents": 35,
+        "coverage": 0.8536585365853658,
+        "actualAmplitudeVsAudioRms": -0.027488383602172418,
+        "wrongAmplitudeVsAudioRms": -0.0077544711974440106,
+        "matching": {
+          "gain": 1.2923774719238281,
+          "targetMean": 0.21488921679383508,
+          "actualMean": 0.21488922361490226,
+          "matched": true,
+          "sharedSeconds": 23.864586000000013
+        },
+        "matched": {
+          "validSeconds": 23.865,
+          "mean": 0.2149,
+          "saturationFraction": 0.0112,
+          "oneFramePulses": 0
+        }
+      }
+    },
+    {
+      "runId": "099ae693-359c-4df4-9947-664a57bd3bbf",
+      "title": "Kormac - Studio Sorcery (TSC - Ogg)",
+      "split": "reserved",
+      "bpm": 96,
+      "texture": "mixed",
+      "broadAccents": 129,
+      "strongAccents": 50,
+      "visibleEvents": 45,
+      "droppedForTracking": 5,
+      "refractoryMs": 300,
+      "settings": {
+        "gain": 1.15,
+        "fade": 280
+      },
+      "amplitude": {
+        "p10": 0.3530638903388675,
+        "p50": 0.5677131096548476,
+        "p90": 0.7712010970160151,
+        "successiveMeanChange": 0.12954572186655675
+      },
+      "latency": {
+        "confirmationMs": 20,
+        "displayQuantizationMedianMs": 15.700000000000713,
+        "displayQuantizationMaxMs": 32.00000000000003
+      },
+      "energyAnchorProximity": {
+        "toleranceMs": 120,
+        "fraction": 0.9777777777777777,
+        "caveat": "Diagnostic only: RMS anchors are dense and not annotated beats; both variants share timing."
+      },
+      "candidate": {
+        "validSeconds": 27.227,
+        "mean": 0.2349,
+        "saturationFraction": 0.0025,
+        "oneFramePulses": 0
+      },
+      "constant": {
+        "native": {
+          "validSeconds": 27.227,
+          "mean": 0.2591,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        },
+        "matching": {
+          "gain": 1.0431385040283203,
+          "targetMean": 0.23534446233788975,
+          "actualMean": 0.2353444914718169,
+          "matched": true,
+          "sharedSeconds": 27.260565
+        },
+        "matched": {
+          "validSeconds": 27.227,
+          "mean": 0.235,
+          "saturationFraction": 0,
+          "oneFramePulses": 0
+        }
+      },
+      "wrongMovement": {
+        "sourceId": "BKAn_yhgrWQ",
+        "sharedEvents": 43,
+        "coverage": 0.9555555555555556,
+        "actualAmplitudeVsAudioRms": -0.2296371456045542,
+        "wrongAmplitudeVsAudioRms": 0.1352515048259208,
+        "matching": {
+          "gain": 1.3263492584228516,
+          "targetMean": 0.23841297302922926,
+          "actualMean": 0.2384129879098061,
+          "matched": true,
+          "sharedSeconds": 26.426397999999992
+        },
+        "matched": {
+          "validSeconds": 26.393,
+          "mean": 0.2383,
+          "saturationFraction": 0.0202,
+          "oneFramePulses": 0
+        }
+      }
+    }
+  ]
+}

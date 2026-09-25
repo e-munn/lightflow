@@ -1,0 +1,1014 @@
+{
+  "createdAt": "2026-09-22T05:20:02.519Z",
+  "stage": "V1 engineering diagnostics only; no alignment or artistic-quality claim",
+  "baselineHash": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+  "definitions": {
+    "saturated": "display level >= 0.98, time-weighted on valid samples",
+    "frameRise": "increase >=0.15 in one source frame; not an independently verified beat",
+    "meanMatch": "candidate gain adjusted to V0 mean; diagnostic, not production setting"
+  },
+  "rows": [
+    {
+      "runId": "86dab5e0-9793-4cb4-8a1a-5c9c7f0c04f6",
+      "sourceId": "2EnI4bnVxP0",
+      "title": "Poppin John | AI Naafyish | Old School Electro 2023",
+      "split": "development",
+      "music": {
+        "bpm": 82,
+        "confidence": 0.4952937955276323,
+        "texture": "mixed",
+        "percussiveness": 0.47776258256518206,
+        "density": 6.504336224149433,
+        "continuity": 0.4372066002795682,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.7199,
+            "rms": 0.755,
+            "saturationFraction": 0.274,
+            "frameRisesAtLeast015": 91
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~82 BPM · mixed audio. Fade loses 90% in ~0.54 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.5355,
+            "rms": 0.5744,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 83
+          },
+          "V1MeanMatched": {
+            "gain": 1.2923,
+            "validSeconds": 29.988,
+            "mean": 0.7199,
+            "rms": 0.7548,
+            "saturationFraction": 0.2698,
+            "frameRisesAtLeast015": 89
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.5892,
+            "rms": 0.6432,
+            "saturationFraction": 0.1544,
+            "frameRisesAtLeast015": 91
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~82 BPM · mixed audio. Fade loses 90% in ~0.54 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4295,
+            "rms": 0.4794,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 67
+          },
+          "V1MeanMatched": {
+            "gain": 1.2892,
+            "validSeconds": 29.988,
+            "mean": 0.5892,
+            "rms": 0.6427,
+            "saturationFraction": 0.153,
+            "frameRisesAtLeast015": 88
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.627,
+            "rms": 0.6687,
+            "saturationFraction": 0.1488,
+            "frameRisesAtLeast015": 94
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~82 BPM · mixed audio. Fade loses 90% in ~0.54 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4545,
+            "rms": 0.4946,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 77
+          },
+          "V1MeanMatched": {
+            "gain": 1.2926,
+            "validSeconds": 29.988,
+            "mean": 0.627,
+            "rms": 0.6683,
+            "saturationFraction": 0.146,
+            "frameRisesAtLeast015": 92
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.363,
+            "mean": 0.2353,
+            "rms": 0.3516,
+            "saturationFraction": 0.0312,
+            "frameRisesAtLeast015": 53
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 90,
+            "policy": "~82 BPM · mixed audio. Fade loses 90% in ~0.27 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.363,
+            "mean": 0.1111,
+            "rms": 0.209,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 53
+          },
+          "V1MeanMatched": {
+            "gain": 2.1938,
+            "validSeconds": 29.363,
+            "mean": 0.2353,
+            "rms": 0.4012,
+            "saturationFraction": 0.081,
+            "frameRisesAtLeast015": 53
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.78,
+            "mean": 0.6556,
+            "rms": 0.7412,
+            "saturationFraction": 0.3599,
+            "frameRisesAtLeast015": 2
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 260,
+            "policy": "~82 BPM · mixed audio. Fade loses 90% in ~0.81 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.78,
+            "mean": 0.4955,
+            "rms": 0.5711,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.2945,
+            "validSeconds": 29.78,
+            "mean": 0.6556,
+            "rms": 0.7406,
+            "saturationFraction": 0.3585,
+            "frameRisesAtLeast015": 2
+          }
+        }
+      ]
+    },
+    {
+      "runId": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "sourceId": "rAyYpkWuZKk",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "split": "development",
+      "music": {
+        "bpm": 120,
+        "confidence": 0.518692956185446,
+        "texture": "mixed",
+        "percussiveness": 0.2974624248745836,
+        "density": 5.270180120080053,
+        "continuity": 0.46402890939354074,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.6324,
+            "rms": 0.6805,
+            "saturationFraction": 0.1808,
+            "frameRisesAtLeast015": 75
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.78 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4661,
+            "rms": 0.5151,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 46
+          },
+          "V1MeanMatched": {
+            "gain": 1.2941,
+            "validSeconds": 29.988,
+            "mean": 0.6324,
+            "rms": 0.6803,
+            "saturationFraction": 0.1794,
+            "frameRisesAtLeast015": 75
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.5593,
+            "rms": 0.61,
+            "saturationFraction": 0.1057,
+            "frameRisesAtLeast015": 73
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.78 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4032,
+            "rms": 0.4496,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 41
+          },
+          "V1MeanMatched": {
+            "gain": 1.2943,
+            "validSeconds": 29.988,
+            "mean": 0.5593,
+            "rms": 0.6097,
+            "saturationFraction": 0.1043,
+            "frameRisesAtLeast015": 73
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.4511,
+            "rms": 0.5243,
+            "saturationFraction": 0.1071,
+            "frameRisesAtLeast015": 64
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 170,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.78 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.3301,
+            "rms": 0.3979,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 36
+          },
+          "V1MeanMatched": {
+            "gain": 1.2919,
+            "validSeconds": 29.988,
+            "mean": 0.4511,
+            "rms": 0.5241,
+            "saturationFraction": 0.1071,
+            "frameRisesAtLeast015": 60
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.78,
+            "mean": 0.1769,
+            "rms": 0.3,
+            "saturationFraction": 0.0182,
+            "frameRisesAtLeast015": 44
+          },
+          "V1": {
+            "gain": 1.05,
+            "fade": 80,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.39 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.78,
+            "mean": 0.0904,
+            "rms": 0.199,
+            "saturationFraction": 0.007,
+            "frameRisesAtLeast015": 44
+          },
+          "V1MeanMatched": {
+            "gain": 2.391,
+            "validSeconds": 29.78,
+            "mean": 0.1769,
+            "rms": 0.3527,
+            "saturationFraction": 0.0672,
+            "frameRisesAtLeast015": 44
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.863,
+            "mean": 0.6024,
+            "rms": 0.67,
+            "saturationFraction": 0.148,
+            "frameRisesAtLeast015": 6
+          },
+          "V1": {
+            "gain": 0.95,
+            "fade": 250,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~1.17 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.863,
+            "mean": 0.4654,
+            "rms": 0.5248,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.2831,
+            "validSeconds": 29.863,
+            "mean": 0.6024,
+            "rms": 0.666,
+            "saturationFraction": 0.1425,
+            "frameRisesAtLeast015": 6
+          }
+        }
+      ]
+    },
+    {
+      "runId": "35ad6ce5-109d-4431-bf59-7c8936482124",
+      "sourceId": "DpbzG37isyg",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "split": "development",
+      "music": {
+        "bpm": 124,
+        "confidence": 0.3494671075210718,
+        "texture": "mixed",
+        "percussiveness": 0.3037274127157739,
+        "density": 5.603735823882588,
+        "continuity": 0.11554810327220195,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.7101,
+            "rms": 0.7394,
+            "saturationFraction": 0.1989,
+            "frameRisesAtLeast015": 92
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~124 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.5173,
+            "rms": 0.5498,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 74
+          },
+          "V1MeanMatched": {
+            "gain": 1.2999,
+            "validSeconds": 29.988,
+            "mean": 0.7101,
+            "rms": 0.7394,
+            "saturationFraction": 0.1989,
+            "frameRisesAtLeast015": 92
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.5364,
+            "rms": 0.5872,
+            "saturationFraction": 0.114,
+            "frameRisesAtLeast015": 70
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~124 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.3868,
+            "rms": 0.4352,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 38
+          },
+          "V1MeanMatched": {
+            "gain": 1.2997,
+            "validSeconds": 29.988,
+            "mean": 0.5364,
+            "rms": 0.5871,
+            "saturationFraction": 0.114,
+            "frameRisesAtLeast015": 70
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.6672,
+            "rms": 0.6976,
+            "saturationFraction": 0.1391,
+            "frameRisesAtLeast015": 103
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~124 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4784,
+            "rms": 0.509,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 84
+          },
+          "V1MeanMatched": {
+            "gain": 1.2998,
+            "validSeconds": 29.988,
+            "mean": 0.6672,
+            "rms": 0.6975,
+            "saturationFraction": 0.1391,
+            "frameRisesAtLeast015": 103
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.2063,
+            "rms": 0.3189,
+            "saturationFraction": 0.0181,
+            "frameRisesAtLeast015": 49
+          },
+          "V1": {
+            "gain": 1.05,
+            "fade": 80,
+            "policy": "~124 BPM · mixed audio. Fade loses 90% in ~0.38 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.1022,
+            "rms": 0.2097,
+            "saturationFraction": 0.0028,
+            "frameRisesAtLeast015": 49
+          },
+          "V1MeanMatched": {
+            "gain": 2.4983,
+            "validSeconds": 29.988,
+            "mean": 0.2063,
+            "rms": 0.3811,
+            "saturationFraction": 0.0862,
+            "frameRisesAtLeast015": 49
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.988,
+            "mean": 0.6158,
+            "rms": 0.7054,
+            "saturationFraction": 0.3004,
+            "frameRisesAtLeast015": 0
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 240,
+            "policy": "~124 BPM · mixed audio. Fade loses 90% in ~1.15 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.988,
+            "mean": 0.4663,
+            "rms": 0.5451,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.286,
+            "validSeconds": 29.988,
+            "mean": 0.6158,
+            "rms": 0.7031,
+            "saturationFraction": 0.2935,
+            "frameRisesAtLeast015": 0
+          }
+        }
+      ]
+    },
+    {
+      "runId": "a9af2c35-798f-410b-91a0-858e8f828d12",
+      "sourceId": "52IM62PeonY",
+      "title": "Radiohead - Lotus Flower",
+      "split": "development",
+      "music": {
+        "bpm": 86,
+        "confidence": 0.2788476317733374,
+        "texture": "mixed",
+        "percussiveness": 0.2941109382332122,
+        "density": 4.469646430953969,
+        "continuity": 0.6221913950771528,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.997,
+            "mean": 0.7504,
+            "rms": 0.7805,
+            "saturationFraction": 0.2759,
+            "frameRisesAtLeast015": 32
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 220,
+            "policy": "~86 BPM · mixed audio. Fade loses 90% in ~0.73 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.997,
+            "mean": 0.5638,
+            "rms": 0.5971,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 26
+          },
+          "V1MeanMatched": {
+            "gain": 1.2726,
+            "validSeconds": 29.997,
+            "mean": 0.7504,
+            "rms": 0.7801,
+            "saturationFraction": 0.2742,
+            "frameRisesAtLeast015": 26
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.997,
+            "mean": 0.6041,
+            "rms": 0.6488,
+            "saturationFraction": 0.1268,
+            "frameRisesAtLeast015": 29
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 220,
+            "policy": "~86 BPM · mixed audio. Fade loses 90% in ~0.73 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.997,
+            "mean": 0.4419,
+            "rms": 0.4832,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 20
+          },
+          "V1MeanMatched": {
+            "gain": 1.2739,
+            "validSeconds": 29.997,
+            "mean": 0.6041,
+            "rms": 0.648,
+            "saturationFraction": 0.1251,
+            "frameRisesAtLeast015": 23
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.997,
+            "mean": 0.6278,
+            "rms": 0.6721,
+            "saturationFraction": 0.1618,
+            "frameRisesAtLeast015": 30
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 220,
+            "policy": "~86 BPM · mixed audio. Fade loses 90% in ~0.73 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.997,
+            "mean": 0.4634,
+            "rms": 0.5055,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 13
+          },
+          "V1MeanMatched": {
+            "gain": 1.27,
+            "validSeconds": 29.997,
+            "mean": 0.6278,
+            "rms": 0.6715,
+            "saturationFraction": 0.1618,
+            "frameRisesAtLeast015": 28
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 26.843,
+            "mean": 0.1543,
+            "rms": 0.2585,
+            "saturationFraction": 0.0044,
+            "frameRisesAtLeast015": 44
+          },
+          "V1": {
+            "gain": 1.3,
+            "fade": 110,
+            "policy": "~86 BPM · mixed audio. Fade loses 90% in ~0.37 beats; sensitivity follows the movement range.",
+            "validSeconds": 26.843,
+            "mean": 0.1177,
+            "rms": 0.2229,
+            "saturationFraction": 0.0031,
+            "frameRisesAtLeast015": 44
+          },
+          "V1MeanMatched": {
+            "gain": 1.7278,
+            "validSeconds": 26.843,
+            "mean": 0.1543,
+            "rms": 0.2879,
+            "saturationFraction": 0.0137,
+            "frameRisesAtLeast015": 44
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 28.662,
+            "mean": 0.6322,
+            "rms": 0.7136,
+            "saturationFraction": 0.2229,
+            "frameRisesAtLeast015": 0
+          },
+          "V1": {
+            "gain": 1,
+            "fade": 330,
+            "policy": "~86 BPM · mixed audio. Fade loses 90% in ~1.10 beats; sensitivity follows the movement range.",
+            "validSeconds": 28.662,
+            "mean": 0.5128,
+            "rms": 0.5844,
+            "saturationFraction": 0.0541,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.286,
+            "validSeconds": 28.662,
+            "mean": 0.6322,
+            "rms": 0.7101,
+            "saturationFraction": 0.2055,
+            "frameRisesAtLeast015": 0
+          }
+        }
+      ]
+    },
+    {
+      "runId": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "sourceId": "OHThAzS5Wew",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "split": "development",
+      "music": {
+        "bpm": 123,
+        "confidence": 0.48808655308789217,
+        "texture": "mixed",
+        "percussiveness": 0.3941569610436854,
+        "density": 4.603068712474983,
+        "continuity": 0.41124946932642487,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.947,
+            "mean": 0.7789,
+            "rms": 0.8044,
+            "saturationFraction": 0.2825,
+            "frameRisesAtLeast015": 37
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~123 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.947,
+            "mean": 0.5749,
+            "rms": 0.6047,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 40
+          },
+          "V1MeanMatched": {
+            "gain": 1.3,
+            "validSeconds": 29.947,
+            "mean": 0.7789,
+            "rms": 0.8044,
+            "saturationFraction": 0.2825,
+            "frameRisesAtLeast015": 37
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.913,
+            "mean": 0.671,
+            "rms": 0.706,
+            "saturationFraction": 0.1539,
+            "frameRisesAtLeast015": 22
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~123 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.913,
+            "mean": 0.4824,
+            "rms": 0.5165,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 13
+          },
+          "V1MeanMatched": {
+            "gain": 1.2999,
+            "validSeconds": 29.913,
+            "mean": 0.671,
+            "rms": 0.706,
+            "saturationFraction": 0.1539,
+            "frameRisesAtLeast015": 22
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.947,
+            "mean": 0.6123,
+            "rms": 0.6621,
+            "saturationFraction": 0.151,
+            "frameRisesAtLeast015": 41
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 160,
+            "policy": "~123 BPM · mixed audio. Fade loses 90% in ~0.77 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.947,
+            "mean": 0.443,
+            "rms": 0.4898,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 35
+          },
+          "V1MeanMatched": {
+            "gain": 1.3,
+            "validSeconds": 29.947,
+            "mean": 0.6123,
+            "rms": 0.6621,
+            "saturationFraction": 0.151,
+            "frameRisesAtLeast015": 41
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 25.158,
+            "mean": 0.1239,
+            "rms": 0.2351,
+            "saturationFraction": 0.0027,
+            "frameRisesAtLeast015": 38
+          },
+          "V1": {
+            "gain": 1.3,
+            "fade": 80,
+            "policy": "~123 BPM · mixed audio. Fade loses 90% in ~0.39 beats; sensitivity follows the movement range.",
+            "validSeconds": 25.158,
+            "mean": 0.0765,
+            "rms": 0.1818,
+            "saturationFraction": 0.002,
+            "frameRisesAtLeast015": 38
+          },
+          "V1MeanMatched": {
+            "gain": 2.2151,
+            "validSeconds": 25.158,
+            "mean": 0.1239,
+            "rms": 0.283,
+            "saturationFraction": 0.0279,
+            "frameRisesAtLeast015": 38
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 26.927,
+            "mean": 0.5819,
+            "rms": 0.6645,
+            "saturationFraction": 0.22,
+            "frameRisesAtLeast015": 0
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 250,
+            "policy": "~123 BPM · mixed audio. Fade loses 90% in ~1.16 beats; sensitivity follows the movement range.",
+            "validSeconds": 26.927,
+            "mean": 0.437,
+            "rms": 0.5076,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.2694,
+            "validSeconds": 26.927,
+            "mean": 0.5819,
+            "rms": 0.6602,
+            "saturationFraction": 0.2088,
+            "frameRisesAtLeast015": 0
+          }
+        }
+      ]
+    },
+    {
+      "runId": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "sourceId": "874n70J1sFs",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "split": "stress",
+      "music": {
+        "bpm": 120,
+        "confidence": 0.2592224859109529,
+        "texture": "mixed",
+        "percussiveness": 0.29742744445859065,
+        "density": 3.535690460306871,
+        "continuity": 0.4507721828031767,
+        "duration": 29.98
+      },
+      "variants": [
+        {
+          "mode": "motion",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.997,
+            "mean": 0.608,
+            "rms": 0.6591,
+            "saturationFraction": 0.1835,
+            "frameRisesAtLeast015": 36
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 180,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.85 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.997,
+            "mean": 0.4526,
+            "rms": 0.5057,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 33
+          },
+          "V1MeanMatched": {
+            "gain": 1.2864,
+            "validSeconds": 29.997,
+            "mean": 0.608,
+            "rms": 0.6592,
+            "saturationFraction": 0.1802,
+            "frameRisesAtLeast015": 34
+          }
+        },
+        {
+          "mode": "arms",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.88,
+            "mean": 0.4493,
+            "rms": 0.5075,
+            "saturationFraction": 0.0832,
+            "frameRisesAtLeast015": 40
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 180,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.85 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.88,
+            "mean": 0.3283,
+            "rms": 0.3837,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 29
+          },
+          "V1MeanMatched": {
+            "gain": 1.2807,
+            "validSeconds": 29.88,
+            "mean": 0.4493,
+            "rms": 0.5075,
+            "saturationFraction": 0.0832,
+            "frameRisesAtLeast015": 38
+          }
+        },
+        {
+          "mode": "legs",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 29.997,
+            "mean": 0.512,
+            "rms": 0.5659,
+            "saturationFraction": 0.1046,
+            "frameRisesAtLeast015": 15
+          },
+          "V1": {
+            "gain": 0.9,
+            "fade": 180,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.85 beats; sensitivity follows the movement range.",
+            "validSeconds": 29.997,
+            "mean": 0.3719,
+            "rms": 0.4235,
+            "saturationFraction": 0,
+            "frameRisesAtLeast015": 6
+          },
+          "V1MeanMatched": {
+            "gain": 1.2921,
+            "validSeconds": 29.997,
+            "mean": 0.512,
+            "rms": 0.5658,
+            "saturationFraction": 0.1023,
+            "frameRisesAtLeast015": 15
+          }
+        },
+        {
+          "mode": "snap",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 16.817,
+            "mean": 0.0806,
+            "rms": 0.2096,
+            "saturationFraction": 0.006,
+            "frameRisesAtLeast015": 19
+          },
+          "V1": {
+            "gain": 1,
+            "fade": 90,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~0.43 beats; sensitivity follows the movement range.",
+            "validSeconds": 16.817,
+            "mean": 0.0456,
+            "rms": 0.138,
+            "saturationFraction": 0.002,
+            "frameRisesAtLeast015": 19
+          },
+          "V1MeanMatched": {
+            "gain": 1.8901,
+            "validSeconds": 16.817,
+            "mean": 0.0806,
+            "rms": 0.2321,
+            "saturationFraction": 0.0208,
+            "frameRisesAtLeast015": 19
+          }
+        },
+        {
+          "mode": "open",
+          "V0": {
+            "gain": 1.3,
+            "fade": 160,
+            "validSeconds": 19.353,
+            "mean": 0.3792,
+            "rms": 0.4753,
+            "saturationFraction": 0.0931,
+            "frameRisesAtLeast015": 0
+          },
+          "V1": {
+            "gain": 1,
+            "fade": 280,
+            "policy": "~120 BPM · mixed audio. Fade loses 90% in ~1.28 beats; sensitivity follows the movement range.",
+            "validSeconds": 19.353,
+            "mean": 0.3117,
+            "rms": 0.4062,
+            "saturationFraction": 0.0595,
+            "frameRisesAtLeast015": 0
+          },
+          "V1MeanMatched": {
+            "gain": 1.2858,
+            "validSeconds": 19.353,
+            "mean": 0.3792,
+            "rms": 0.4733,
+            "saturationFraction": 0.0922,
+            "frameRisesAtLeast015": 0
+          }
+        }
+      ]
+    }
+  ]
+}

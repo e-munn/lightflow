@@ -1,0 +1,229 @@
+{
+  "createdAt": "2026-09-24T00:06:13.207767+00:00",
+  "studyDirectory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/rtmw-quality-qwnbxewf",
+  "model": {
+    "detector": {
+      "path": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/rtmw-runtime-w574orm4/detector.onnx",
+      "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip",
+      "sha256": "3dea6513388889f0fff4b77bf7a26013600321b9eb9ceb0e9a400a82572f5f23"
+    },
+    "pose": {
+      "path": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/rtmw-runtime-w574orm4/completed-transfer-zf8kga43/pose.onnx",
+      "url": "https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-384x288_20231122.zip",
+      "sha256": "bd033156e5104c4f5d2edfe0453e02661e30a2f3da453ec93c8764d561b83054"
+    }
+  },
+  "rows": [
+    {
+      "baseline": "3946f65e-3938-4d38-ae54-4854c937d099",
+      "candidate": "36b62e47-8674-4d6a-ae9a-81b583272ee4",
+      "title": "Crave You",
+      "reason": "missing arm joints",
+      "exitCode": 0,
+      "baselineResult": {
+        "frames": 1799,
+        "tracked": 1799,
+        "fps": 59.94006309148265,
+        "duration": 30.013315088679544,
+        "coverage": 1.0,
+        "poseModel": "MediaPipe Pose Landmarker Full",
+        "metricsVersion": 2,
+        "trackingMode": "solo",
+        "usableFrames": 1085,
+        "poseCoverage": 0.603112840466926,
+        "singleBodyFrames": 1799,
+        "multipleBodyFrames": 0,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "coverageDefinition": "Association coverage is a primary assignment, not correct identity. Pose coverage additionally requires all 12 limb/torso joints with visibility/presence >= 0.5 and inside frame.",
+        "versions": {
+          "mediapipe": "0.10.35",
+          "av": "18.1.0"
+        },
+        "lightingModel": null,
+        "primaryTracking": "Position/shape heuristic, not person re-identification",
+        "limitations": [
+          "Fast crossings and camera movement can confuse identity association.",
+          "Cut detection is a whole-frame-change heuristic and needs review.",
+          "Joint speed is an unfiltered diagnostic, not a lighting target."
+        ]
+      },
+      "candidateResult": {
+        "frames": 1799,
+        "tracked": 1685,
+        "fps": 59.94006309148265,
+        "duration": 30.013315088679544,
+        "coverage": 0.9366314619232907,
+        "poseModel": "RTMW-l 384x288 + YOLOX-m",
+        "poseModelSha256": "bd033156e5104c4f5d2edfe0453e02661e30a2f3da453ec93c8764d561b83054",
+        "comparisonSourceRun": "3946f65e-3938-4d38-ae54-4854c937d099",
+        "extractionSeconds": 95.43559391703457,
+        "trackingMode": "solo",
+        "usableFrames": 1685,
+        "poseCoverage": 0.9366314619232907,
+        "singleBodyFrames": 1685,
+        "multipleBodyFrames": 114,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "versions": {
+          "av": "18.1.0",
+          "onnxruntime": "1.30.0"
+        },
+        "lightingModel": null,
+        "coordinateSystem": "2D; compatibility z=0 is a placeholder, not estimated depth. Native 133 x/y/score points retained in wholebody.",
+        "scoreCaveat": "RTMW keypoint scores and MediaPipe visibility/presence are not calibrated to each other. Coverage at 0.5 is diagnostic, not positional accuracy.",
+        "limitations": [
+          "Framewise 2D model; no explicit temporal consistency or occlusion recovery.",
+          "Unmapped MediaPipe landmarks have zero confidence.",
+          "Strict solo gate remains; observed image positions require visual checking."
+        ],
+        "backend": "coreml",
+        "runtimeNote": "ONNX/CoreML teardown crashed after a successful standalone comparison on this host. This short-lived worker flushes completed artifacts and exits without interpreter teardown."
+      },
+      "identicalMedia": true
+    },
+    {
+      "baseline": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+      "candidate": "994e2632-1d2f-4392-a841-93368c8335a0",
+      "title": "Beat Killer",
+      "reason": "clean popping",
+      "exitCode": 0,
+      "baselineResult": {
+        "frames": 720,
+        "tracked": 720,
+        "fps": 23.976023976023978,
+        "duration": 30.029999999999998,
+        "coverage": 1.0,
+        "poseModel": "MediaPipe Pose Landmarker Full",
+        "metricsVersion": 2,
+        "trackingMode": "solo",
+        "usableFrames": 717,
+        "poseCoverage": 0.9958333333333333,
+        "singleBodyFrames": 720,
+        "multipleBodyFrames": 0,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "coverageDefinition": "Association coverage is a primary assignment, not correct identity. Pose coverage additionally requires all 12 limb/torso joints with visibility/presence >= 0.5 and inside frame.",
+        "versions": {
+          "mediapipe": "0.10.35",
+          "av": "18.1.0"
+        },
+        "lightingModel": null,
+        "primaryTracking": "Position/shape heuristic, not person re-identification",
+        "limitations": [
+          "Fast crossings and camera movement can confuse identity association.",
+          "Cut detection is a whole-frame-change heuristic and needs review.",
+          "Joint speed is an unfiltered diagnostic, not a lighting target."
+        ]
+      },
+      "candidateResult": {
+        "frames": 720,
+        "tracked": 720,
+        "fps": 23.976023976023978,
+        "duration": 30.029999999999998,
+        "coverage": 1.0,
+        "poseModel": "RTMW-l 384x288 + YOLOX-m",
+        "poseModelSha256": "bd033156e5104c4f5d2edfe0453e02661e30a2f3da453ec93c8764d561b83054",
+        "comparisonSourceRun": "89dab10c-317e-4ea4-aa70-beb1b86d0438",
+        "extractionSeconds": 36.83547129109502,
+        "trackingMode": "solo",
+        "usableFrames": 720,
+        "poseCoverage": 1.0,
+        "singleBodyFrames": 720,
+        "multipleBodyFrames": 0,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "versions": {
+          "av": "18.1.0",
+          "onnxruntime": "1.30.0"
+        },
+        "lightingModel": null,
+        "coordinateSystem": "2D; compatibility z=0 is a placeholder, not estimated depth. Native 133 x/y/score points retained in wholebody.",
+        "scoreCaveat": "RTMW keypoint scores and MediaPipe visibility/presence are not calibrated to each other. Coverage at 0.5 is diagnostic, not positional accuracy.",
+        "limitations": [
+          "Framewise 2D model; no explicit temporal consistency or occlusion recovery.",
+          "Unmapped MediaPipe landmarks have zero confidence.",
+          "Strict solo gate remains; observed image positions require visual checking."
+        ],
+        "backend": "coreml",
+        "runtimeNote": "ONNX/CoreML teardown crashed after a successful standalone comparison on this host. This short-lived worker flushes completed artifacts and exits without interpreter teardown."
+      },
+      "identicalMedia": true
+    },
+    {
+      "baseline": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+      "candidate": "058e91bb-67d2-4970-b0d5-bdb06b541d4b",
+      "title": "Feel the Way I Feel",
+      "reason": "duplicate proposals",
+      "exitCode": 0,
+      "baselineResult": {
+        "frames": 1799,
+        "tracked": 1797,
+        "fps": 59.94006309148265,
+        "duration": 30.013315088679544,
+        "coverage": 0.9988882712618121,
+        "poseModel": "MediaPipe Pose Landmarker Full",
+        "metricsVersion": 2,
+        "trackingMode": "solo",
+        "usableFrames": 1579,
+        "poseCoverage": 0.877709838799333,
+        "singleBodyFrames": 1797,
+        "multipleBodyFrames": 2,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "coverageDefinition": "Association coverage is a primary assignment, not correct identity. Pose coverage additionally requires all 12 limb/torso joints with visibility/presence >= 0.5 and inside frame.",
+        "versions": {
+          "mediapipe": "0.10.35",
+          "av": "18.1.0"
+        },
+        "lightingModel": null,
+        "primaryTracking": "Position/shape heuristic, not person re-identification",
+        "limitations": [
+          "Fast crossings and camera movement can confuse identity association.",
+          "Cut detection is a whole-frame-change heuristic and needs review.",
+          "Joint speed is an unfiltered diagnostic, not a lighting target."
+        ]
+      },
+      "candidateResult": {
+        "frames": 1799,
+        "tracked": 1799,
+        "fps": 59.94006309148265,
+        "duration": 30.013315088679544,
+        "coverage": 1.0,
+        "poseModel": "RTMW-l 384x288 + YOLOX-m",
+        "poseModelSha256": "bd033156e5104c4f5d2edfe0453e02661e30a2f3da453ec93c8764d561b83054",
+        "comparisonSourceRun": "32e7239a-1f50-486a-82ee-afd3ac8875ed",
+        "extractionSeconds": 91.90758500015363,
+        "trackingMode": "solo",
+        "usableFrames": 1799,
+        "poseCoverage": 1.0,
+        "singleBodyFrames": 1799,
+        "multipleBodyFrames": 0,
+        "cutFlags": 0,
+        "reviewRequiredFrames": 0,
+        "identityAccuracy": null,
+        "versions": {
+          "av": "18.1.0",
+          "onnxruntime": "1.30.0"
+        },
+        "lightingModel": null,
+        "coordinateSystem": "2D; compatibility z=0 is a placeholder, not estimated depth. Native 133 x/y/score points retained in wholebody.",
+        "scoreCaveat": "RTMW keypoint scores and MediaPipe visibility/presence are not calibrated to each other. Coverage at 0.5 is diagnostic, not positional accuracy.",
+        "limitations": [
+          "Framewise 2D model; no explicit temporal consistency or occlusion recovery.",
+          "Unmapped MediaPipe landmarks have zero confidence.",
+          "Strict solo gate remains; observed image positions require visual checking."
+        ],
+        "backend": "coreml",
+        "runtimeNote": "ONNX/CoreML teardown crashed after a successful standalone comparison on this host. This short-lived worker flushes completed artifacts and exits without interpreter teardown."
+      },
+      "identicalMedia": true
+    }
+  ],
+  "policy": "Different detector and keypoint model; same media, timestamp and strict identity policy. Scores are not calibrated across models."
+}

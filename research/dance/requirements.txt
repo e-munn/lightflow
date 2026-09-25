@@ -1,0 +1,3 @@
+# 1.0.1 aborted in native Metal graph initialization on this Apple Silicon host.
+mediapipe==0.10.35
+av==18.1.0

@@ -1,0 +1,50 @@
+{
+  "version": "dance-audio-feasibility-v1",
+  "status": "predeclared before model fitting; eligibility based only on extraction quality",
+  "splits": {
+    "2EnI4bnVxP0": "train",
+    "IJmhRuuEmnw": "train",
+    "DRZg0lkxLs0": "train",
+    "IdZfAYaamNk": "train",
+    "lktmx5XhrrY": "validation",
+    "Q2ExVYPbM9c": "test",
+    "jPkH4TMbeVc": "test",
+    "eAJwgHILBbc": "train",
+    "f9les1irrP0": "train",
+    "cDHf-stcRQg": "test"
+  },
+  "minimum_movement_coverage": 0.7,
+  "maximum_multiple_body_fraction": 0.01,
+  "audio_context_seconds": 1.312,
+  "warmup_seconds": 1.32,
+  "ridge_alphas": [
+    0.01,
+    0.1,
+    1.0,
+    10.0
+  ],
+  "selection": "Validation MAE against the same authored brightness target. No test-song tuning.",
+  "research_question": "Does predicting coarse motion before an explicit brightness projection transfer better than regressing that projection directly?",
+  "limits": "Sampled identity review only. No ground-truth light labels; source audiovisual offset remains uncalibrated. This is a feasibility model, not a production release. Same performers occur across splits, so performer generalization is untested.",
+  "passages": {
+    "Q2ExVYPbM9c": {
+      "start": 25,
+      "duration": 35
+    },
+    "lktmx5XhrrY": {
+      "start": 20,
+      "duration": 22
+    },
+    "jPkH4TMbeVc": {
+      "start": 40,
+      "duration": 20
+    }
+  },
+  "qualityRevisionsBeforeFitting": [
+    "Sweet Rascal: 27.51s into original passage begins edit/flash and stops identity lock. Re-extract source20-42s; earlier full run retained.",
+    "Poppin John Dub-Step2012: sampled blur transition near source21.6s, then poor visibility on turns. Re-extract source25-60s; 67% movement coverage remains below unchanged70% gate. Retain as failure example.",
+    "Delight: only58% movement coverage; retained as failure example.",
+    "Add3 official-channel Poppin John sources after above extraction failures; no model scores seen.",
+    "Booty Swing source20-60s has12/1198 multiple detections (1.0017%), failing unchanged1% gate. Centers indicate duplicate skeleton proposals on the dancer. Use separately extracted later source40-60s, with one previously observed ambiguous frame masked. No model was fitted before this selection."
+  ]
+}

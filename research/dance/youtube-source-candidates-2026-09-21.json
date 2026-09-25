@@ -1,0 +1,253 @@
+{
+  "date": "2026-09-21",
+  "purpose": "Discovery shortlist for audio-to-brightness learning from dance; not an approved training manifest.",
+  "evidence_limit": "Public channel identities, indexed video titles/descriptions and creator pages checked. Full videos were not visually audited in this search. Camera stability, clean single-subject intervals, tracking and audio synchronization remain unverified. Rankings and lighting relevance are research judgments.",
+  "channels": [
+    {
+      "priority": 1,
+      "name": "Poppin John SBK",
+      "url": "https://www.youtube.com/@poppinjohnsbk",
+      "lane": "popping / isolation / animation",
+      "seek": "Solo practice and uninterrupted solo performances.",
+      "value": "Potential examples of sharply articulated attacks, isolated movement, stops and recovery.",
+      "screen": "Partner videos, moving cameras, tutorial speech; apparent slow motion must be checked for actual editing.",
+      "queries": [
+        "Poppin John solo practice",
+        "Poppin John Poppers Anthem"
+      ],
+      "first_batch_target": 6
+    },
+    {
+      "priority": 2,
+      "name": "takeSomeCrime",
+      "url": "https://www.youtube.com/user/takeSomeCrime",
+      "lane": "electro swing / freestyle",
+      "seek": "Forsythe solo room performances, starting with Catgroove and Booty Swing.",
+      "value": "Potential counterweight to attack-heavy popping: groove, syncopation and sustained phrase movement.",
+      "screen": "Older resolution, dark clothing, body clipping, outtakes and edited endings.",
+      "queries": [
+        "takeSomeCrime Forsythe",
+        "takeSomeCrime Parov Stelar"
+      ],
+      "first_batch_target": 6
+    },
+    {
+      "priority": 3,
+      "name": "Jardy Santiago",
+      "url": "https://www.youtube.com/jardysantiago",
+      "lane": "house / groove / footwork",
+      "seek": "Full-speed solo freestyle and complete musical demonstrations.",
+      "value": "Potential examples of continuous groove and rhythmic variation without a flash on every hit.",
+      "screen": "Talking, counts, step repetition without expressive phrasing, foot cropping, replacement audio.",
+      "queries": [
+        "Jardy Santiago house freestyle",
+        "Jardy Santiago solo dance"
+      ],
+      "first_batch_target": 2
+    },
+    {
+      "priority": 4,
+      "name": "Dytto",
+      "url": "https://www.youtube.com/@iamdytto",
+      "lane": "animation / tutting / fluid isolation",
+      "seek": "Full-body solo performances and practice sessions.",
+      "value": "Potential examples of fine articulation and contrast between fluid and abrupt gestures.",
+      "screen": "Finger-only closeups are poorly matched to a body skeleton; stage edits, partners and camera movement.",
+      "queries": [
+        "Dytto full body freestyle",
+        "Dytto solo dance"
+      ],
+      "first_batch_target": 0
+    },
+    {
+      "priority": 5,
+      "name": "Official World of Dance",
+      "url": "https://www.youtube.com/user/worldofdance",
+      "lane": "multi-artist solo performance archive",
+      "seek": "Solo FRONTROW / BACKROW uploads, especially Fik-Shun and Dytto.",
+      "value": "Artist diversity and complete performance phrases.",
+      "screen": "Series label is not a fixed-camera guarantee; check pans, zooms, cuts, spectators and live audio.",
+      "queries": [
+        "World of Dance FRONTROW solo Fik-Shun",
+        "World of Dance BACKROW solo"
+      ],
+      "first_batch_target": 0
+    },
+    {
+      "priority": 6,
+      "name": "URBAN DANCE CAMP",
+      "url": "https://www.youtube.com/user/UrbanDanceCamp",
+      "lane": "choreographer demonstrations / freestyle",
+      "seek": "An instructor alone in a continuous wide shot, not the whole class.",
+      "value": "Expand choreographic vocabulary and musical styles after the simple solo extraction works.",
+      "screen": "Group sections, repeated routines and moving camera; title Solo Dance may be a song name, not performer count.",
+      "queries": [
+        "Urban Dance Camp solo freestyle",
+        "Urban Dance Camp instructor demo"
+      ],
+      "first_batch_target": 0
+    },
+    {
+      "priority": 7,
+      "name": "Kyla Bullings",
+      "url": "https://www.youtube.com/@kylabullings",
+      "lane": "user-selected choreographic taste reference",
+      "seek": "Solo/instructor passages with stable framing, starting with the existing raingurl reference.",
+      "value": "Keep the user-selected taste reference represented while testing new technical sources.",
+      "screen": "Do not presume the whole class video is single-subject; isolate clear passages.",
+      "queries": [
+        "Kyla Bullings choreography solo",
+        "Kyla Bullings raingurl"
+      ],
+      "first_batch_target": 0
+    },
+    {
+      "priority": 8,
+      "name": "Millennium Dance Complex Los Angeles",
+      "url": "https://www.youtube.com/@DanceMillennium",
+      "lane": "user-selected multi-choreographer studio archive",
+      "seek": "Choreographer-alone passages and stable wide recordings.",
+      "value": "Broader movement styles and existing Tom Ford taste anchor.",
+      "screen": "Groups, moving cameras, dancer overlap, crowd reactions, repeated groups performing the same routine.",
+      "queries": [
+        "DanceMillennium solo choreography",
+        "Millennium choreographer solo"
+      ],
+      "first_batch_target": 0
+    },
+    {
+      "priority": 9,
+      "name": "MARQUESE SCOTT",
+      "url": "https://www.youtube.com/user/WHZGUD2",
+      "lane": "animation / popping / electronic freestyle",
+      "seek": "Solo full-body freestyle; older continuous outdoor or practice takes.",
+      "value": "Potential examples of accents, freezes, slow motion, and continuous movement within one passage.",
+      "screen": "Camera pans, edited time effects, collaborations, feet leaving frame.",
+      "queries": [
+        "Marquese Scott solo freestyle",
+        "WHZGUD2 dubstep practice"
+      ],
+      "first_batch_target": 0,
+      "selection_note": "Deprioritized following explicit user feedback; Pumped Up Kicks is not a positive taste anchor."
+    }
+  ],
+  "clips": [
+    {
+      "channel": "MARQUESE SCOTT",
+      "title": "PUMPED UP KICKS|DUBSTEP",
+      "video_id": "LXO-jKksQkM",
+      "url": "https://www.youtube.com/watch?v=LXO-jKksQkM",
+      "status": "candidate_unreviewed",
+      "notes": "Original upload identified in YouTube search; visual/timing review pending. User explicitly prefers Poppin John and Catgroove over this reference.",
+      "selection_status": "deprioritized_by_user"
+    },
+    {
+      "channel": "Poppin John SBK",
+      "title": "POPPIN JOHN | POPPERS ANTHEM | EGYPTIAN LOVER",
+      "video_id": "FVyUxo7VQqQ",
+      "url": "https://www.youtube.com/watch?v=FVyUxo7VQqQ",
+      "status": "candidate_unreviewed",
+      "notes": "Original verified-channel upload identified in YouTube search; visual/timing review pending."
+    },
+    {
+      "channel": "takeSomeCrime",
+      "title": "Parov Stelar - Catgroove (TSC - Forsythe)",
+      "video_id": "twqM56f_cVo",
+      "url": "https://www.youtube.com/watch?v=twqM56f_cVo",
+      "status": "candidate_unreviewed",
+      "notes": "YouTube page title verified; visual/timing review pending."
+    },
+    {
+      "channel": "takeSomeCrime",
+      "title": "Parov Stelar - Booty Swing (TSC - Forsythe)",
+      "video_id": "jPkH4TMbeVc",
+      "url": "https://www.youtube.com/watch?v=jPkH4TMbeVc",
+      "status": "candidate_unreviewed",
+      "notes": "Original-channel description mentions corrected aspect ratio and outtakes at the end; exclude outtakes after review."
+    },
+    {
+      "channel": "Jardy Santiago",
+      "title": "Jardy Santiago - Hip Hop Freestyle Solo (Re-Up, Audio Fixed)",
+      "video_id": "vIPSGXin_wA",
+      "url": "https://www.youtube.com/watch?v=vIPSGXin_wA",
+      "status": "candidate_unreviewed",
+      "notes": "Original-channel upload found; Audio Fixed title makes synchronization review especially important."
+    },
+    {
+      "channel": "Jardy Santiago",
+      "title": "Jardy Santiago House Dance Freestyle @ Hip Hop Dancefest 2009",
+      "video_id": "8DN_Afsctn4",
+      "url": "https://www.youtube.com/watch?v=8DN_Afsctn4",
+      "status": "candidate_unreviewed",
+      "notes": "Original-channel upload identified; stage framing and audio quality unreviewed."
+    },
+    {
+      "channel": "Official World of Dance",
+      "title": "Fik-Shun | FRONTROW | World of Dance Las Vegas 2014 #WODVEGAS",
+      "video_id": "mg6-SnUl0A0",
+      "url": "https://www.youtube.com/watch?v=mg6-SnUl0A0",
+      "status": "candidate_unreviewed",
+      "notes": "YouTube title verified; full-shot continuity and camera movement unreviewed."
+    },
+    {
+      "channel": "Official World of Dance",
+      "title": "Dytto | FRONTROW | World of Dance Bay Area 2015 #WODBAY2015",
+      "video_id": "5CvwgC-WQlo",
+      "url": "https://www.youtube.com/watch?v=5CvwgC-WQlo",
+      "status": "candidate_unreviewed",
+      "notes": "Source describes a song list; preserve medley boundaries and audit synchronization."
+    },
+    {
+      "channel": "URBAN DANCE CAMP",
+      "title": "Search Party - Sam Bruno Remix / Dytto Choreography & Freestyle / 310XT Films / URBAN DANCE CAMP",
+      "video_id": "cMTYg4hO5KU",
+      "url": "https://www.youtube.com/watch?v=cMTYg4hO5KU",
+      "status": "candidate_unreviewed",
+      "notes": "YouTube title and organizer video catalog found; performer count and camera unreviewed."
+    },
+    {
+      "channel": "Kyla Bullings",
+      "title": "Kyla Bullings Choreography 'raingurl' Yaeji",
+      "video_id": "QiJmWWcYXd0",
+      "url": "https://www.youtube.com/watch?v=QiJmWWcYXd0",
+      "status": "candidate_unreviewed",
+      "notes": "Existing user-endorsed reference from sources.json; not newly downloaded."
+    },
+    {
+      "channel": "Millennium Dance Complex Los Angeles",
+      "title": "Tom Ford - Jay Z /Choreography by Tobias Ellehammer",
+      "video_id": "tVMHNNho9H8",
+      "url": "https://www.youtube.com/watch?v=tVMHNNho9H8",
+      "status": "candidate_unreviewed",
+      "notes": "Existing user-endorsed pilot from sources.json; not newly downloaded."
+    }
+  ],
+  "taste_update": {
+    "user_preference": "More like Poppin John SBK and Catgroove; less like viral trends such as Pumped Up Kicks.",
+    "interpretation": "Prioritize controlled popping, isolation and sustained rhythmic groove. Popularity is not a selection criterion; evaluate the movement and musical response.",
+    "deprioritized_reference": "LXO-jKksQkM"
+  },
+  "additional_dancer_search_targets": [
+    {
+      "name": "Slim Boogie",
+      "target_clips": 2,
+      "status": "Artist lead; qualifying YouTube solo clips not yet verified",
+      "reason": "Waving, tutting variation, weight and footwork musicality",
+      "evidence": "https://www.everydaypopping.com/online-classes/guest-instructors"
+    },
+    {
+      "name": "Hoan",
+      "target_clips": 2,
+      "status": "Artist lead; qualifying YouTube solo clips not yet verified",
+      "reason": "Rhythm changes, direction, waving and musicality",
+      "evidence": "https://www.everydaypopping.com/online-classes/freestyle-exercise"
+    },
+    {
+      "name": "Boogie Frantick",
+      "target_clips": 2,
+      "status": "Artist lead; qualifying YouTube solo clips not yet verified",
+      "reason": "Popping, waves, gliding and expressive solo movement",
+      "evidence": "https://www.steezy.co/posts/how-to-learn-popping"
+    }
+  ]
+}

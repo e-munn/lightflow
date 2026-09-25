@@ -6,6 +6,7 @@ export default function Home() {
       <h1 className="font-mono text-3xl tracking-tight">lightflow</h1>
       <p className="mt-2 font-mono text-xs text-white/50">audio-reactive lighting</p>
       <nav className="mt-10 flex w-full max-w-sm flex-col gap-3">
+        <Link href="/pipeline" className="rounded-2xl border border-lime-200/30 bg-lime-200/5 px-5 py-5 font-mono text-lime-100"><span className="block text-base">PIPELINE</span><span className="text-xs opacity-60">Dance footage → skeletons · processing & review</span></Link>
         <Link href="/director" className="rounded-2xl border border-emerald-200/60 bg-emerald-200 px-5 py-5 font-mono text-black"><span className="block text-base">DIRECTOR</span><span className="text-xs">Live music → ten generative visuals</span></Link>
         <Link
           href="/player"

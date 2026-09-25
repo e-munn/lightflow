@@ -1,0 +1,506 @@
+{
+  "schema_version": 1,
+  "source_pool": {
+    "url": "https://www.youtube.com/@DanceMillennium",
+    "selection": "User-endorsed channel for dance references; individual clips still require tracking and synchronization review."
+  },
+  "additional_source_pools": [
+    {
+      "url": "https://www.youtube.com/@kylabullings",
+      "selection": "User-endorsed channel for dance references; individual clips still require tracking and synchronization review."
+    }
+  ],
+  "pilot": {
+    "url": "https://www.youtube.com/watch?v=tVMHNNho9H8",
+    "video_id": "tVMHNNho9H8",
+    "title": "Tom Ford - Jay Z  /Choreography by Tobias Ellehammer",
+    "channel": "Millennium Dance Complex Los Angeles",
+    "duration_seconds": 505,
+    "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/20260922T004653Z-tVMHNNho9H8-nsf76n0v",
+    "review_status": "Unreviewed; not yet admitted as training targets."
+  },
+  "additional_references": [
+    {
+      "url": "https://www.youtube.com/watch?v=QiJmWWcYXd0",
+      "video_id": "QiJmWWcYXd0",
+      "title": "Kyla Bullings Choreography 'raingurl' Yaeji",
+      "channel": "Kyla Bullings",
+      "duration_seconds": 253,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/20260922T004758Z-QiJmWWcYXd0-037l5i6z",
+      "review_status": "Downloaded; unreviewed; not yet admitted as training targets."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FVyUxo7VQqQ",
+      "video_id": "FVyUxo7VQqQ",
+      "title": "POPPIN JOHN | POPPERS ANTHEM | EGYPTIAN LOVER",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 216,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/source-audit-20260922T012338-m5g9vd4e/FVyUxo7VQqQ",
+      "review_status": "Solo screening candidate. Not admitted as training targets.",
+      "tracking_mode": "solo"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2EnI4bnVxP0",
+      "video_id": "2EnI4bnVxP0",
+      "title": "Poppin John | AI Naafyish | Old School Electro 2023",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 377,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/source-audit-20260922T012338-m5g9vd4e/2EnI4bnVxP0",
+      "review_status": "Solo screening candidate. Not admitted as training targets.",
+      "tracking_mode": "solo"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=twqM56f_cVo",
+      "video_id": "twqM56f_cVo",
+      "title": "Parov Stelar - Catgroove (TSC - Forsythe)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 240,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/source-audit-20260922T012338-m5g9vd4e/twqM56f_cVo",
+      "review_status": "Solo screening candidate. Not admitted as training targets.",
+      "tracking_mode": "solo"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=IJmhRuuEmnw",
+      "video_id": "IJmhRuuEmnw",
+      "title": "Jamie Berry - Lost in the Rhythm (TSC - Forsythe)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 187,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/source-audit-20260922T012338-m5g9vd4e/IJmhRuuEmnw",
+      "review_status": "Solo screening candidate. Not admitted as training targets.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "Q2ExVYPbM9c",
+      "url": "https://www.youtube.com/watch?v=Q2ExVYPbM9c",
+      "title": "Poppin John (SBK LXD) Poppin to Dub-Step 2012",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 262,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T023746-_d8fqqhx/Q2ExVYPbM9c",
+      "review_status": "Nine sampled source frames: single full body, consistent room/stage framing. Pose extraction pending; no full-span identity or lighting approval.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "jPkH4TMbeVc",
+      "url": "https://www.youtube.com/watch?v=jPkH4TMbeVc",
+      "title": "Parov Stelar - Booty Swing (TSC - Forsythe)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 227,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T023746-_d8fqqhx/jPkH4TMbeVc",
+      "review_status": "Nine sampled source frames: single full body, consistent room/stage framing. Pose extraction pending; no full-span identity or lighting approval.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "lktmx5XhrrY",
+      "url": "https://www.youtube.com/watch?v=lktmx5XhrrY",
+      "title": "Jamie Berry - Sweet Rascal (TSC - Forsythe)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 197,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T023746-_d8fqqhx/lktmx5XhrrY",
+      "review_status": "Nine sampled source frames: single full body, consistent room/stage framing. Pose extraction pending; no full-span identity or lighting approval.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "DRZg0lkxLs0",
+      "url": "https://www.youtube.com/watch?v=DRZg0lkxLs0",
+      "title": "Jamie Berry Feat. Octavia Rose - Delight",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 345,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T023746-_d8fqqhx/DRZg0lkxLs0",
+      "review_status": "Nine sampled source frames: single full body, consistent room/stage framing. Pose extraction pending; no full-span identity or lighting approval.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "IdZfAYaamNk",
+      "url": "https://www.youtube.com/watch?v=IdZfAYaamNk",
+      "title": "Jamie Berry - Dirty Stop",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 279,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T023746-_d8fqqhx/IdZfAYaamNk",
+      "review_status": "Nine sampled source frames: single full body, consistent room/stage framing. Pose extraction pending; no full-span identity or lighting approval.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "eAJwgHILBbc",
+      "url": "https://www.youtube.com/watch?v=eAJwgHILBbc",
+      "title": "POPPIN JOHN | \"Move your feet\" By Matthew Magenta",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 226,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T024551-1rk827ml/eAJwgHILBbc",
+      "review_status": "Sampled full-body solo source frames. Sphere has moving illuminated background; do not use video brightness as training labels. Pose audit pending.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "f9les1irrP0",
+      "url": "https://www.youtube.com/watch?v=f9les1irrP0",
+      "title": "Poppin John | Sphere | Crisp-E by Madd3e",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 182,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T024551-1rk827ml/f9les1irrP0",
+      "review_status": "Sampled full-body solo source frames. Sphere has moving illuminated background; do not use video brightness as training labels. Pose audit pending.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "cDHf-stcRQg",
+      "url": "https://www.youtube.com/watch?v=cDHf-stcRQg",
+      "title": "POPPIN JOHN | YOU LIGHT ME UP | GOOSEBUMPZ",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 255,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T024551-1rk827ml/cDHf-stcRQg",
+      "review_status": "Sampled full-body solo source frames. Sphere has moving illuminated background; do not use video brightness as training labels. Pose audit pending.",
+      "tracking_mode": "solo"
+    },
+    {
+      "video_id": "NGxA5XsdhBY",
+      "url": "https://www.youtube.com/watch?v=NGxA5XsdhBY",
+      "title": "Poppin John | Lauterbrunnen Switzerland | Cradles | 2025",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 218,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/NGxA5XsdhBY",
+      "review_status": "Nine source stills at20:5:60s inspected; One full-body dancer, stable landscape composition; turns hide limbs. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "eOC6XtJxxPo",
+      "url": "https://www.youtube.com/watch?v=eOC6XtJxxPo",
+      "title": "POPPIN JOHN | J**e's House Thriftworks",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 254,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/eOC6XtJxxPo",
+      "review_status": "Nine source stills at20:5:60s inspected; One full-body dancer; stable wide view; lighting changes. Same setting as earlier Naafyish, distinct upload/song identity still requires review. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "nHceI78qxwU",
+      "url": "https://www.youtube.com/watch?v=nHceI78qxwU",
+      "title": "MAKE YOUR MARK | POPPIN JOHN",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 94,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/nHceI78qxwU",
+      "review_status": "Nine source stills at20:5:60s inspected; Low-light silhouette and changing background/camera direction. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "BKAn_yhgrWQ",
+      "url": "https://www.youtube.com/watch?v=BKAn_yhgrWQ",
+      "title": "Poppin John | Freestyle | The Tuxedo Way",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 223,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/BKAn_yhgrWQ",
+      "review_status": "Nine source stills at20:5:60s inspected; One full-body dancer, stable composition; dark trousers and side-facing poses. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "DpbzG37isyg",
+      "url": "https://www.youtube.com/watch?v=DpbzG37isyg",
+      "title": "TOP-TIER ANIMATION | DANCE | POPPIN JOHN 2021",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 194,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/DpbzG37isyg",
+      "review_status": "Nine source stills at20:5:60s inspected; One full-body dancer in fixed room; low light and dark patterned clothing. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "-g8wh-vus3I",
+      "url": "https://www.youtube.com/watch?v=-g8wh-vus3I",
+      "title": "POPPING CHOREO | POPPIN JOHN | RAMPAGE",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 190,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/-g8wh-vus3I",
+      "review_status": "Nine source stills at20:5:60s inspected; Two dancers throughout samples; not strict solo. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "avEgb8A2YNo",
+      "url": "https://www.youtube.com/watch?v=avEgb8A2YNo",
+      "title": "POPPIN JOHN | DANCE | BHOPAL, INDIA 2023 | DATSIK",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 202,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/avEgb8A2YNo",
+      "review_status": "Nine source stills at20:5:60s inspected; Many bystanders visible behind dancer. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "OX6GoiCRjdU",
+      "url": "https://www.youtube.com/watch?v=OX6GoiCRjdU",
+      "title": "Poppin John | Vibe 2024 @VIBRVNCY 4K",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 315,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/OX6GoiCRjdU",
+      "review_status": "Nine source stills at20:5:60s inspected; Dancer very small and dark; stage composition changes near source55s. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "SqwJBODxG_M",
+      "url": "https://www.youtube.com/watch?v=SqwJBODxG_M",
+      "title": "Give me one reason",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 220,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/SqwJBODxG_M",
+      "review_status": "Nine source stills at20:5:60s inspected; Solo overhead view; head close to top edge, substantial perspective distortion. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract_stress"
+    },
+    {
+      "video_id": "OEjmu1YNc3U",
+      "url": "https://www.youtube.com/watch?v=OEjmu1YNc3U",
+      "title": "volfmon - I can't party",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 149,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/OEjmu1YNc3U",
+      "review_status": "Nine source stills at20:5:60s inspected; One dancer holding phone; head clipped at20s; later25-55s samples full body. Hand-object occlusion risk. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "z3k-xWNSuWs",
+      "url": "https://www.youtube.com/watch?v=z3k-xWNSuWs",
+      "title": "Django Django - Found You  (48-FPS update)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 280,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/z3k-xWNSuWs",
+      "review_status": "Nine source stills at20:5:60s inspected; Mirror recording, waist-up crop and foreground body occlusion. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "mIMqlCWAwKM",
+      "url": "https://www.youtube.com/watch?v=mIMqlCWAwKM",
+      "title": "Sylvan Esso - Ferris Wheel",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 112,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/mIMqlCWAwKM",
+      "review_status": "Nine source stills at20:5:60s inspected; Full body in room but horizontal reversal at40s sample. Use20-35s only; no claim of continuous edit audit. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract_short"
+    },
+    {
+      "video_id": "EB_b8JVPuw8",
+      "url": "https://www.youtube.com/watch?v=EB_b8JVPuw8",
+      "title": "Dim Sum - Coucou Disco (Re-upload for Canada)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 160,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/EB_b8JVPuw8",
+      "review_status": "Nine source stills at20:5:60s inspected; Other people and mirror reflections in studio. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "QENwS_VEwFc",
+      "url": "https://www.youtube.com/watch?v=QENwS_VEwFc",
+      "title": "aKu - Final Blow",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 141,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/QENwS_VEwFc",
+      "review_status": "Nine source stills at20:5:60s inspected; Full-body solo, stable fence background; dark legs and back-facing turns. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "shRtJVupsec",
+      "url": "https://www.youtube.com/watch?v=shRtJVupsec",
+      "title": "Max Frost - Withdrawal",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 135,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/shRtJVupsec",
+      "review_status": "Nine source stills at20:5:60s inspected; Full-body solo, stable room, clothing/background contrast adequate in samples. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "OHThAzS5Wew",
+      "url": "https://www.youtube.com/watch?v=OHThAzS5Wew",
+      "title": "The Jungle Giants - Feel the way I feel",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 205,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/OHThAzS5Wew",
+      "review_status": "Nine source stills at20:5:60s inspected; Full-body solo in room; deep crouch near55s and extremities approach borders. Begin20-50s. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "HCD-zfVfxZM",
+      "url": "https://www.youtube.com/watch?v=HCD-zfVfxZM",
+      "title": "Kormac - Studio Sorcery (TSC - Ogg)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 215,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/HCD-zfVfxZM",
+      "review_status": "Nine source stills at20:5:60s inspected; Full-body solo, stable room, strong leg contrast; partly side-facing hands. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "874n70J1sFs",
+      "url": "https://www.youtube.com/watch?v=874n70J1sFs",
+      "title": "Crave You -  Flight Facilities (daniella andrade teemid cover) {oggTSC}",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 227,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/874n70J1sFs",
+      "review_status": "Nine source stills at20:5:60s inspected; Full-body solo, stable room; low contrast trousers and closed reflective cabinets. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "MX0S-5ylEJ4",
+      "url": "https://www.youtube.com/watch?v=MX0S-5ylEJ4",
+      "title": "Hoan | Popping Freestyle 2013",
+      "channel": "FunkyKye923",
+      "duration_seconds": 113,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/MX0S-5ylEJ4",
+      "review_status": "Nine source stills at20:5:60s inspected; Workshop crowd and mirrors; many visible people. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "AWBow-Hou_U",
+      "url": "https://www.youtube.com/watch?v=AWBow-Hou_U",
+      "title": "winners dance school HOAN popping solo",
+      "channel": "winnerscrew",
+      "duration_seconds": 128,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/AWBow-Hou_U",
+      "review_status": "Nine source stills at20:5:60s inspected; Workshop crowd and mirror reflections. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "B2a-1QpLgqw",
+      "url": "https://www.youtube.com/watch?v=B2a-1QpLgqw",
+      "title": "Lapalux (ft. Kerry Leatham) - Without You | Popping Freestyle | Boogie Frantick (Mighty Zulu Kingz)",
+      "channel": "VincaniTV",
+      "duration_seconds": 301,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/B2a-1QpLgqw",
+      "review_status": "Nine source stills at20:5:60s inspected; Repeated cuts between full body and close-ups; moving camera. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "7cqwRqex8Ks",
+      "url": "https://www.youtube.com/watch?v=7cqwRqex8Ks",
+      "title": "City Dance : Spring Onstage | BOOGIE FRANTICK | Solo -- Official Video",
+      "channel": "C I T Y D A N C E L I V E",
+      "duration_seconds": 429,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/7cqwRqex8Ks",
+      "review_status": "Nine source stills at20:5:60s inspected; Sole full-body dancer on dark stage, variable framing/scale; global travel is camera-confounded. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract_stress"
+    },
+    {
+      "video_id": "izi4KZBOmpE",
+      "url": "https://www.youtube.com/watch?v=izi4KZBOmpE",
+      "title": "Jardy Santiago House Dance Freestyle",
+      "channel": "Jardy Santiago",
+      "duration_seconds": 110,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/izi4KZBOmpE",
+      "review_status": "Nine source stills at20:5:60s inspected; Background pedestrians, cropped feet near35s and55s. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "DP8Q9N-hAYw",
+      "url": "https://www.youtube.com/watch?v=DP8Q9N-hAYw",
+      "title": "Denitia & Sene - Trip Fall | House Dance Freestyle | Jardy Santiago",
+      "channel": "VincaniTV",
+      "duration_seconds": 85,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041116-q1bc1s8o/DP8Q9N-hAYw",
+      "review_status": "Nine source stills at20:5:60s inspected; Several camera viewpoints, cuts and zooms, legs clipped in close shots. Not approved training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "LOYdYnT3P6I",
+      "url": "https://www.youtube.com/watch?v=LOYdYnT3P6I",
+      "title": "POPPIN JOHN | EVERYTHING I WANTED | BILLIE EILISH",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 265,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/LOYdYnT3P6I",
+      "review_status": "Nine sampled stills20:5:60s; One full-body dancer, stable park view, night lighting and turns. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "04XKyeSrOes",
+      "url": "https://www.youtube.com/watch?v=04XKyeSrOes",
+      "title": "SOME COLD ANIMATION! | POPPIN JOHN | 2 Souls - Dawn",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 161,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/04XKyeSrOes",
+      "review_status": "Nine sampled stills20:5:60s; One full-body dancer, stable snowy background; white shoes partly blend with snow. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "rAyYpkWuZKk",
+      "url": "https://www.youtube.com/watch?v=rAyYpkWuZKk",
+      "title": "POPPIN JOHN | BEAT KILLER | TWERL",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 171,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/rAyYpkWuZKk",
+      "review_status": "Nine sampled stills20:5:60s; One full-body dancer, stable wide composition; same filming setup as Tuxedo Way, distinct routine. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "TNTO153nX6Y",
+      "url": "https://www.youtube.com/watch?v=TNTO153nX6Y",
+      "title": "POPPIN JOHN | BABY GIRL by MOFAK | ARPROJCT",
+      "channel": "Poppin John SBK",
+      "duration_seconds": 261,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/TNTO153nX6Y",
+      "review_status": "Nine sampled stills20:5:60s; Frequent changes between full body and close-up, moving camera and low light. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "EkSZjccVfuY",
+      "url": "https://www.youtube.com/watch?v=EkSZjccVfuY",
+      "title": "Miike Snow - Genghis Khan (raw)",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 228,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/EkSZjccVfuY",
+      "review_status": "Nine sampled stills20:5:60s; Distant dancer behind window, tree occlusions and snow obscuring feet. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "52IM62PeonY",
+      "url": "https://www.youtube.com/watch?v=52IM62PeonY",
+      "title": "Radiohead - Lotus Flower",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 199,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/52IM62PeonY",
+      "review_status": "Nine sampled stills20:5:60s; One full-body dancer, fixed room; wide stances and raised arms near borders. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    },
+    {
+      "video_id": "ReIT44ODFFs",
+      "url": "https://www.youtube.com/watch?v=ReIT44ODFFs",
+      "title": "Elderbrook - Difficult To Love",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 204,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/ReIT44ODFFs",
+      "review_status": "Nine sampled stills20:5:60s; Waist-up/torso-only view; not suitable full-skeleton reference. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "defer"
+    },
+    {
+      "video_id": "B-ROuWsPGQs",
+      "url": "https://www.youtube.com/watch?v=B-ROuWsPGQs",
+      "title": "SG Lewis - Chemicals",
+      "channel": "takeSomeCrime",
+      "duration_seconds": 189,
+      "local_directory": "/Volumes/ExtremePro/Movies/Assets/lightflow_research/dance/candidates-20260922T041820-3qjy2yvs/B-ROuWsPGQs",
+      "review_status": "Nine sampled stills20:5:60s; One full-body dancer in room; background mirror may produce false second body near doorway. Not admitted as training targets.",
+      "tracking_mode": "solo",
+      "screening_decision": "extract"
+    }
+  ],
+  "storage_policy": "New exclusive destinations on SanDisk; never delete or overwrite existing files."
+}

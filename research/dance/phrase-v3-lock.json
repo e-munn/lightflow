@@ -1,0 +1,13 @@
+{
+  "version": "v3-audio-timed-open",
+  "status": "frozen before reserved evaluation; perceptually unapproved",
+  "protocol": "research/dance/V3_PROTOCOL.md",
+  "developmentReport": "research/dance/phrase-evaluation-development-2026-09-22T06-41-20-091Z.json",
+  "hashes": {
+    "brightness-v0": "cd39adc805491133a42146e8665eaf45d7a4c372d77d97540dc1cc8cac6f32e1",
+    "movement-brightness": "ac30a0e3887c85fc12d2af29de059493c9d19f7ea801da78e1da9a0d0d7edddb",
+    "music-context": "56e12f4b4efb8b885576b5de901a5f3b3858508d1b7227327019796370b7ba8c",
+    "brightness-timing": "0ccf0ef199175a8b402464fdf487e99a8ff30dd948990f123775ea08b63a0a78",
+    "brightness-phrase": "6d42d9b29e3154a7214c3dd5d367de1bfc3b623f5b178b7cec346e55741586da"
+  }
+}

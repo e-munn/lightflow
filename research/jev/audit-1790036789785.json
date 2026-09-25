@@ -1,0 +1,325 @@
+{
+  "recordedAt": "2026-09-22T00:26:29.784Z",
+  "model": "jev-1.13.0",
+  "synthetic": true,
+  "musicalQualityMeasured": false,
+  "physicalLatencyMeasured": false,
+  "trials": [
+    {
+      "kind": "smooth",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 2.0000000000000004,
+          "rms": 0.07874642843158332,
+          "variation": 0,
+          "attacksPerSecond": 0,
+          "low": 0.22950073631319157,
+          "mid": 0.9275094628419498,
+          "high": 0.01957180025578271,
+          "texture": 0.061061722063427706,
+          "flatness": 0.38972644386636296,
+          "build": 0.0003458731612840407
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.0787464284315831,
+          "variation": 2.819741915253329e-15,
+          "attacksPerSecond": 0.125,
+          "low": 0.22952033844543718,
+          "mid": 0.9275000052850965,
+          "high": 0.019572250189225336,
+          "texture": 0.061061722063427595,
+          "flatness": 0.38974868961501835,
+          "build": 0.0013959510275328147
+        }
+      },
+      "observations": {
+        "evidence": "Causal audio measurements, not instrument identification. Current window: trailing two seconds. Reference: earlier available audio, up to eight seconds. No future audio.",
+        "current": {
+          "level": "moderate recorded level",
+          "levelComparedWithEarlier": "similar level",
+          "attacks": "few distinct attacks",
+          "continuity": "very even energy",
+          "texture": "relatively smooth or narrow texture",
+          "spectrum": "midrange body dominates",
+          "recentRise": "little short-term rise"
+        },
+        "limits": "Recording level depends on microphone gain. Frequency bands are not isolated instruments. Do not invent vocals, song names, sections, tempo, or the time of a future drop."
+      },
+      "result": {
+        "type": "choice",
+        "choice": "sustain",
+        "confidence": 1,
+        "probabilities": {
+          "circle": 0,
+          "grain": 0,
+          "snap": 0,
+          "sustain": 1,
+          "uncertain": 0
+        },
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 681,
+          "output_tokens": 59
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 730
+      }
+    },
+    {
+      "kind": "texture",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 2.0000000000000004,
+          "rms": 0.0187721207045175,
+          "variation": 0.012578501928195866,
+          "attacksPerSecond": 0,
+          "low": 0.04053404934687707,
+          "mid": 0.315153003553427,
+          "high": 0.6672767485784489,
+          "texture": 1,
+          "flatness": 0.4460288694719714,
+          "build": 0.005521231177708723
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.01874020732522264,
+          "variation": 0.01435847614558528,
+          "attacksPerSecond": 0.125,
+          "low": 0.041155920366923324,
+          "mid": 0.3169929799333695,
+          "high": 0.6655589200326425,
+          "texture": 1,
+          "flatness": 0.4482043094673951,
+          "build": 0.0036459599305765887
+        }
+      },
+      "observations": {
+        "evidence": "Causal audio measurements, not instrument identification. Current window: trailing two seconds. Reference: earlier available audio, up to eight seconds. No future audio.",
+        "current": {
+          "level": "moderate recorded level",
+          "levelComparedWithEarlier": "similar level",
+          "attacks": "few distinct attacks",
+          "continuity": "very even energy",
+          "texture": "rough or broadband texture",
+          "spectrum": "substantial high-frequency detail",
+          "recentRise": "little short-term rise"
+        },
+        "limits": "Recording level depends on microphone gain. Frequency bands are not isolated instruments. Do not invent vocals, song names, sections, tempo, or the time of a future drop."
+      },
+      "result": {
+        "type": "choice",
+        "choice": "grain",
+        "confidence": 0.99,
+        "probabilities": {
+          "circle": 0,
+          "grain": 1,
+          "snap": 0,
+          "sustain": 0,
+          "uncertain": 0
+        },
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 58
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 203
+      }
+    },
+    {
+      "kind": "attacks",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 2.0000000000000004,
+          "rms": 0.022471815893321832,
+          "variation": 1.6127972424397092,
+          "attacksPerSecond": 2.4999999999999996,
+          "low": 0.874358209133441,
+          "mid": 0.21616310134819577,
+          "high": 0.05501749804693265,
+          "texture": 0.4370696111954833,
+          "flatness": 0.46435794669498953,
+          "build": 0.003028250276252689
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.02250035378426996,
+          "variation": 1.614288816870616,
+          "attacksPerSecond": 2.5,
+          "low": 0.8744622236856537,
+          "mid": 0.21641578257701535,
+          "high": 0.054759077001426196,
+          "texture": 0.4350399553596517,
+          "flatness": 0.46409473952147196,
+          "build": 0
+        }
+      },
+      "observations": {
+        "evidence": "Causal audio measurements, not instrument identification. Current window: trailing two seconds. Reference: earlier available audio, up to eight seconds. No future audio.",
+        "current": {
+          "level": "moderate recorded level",
+          "levelComparedWithEarlier": "similar level",
+          "attacks": "frequent distinct attacks",
+          "continuity": "large gaps or energy swings",
+          "texture": "rough or broadband texture",
+          "spectrum": "low frequencies dominate",
+          "recentRise": "little short-term rise"
+        },
+        "limits": "Recording level depends on microphone gain. Frequency bands are not isolated instruments. Do not invent vocals, song names, sections, tempo, or the time of a future drop."
+      },
+      "result": {
+        "type": "choice",
+        "choice": "snap",
+        "confidence": 0.74,
+        "probabilities": {
+          "circle": 0.05,
+          "grain": 0.14,
+          "snap": 0.79,
+          "sustain": 0,
+          "uncertain": 0.02
+        },
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 57
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 197
+      }
+    },
+    {
+      "kind": "arrival",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 2.0000000000000004,
+          "rms": 0.022471815893321832,
+          "variation": 1.6127972424397092,
+          "attacksPerSecond": 2.4999999999999996,
+          "low": 0.8743581427592672,
+          "mid": 0.21616311431134322,
+          "high": 0.0550175380133637,
+          "texture": 0.4370696111954833,
+          "flatness": 0.46435809604023703,
+          "build": 0.2985830051972764
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.0005142938008194002,
+          "variation": 1.6142888171444554,
+          "attacksPerSecond": 0,
+          "low": 0.8701965142857297,
+          "mid": 0.21536209508129264,
+          "high": 0.054494536608596524,
+          "texture": 0.2176170109579837,
+          "flatness": 0.5199596722538353,
+          "build": 0.000013003676610110192
+        }
+      },
+      "observations": {
+        "evidence": "Causal audio measurements, not instrument identification. Current window: trailing two seconds. Reference: earlier available audio, up to eight seconds. No future audio.",
+        "current": {
+          "level": "moderate recorded level",
+          "levelComparedWithEarlier": "substantially louder",
+          "attacks": "frequent distinct attacks",
+          "continuity": "large gaps or energy swings",
+          "texture": "rough or broadband texture",
+          "spectrum": "low frequencies dominate",
+          "recentRise": "some short-term rise"
+        },
+        "limits": "Recording level depends on microphone gain. Frequency bands are not isolated instruments. Do not invent vocals, song names, sections, tempo, or the time of a future drop."
+      },
+      "result": {
+        "type": "choice",
+        "choice": "snap",
+        "confidence": 0.88,
+        "probabilities": {
+          "circle": 0.06,
+          "grain": 0.04,
+          "snap": 0.9,
+          "sustain": 0,
+          "uncertain": 0
+        },
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 683,
+          "output_tokens": 57
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 212
+      }
+    },
+    {
+      "kind": "rise",
+      "snapshot": {
+        "at": 9.98,
+        "current": {
+          "duration": 2.0000000000000004,
+          "rms": 0.06997539420920944,
+          "variation": 0.059362995663854286,
+          "attacksPerSecond": 0,
+          "low": 0.5597033662029743,
+          "mid": 0.7770516643820166,
+          "high": 0.057464073104004525,
+          "texture": 0.4391667866812281,
+          "flatness": 0.5985445862315507,
+          "build": 0.4309413210304415
+        },
+        "previous": {
+          "duration": 8,
+          "rms": 0.034947733376534014,
+          "variation": 0.4628060410293918,
+          "attacksPerSecond": 0,
+          "low": 0.5596454928475599,
+          "mid": 0.7770371031150518,
+          "high": 0.05747848458101393,
+          "texture": 0.438236139658053,
+          "flatness": 0.5985773012906224,
+          "build": 0.301120420759525
+        }
+      },
+      "observations": {
+        "evidence": "Causal audio measurements, not instrument identification. Current window: trailing two seconds. Reference: earlier available audio, up to eight seconds. No future audio.",
+        "current": {
+          "level": "moderate recorded level",
+          "levelComparedWithEarlier": "substantially louder",
+          "attacks": "few distinct attacks",
+          "continuity": "very even energy",
+          "texture": "rough or broadband texture",
+          "spectrum": "midrange body dominates",
+          "recentRise": "clear short-term rise in energy or spectral brightness"
+        },
+        "limits": "Recording level depends on microphone gain. Frequency bands are not isolated instruments. Do not invent vocals, song names, sections, tempo, or the time of a future drop."
+      },
+      "result": {
+        "type": "choice",
+        "choice": "sustain",
+        "confidence": 0.52,
+        "probabilities": {
+          "circle": 0.02,
+          "grain": 0.36,
+          "snap": 0,
+          "sustain": 0.62,
+          "uncertain": 0
+        },
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 686,
+          "output_tokens": 59
+        },
+        "capturedAt": 9.98,
+        "roundTripMs": 122
+      }
+    }
+  ],
+  "latencyMs": {
+    "min": 122,
+    "median": 203,
+    "max": 730
+  },
+  "totalInputTokens": 3410
+}

@@ -1,0 +1,17 @@
+import manifest from '../../../../research/dance/brightness-study-manifest.json';
+import './study.css';
+
+const versions=[
+  {id:'v0',name:'Original reference',state:'Preserved',description:'The exact Snap and Open metrics you reviewed, at 1.30× sensitivity and 160 ms fade. Our reference stays available.'},
+  {id:'v1',name:'Calibrated defaults',state:'Useful calibration',description:'Sensitivity and fade adapt to the passage. Less saturation, but brightness-matched results show little timing improvement. This establishes headroom, not a finished mapping.'},
+  {id:'v2',name:'Timing evidence',state:'Rejected approach',description:'Snap with a recent-audio support gate. Shifted audio kept at least as many flashes on 4 of 6 passages. A dense onset detector is too permissive; fewer flashes did not establish better timing.'},
+  {id:'v3',name:'Audio-timed expression',state:'Ready to compare',description:'Strong audio accents set timing; Open shapes their brightness. Compare against the identical accents at constant strength, with average brightness matched. Tested on 10 passages; musical quality still needs listening.'},
+];
+export default function BrightnessStudy(){return <main className="brightness-study">
+  <header><a href="/pipeline/live">lightflow / movement</a><span>BRIGHTNESS STUDY</span></header>
+  <h1>Keep the timing.<br/>Find the expression.</h1>
+  <p className="study-lede">Snap is the timing reference. Open has the feel. We test one change at a time, keeping the same music and every earlier version.</p>
+  <div className="study-versions">{versions.map(v=><section key={v.id}><div className="study-version-heading"><span>{v.id.toUpperCase()}</span><small>{v.state}</small></div><h2>{v.name}</h2><p>{v.description}</p><div className="study-links">{v.id==='v3'?<a href="/pipeline/live?study=v3">Compare Open expression →</a>:<><a href={`/pipeline/live?study=${v.id}&mode=snap`}>{v.id==='v2'?'Inspect V2 →':'Play Snap →'}</a>{v.id!=='v2'&&<a href={`/pipeline/live?study=${v.id}&mode=open`}>Play Open →</a>}</>}</div></section>)}</div>
+  <aside><h2>The next decision</h2><p>Start with V3. Switch between <strong>Open expression</strong> and <strong>Constant accents</strong> on the same moment. Keep average brightness matched and hide the skeleton to judge the light alone. Does Open make the phrasing feel more intentional, or merely change the strength of flashes?</p><p>Then use the version selector to compare with original Snap and Open. If neither V3 choice feels better, keep the reference. No new predictive model is being trained before this target earns its place.</p><h2>What the checks established</h2><p>V3 selected 44–56 strong accents per 30 seconds, versus 114–218 from the broad detector. No isolated one-frame flashes were found. Four sources were evaluated after the algorithm was frozen. These checks establish stable behavior, not beat accuracy or artistic quality.</p></aside>
+  <section className="study-passages" aria-label="Study passages"><h2>Try different music</h2><p>Each link opens V3. The version selector keeps the same passage and playback position. “Reserved” means excluded from parameter selection; these sources were previously screened for tracking quality.</p><div>{manifest.passages.map(p=><a key={p.runId} href={`${p.preview}&study=v3`}><span>{p.title}</span><small>{p.split==='reserved'?'Reserved · evaluated once':p.split==='stress'?'Tracking stress':'Development'} · {p.duration}s</small></a>)}</div></section>
+</main>;}

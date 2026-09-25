@@ -1,0 +1,4953 @@
+{
+  "version": "jev-live-v2",
+  "realMusicPlayback": true,
+  "musicalQualityMeasured": false,
+  "physicalLatencyMeasured": false,
+  "trials": [
+    {
+      "song": "calabria_-_austin_marc.mp3",
+      "decisions": [
+        {
+          "snapshot": {
+            "at": 0.30533333333333335,
+            "current": {
+              "duration": 0.24000000000000002,
+              "rms": 0.13816298156274273,
+              "variation": 0.19368984360589497,
+              "attacksPerSecond": 4.166666666666666,
+              "low": 0.085525682831133,
+              "mid": 0.39663906639367363,
+              "high": 0.5758764187162703,
+              "texture": 0.5145093864997912,
+              "flatness": 0.4958954231741961,
+              "build": 0.06952871305661423,
+              "lowNovelty": 0.06610524572849866,
+              "midNovelty": 0.06413804421518716,
+              "highNovelty": 0.03250418632428123
+            },
+            "phrase": {
+              "duration": 0.24000000000000002,
+              "rms": 0.13816298156274273,
+              "variation": 0.19368984360589497,
+              "attacksPerSecond": 4.166666666666666,
+              "low": 0.085525682831133,
+              "mid": 0.39663906639367363,
+              "high": 0.5758764187162703,
+              "texture": 0.5145093864997912,
+              "flatness": 0.4958954231741961,
+              "build": 0.06952871305661423,
+              "lowNovelty": 0.06610524572849866,
+              "midNovelty": 0.06413804421518716,
+              "highNovelty": 0.03250418632428123
+            },
+            "previous": null,
+            "recentGestures": []
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "high",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "no earlier reference",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.54,
+                "probabilities": {
+                  "trace": 0.1,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.21,
+                  "grain": 0.61,
+                  "space": 0.06,
+                  "uncertain": 0.01
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.65,
+                "probabilities": {
+                  "broad": 0.72,
+                  "low": 0,
+                  "mid": 0,
+                  "high": 0.28,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.58,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.68,
+                  "deep": 0.01,
+                  "uncertain": 0.31
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1150,
+              "output_tokens": 169
+            },
+            "capturedAt": 0.30533333333333335,
+            "roundTripMs": 257
+          },
+          "requestedAtMs": 1191.5999999046326,
+          "browserRoundTripMs": 337,
+          "signalAgeAtReplyMs": 340,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 0.9053333333333333,
+            "current": {
+              "duration": 0.23999999999999996,
+              "rms": 0.15831296149930216,
+              "variation": 0.06547760364618095,
+              "attacksPerSecond": 4.166666666666667,
+              "low": 0.3416364722743666,
+              "mid": 0.844983058784346,
+              "high": 0.04736292540751505,
+              "texture": 0.1280617931002529,
+              "flatness": 0.5916050795778023,
+              "build": 0,
+              "lowNovelty": 0.03294234440144373,
+              "midNovelty": 0.02437424598573018,
+              "highNovelty": 0.009801135946280695
+            },
+            "phrase": {
+              "duration": 0.84,
+              "rms": 0.1500326558682339,
+              "variation": 0.18410673281468862,
+              "attacksPerSecond": 7.142857142857143,
+              "low": 0.19883165728005095,
+              "mid": 0.6439428961545115,
+              "high": 0.2932162038878583,
+              "texture": 0.3202128350550823,
+              "flatness": 0.5750436657538276,
+              "build": 0.04137388215075587,
+              "lowNovelty": 0.059598909469654716,
+              "midNovelty": 0.06809577125114355,
+              "highNovelty": 0.032906422285905956
+            },
+            "previous": null,
+            "recentGestures": [
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "even and continuous",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "low frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "no earlier reference",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.59,
+                "probabilities": {
+                  "trace": 0.09,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.14,
+                  "grain": 0.66,
+                  "space": 0.07,
+                  "uncertain": 0.03
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "low",
+                "confidence": 0.93,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0.95,
+                  "mid": 0.01,
+                  "high": 0.04,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.77,
+                "probabilities": {
+                  "soft": 0.02,
+                  "balanced": 0.83,
+                  "deep": 0,
+                  "uncertain": 0.15
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1153,
+              "output_tokens": 168
+            },
+            "capturedAt": 0.9053333333333333,
+            "roundTripMs": 127
+          },
+          "requestedAtMs": 1792.5999999046326,
+          "browserRoundTripMs": 137,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "low",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 1.4253333333333333,
+            "current": {
+              "duration": 0.23999999999999996,
+              "rms": 0.13774590634893114,
+              "variation": 0.5677678127720938,
+              "attacksPerSecond": 8.333333333333334,
+              "low": 0.3204451754603473,
+              "mid": 0.7615386523153113,
+              "high": 0.12226106305007887,
+              "texture": 0.230530723027231,
+              "flatness": 0.6793765008025822,
+              "build": 0,
+              "lowNovelty": 0.08540325988965447,
+              "midNovelty": 0.16742612795250614,
+              "highNovelty": 0.12830802400373711
+            },
+            "phrase": {
+              "duration": 1.36,
+              "rms": 0.14318134261304782,
+              "variation": 0.33982020318499184,
+              "attacksPerSecond": 8.088235294117647,
+              "low": 0.2332430075320291,
+              "mid": 0.6578067214003221,
+              "high": 0.2644586826819675,
+              "texture": 0.31885702831612006,
+              "flatness": 0.6176950804706929,
+              "build": 0.03513327099912543,
+              "lowNovelty": 0.06472006243693999,
+              "midNovelty": 0.09410275910602416,
+              "highNovelty": 0.06690351545380858
+            },
+            "previous": null,
+            "recentGestures": [
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "no earlier reference",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.53,
+                "probabilities": {
+                  "trace": 0.05,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.06,
+                  "grain": 0.59,
+                  "space": 0.28,
+                  "uncertain": 0.01
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.98,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.21,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.38,
+                  "deep": 0.4,
+                  "uncertain": 0.22
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1159,
+              "output_tokens": 168
+            },
+            "capturedAt": 1.4253333333333333,
+            "roundTripMs": 102
+          },
+          "requestedAtMs": 2309.300000190735,
+          "browserRoundTripMs": 113,
+          "signalAgeAtReplyMs": 100,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "mid",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 1.9453333333333334,
+            "current": {
+              "duration": 0.23999999999999996,
+              "rms": 0.08564860587523902,
+              "variation": 1.0091549388238712,
+              "attacksPerSecond": 4.166666666666667,
+              "low": 0.21728188270662155,
+              "mid": 0.664153398386434,
+              "high": 0.20106431673777816,
+              "texture": 0.20324404686862893,
+              "flatness": 0.772564275909949,
+              "build": 0,
+              "lowNovelty": 0.07726017004545152,
+              "midNovelty": 0.09930639931906515,
+              "highNovelty": 0.08080157859532801
+            },
+            "phrase": {
+              "duration": 1.8800000000000001,
+              "rms": 0.13175465866733005,
+              "variation": 0.4376839626038878,
+              "attacksPerSecond": 6.382978723404255,
+              "low": 0.23499083698148918,
+              "mid": 0.6852543535530616,
+              "high": 0.22757518919350928,
+              "texture": 0.276715804969087,
+              "flatness": 0.6356473229219156,
+              "build": 0.025415557744048183,
+              "lowNovelty": 0.06084290245564546,
+              "midNovelty": 0.0825548963119873,
+              "highNovelty": 0.058946736898215946
+            },
+            "previous": null,
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "no earlier reference",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.42,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.02,
+                  "grain": 0.45,
+                  "space": 0.5,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.68,
+                "probabilities": {
+                  "broad": 0.74,
+                  "low": 0,
+                  "mid": 0.21,
+                  "high": 0.04,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.57,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.12,
+                  "deep": 0.68,
+                  "uncertain": 0.2
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1166,
+              "output_tokens": 168
+            },
+            "capturedAt": 1.9453333333333334,
+            "roundTripMs": 116
+          },
+          "requestedAtMs": 2843.199999809265,
+          "browserRoundTripMs": 129,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 2.465333333333333,
+            "current": {
+              "duration": 0.2599999999999998,
+              "rms": 0.07567789068335609,
+              "variation": 1.1236321107805385,
+              "attacksPerSecond": 7.692307692307699,
+              "low": 0.17403331172412767,
+              "mid": 0.5851393935846354,
+              "high": 0.2904303357283867,
+              "texture": 0.23236590587527806,
+              "flatness": 0.7334700255029658,
+              "build": 0,
+              "lowNovelty": 0.06708987009687319,
+              "midNovelty": 0.09839843132334747,
+              "highNovelty": 0.10607983517187569
+            },
+            "phrase": {
+              "duration": 2.0199999999999996,
+              "rms": 0.10805490559774729,
+              "variation": 0.6782994997791417,
+              "attacksPerSecond": 5.445544554455447,
+              "low": 0.26603760927851317,
+              "mid": 0.709257201384894,
+              "high": 0.1671681887953776,
+              "texture": 0.2121814880556001,
+              "flatness": 0.7076535068137112,
+              "build": 0.006633077394315747,
+              "lowNovelty": 0.04898844461456606,
+              "midNovelty": 0.07152711391649325,
+              "highNovelty": 0.06086937229829224
+            },
+            "previous": {
+              "duration": 0.38000000000000006,
+              "rms": 0.14079681507796848,
+              "variation": 0.22055462615587337,
+              "attacksPerSecond": 7.894736842105262,
+              "low": 0.11540199443113319,
+              "mid": 0.4193353089101916,
+              "high": 0.5438459330912362,
+              "texture": 0.5149799018455031,
+              "flatness": 0.5153386189393209,
+              "build": 0.0904800847955073,
+              "lowNovelty": 0.0889734896813564,
+              "midNovelty": 0.09656956169085888,
+              "highNovelty": 0.04104100794818981
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "moderate recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.51,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.02,
+                  "grain": 0.37,
+                  "space": 0.59,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.69,
+                "probabilities": {
+                  "broad": 0.75,
+                  "low": 0,
+                  "mid": 0.2,
+                  "high": 0.04,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.63,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.21,
+                  "deep": 0.72,
+                  "uncertain": 0.07
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1169,
+              "output_tokens": 168
+            },
+            "capturedAt": 2.465333333333333,
+            "roundTripMs": 105
+          },
+          "requestedAtMs": 3358.300000190735,
+          "browserRoundTripMs": 116,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 2.985333333333333,
+            "current": {
+              "duration": 0.2599999999999998,
+              "rms": 0.052917980997467876,
+              "variation": 1.3121612541030299,
+              "attacksPerSecond": 3.8461538461538494,
+              "low": 0.18644345965835965,
+              "mid": 0.6015014378278379,
+              "high": 0.25690864785082246,
+              "texture": 0.24201378934810264,
+              "flatness": 0.7698971321212968,
+              "build": 0,
+              "lowNovelty": 0.013251817694590903,
+              "midNovelty": 0.011574804494152484,
+              "highNovelty": 0.01858750834506059
+            },
+            "phrase": {
+              "duration": 1.9999999999999998,
+              "rms": 0.07584936884453072,
+              "variation": 0.9877976201366344,
+              "attacksPerSecond": 4.500000000000001,
+              "low": 0.26425502454880806,
+              "mid": 0.6385474208025333,
+              "high": 0.20604610651083666,
+              "texture": 0.22793494334385625,
+              "flatness": 0.7562510532774851,
+              "build": 0.0023708203075068312,
+              "lowNovelty": 0.05036616239365857,
+              "midNovelty": 0.06802837871973472,
+              "highNovelty": 0.06054872009687085
+            },
+            "previous": {
+              "duration": 0.9199999999999999,
+              "rms": 0.15421691891164221,
+              "variation": 0.21141700628773835,
+              "attacksPerSecond": 7.608695652173914,
+              "low": 0.2047949189834344,
+              "mid": 0.6541273051377453,
+              "high": 0.2809278240946377,
+              "texture": 0.31083885565001856,
+              "flatness": 0.5869352184375821,
+              "build": 0.04678218254760535,
+              "lowNovelty": 0.05529804542801471,
+              "midNovelty": 0.07421907794954523,
+              "highNovelty": 0.044317389424523033
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "moderate recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "high frequencies change most",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "falling strongly",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.41,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.01,
+                  "grain": 0.47,
+                  "space": 0.5,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "high",
+                "confidence": 1,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0,
+                  "high": 1,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.87,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.07,
+                  "deep": 0.91,
+                  "uncertain": 0.02
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1174,
+              "output_tokens": 167
+            },
+            "capturedAt": 2.985333333333333,
+            "roundTripMs": 141
+          },
+          "requestedAtMs": 3875.0999999046326,
+          "browserRoundTripMs": 150,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "high",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 3.505333333333333,
+            "current": {
+              "duration": 0.2599999999999998,
+              "rms": 0.01740509165340972,
+              "variation": 0.514110010120941,
+              "attacksPerSecond": 0,
+              "low": 0.38587790969226454,
+              "mid": 0.4877235251666002,
+              "high": 0.1880527587841943,
+              "texture": 0.16950206409930318,
+              "flatness": 0.8542599644910047,
+              "build": 0,
+              "lowNovelty": 0.003785651345000966,
+              "midNovelty": 0.0002877525859027674,
+              "highNovelty": 0.0001657150177256183
+            },
+            "phrase": {
+              "duration": 2.0199999999999996,
+              "rms": 0.052549163768821926,
+              "variation": 1.2784441410236307,
+              "attacksPerSecond": 2.9702970297029707,
+              "low": 0.292361921836074,
+              "mid": 0.5883979901467575,
+              "high": 0.20084843207757933,
+              "texture": 0.20007874896560576,
+              "flatness": 0.7989696100982957,
+              "build": 0,
+              "lowNovelty": 0.03697651778769718,
+              "midNovelty": 0.04724740450180679,
+              "highNovelty": 0.043401476287120176
+            },
+            "previous": {
+              "duration": 1.4200000000000002,
+              "rms": 0.14321446256787004,
+              "variation": 0.33252107949867005,
+              "attacksPerSecond": 7.746478873239436,
+              "low": 0.22773406478510033,
+              "mid": 0.666163847162334,
+              "high": 0.25817066449184356,
+              "texture": 0.31217497672980205,
+              "flatness": 0.6144069671757451,
+              "build": 0.03364876659071168,
+              "lowNovelty": 0.06298744207345763,
+              "midNovelty": 0.09097214637351927,
+              "highNovelty": 0.06407660635012653
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "moderate recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "few",
+            "energyChange": "falling strongly",
+            "prominentBand": "mid",
+            "changingLayer": "little spectral change",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "falling strongly",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.89,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0,
+                  "bloom": 0,
+                  "carve": 0.01,
+                  "grain": 0.07,
+                  "space": 0.91,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "uncertain",
+                "confidence": 0.4,
+                "probabilities": {
+                  "broad": 0.04,
+                  "low": 0,
+                  "mid": 0.42,
+                  "high": 0.02,
+                  "uncertain": 0.52
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.9,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.04,
+                  "deep": 0.92,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1178,
+              "output_tokens": 169
+            },
+            "capturedAt": 3.505333333333333,
+            "roundTripMs": 110
+          },
+          "requestedAtMs": 4391.900000095367,
+          "browserRoundTripMs": 124,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "high",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 4.025333333333333,
+            "current": {
+              "duration": 0.2599999999999998,
+              "rms": 0.13698758558176824,
+              "variation": 0.46930510782966134,
+              "attacksPerSecond": 7.692307692307699,
+              "low": 0.4183458330929668,
+              "mid": 0.5475400285723188,
+              "high": 0.22959388035910602,
+              "texture": 0.3003231666281534,
+              "flatness": 0.6643147824344973,
+              "build": 0.07154406751799329,
+              "lowNovelty": 0.14661995318109927,
+              "midNovelty": 0.15080584563657135,
+              "highNovelty": 0.09814393718114468
+            },
+            "phrase": {
+              "duration": 2,
+              "rms": 0.05814371614535279,
+              "variation": 1.291896442847679,
+              "attacksPerSecond": 4,
+              "low": 0.3247700071301079,
+              "mid": 0.5333651310804359,
+              "high": 0.22308480908362036,
+              "texture": 0.2208303638326878,
+              "flatness": 0.7930733488939617,
+              "build": 0.009300728777339128,
+              "lowNovelty": 0.05500555948511392,
+              "midNovelty": 0.06434859529980064,
+              "highNovelty": 0.057142494344285207
+            },
+            "previous": {
+              "duration": 1.96,
+              "rms": 0.12722857095345275,
+              "variation": 0.47628585724366007,
+              "attacksPerSecond": 6.122448979591836,
+              "low": 0.23807946623442275,
+              "mid": 0.6829019932989842,
+              "high": 0.22471900061422495,
+              "texture": 0.2713886272307568,
+              "flatness": 0.646507433162609,
+              "build": 0.024378188040209484,
+              "lowNovelty": 0.05856809889594064,
+              "midNovelty": 0.07922218124327056,
+              "highNovelty": 0.056544032748120365
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "rising strongly",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "falling strongly",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.65,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.03,
+                  "bloom": 0.01,
+                  "carve": 0.07,
+                  "grain": 0.16,
+                  "space": 0.71,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.69,
+                "probabilities": {
+                  "broad": 0.75,
+                  "low": 0,
+                  "mid": 0.16,
+                  "high": 0.08,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.9,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.04,
+                  "deep": 0.93,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1179,
+              "output_tokens": 168
+            },
+            "capturedAt": 4.025333333333333,
+            "roundTripMs": 174
+          },
+          "requestedAtMs": 4908.699999809265,
+          "browserRoundTripMs": 184,
+          "signalAgeAtReplyMs": 180,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 4.545333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.12780940784955053,
+              "variation": 0.5661695126366542,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.3303960587535329,
+              "mid": 0.8101649014212763,
+              "high": 0.07964561491191145,
+              "texture": 0.1663952128139205,
+              "flatness": 0.6531285593291901,
+              "build": 0.14047007861917618,
+              "lowNovelty": 0.093501620165791,
+              "midNovelty": 0.12875558392632372,
+              "highNovelty": 0.07981086121709909
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.08455871499851002,
+              "variation": 0.968573615925162,
+              "attacksPerSecond": 3.999999999999999,
+              "low": 0.34497517171333414,
+              "mid": 0.5949867316724109,
+              "high": 0.18019171133960363,
+              "texture": 0.20365131776946396,
+              "flatness": 0.746037554915657,
+              "build": 0.08121377281274833,
+              "lowNovelty": 0.06131996668588906,
+              "midNovelty": 0.0735326142801305,
+              "highNovelty": 0.05942614529851136
+            },
+            "previous": {
+              "duration": 2.48,
+              "rms": 0.11002131977385009,
+              "variation": 0.6409235271984028,
+              "attacksPerSecond": 5.645161290322581,
+              "low": 0.24153055034097684,
+              "mid": 0.6608076102911666,
+              "high": 0.22763616544036266,
+              "texture": 0.2588341945857114,
+              "flatness": 0.683631408102137,
+              "build": 0.019266632483391364,
+              "lowNovelty": 0.0535990054653728,
+              "midNovelty": 0.07306176066974839,
+              "highNovelty": 0.0558768314702706
+            },
+            "recentGestures": [
+              "grain",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.77,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0,
+                  "bloom": 0,
+                  "carve": 0.01,
+                  "grain": 0.17,
+                  "space": 0.81,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.99,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.64,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.22,
+                  "deep": 0.73,
+                  "uncertain": 0.05
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1173,
+              "output_tokens": 167
+            },
+            "capturedAt": 4.545333333333334,
+            "roundTripMs": 117
+          },
+          "requestedAtMs": 5442.400000095367,
+          "browserRoundTripMs": 128,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "mid",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 5.065333333333333,
+            "current": {
+              "duration": 0.23999999999999974,
+              "rms": 0.16024848838119857,
+              "variation": 0.2122351774899303,
+              "attacksPerSecond": 8.333333333333343,
+              "low": 0.20759200755838456,
+              "mid": 0.8205885060195821,
+              "high": 0.11476438446774288,
+              "texture": 0.1899895416766829,
+              "flatness": 0.6379155661163599,
+              "build": 0.3624439137441604,
+              "lowNovelty": 0.07736829624660595,
+              "midNovelty": 0.13475063429584366,
+              "highNovelty": 0.10264411523948869
+            },
+            "phrase": {
+              "duration": 2,
+              "rms": 0.1106760213302626,
+              "variation": 0.6851513613896758,
+              "attacksPerSecond": 4.5,
+              "low": 0.34596829051555034,
+              "mid": 0.6455720020830711,
+              "high": 0.1632302035110965,
+              "texture": 0.21349174842183175,
+              "flatness": 0.6971373206718574,
+              "build": 0.17280155057837715,
+              "lowNovelty": 0.07174946026427659,
+              "midNovelty": 0.09050726279369387,
+              "highNovelty": 0.0681488101762905
+            },
+            "previous": {
+              "duration": 3,
+              "rms": 0.09808659733225736,
+              "variation": 0.7614409902669041,
+              "attacksPerSecond": 5.333333333333333,
+              "low": 0.24916322658621815,
+              "mid": 0.6400795658433968,
+              "high": 0.22844853643859295,
+              "texture": 0.25397378994416553,
+              "flatness": 0.7091277157295641,
+              "build": 0.015927082852936862,
+              "lowNovelty": 0.05061081307113492,
+              "midNovelty": 0.06815842004658759,
+              "highNovelty": 0.05397932054129655
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.65,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0,
+                  "carve": 0.13,
+                  "grain": 0.13,
+                  "space": 0.7,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.98,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.5,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.31,
+                  "deep": 0.63,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 167
+            },
+            "capturedAt": 5.065333333333333,
+            "roundTripMs": 147
+          },
+          "requestedAtMs": 5958.199999809265,
+          "browserRoundTripMs": 157,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "mid",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 5.585333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.11864754490400721,
+              "variation": 0.7961289900861724,
+              "attacksPerSecond": 4.166666666666655,
+              "low": 0.1905321139383671,
+              "mid": 0.7880613134757651,
+              "high": 0.13774422176444315,
+              "texture": 0.19046869452019063,
+              "flatness": 0.6728872704755068,
+              "build": 0.019800392775947393,
+              "lowNovelty": 0.1009111764779096,
+              "midNovelty": 0.11690428610436865,
+              "highNovelty": 0.0950012620948711
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.13084993951207946,
+              "variation": 0.5306312515957821,
+              "attacksPerSecond": 4.499999999999999,
+              "low": 0.30233921239084105,
+              "mid": 0.7337775307572386,
+              "high": 0.14008777160689712,
+              "texture": 0.20530807828378317,
+              "flatness": 0.6488795611242791,
+              "build": 0.2080618972261836,
+              "lowNovelty": 0.08126572491067809,
+              "midNovelty": 0.09863996885243116,
+              "highNovelty": 0.07324597720126559
+            },
+            "previous": {
+              "duration": 3.52,
+              "rms": 0.08832119307832477,
+              "variation": 0.8450317283201103,
+              "attacksPerSecond": 4.829545454545454,
+              "low": 0.2736278481121624,
+              "mid": 0.6135641034027434,
+              "high": 0.2227824163383905,
+              "texture": 0.2434751851792214,
+              "flatness": 0.7247448870607355,
+              "build": 0.013574218340571188,
+              "lowNovelty": 0.04664763701609234,
+              "midNovelty": 0.0638219863569953,
+              "highNovelty": 0.05076854689613715
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.82,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.03,
+                  "grain": 0.1,
+                  "space": 0.85,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.59,
+                "probabilities": {
+                  "broad": 0.67,
+                  "low": 0,
+                  "mid": 0.24,
+                  "high": 0.08,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.74,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.14,
+                  "deep": 0.8,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1173,
+              "output_tokens": 168
+            },
+            "capturedAt": 5.585333333333334,
+            "roundTripMs": 101
+          },
+          "requestedAtMs": 6475.5,
+          "browserRoundTripMs": 111,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 6.105333333333333,
+            "current": {
+              "duration": 0.23999999999999974,
+              "rms": 0.15750279302506984,
+              "variation": 0.1946735925332881,
+              "attacksPerSecond": 4.166666666666671,
+              "low": 0.3187258978957314,
+              "mid": 0.8016506064776934,
+              "high": 0.08584201406736452,
+              "texture": 0.12511551772364424,
+              "flatness": 0.5926350170019915,
+              "build": 0.2398425283416302,
+              "lowNovelty": 0.04749481456546153,
+              "midNovelty": 0.04622032202430426,
+              "highNovelty": 0.03089023141339646
+            },
+            "phrase": {
+              "duration": 1.9999999999999996,
+              "rms": 0.13145584489694256,
+              "variation": 0.47895313637912357,
+              "attacksPerSecond": 4.500000000000001,
+              "low": 0.29684019061553957,
+              "mid": 0.7907801400144667,
+              "high": 0.10340491298611672,
+              "texture": 0.17111355059304365,
+              "flatness": 0.6240798970235929,
+              "build": 0.2179355247010212,
+              "lowNovelty": 0.07293963186388842,
+              "midNovelty": 0.09558709918620106,
+              "highNovelty": 0.0620789946734406
+            },
+            "previous": {
+              "duration": 4.039999999999999,
+              "rms": 0.09466105576099584,
+              "variation": 0.8218349593199837,
+              "attacksPerSecond": 4.950495049504951,
+              "low": 0.2826053626947918,
+              "mid": 0.6107231568416495,
+              "high": 0.22182704598951164,
+              "texture": 0.24441392586992605,
+              "flatness": 0.7204610188753703,
+              "build": 0.02325594120745601,
+              "lowNovelty": 0.05660726182813799,
+              "midNovelty": 0.07258380340186343,
+              "highNovelty": 0.05881938042451598
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.6,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0.01,
+                  "carve": 0.12,
+                  "grain": 0.17,
+                  "space": 0.66,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.68,
+                "probabilities": {
+                  "broad": 0.74,
+                  "low": 0,
+                  "mid": 0.18,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.53,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.28,
+                  "deep": 0.65,
+                  "uncertain": 0.07
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 6.105333333333333,
+            "roundTripMs": 98
+          },
+          "requestedAtMs": 6992.099999904633,
+          "browserRoundTripMs": 108,
+          "signalAgeAtReplyMs": 100,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 6.625333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.14500488393478642,
+              "variation": 0.2649060435686795,
+              "attacksPerSecond": 12.499999999999968,
+              "low": 0.17148972521326034,
+              "mid": 0.6733011396972929,
+              "high": 0.27550142160140406,
+              "texture": 0.2983953559579959,
+              "flatness": 0.48408200608765717,
+              "build": 0.3571309749044749,
+              "lowNovelty": 0.09207308254132374,
+              "midNovelty": 0.11052204960308964,
+              "highNovelty": 0.06222287957204279
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.13199187465650172,
+              "variation": 0.5107660227246629,
+              "attacksPerSecond": 5.999999999999999,
+              "low": 0.2636828617790404,
+              "mid": 0.7719309405497777,
+              "high": 0.13344334042501388,
+              "texture": 0.19297251673188176,
+              "flatness": 0.6056995257052222,
+              "build": 0.22580376223970794,
+              "lowNovelty": 0.0783689271479443,
+              "midNovelty": 0.10671052632459191,
+              "highNovelty": 0.07284455708778553
+            },
+            "previous": {
+              "duration": 4.56,
+              "rms": 0.09969334702042482,
+              "variation": 0.7681769591141161,
+              "attacksPerSecond": 4.824561403508772,
+              "low": 0.2889969266072762,
+              "mid": 0.6344504773953435,
+              "high": 0.20426545453456613,
+              "texture": 0.23252110121933917,
+              "flatness": 0.7109478054994289,
+              "build": 0.05241097627814881,
+              "lowNovelty": 0.05642697494869674,
+              "midNovelty": 0.07246353390644603,
+              "highNovelty": 0.05667443491818427
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.64,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0,
+                  "carve": 0.1,
+                  "grain": 0.16,
+                  "space": 0.7,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.66,
+                "probabilities": {
+                  "broad": 0.72,
+                  "low": 0,
+                  "mid": 0.19,
+                  "high": 0.08,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.49,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.32,
+                  "deep": 0.62,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 6.625333333333334,
+            "roundTripMs": 111
+          },
+          "requestedAtMs": 7508.599999904633,
+          "browserRoundTripMs": 122,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 7.145333333333333,
+            "current": {
+              "duration": 0.23999999999999974,
+              "rms": 0.09755841084753303,
+              "variation": 0.4937223893463398,
+              "attacksPerSecond": 0,
+              "low": 0.4226235686793615,
+              "mid": 0.794040443493544,
+              "high": 0.03987213600165548,
+              "texture": 0.08945172105433175,
+              "flatness": 0.572308337265086,
+              "build": 0.16809797412937907,
+              "lowNovelty": 0.020457677317529278,
+              "midNovelty": 0.00458704745388139,
+              "highNovelty": 0
+            },
+            "phrase": {
+              "duration": 1.9999999999999996,
+              "rms": 0.1286462234515394,
+              "variation": 0.5354930084382051,
+              "attacksPerSecond": 5.000000000000001,
+              "low": 0.2703574901633703,
+              "mid": 0.7737143661806999,
+              "high": 0.12693662344619291,
+              "texture": 0.17767958725499156,
+              "flatness": 0.5875122230344625,
+              "build": 0.21909271314135673,
+              "lowNovelty": 0.0691231786515497,
+              "midNovelty": 0.09301393890405285,
+              "highNovelty": 0.06553416774894705
+            },
+            "previous": {
+              "duration": 5.079999999999999,
+              "rms": 0.10395915371055567,
+              "variation": 0.7224526445854588,
+              "attacksPerSecond": 4.921259842519686,
+              "low": 0.2863701662749741,
+              "mid": 0.6460912901425515,
+              "high": 0.20007186026548285,
+              "texture": 0.2357374849255978,
+              "flatness": 0.7019777789671446,
+              "build": 0.0846614684950683,
+              "lowNovelty": 0.05882137335170454,
+              "midNovelty": 0.07631643779657937,
+              "highNovelty": 0.05890307525797448
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "few",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "low frequencies change most",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.77,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.04,
+                  "grain": 0.13,
+                  "space": 0.8,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "low",
+                "confidence": 0.95,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0.97,
+                  "mid": 0.01,
+                  "high": 0.02,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.79,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.12,
+                  "deep": 0.85,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 167
+            },
+            "capturedAt": 7.145333333333333,
+            "roundTripMs": 113
+          },
+          "requestedAtMs": 8041.800000190735,
+          "browserRoundTripMs": 123,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "low",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 7.665333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.18362034613772182,
+              "variation": 0.19131677618916237,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.35082190202333985,
+              "mid": 0.5033361357387136,
+              "high": 0.28800663941635085,
+              "texture": 0.3559445850229895,
+              "flatness": 0.795853995361128,
+              "build": 0.539623878490152,
+              "lowNovelty": 0.08083330797393631,
+              "midNovelty": 0.11729212874552346,
+              "highNovelty": 0.061776737964472216
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.14888273971604632,
+              "variation": 0.44012562247827164,
+              "attacksPerSecond": 5.499999999999999,
+              "low": 0.30082676533021685,
+              "mid": 0.6806696210574751,
+              "high": 0.1752165761870075,
+              "texture": 0.22659473865673896,
+              "flatness": 0.6281020270172495,
+              "build": 0.2820361284477949,
+              "lowNovelty": 0.07700506331646856,
+              "midNovelty": 0.09618557804212667,
+              "highNovelty": 0.06796402628460767
+            },
+            "previous": {
+              "duration": 5.6,
+              "rms": 0.10359408117939974,
+              "variation": 0.7290978423818566,
+              "attacksPerSecond": 4.821428571428572,
+              "low": 0.2865338614752063,
+              "mid": 0.6586196565533666,
+              "high": 0.19079636045857168,
+              "texture": 0.22767890221328646,
+              "flatness": 0.6959640791520523,
+              "build": 0.08284018625199603,
+              "lowNovelty": 0.06158672911510701,
+              "midNovelty": 0.07953750308904158,
+              "highNovelty": 0.06009996325186713
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.62,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.02,
+                  "bloom": 0.01,
+                  "carve": 0.12,
+                  "grain": 0.16,
+                  "space": 0.68,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.99,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.48,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.34,
+                  "deep": 0.61,
+                  "uncertain": 0.05
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 167
+            },
+            "capturedAt": 7.665333333333334,
+            "roundTripMs": 166
+          },
+          "requestedAtMs": 8558.699999809265,
+          "browserRoundTripMs": 175,
+          "signalAgeAtReplyMs": 180,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "mid",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 8.185333333333332,
+            "current": {
+              "duration": 0.25999999999999934,
+              "rms": 0.17508774245393255,
+              "variation": 0.17593628642129888,
+              "attacksPerSecond": 3.846153846153856,
+              "low": 0.37972303160703874,
+              "mid": 0.7859843213435771,
+              "high": 0.0785871984791935,
+              "texture": 0.14352015973251298,
+              "flatness": 0.6524588463690226,
+              "build": 0.3932902896202031,
+              "lowNovelty": 0.03403355244919394,
+              "midNovelty": 0.05316200124219815,
+              "highNovelty": 0.050914134774565856
+            },
+            "phrase": {
+              "duration": 2.019999999999999,
+              "rms": 0.15353974225896788,
+              "variation": 0.399527940795029,
+              "attacksPerSecond": 4.950495049504952,
+              "low": 0.3144745079465102,
+              "mid": 0.6757135388312709,
+              "high": 0.17395158395414673,
+              "texture": 0.2319416947094996,
+              "flatness": 0.6486761117721235,
+              "build": 0.34627944460178084,
+              "lowNovelty": 0.07068805418365433,
+              "midNovelty": 0.08263621595351872,
+              "highNovelty": 0.05932119512222955
+            },
+            "previous": {
+              "duration": 6.1,
+              "rms": 0.1075065519254542,
+              "variation": 0.6991441368314598,
+              "attacksPerSecond": 4.918032786885246,
+              "low": 0.2861947695120452,
+              "mid": 0.6722184397782359,
+              "high": 0.18171309043140343,
+              "texture": 0.2192980137105307,
+              "flatness": 0.6874782537777032,
+              "build": 0.09166995326953614,
+              "lowNovelty": 0.06145376643425536,
+              "midNovelty": 0.08061350807737806,
+              "highNovelty": 0.060219173250329154
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "carve",
+                "confidence": 0.24,
+                "probabilities": {
+                  "trace": 0.04,
+                  "strike": 0.04,
+                  "bloom": 0.12,
+                  "carve": 0.36,
+                  "grain": 0.32,
+                  "space": 0.12,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.7,
+                "probabilities": {
+                  "broad": 0.76,
+                  "low": 0,
+                  "mid": 0.16,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.78,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.84,
+                  "deep": 0.06,
+                  "uncertain": 0.1
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 169
+            },
+            "capturedAt": 8.185333333333332,
+            "roundTripMs": 140
+          },
+          "requestedAtMs": 9076.400000095367,
+          "browserRoundTripMs": 153,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 8.705333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.16672885668862625,
+              "variation": 0.37977425439459417,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.2964595263273209,
+              "mid": 0.7853140052516765,
+              "high": 0.10025840043536467,
+              "texture": 0.1562410568950397,
+              "flatness": 0.673274820594271,
+              "build": 0.20166846719043283,
+              "lowNovelty": 0.07103642379449439,
+              "midNovelty": 0.10949122253685539,
+              "highNovelty": 0.08879713532151941
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.1548974681026998,
+              "variation": 0.36774883325489033,
+              "attacksPerSecond": 5.499999999999999,
+              "low": 0.35020022283989,
+              "mid": 0.6642837010783029,
+              "high": 0.16554666186094988,
+              "texture": 0.241532499356616,
+              "flatness": 0.6877219168991816,
+              "build": 0.3157221363372036,
+              "lowNovelty": 0.0695893767732894,
+              "midNovelty": 0.0850696591094457,
+              "highNovelty": 0.06537962379450209
+            },
+            "previous": {
+              "duration": 6.639999999999999,
+              "rms": 0.10985759457802344,
+              "variation": 0.6849505539813671,
+              "attacksPerSecond": 5.120481927710844,
+              "low": 0.28222849065180283,
+              "mid": 0.6782221753333812,
+              "high": 0.18109102906166297,
+              "texture": 0.21969634827340903,
+              "flatness": 0.6776642168005425,
+              "build": 0.1073921811528092,
+              "lowNovelty": 0.06243696631876047,
+              "midNovelty": 0.0820139039656162,
+              "highNovelty": 0.0611228118156215
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "carve",
+                "confidence": 0.21,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.05,
+                  "bloom": 0.12,
+                  "carve": 0.33,
+                  "grain": 0.32,
+                  "space": 0.15,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.67,
+                "probabilities": {
+                  "broad": 0.74,
+                  "low": 0,
+                  "mid": 0.16,
+                  "high": 0.1,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.77,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.83,
+                  "deep": 0.08,
+                  "uncertain": 0.09
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 169
+            },
+            "capturedAt": 8.705333333333334,
+            "roundTripMs": 114
+          },
+          "requestedAtMs": 9593.300000190735,
+          "browserRoundTripMs": 127,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 9.225333333333333,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.11300387205716161,
+              "variation": 0.6848023440634977,
+              "attacksPerSecond": 0,
+              "low": 0.5103856540377923,
+              "mid": 0.6880099621825808,
+              "high": 0.08019469480487426,
+              "texture": 0.12033944077144258,
+              "flatness": 0.5492403025025403,
+              "build": 0,
+              "lowNovelty": 0.06458450269684869,
+              "midNovelty": 0.0837955012810242,
+              "highNovelty": 0.06074286832975347
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.1471814559461472,
+              "variation": 0.40666928419279186,
+              "attacksPerSecond": 5.499999999999999,
+              "low": 0.4040904766428792,
+              "mid": 0.6612331160852815,
+              "high": 0.14283840240939336,
+              "texture": 0.21768120947277947,
+              "flatness": 0.686083974346382,
+              "build": 0.2476835431800436,
+              "lowNovelty": 0.05884635541852572,
+              "midNovelty": 0.07359980464276242,
+              "highNovelty": 0.053493776300966814
+            },
+            "previous": {
+              "duration": 7.159999999999999,
+              "rms": 0.11098452712737017,
+              "variation": 0.677711695971567,
+              "attacksPerSecond": 4.888268156424582,
+              "low": 0.28347551574412305,
+              "mid": 0.6810965156118948,
+              "high": 0.17896434513797294,
+              "texture": 0.21901727626893852,
+              "flatness": 0.6717590190309305,
+              "build": 0.12126615729576266,
+              "lowNovelty": 0.0641359219631518,
+              "midNovelty": 0.08319645359685099,
+              "highNovelty": 0.06297069050998995
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "few",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.73,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.05,
+                  "grain": 0.16,
+                  "space": 0.77,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.61,
+                "probabilities": {
+                  "broad": 0.69,
+                  "low": 0,
+                  "mid": 0.23,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.78,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.12,
+                  "deep": 0.84,
+                  "uncertain": 0.04
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 9.225333333333333,
+            "roundTripMs": 145
+          },
+          "requestedAtMs": 10107.599999904633,
+          "browserRoundTripMs": 161,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 9.745333333333333,
+            "current": {
+              "duration": 0.23999999999999885,
+              "rms": 0.16333254408445855,
+              "variation": 0.1624344931150816,
+              "attacksPerSecond": 0,
+              "low": 0.6859637127558819,
+              "mid": 0.7436025704838602,
+              "high": 0.007606818630639642,
+              "texture": 0.03924618322079508,
+              "flatness": 0.3353270072071423,
+              "build": 0.016010340505151845,
+              "lowNovelty": 0.03193274454626288,
+              "midNovelty": 0.030982394258887644,
+              "highNovelty": 0.008374798517606372
+            },
+            "phrase": {
+              "duration": 1.9999999999999996,
+              "rms": 0.13278235126249904,
+              "variation": 0.4772826117887403,
+              "attacksPerSecond": 4.000000000000001,
+              "low": 0.4543874553944483,
+              "mid": 0.7371866714925583,
+              "high": 0.08081523907561465,
+              "texture": 0.1504967677113127,
+              "flatness": 0.600157265305283,
+              "build": 0.1485937264192379,
+              "lowNovelty": 0.04996008401442684,
+              "midNovelty": 0.06940976037620578,
+              "highNovelty": 0.05471158320056544
+            },
+            "previous": {
+              "duration": 7.679999999999999,
+              "rms": 0.11609522291331516,
+              "variation": 0.6507211533074022,
+              "attacksPerSecond": 5.078125000000001,
+              "low": 0.290959779771388,
+              "mid": 0.6651961774089333,
+              "high": 0.18589151589215422,
+              "texture": 0.22690098865123623,
+              "flatness": 0.6795048289946818,
+              "build": 0.13936039081777452,
+              "lowNovelty": 0.0655889387744075,
+              "midNovelty": 0.08350904948879957,
+              "highNovelty": 0.06152479947668491
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "smooth/narrowband",
+            "immediateAttacks": "few",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.46,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.02,
+                  "bloom": 0.01,
+                  "carve": 0.23,
+                  "grain": 0.2,
+                  "space": 0.53,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.61,
+                "probabilities": {
+                  "broad": 0.7,
+                  "low": 0,
+                  "mid": 0.21,
+                  "high": 0.08,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.61,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.26,
+                  "deep": 0.7,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 168
+            },
+            "capturedAt": 9.745333333333333,
+            "roundTripMs": 120
+          },
+          "requestedAtMs": 10640.800000190735,
+          "browserRoundTripMs": 129,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 10.265333333333333,
+            "current": {
+              "duration": 0.25999999999999845,
+              "rms": 0.10227973182648231,
+              "variation": 0.12728613600948524,
+              "attacksPerSecond": 3.846153846153869,
+              "low": 0.6476822598289504,
+              "mid": 0.7563437768313818,
+              "high": 0.006812058391328128,
+              "texture": 0.038859718227717624,
+              "flatness": 0.3351180410828104,
+              "build": 0,
+              "lowNovelty": 0.029584080110884245,
+              "midNovelty": 0.025519682316890748,
+              "highNovelty": 0.004635491643529265
+            },
+            "phrase": {
+              "duration": 1.9999999999999987,
+              "rms": 0.12334138090854148,
+              "variation": 0.5167623747245118,
+              "attacksPerSecond": 4.500000000000003,
+              "low": 0.5073501199968226,
+              "mid": 0.7291295198151028,
+              "high": 0.07142731231568634,
+              "texture": 0.12750231124755337,
+              "flatness": 0.5348176946525333,
+              "build": 0.07138819388516916,
+              "lowNovelty": 0.05324259320667723,
+              "midNovelty": 0.07570776751807809,
+              "highNovelty": 0.055828753080867516
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.11860451341600235,
+              "variation": 0.6336975541393527,
+              "attacksPerSecond": 4.8628428927680805,
+              "low": 0.30154305503502277,
+              "mid": 0.6801824385858806,
+              "high": 0.16840954573615302,
+              "texture": 0.21540257320569894,
+              "flatness": 0.6846575413674554,
+              "build": 0.15620463265199136,
+              "lowNovelty": 0.06305212691789767,
+              "midNovelty": 0.08055799724487257,
+              "highNovelty": 0.06066548167288418
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "smooth/narrowband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.61,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.16,
+                  "grain": 0.14,
+                  "space": 0.67,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.67,
+                "probabilities": {
+                  "broad": 0.74,
+                  "low": 0,
+                  "mid": 0.2,
+                  "high": 0.05,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.42,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.38,
+                  "deep": 0.56,
+                  "uncertain": 0.05
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 10.265333333333333,
+            "roundTripMs": 112
+          },
+          "requestedAtMs": 11157.699999809265,
+          "browserRoundTripMs": 123,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 10.785333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.0862330496339529,
+              "variation": 0.4320318412108618,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.7209739999180117,
+              "mid": 0.5109832726672069,
+              "high": 0.03481201230332872,
+              "texture": 0.05179057100906057,
+              "flatness": 0.36766099547562775,
+              "build": 0.009155033691035546,
+              "lowNovelty": 0.06449801501033615,
+              "midNovelty": 0.06960086452491103,
+              "highNovelty": 0.05780555391007741
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.11728663199827528,
+              "variation": 0.5193908544882321,
+              "attacksPerSecond": 3.499999999999999,
+              "low": 0.5938613696698498,
+              "mid": 0.6978050209314732,
+              "high": 0.047361007127031805,
+              "texture": 0.08425819851565923,
+              "flatness": 0.45942606003222325,
+              "build": 0.03455152697862806,
+              "lowNovelty": 0.04754254507812891,
+              "midNovelty": 0.06648578025132752,
+              "highNovelty": 0.04933059293509129
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.11811947465014508,
+              "variation": 0.641742712612263,
+              "attacksPerSecond": 4.987531172069826,
+              "low": 0.3104055588810549,
+              "mid": 0.6827766799386141,
+              "high": 0.161506813862053,
+              "texture": 0.21150854761710108,
+              "flatness": 0.6880342612524751,
+              "build": 0.16541503344875902,
+              "lowNovelty": 0.06365859804283142,
+              "midNovelty": 0.0825219215816754,
+              "highNovelty": 0.06357670344777071
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "smooth/narrowband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "low",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "little rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.76,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.01,
+                  "bloom": 0,
+                  "carve": 0.05,
+                  "grain": 0.12,
+                  "space": 0.81,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.76,
+                "probabilities": {
+                  "broad": 0.8,
+                  "low": 0.11,
+                  "mid": 0.01,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.67,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.21,
+                  "deep": 0.74,
+                  "uncertain": 0.04
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1173,
+              "output_tokens": 168
+            },
+            "capturedAt": 10.785333333333334,
+            "roundTripMs": 91
+          },
+          "requestedAtMs": 11674.900000095367,
+          "browserRoundTripMs": 103,
+          "signalAgeAtReplyMs": 100,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 11.305333333333333,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.21803751723285358,
+              "variation": 0.18152391760010908,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.4118226257883564,
+              "mid": 0.743681263191652,
+              "high": 0.11891320736920458,
+              "texture": 0.22100463997404174,
+              "flatness": 0.660296794699011,
+              "build": 0.554516936801441,
+              "lowNovelty": 0.03861350142321609,
+              "midNovelty": 0.09889296727442294,
+              "highNovelty": 0.10775544168775775
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.14778235369037063,
+              "variation": 0.4338093519513776,
+              "attacksPerSecond": 4.499999999999999,
+              "low": 0.5745407984387856,
+              "mid": 0.7035526627410722,
+              "high": 0.05465560459562855,
+              "texture": 0.09823677437802296,
+              "flatness": 0.47632979026570665,
+              "build": 0.10880392592568462,
+              "lowNovelty": 0.055504177476405375,
+              "midNovelty": 0.07761239601355652,
+              "highNovelty": 0.06278534993719498
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.11466745826616961,
+              "variation": 0.6697697782131562,
+              "attacksPerSecond": 4.488778054862843,
+              "low": 0.3243480839191266,
+              "mid": 0.682851280016858,
+              "high": 0.15287653654322977,
+              "texture": 0.1996993330496704,
+              "flatness": 0.6813776816958549,
+              "build": 0.16407126234899455,
+              "lowNovelty": 0.062361089666378364,
+              "midNovelty": 0.07982877119052592,
+              "highNovelty": 0.06093006222031783
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.6,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0,
+                  "carve": 0.12,
+                  "grain": 0.18,
+                  "space": 0.66,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.68,
+                "probabilities": {
+                  "broad": 0.74,
+                  "low": 0,
+                  "mid": 0.18,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.53,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.29,
+                  "deep": 0.65,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 11.305333333333333,
+            "roundTripMs": 128
+          },
+          "requestedAtMs": 12192.5,
+          "browserRoundTripMs": 138,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 11.825333333333333,
+            "current": {
+              "duration": 0.23999999999999885,
+              "rms": 0.22868873104419737,
+              "variation": 0.0713321383923179,
+              "attacksPerSecond": 8.333333333333373,
+              "low": 0.417231242898924,
+              "mid": 0.8062963729856403,
+              "high": 0.05699108431947464,
+              "texture": 0.11468384022469197,
+              "flatness": 0.6107354221929758,
+              "build": 0.5244102971531084,
+              "lowNovelty": 0.04001137967509868,
+              "midNovelty": 0.07448908333661412,
+              "highNovelty": 0.05893140276331149
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.15933888926402281,
+              "variation": 0.40304756537200653,
+              "attacksPerSecond": 5.999999999999999,
+              "low": 0.5323807997188744,
+              "mid": 0.723879902219035,
+              "high": 0.05398309862035279,
+              "texture": 0.1042627379920776,
+              "flatness": 0.5071947350815521,
+              "build": 0.2266851077375211,
+              "lowNovelty": 0.057202611521255664,
+              "midNovelty": 0.07728849742716512,
+              "highNovelty": 0.061120161040481555
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.11706024653556824,
+              "variation": 0.6543497116891602,
+              "attacksPerSecond": 4.488778054862843,
+              "low": 0.34586125270649737,
+              "mid": 0.6792376269764658,
+              "high": 0.14951648873403625,
+              "texture": 0.1943570750440243,
+              "flatness": 0.666764450361025,
+              "build": 0.16565594607552772,
+              "lowNovelty": 0.06313046380554656,
+              "midNovelty": 0.08085399620002144,
+              "highNovelty": 0.061138599136065924
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "even and continuous",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "strong gaps and peaks",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "space",
+                "confidence": 0.49,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0.01,
+                  "carve": 0.26,
+                  "grain": 0.14,
+                  "space": 0.55,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.65,
+                "probabilities": {
+                  "broad": 0.72,
+                  "low": 0,
+                  "mid": 0.2,
+                  "high": 0.07,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.35,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.51,
+                  "deep": 0.42,
+                  "uncertain": 0.07
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1172,
+              "output_tokens": 168
+            },
+            "capturedAt": 11.825333333333333,
+            "roundTripMs": 149
+          },
+          "requestedAtMs": 12709,
+          "browserRoundTripMs": 159,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 12.345333333333333,
+            "current": {
+              "duration": 0.25999999999999845,
+              "rms": 0.21396497227870542,
+              "variation": 0.1783832901409605,
+              "attacksPerSecond": 3.846153846153869,
+              "low": 0.34867746844775355,
+              "mid": 0.82918385944652,
+              "high": 0.05887640030034291,
+              "texture": 0.11549903388275228,
+              "flatness": 0.5951887512411463,
+              "build": 0.5613029074486646,
+              "lowNovelty": 0.04036379666157742,
+              "midNovelty": 0.07462409776857519,
+              "highNovelty": 0.062409831687187285
+            },
+            "phrase": {
+              "duration": 1.9999999999999987,
+              "rms": 0.1804022988027756,
+              "variation": 0.33872761151129593,
+              "attacksPerSecond": 6.500000000000004,
+              "low": 0.48345940721129316,
+              "mid": 0.7442189899580225,
+              "high": 0.05744123134893792,
+              "texture": 0.12522350510124564,
+              "flatness": 0.5529204313616897,
+              "build": 0.3530385100394236,
+              "lowNovelty": 0.0583992173068192,
+              "midNovelty": 0.07973776917144997,
+              "highNovelty": 0.06827545751838564
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.12025669450400901,
+              "variation": 0.6094855487838626,
+              "attacksPerSecond": 4.364089775561098,
+              "low": 0.3666977812311694,
+              "mid": 0.6878901169542871,
+              "high": 0.13849240928580436,
+              "texture": 0.18626691987038968,
+              "flatness": 0.641550677962058,
+              "build": 0.17013007284464904,
+              "lowNovelty": 0.061800801871545734,
+              "midNovelty": 0.07922796918672215,
+              "highNovelty": 0.05880220302065296
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.23,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.05,
+                  "bloom": 0.11,
+                  "carve": 0.27,
+                  "grain": 0.35000000000000003,
+                  "space": 0.19,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.69,
+                "probabilities": {
+                  "broad": 0.75,
+                  "low": 0,
+                  "mid": 0.16,
+                  "high": 0.09,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.77,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.83,
+                  "deep": 0.09,
+                  "uncertain": 0.08
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 169
+            },
+            "capturedAt": 12.345333333333333,
+            "roundTripMs": 111
+          },
+          "requestedAtMs": 13241.099999904633,
+          "browserRoundTripMs": 122,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 12.865333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.2089288923743177,
+              "variation": 0.22542570428817577,
+              "attacksPerSecond": 4.166666666666655,
+              "low": 0.3925178423253157,
+              "mid": 0.8411459391343273,
+              "high": 0.031075566568559365,
+              "texture": 0.07483957712263503,
+              "flatness": 0.5031627139996689,
+              "build": 0.4007749816543442,
+              "lowNovelty": 0.034582550654137005,
+              "midNovelty": 0.04484302773697704,
+              "highNovelty": 0.03756141471117389
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.19414864474416066,
+              "variation": 0.29662740086855927,
+              "attacksPerSecond": 6.499999999999998,
+              "low": 0.4351684227537692,
+              "mid": 0.7938666986495688,
+              "high": 0.05344469916262634,
+              "texture": 0.12597422309324008,
+              "flatness": 0.5722402597246472,
+              "build": 0.4267162377977291,
+              "lowNovelty": 0.06223983212715165,
+              "midNovelty": 0.08018961699212734,
+              "highNovelty": 0.0661561916855688
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.12606140608066171,
+              "variation": 0.5629800586007923,
+              "attacksPerSecond": 4.613466334164589,
+              "low": 0.3912250040825833,
+              "mid": 0.6923509143497006,
+              "high": 0.12512841409497624,
+              "texture": 0.1775765788818453,
+              "flatness": 0.6191419038870704,
+              "build": 0.17336200549104372,
+              "lowNovelty": 0.06356886176250483,
+              "midNovelty": 0.08254036356691304,
+              "highNovelty": 0.060594386514051225
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "carve",
+                "confidence": 0.23,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.04,
+                  "bloom": 0.12,
+                  "carve": 0.35000000000000003,
+                  "grain": 0.3,
+                  "space": 0.16,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.7,
+                "probabilities": {
+                  "broad": 0.77,
+                  "low": 0,
+                  "mid": 0.14,
+                  "high": 0.09,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.82,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.87,
+                  "deep": 0.06,
+                  "uncertain": 0.07
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 169
+            },
+            "capturedAt": 12.865333333333334,
+            "roundTripMs": 114
+          },
+          "requestedAtMs": 13757.800000190735,
+          "browserRoundTripMs": 123,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 13.385333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.2609842309796341,
+              "variation": 0.19065497587487046,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.48482013472217744,
+              "mid": 0.8135261207516611,
+              "high": 0.02471032097393849,
+              "texture": 0.06891820658027303,
+              "flatness": 0.5063122313178124,
+              "build": 0.649996801188511,
+              "lowNovelty": 0.04036066728400329,
+              "midNovelty": 0.042239817135665346,
+              "highNovelty": 0.03020359636981636
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.20874182570555302,
+              "variation": 0.29828386698386555,
+              "attacksPerSecond": 6.999999999999998,
+              "low": 0.42235517958269403,
+              "mid": 0.8151580029715799,
+              "high": 0.04486068772230936,
+              "texture": 0.1090634870229215,
+              "flatness": 0.5544404270831781,
+              "build": 0.48231393906258546,
+              "lowNovelty": 0.06071363162509157,
+              "midNovelty": 0.0797343763748395,
+              "highNovelty": 0.06150949341037215
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.13668788922251507,
+              "variation": 0.5007581913915825,
+              "attacksPerSecond": 4.8628428927680805,
+              "low": 0.4006945180045765,
+              "mid": 0.7058974319319037,
+              "high": 0.11613464918399023,
+              "texture": 0.17297697249422586,
+              "flatness": 0.6044444681991439,
+              "build": 0.19806133551477806,
+              "lowNovelty": 0.06624584316021112,
+              "midNovelty": 0.08434202836163666,
+              "highNovelty": 0.06296246636764809
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.22,
+                "probabilities": {
+                  "trace": 0.04,
+                  "strike": 0.04,
+                  "bloom": 0.12,
+                  "carve": 0.31,
+                  "grain": 0.33,
+                  "space": 0.16,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.63,
+                "probabilities": {
+                  "broad": 0.71,
+                  "low": 0,
+                  "mid": 0.2,
+                  "high": 0.08,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.77,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.83,
+                  "deep": 0.08,
+                  "uncertain": 0.09
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1171,
+              "output_tokens": 169
+            },
+            "capturedAt": 13.385333333333334,
+            "roundTripMs": 125
+          },
+          "requestedAtMs": 14275.599999904633,
+          "browserRoundTripMs": 136,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "space",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 13.905333333333333,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.3160628922015074,
+              "variation": 0.1717185641000601,
+              "attacksPerSecond": 8.33333333333331,
+              "low": 0.4362022008307623,
+              "mid": 0.8310606768777341,
+              "high": 0.027193302111165333,
+              "texture": 0.10672509338463106,
+              "flatness": 0.4959941368050696,
+              "build": 0.712873252960045,
+              "lowNovelty": 0.04826230214170756,
+              "midNovelty": 0.038716947835638525,
+              "highNovelty": 0.06333555893922553
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.2307110412788339,
+              "variation": 0.30360563186243555,
+              "attacksPerSecond": 7.999999999999998,
+              "low": 0.40634276194387636,
+              "mid": 0.8173940499829507,
+              "high": 0.04852824511548018,
+              "texture": 0.11188727093425112,
+              "flatness": 0.5544912252389149,
+              "build": 0.540185390236106,
+              "lowNovelty": 0.06235195307018627,
+              "midNovelty": 0.08000754848325509,
+              "highNovelty": 0.07004140465936261
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.1445602408476124,
+              "variation": 0.4485573925737603,
+              "attacksPerSecond": 5.112219451371572,
+              "low": 0.40309798259141094,
+              "mid": 0.7269667768136621,
+              "high": 0.10699035806047817,
+              "texture": 0.16940047253659096,
+              "flatness": 0.5914307169544867,
+              "build": 0.2280926694097257,
+              "lowNovelty": 0.06337432308471742,
+              "midNovelty": 0.08369699684133243,
+              "highNovelty": 0.06255378899566147
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "space"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "high frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.62,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.02,
+                  "bloom": 0.04,
+                  "carve": 0.16,
+                  "grain": 0.67,
+                  "space": 0.09,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "high",
+                "confidence": 1,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0,
+                  "high": 1,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.84,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.88,
+                  "deep": 0.07,
+                  "uncertain": 0.04
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1170,
+              "output_tokens": 168
+            },
+            "capturedAt": 13.905333333333333,
+            "roundTripMs": 151
+          },
+          "requestedAtMs": 14793.900000095367,
+          "browserRoundTripMs": 162,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "high",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 14.425333333333333,
+            "current": {
+              "duration": 0.23999999999999885,
+              "rms": 0.14857866913092274,
+              "variation": 0.4577909465299934,
+              "attacksPerSecond": 0,
+              "low": 0.4793655097980439,
+              "mid": 0.6601987187356592,
+              "high": 0.06652010693285924,
+              "texture": 0.11255763772821137,
+              "flatness": 0.5868398811243012,
+              "build": 0.14417146960185434,
+              "lowNovelty": 0.1024792924639915,
+              "midNovelty": 0.0788220388375738,
+              "highNovelty": 0.08019625808720457
+            },
+            "phrase": {
+              "duration": 1.9999999999999987,
+              "rms": 0.23915033261066068,
+              "variation": 0.3603996613439886,
+              "attacksPerSecond": 8.500000000000005,
+              "low": 0.41256607190647687,
+              "mid": 0.7998403456407638,
+              "high": 0.04922519715426596,
+              "texture": 0.10939998579306444,
+              "flatness": 0.5534059384543677,
+              "build": 0.5339206075420593,
+              "lowNovelty": 0.0685468463326607,
+              "midNovelty": 0.08000129165981189,
+              "highNovelty": 0.07087745835434206
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.14850755073193966,
+              "variation": 0.44057782960559605,
+              "attacksPerSecond": 5.112219451371572,
+              "low": 0.406371380635828,
+              "mid": 0.7315475612358326,
+              "high": 0.10181325913467847,
+              "texture": 0.16388069553477624,
+              "flatness": 0.5865365241024634,
+              "build": 0.24657737592764087,
+              "lowNovelty": 0.06164683480967558,
+              "midNovelty": 0.08243040138166219,
+              "highNovelty": 0.0627907550330619
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "space",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "few",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "rising strongly",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.32,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.04,
+                  "bloom": 0.25,
+                  "carve": 0.2,
+                  "grain": 0.41,
+                  "space": 0.08,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.69,
+                "probabilities": {
+                  "broad": 0.76,
+                  "low": 0,
+                  "mid": 0.15,
+                  "high": 0.09,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.61,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.26,
+                  "deep": 0.71,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1174,
+              "output_tokens": 169
+            },
+            "capturedAt": 14.425333333333333,
+            "roundTripMs": 99
+          },
+          "requestedAtMs": 15309.199999809265,
+          "browserRoundTripMs": 109,
+          "signalAgeAtReplyMs": 100,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 14.945333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.2680984109109024,
+              "variation": 0.2156801249890596,
+              "attacksPerSecond": 4.166666666666655,
+              "low": 0.31218213584346605,
+              "mid": 0.8156613674934109,
+              "high": 0.08119258821667617,
+              "texture": 0.16880920484022574,
+              "flatness": 0.6664271990148599,
+              "build": 0.5077235542526324,
+              "lowNovelty": 0.04773322135869775,
+              "midNovelty": 0.08099561802697369,
+              "highNovelty": 0.0473188170668988
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.25480782931944956,
+              "variation": 0.29199188644099777,
+              "attacksPerSecond": 6.999999999999998,
+              "low": 0.4041867688936147,
+              "mid": 0.7635291200893115,
+              "high": 0.07542897858759441,
+              "texture": 0.14930305415493758,
+              "flatness": 0.6174170627271945,
+              "build": 0.5504829729268164,
+              "lowNovelty": 0.05798267905748315,
+              "midNovelty": 0.06762522456673907,
+              "highNovelty": 0.06571216395136535
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.15119827494077898,
+              "variation": 0.4508754809731729,
+              "attacksPerSecond": 5.361596009975063,
+              "low": 0.4118602682606564,
+              "mid": 0.7365766626999584,
+              "high": 0.09488619661799161,
+              "texture": 0.1534512177293229,
+              "flatness": 0.5808168074208981,
+              "build": 0.24881968008572317,
+              "lowNovelty": 0.063193118320309,
+              "midNovelty": 0.08260926783041293,
+              "highNovelty": 0.06203715917080717
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "space",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "rising strongly",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "carve",
+                "confidence": 0.29,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.04,
+                  "bloom": 0.18,
+                  "carve": 0.4,
+                  "grain": 0.32,
+                  "space": 0.03,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.99,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.71,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.79,
+                  "deep": 0.15,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1174,
+              "output_tokens": 168
+            },
+            "capturedAt": 14.945333333333334,
+            "roundTripMs": 118
+          },
+          "requestedAtMs": 15842.300000190735,
+          "browserRoundTripMs": 127,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "mid",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 15.465333333333334,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.2780223627522726,
+              "variation": 0.07945544774846826,
+              "attacksPerSecond": 4.166666666666655,
+              "low": 0.3405385679280142,
+              "mid": 0.8320550740916993,
+              "high": 0.06238107782483587,
+              "texture": 0.1646825328705361,
+              "flatness": 0.6115526375469205,
+              "build": 0.588201815340004,
+              "lowNovelty": 0.030957319031991382,
+              "midNovelty": 0.04821845946389746,
+              "highNovelty": 0.09305698004769769
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.25779717511605466,
+              "variation": 0.28164288884268607,
+              "attacksPerSecond": 4.999999999999999,
+              "low": 0.3766550734814519,
+              "mid": 0.7739528314971674,
+              "high": 0.07740129629772269,
+              "texture": 0.16102157576528112,
+              "flatness": 0.6262731570511583,
+              "build": 0.5368447298061788,
+              "lowNovelty": 0.05612366982919311,
+              "midNovelty": 0.05790763037458542,
+              "highNovelty": 0.05889928866657482
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.15981054921895177,
+              "variation": 0.44083217615542786,
+              "attacksPerSecond": 5.7356608478802995,
+              "low": 0.4252926255703759,
+              "mid": 0.7382468421040578,
+              "high": 0.0896212677023662,
+              "texture": 0.14795945759921378,
+              "flatness": 0.5736600240930622,
+              "build": 0.27243577170388805,
+              "lowNovelty": 0.062250573872049984,
+              "midNovelty": 0.08242276434659203,
+              "highNovelty": 0.06215395963325372
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "space",
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "even and continuous",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "high frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "rising strongly",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.43,
+                "probabilities": {
+                  "trace": 0.01,
+                  "strike": 0.02,
+                  "bloom": 0.19,
+                  "carve": 0.26,
+                  "grain": 0.51,
+                  "space": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "high",
+                "confidence": 1,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0,
+                  "high": 1,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.8,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.84,
+                  "deep": 0.12,
+                  "uncertain": 0.03
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1175,
+              "output_tokens": 168
+            },
+            "capturedAt": 15.465333333333334,
+            "roundTripMs": 135
+          },
+          "requestedAtMs": 16358.400000095367,
+          "browserRoundTripMs": 144,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "high",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 15.985333333333333,
+            "current": {
+              "duration": 0.24000000000000063,
+              "rms": 0.28807229173137555,
+              "variation": 0.08403621614721242,
+              "attacksPerSecond": 4.166666666666655,
+              "low": 0.250885993606821,
+              "mid": 0.8791250280826978,
+              "high": 0.04567577717761873,
+              "texture": 0.0947500187230121,
+              "flatness": 0.555048082101035,
+              "build": 0.5901543625963545,
+              "lowNovelty": 0.04306329428805831,
+              "midNovelty": 0.028338857530868383,
+              "highNovelty": 0.0048381787438689094
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.24816579848105683,
+              "variation": 0.24668299126790127,
+              "attacksPerSecond": 4.499999999999999,
+              "low": 0.34138615986245974,
+              "mid": 0.786383796502333,
+              "high": 0.07773236241915721,
+              "texture": 0.15274819398616368,
+              "flatness": 0.6273129694393382,
+              "build": 0.4900344553195018,
+              "lowNovelty": 0.05551299711439096,
+              "midNovelty": 0.054870147759243544,
+              "highNovelty": 0.04927410936850183
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.17121038665526064,
+              "variation": 0.45798681613361314,
+              "attacksPerSecond": 6.109725685785537,
+              "low": 0.4332863557519984,
+              "mid": 0.7376271452526114,
+              "high": 0.08827184070312966,
+              "texture": 0.14976252626243627,
+              "flatness": 0.5715663787058204,
+              "build": 0.31430557427474615,
+              "lowNovelty": 0.06026715736900065,
+              "midNovelty": 0.07869870028811214,
+              "highNovelty": 0.06319891600687498
+            },
+            "recentGestures": [
+              "space",
+              "space",
+              "grain",
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "even and continuous",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "low frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "carve",
+                "confidence": 0.35,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.02,
+                  "bloom": 0.13,
+                  "carve": 0.44,
+                  "grain": 0.33,
+                  "space": 0.04,
+                  "uncertain": 0.01
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "low",
+                "confidence": 0.91,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0.93,
+                  "mid": 0.02,
+                  "high": 0.04,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.89,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.91,
+                  "deep": 0.03,
+                  "uncertain": 0.05
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1174,
+              "output_tokens": 168
+            },
+            "capturedAt": 15.985333333333333,
+            "roundTripMs": 124
+          },
+          "requestedAtMs": 16874.699999809265,
+          "browserRoundTripMs": 137,
+          "signalAgeAtReplyMs": 140,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "carve",
+            "focus": "low",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 16.505333333333333,
+            "current": {
+              "duration": 0.25999999999999845,
+              "rms": 0.22408690080858948,
+              "variation": 0.20622350916399496,
+              "attacksPerSecond": 0,
+              "low": 0.2812325685138429,
+              "mid": 0.8881186670260164,
+              "high": 0.029933954170498895,
+              "texture": 0.06995589483727688,
+              "flatness": 0.49188578278226824,
+              "build": 0.3220730290194983,
+              "lowNovelty": 0.00997405560533124,
+              "midNovelty": 0.029572211299638478,
+              "highNovelty": 0.015094914716511578
+            },
+            "phrase": {
+              "duration": 1.9999999999999987,
+              "rms": 0.25318163725156095,
+              "variation": 0.20796134061393118,
+              "attacksPerSecond": 4.500000000000003,
+              "low": 0.30875891285453116,
+              "mid": 0.829036342291525,
+              "high": 0.06875983713451625,
+              "texture": 0.1404727924701877,
+              "flatness": 0.6017107620914905,
+              "build": 0.4571909003862414,
+              "lowNovelty": 0.05125080563621906,
+              "midNovelty": 0.06152747046001017,
+              "highNovelty": 0.05030713281812101
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.17563753461075565,
+              "variation": 0.45116817307591395,
+              "attacksPerSecond": 5.7356608478802995,
+              "low": 0.44307919330927825,
+              "mid": 0.7364992263380074,
+              "high": 0.08150153005218597,
+              "texture": 0.14399310240491672,
+              "flatness": 0.5737160805222817,
+              "build": 0.3222695749638322,
+              "lowNovelty": 0.05958112817695459,
+              "midNovelty": 0.07494558850312869,
+              "highNovelty": 0.06102652517847348
+            },
+            "recentGestures": [
+              "space",
+              "grain",
+              "grain",
+              "grain",
+              "grain",
+              "carve"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "few",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.35,
+                "probabilities": {
+                  "trace": 0.02,
+                  "strike": 0.01,
+                  "bloom": 0.15,
+                  "carve": 0.35,
+                  "grain": 0.45,
+                  "space": 0.02,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.98,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.84,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.89,
+                  "deep": 0.04,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1174,
+              "output_tokens": 168
+            },
+            "capturedAt": 16.505333333333333,
+            "roundTripMs": 147
+          },
+          "requestedAtMs": 17392.199999809265,
+          "browserRoundTripMs": 160,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "mid",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 17.025333333333332,
+            "current": {
+              "duration": 0.25999999999999845,
+              "rms": 0.24481815438618262,
+              "variation": 0.22490053239841087,
+              "attacksPerSecond": 7.692307692307738,
+              "low": 0.47808490486657135,
+              "mid": 0.8229129669290338,
+              "high": 0.02098464073959564,
+              "texture": 0.05655237688833773,
+              "flatness": 0.4748456911890956,
+              "build": 0.24923907966525063,
+              "lowNovelty": 0.0422342052905807,
+              "midNovelty": 0.06839968178497721,
+              "highNovelty": 0.04839038200671918
+            },
+            "phrase": {
+              "duration": 2.0199999999999982,
+              "rms": 0.2535007582229566,
+              "variation": 0.20637181633934684,
+              "attacksPerSecond": 5.940594059405946,
+              "low": 0.31984486181697475,
+              "mid": 0.8512774096323877,
+              "high": 0.05009788846299736,
+              "texture": 0.10628427119488187,
+              "flatness": 0.5497990807932078,
+              "build": 0.41350138862899244,
+              "lowNovelty": 0.05115865351427308,
+              "midNovelty": 0.0672013308613825,
+              "highNovelty": 0.055410372382530854
+            },
+            "previous": {
+              "duration": 7.999999999999999,
+              "rms": 0.1817968100723358,
+              "variation": 0.44992719719116825,
+              "attacksPerSecond": 5.750000000000001,
+              "low": 0.45210522438142353,
+              "mid": 0.7327848169293112,
+              "high": 0.08014992945803527,
+              "texture": 0.1446431332508501,
+              "flatness": 0.5864334734193801,
+              "build": 0.3251845650902761,
+              "lowNovelty": 0.060008945655170745,
+              "midNovelty": 0.07505328552065502,
+              "highNovelty": 0.06054152169733564
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain",
+              "grain",
+              "carve",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.37,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.02,
+                  "bloom": 0.08,
+                  "carve": 0.4,
+                  "grain": 0.46,
+                  "space": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.98,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.85,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.89,
+                  "deep": 0.05,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1176,
+              "output_tokens": 168
+            },
+            "capturedAt": 17.025333333333332,
+            "roundTripMs": 150
+          },
+          "requestedAtMs": 17908,
+          "browserRoundTripMs": 162,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "mid",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 17.545333333333332,
+            "current": {
+              "duration": 0.25999999999999845,
+              "rms": 0.2718577318115236,
+              "variation": 0.1488475313461102,
+              "attacksPerSecond": 3.846153846153869,
+              "low": 0.4635345343577936,
+              "mid": 0.8102907176420142,
+              "high": 0.02748106073282512,
+              "texture": 0.07149164131559697,
+              "flatness": 0.4874491877841744,
+              "build": 0.2637349529261978,
+              "lowNovelty": 0.036534244077262315,
+              "midNovelty": 0.057850775583546704,
+              "highNovelty": 0.058304595811657034
+            },
+            "phrase": {
+              "duration": 2.0199999999999982,
+              "rms": 0.25670233145044324,
+              "variation": 0.20570889225504546,
+              "attacksPerSecond": 6.435643564356441,
+              "low": 0.32506057873732935,
+              "mid": 0.8469927395523786,
+              "high": 0.04965782286561799,
+              "texture": 0.09462769850373831,
+              "flatness": 0.5417645971045585,
+              "build": 0.3536808668953856,
+              "lowNovelty": 0.05321422902888447,
+              "midNovelty": 0.07319994536665883,
+              "highNovelty": 0.057643486956582585
+            },
+            "previous": {
+              "duration": 8,
+              "rms": 0.1893048336219234,
+              "variation": 0.4282473287812776,
+              "attacksPerSecond": 5.75,
+              "low": 0.44450758755205283,
+              "mid": 0.7571105908425948,
+              "high": 0.0691465369652583,
+              "texture": 0.1362366988731219,
+              "flatness": 0.5758202442251295,
+              "build": 0.350331167859355,
+              "lowNovelty": 0.056589895745116046,
+              "midNovelty": 0.07285623098477884,
+              "highNovelty": 0.05995582236698395
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "grain",
+              "carve",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "clear rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.4,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.02,
+                  "bloom": 0.09,
+                  "carve": 0.36,
+                  "grain": 0.49,
+                  "space": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.64,
+                "probabilities": {
+                  "broad": 0.7,
+                  "low": 0,
+                  "mid": 0.17,
+                  "high": 0.12,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.83,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.88,
+                  "deep": 0.05,
+                  "uncertain": 0.07
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1177,
+              "output_tokens": 169
+            },
+            "capturedAt": 17.545333333333332,
+            "roundTripMs": 106
+          },
+          "requestedAtMs": 18442.900000095367,
+          "browserRoundTripMs": 116,
+          "signalAgeAtReplyMs": 120,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 18.065333333333335,
+            "current": {
+              "duration": 0.2400000000000024,
+              "rms": 0.1752953381518366,
+              "variation": 0.5623420880355495,
+              "attacksPerSecond": 8.33333333333325,
+              "low": 0.4127664175064205,
+              "mid": 0.6687533500197528,
+              "high": 0.08001901387707645,
+              "texture": 0.12430785182669839,
+              "flatness": 0.6577998036826195,
+              "build": 0,
+              "lowNovelty": 0.10176251045837369,
+              "midNovelty": 0.11099414840089485,
+              "highNovelty": 0.09641887531508042
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.23724637393708461,
+              "variation": 0.28855344320743076,
+              "attacksPerSecond": 5.499999999999999,
+              "low": 0.3562481082757494,
+              "mid": 0.8182450127529538,
+              "high": 0.05006802403045587,
+              "texture": 0.09129486863155335,
+              "flatness": 0.551871193854365,
+              "build": 0.2475925848126056,
+              "lowNovelty": 0.05747791685901483,
+              "midNovelty": 0.07789859257645992,
+              "highNovelty": 0.06094863939853054
+            },
+            "previous": {
+              "duration": 8.000000000000002,
+              "rms": 0.19510080345947375,
+              "variation": 0.43009090967978897,
+              "attacksPerSecond": 5.874999999999999,
+              "low": 0.4403863076623278,
+              "mid": 0.7646115092357353,
+              "high": 0.0647862492113282,
+              "texture": 0.13076841290504407,
+              "flatness": 0.5678395154157769,
+              "build": 0.3535706984992726,
+              "lowNovelty": 0.055539972902500546,
+              "midNovelty": 0.07117309563379202,
+              "highNovelty": 0.06092098851866478
+            },
+            "recentGestures": [
+              "grain",
+              "grain",
+              "carve",
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "strong gaps and peaks",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.53,
+                "probabilities": {
+                  "trace": 0.03,
+                  "strike": 0.02,
+                  "bloom": 0.01,
+                  "carve": 0.17,
+                  "grain": 0.59,
+                  "space": 0.18,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.7,
+                "probabilities": {
+                  "broad": 0.75,
+                  "low": 0,
+                  "mid": 0.18,
+                  "high": 0.06,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "deep",
+                "confidence": 0.4,
+                "probabilities": {
+                  "soft": 0,
+                  "balanced": 0.39,
+                  "deep": 0.55,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1178,
+              "output_tokens": 169
+            },
+            "capturedAt": 18.065333333333335,
+            "roundTripMs": 150
+          },
+          "requestedAtMs": 18958.5,
+          "browserRoundTripMs": 160,
+          "signalAgeAtReplyMs": 160,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "broad",
+            "contrast": "deep"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 18.585333333333335,
+            "current": {
+              "duration": 0.2400000000000024,
+              "rms": 0.30381670976307296,
+              "variation": 0.22849492023137602,
+              "attacksPerSecond": 4.166666666666625,
+              "low": 0.2784618116681208,
+              "mid": 0.8532399632604742,
+              "high": 0.06112926545613797,
+              "texture": 0.11375089360814711,
+              "flatness": 0.6016082204925524,
+              "build": 0.43245817242772105,
+              "lowNovelty": 0.04101926027482781,
+              "midNovelty": 0.05824450325525243,
+              "highNovelty": 0.03990942269753001
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.24680068835385885,
+              "variation": 0.29332248202753214,
+              "attacksPerSecond": 5.499999999999999,
+              "low": 0.3654934604634359,
+              "mid": 0.805888918797349,
+              "high": 0.05577165423270662,
+              "texture": 0.10446827629838681,
+              "flatness": 0.5823428806406092,
+              "build": 0.24310843118275247,
+              "lowNovelty": 0.05271168470924068,
+              "midNovelty": 0.0661573607387778,
+              "highNovelty": 0.057502829522031174
+            },
+            "previous": {
+              "duration": 8,
+              "rms": 0.20149988289081583,
+              "variation": 0.41318914849210614,
+              "attacksPerSecond": 5.625,
+              "low": 0.43470621130881104,
+              "mid": 0.7764841439181654,
+              "high": 0.0574518804167298,
+              "texture": 0.11844371334146883,
+              "flatness": 0.5539200935098627,
+              "build": 0.35629444900585583,
+              "lowNovelty": 0.05627457102021404,
+              "midNovelty": 0.07005365390053316,
+              "highNovelty": 0.057677544542744735
+            },
+            "recentGestures": [
+              "grain",
+              "carve",
+              "grain",
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "mid frequencies change most",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.45,
+                "probabilities": {
+                  "trace": 0.07,
+                  "strike": 0.01,
+                  "bloom": 0.02,
+                  "carve": 0.33,
+                  "grain": 0.53,
+                  "space": 0.03,
+                  "uncertain": 0.01
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "mid",
+                "confidence": 0.98,
+                "probabilities": {
+                  "broad": 0,
+                  "low": 0,
+                  "mid": 0.99,
+                  "high": 0.01,
+                  "uncertain": 0
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.9,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.92,
+                  "deep": 0.01,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1176,
+              "output_tokens": 168
+            },
+            "capturedAt": 18.585333333333335,
+            "roundTripMs": 171
+          },
+          "requestedAtMs": 19474.199999809265,
+          "browserRoundTripMs": 178,
+          "signalAgeAtReplyMs": 180,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "mid",
+            "contrast": "balanced"
+          }
+        },
+        {
+          "snapshot": {
+            "at": 19.105333333333334,
+            "current": {
+              "duration": 0.2400000000000024,
+              "rms": 0.28383572441004434,
+              "variation": 0.1849181114914104,
+              "attacksPerSecond": 4.166666666666625,
+              "low": 0.25205670797203555,
+              "mid": 0.8132452810908539,
+              "high": 0.10777040820981366,
+              "texture": 0.19424761068797558,
+              "flatness": 0.6931924396646885,
+              "build": 0.45687933249114515,
+              "lowNovelty": 0.029329805659916563,
+              "midNovelty": 0.03758669322555539,
+              "highNovelty": 0.03618465170856341
+            },
+            "phrase": {
+              "duration": 2.0000000000000004,
+              "rms": 0.248896034903174,
+              "variation": 0.30047504237568534,
+              "attacksPerSecond": 4.499999999999999,
+              "low": 0.34680535480090546,
+              "mid": 0.8116104728416927,
+              "high": 0.05829374042865049,
+              "texture": 0.11453873126070918,
+              "flatness": 0.5974132378251185,
+              "build": 0.2488152622751628,
+              "lowNovelty": 0.05221124794146262,
+              "midNovelty": 0.055876865339446205,
+              "highNovelty": 0.04874278968682679
+            },
+            "previous": {
+              "duration": 8.02,
+              "rms": 0.21013043166438525,
+              "variation": 0.3827190785198174,
+              "attacksPerSecond": 5.985037406483791,
+              "low": 0.43119725099302514,
+              "mid": 0.7812815764331356,
+              "high": 0.056670131666319117,
+              "texture": 0.11641602745872881,
+              "flatness": 0.5487712826601199,
+              "build": 0.3701889673286059,
+              "lowNovelty": 0.05570468649938053,
+              "midNovelty": 0.07226413529146539,
+              "highNovelty": 0.06031123418354649
+            },
+            "recentGestures": [
+              "carve",
+              "grain",
+              "grain",
+              "grain",
+              "grain",
+              "grain"
+            ]
+          },
+          "observations": {
+            "level": "strong recording",
+            "immediateMotion": "connected but moving",
+            "immediateTexture": "rough/broadband",
+            "immediateAttacks": "frequent",
+            "energyChange": "similar",
+            "prominentBand": "mid",
+            "changingLayer": "several bands changing together",
+            "phraseMotion": "connected but moving",
+            "phraseTexture": "rough/broadband",
+            "phraseAttacks": "frequent",
+            "phraseDirection": "similar",
+            "spectralRise": "some rise"
+          },
+          "decision": {
+            "model": "jev-1.13.0",
+            "answers": {
+              "gesture": {
+                "type": "choice",
+                "choice": "grain",
+                "confidence": 0.54,
+                "probabilities": {
+                  "trace": 0.06,
+                  "strike": 0.01,
+                  "bloom": 0.02,
+                  "carve": 0.27,
+                  "grain": 0.61,
+                  "space": 0.03,
+                  "uncertain": 0
+                }
+              },
+              "focus": {
+                "type": "choice",
+                "choice": "broad",
+                "confidence": 0.63,
+                "probabilities": {
+                  "broad": 0.71,
+                  "low": 0,
+                  "mid": 0.19,
+                  "high": 0.09,
+                  "uncertain": 0.01
+                }
+              },
+              "contrast": {
+                "type": "choice",
+                "choice": "balanced",
+                "confidence": 0.9,
+                "probabilities": {
+                  "soft": 0.01,
+                  "balanced": 0.92,
+                  "deep": 0.01,
+                  "uncertain": 0.06
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 1177,
+              "output_tokens": 169
+            },
+            "capturedAt": 19.105333333333334,
+            "roundTripMs": 175
+          },
+          "requestedAtMs": 19991.699999809265,
+          "browserRoundTripMs": 186,
+          "signalAgeAtReplyMs": 180,
+          "disposition": "accepted",
+          "appliedPlan": {
+            "gesture": "grain",
+            "focus": "broad",
+            "contrast": "balanced"
+          }
+        }
+      ],
+      "brightnessActivity": {
+        "Trace": {
+          "count": 44,
+          "min": 0.24323,
+          "median": 0.46194,
+          "p95": 0.58499,
+          "max": 0.64203,
+          "visibleFraction": 1
+        },
+        "Grain": {
+          "count": 314,
+          "min": 0.00001,
+          "median": 0.23384,
+          "p95": 0.64462,
+          "max": 0.68482,
+          "visibleFraction": 0.9331210191082803
+        },
+        "Space": {
+          "count": 600,
+          "min": 0,
+          "median": 0.0008,
+          "p95": 0.3783,
+          "max": 0.7,
+          "visibleFraction": 0.30333333333333334
+        },
+        "Carve": {
+          "count": 25,
+          "min": 0.03704,
+          "median": 0.32898,
+          "p95": 0.39242,
+          "max": 0.4054,
+          "visibleFraction": 1
+        }
+      },
+      "appliedPlans": [
+        "grain:broad:balanced",
+        "grain:low:balanced",
+        "grain:mid:balanced",
+        "space:broad:deep",
+        "space:high:deep",
+        "space:mid:deep",
+        "space:low:deep",
+        "space:broad:balanced",
+        "grain:high:balanced",
+        "grain:broad:deep",
+        "carve:low:balanced"
+      ],
+      "appliedGestures": [
+        "grain",
+        "space",
+        "carve"
+      ],
+      "browserRoundTripMs": {
+        "count": 37,
+        "min": 103,
+        "median": 136,
+        "p95": 186,
+        "max": 337
+      },
+      "controlCadenceMs": {
+        "count": 36,
+        "min": 514.2999997138977,
+        "median": 516.8999996185303,
+        "p95": 534.9000000953674,
+        "max": 601
+      },
+      "signalAgeAtReplyMs": {
+        "count": 37,
+        "min": 100,
+        "median": 140,
+        "p95": 180,
+        "max": 340
+      },
+      "estimatedAudibleOffsetMs": {
+        "count": 196,
+        "min": -125.13333352406812,
+        "median": 3.5633334287012985,
+        "p95": 4.497666666667101,
+        "max": 5.202666475931892
+      },
+      "maxBrightnessDifference": 0.60701,
+      "dispositions": [
+        "accepted"
+      ]
+    }
+  ],
+  "errors": [],
+  "responses": [
+    {
+      "status": 200,
+      "roundTripMs": 257
+    },
+    {
+      "status": 200,
+      "roundTripMs": 127
+    },
+    {
+      "status": 200,
+      "roundTripMs": 102
+    },
+    {
+      "status": 200,
+      "roundTripMs": 116
+    },
+    {
+      "status": 200,
+      "roundTripMs": 105
+    },
+    {
+      "status": 200,
+      "roundTripMs": 141
+    },
+    {
+      "status": 200,
+      "roundTripMs": 110
+    },
+    {
+      "status": 200,
+      "roundTripMs": 174
+    },
+    {
+      "status": 200,
+      "roundTripMs": 117
+    },
+    {
+      "status": 200,
+      "roundTripMs": 147
+    },
+    {
+      "status": 200,
+      "roundTripMs": 101
+    },
+    {
+      "status": 200,
+      "roundTripMs": 98
+    },
+    {
+      "status": 200,
+      "roundTripMs": 111
+    },
+    {
+      "status": 200,
+      "roundTripMs": 113
+    },
+    {
+      "status": 200,
+      "roundTripMs": 166
+    },
+    {
+      "status": 200,
+      "roundTripMs": 140
+    },
+    {
+      "status": 200,
+      "roundTripMs": 114
+    },
+    {
+      "status": 200,
+      "roundTripMs": 145
+    },
+    {
+      "status": 200,
+      "roundTripMs": 120
+    },
+    {
+      "status": 200,
+      "roundTripMs": 112
+    },
+    {
+      "status": 200,
+      "roundTripMs": 91
+    },
+    {
+      "status": 200,
+      "roundTripMs": 128
+    },
+    {
+      "status": 200,
+      "roundTripMs": 149
+    },
+    {
+      "status": 200,
+      "roundTripMs": 111
+    },
+    {
+      "status": 200,
+      "roundTripMs": 114
+    },
+    {
+      "status": 200,
+      "roundTripMs": 125
+    },
+    {
+      "status": 200,
+      "roundTripMs": 151
+    },
+    {
+      "status": 200,
+      "roundTripMs": 99
+    },
+    {
+      "status": 200,
+      "roundTripMs": 118
+    },
+    {
+      "status": 200,
+      "roundTripMs": 135
+    },
+    {
+      "status": 200,
+      "roundTripMs": 124
+    },
+    {
+      "status": 200,
+      "roundTripMs": 147
+    },
+    {
+      "status": 200,
+      "roundTripMs": 150
+    },
+    {
+      "status": 200,
+      "roundTripMs": 106
+    },
+    {
+      "status": 200,
+      "roundTripMs": 150
+    },
+    {
+      "status": 200,
+      "roundTripMs": 171
+    },
+    {
+      "status": 200,
+      "roundTripMs": 175
+    }
+  ],
+  "checks": [
+    "three real excerpts with live API",
+    "decision and software timing export",
+    "fullscreen fits viewport",
+    "A/B keyboard controls",
+    "blackout",
+    "stop halts requests",
+    "mobile fits viewport",
+    "no browser exceptions"
+  ]
+}

@@ -1,12 +1,8 @@
 # Current Lightflow handoff
 
-Read [the September 25 research handoff](HANDOFF_2026-09-25.md).
+Read [the root handoff](../HANDOFF.md). It covers the 2026-10-13 fixture-recovery pilot and
+the `/recovery` 3D scene, and merges the still-open items from earlier handoffs.
 
-Current branch: **`codex/dance-choreography`**. It contains the dance pipeline,
-pose-quality comparison, preserved brightness/Jev experiments, and the proposed
-one-signal 3D lighting scene specification. The specification is not a completed
-renderer, and no expressive audio-to-light model is validated.
-
-The handoff covers startup, SanDisk-only assets, checks, known failures and the
-next research steps. The previous handoff is preserved as
-[the September 10 director handoff](HANDOFF_2026-09-10.md).
+Earlier handoffs are preserved: [September 25 research](HANDOFF_2026-09-25.md) (dance
+pipeline, pose quality, brightness studies, startup details) and
+[September 10 director](HANDOFF_2026-09-10.md).
